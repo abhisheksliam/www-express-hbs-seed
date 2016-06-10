@@ -1,10 +1,12 @@
 'use strict';
 
-var gulp = require('gulp');
-var inject = require('gulp-inject'); //https://www.npmjs.com/package/gulp-inject
+var  gulp = require('gulp'),
+     inject = require('gulp-inject'), //https://www.npmjs.com/package/gulp-inject
+     less = require('gulp-less'),
+     path = require('path');
 
 var paths = {
-    less: ['./less/**/*.less'], // not active
+    //less: ['./app/css/**/*.less'],
     javascript: [
         './app/index.js',
         './app/modules/**/*module.js',
@@ -14,11 +16,19 @@ var paths = {
         '!./www/lib/**'
     ],
     css: [
-        './app/**/*.css',
+        './app/css/dist/*.css',
         '!./www/css/ionic.app*.css',
         '!./www/lib/**'
     ]
 };
+
+gulp.task('less', function () {
+    return gulp.src('./app/css/less/**/*.less')
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
+        .pipe(gulp.dest('./app/css/dist'));
+});
 
 gulp.task('index', function(){
     return gulp.src('./server/views/**/*.hbs')
@@ -26,7 +36,7 @@ gulp.task('index', function(){
             gulp.src(paths.javascript,
                 {read: false}), {relative: false,ignorePath: 'app', addRootSlash: false}))
         .pipe(gulp.dest('./.tmp/views'))
-/*        .pipe(inject(
+/*        .pipe(inject( // inject not included as there is difference in generated and currently used files
             gulp.src(paths.css,
                 {read: false}), {relative: true}))
         .pipe(gulp.dest('./.tmp/views'));*/

@@ -1,0 +1,130 @@
+/**** SIDEBAR  ****/
+/**** TOPBAR ****/
+/**** QUICKVIEW SIDEBAR ****/
+/**** BOXED LAYOUT ****/
+/**** MAIN CONTENT ****/
+/**** WIDGETS ****/
+/**** PAGES ****/
+/**** SEARCH ****/
+/**** BUILDER ****/
+/******** UI **********/
+/* Main Color */
+/* Alert & Notification */
+/* Popover */
+/* Form */
+/* Select Input */
+/* Tabs */
+/* Table */
+/* Summernote */
+/******* THEMES *******/
+.boxed {
+  background: #353535 !important;
+}
+.boxed section {
+  margin: auto;
+  position: relative;
+  width: 1200px;
+}
+.boxed section .main-content {
+  margin-top: 0 !important;
+  position: relative;
+}
+.boxed section .main-content .page-content {
+  top: 0;
+}
+.boxed section .main-content .topbar {
+  left: auto !important;
+  margin-left: 0;
+  margin-right: auto;
+  margin: auto;
+  position: relative;
+  right: auto !important;
+  width: 1200px;
+}
+.boxed section .sidebar .logopanel {
+  float: left;
+}
+.boxed.sidebar-top section .sidebar {
+  left: auto;
+  right: auto;
+  width: 1200px;
+}
+.boxed.sidebar-top section .sidebar .logopanel {
+  left: auto;
+}
+.boxed.sidebar-top section .main-content .topbar {
+  left: auto;
+  margin-left: 140px;
+  margin-right: auto;
+  right: auto;
+}
+.boxed.fixed-sidebar.sidebar-collapsed section .sidebar {
+  left: 0;
+  position: absolute;
+  right: auto;
+}
+.boxed.fixed-topbar section .main-content .topbar {
+  left: auto !important;
+  margin-right: auto;
+  right: auto !important;
+}
+.boxed.sidebar-top.fixed-topbar section .sidebar .logopanel {
+  float: left;
+  left: auto;
+  right: auto;
+}
+.boxed.sidebar-collapsed section .main-content .topbar {
+  margin-left: -50px;
+  margin-right: auto;
+}
+.boxed.sidebar-collapsed.fixed-topbar section .main-content .topbar {
+  margin-left: -50px;
+  margin-right: auto;
+}
+.boxed.fixed-topbar.sidebar-collapsed section .main-content .topbar .header-left .topnav .menutoggle {
+  left: auto;
+  left: 0;
+  margin-left: 0;
+  margin-right: auto;
+  opacity: 0.9;
+  right: auto;
+}
+.boxed.fixed-topbar.sidebar-collapsed section .main-content .topbar .header-left .topnav .menutoggle:hover {
+  opacity: 1;
+}
+.boxed section .main-content .topbar {
+  width: 1060px;
+}
+.boxed.sidebar-top .main-content .page-content {
+  top: 66px;
+}
+.boxed.sidebar-top.fixed-topbar:not(.fixed-sidebar) .sidebar {
+  top: 0;
+}
+.boxed.fixed-topbar .main-content .page-content {
+  margin-top: 0;
+}
+.boxed.fixed-topbar.sidebar-top .main-content .page-content {
+  margin-top: 50px;
+}
+.boxed.sidebar-collapsed section .main-content .topbar {
+  z-index: 300;
+}
+.boxed.sidebar-collapsed.fixed-sidebar:not(.fixed-topbar) .topbar .header-left .topnav .menutoggle {
+  position: relative;
+}
+.rtl .boxed.sidebar-collapsed section .main-content .topbar {
+  margin-right: -50px;
+}
+@media (max-width: 1220px) {
+  .boxed section {
+    margin: auto;
+    position: relative;
+    width: 100%;
+  }
+  .boxed section .main-content .topbar {
+    margin: auto;
+    position: relative;
+    width: 100%;
+  }
+}
