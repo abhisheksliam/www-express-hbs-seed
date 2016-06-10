@@ -15,7 +15,8 @@ let app = express();
 app.use(express.static(__dirname + '/app/'));
 	
 //Default location of Express Views - used in development mode
-let viewsPath = path.join(__dirname, '/server', '/views');
+//let viewsPath = path.join(__dirname, '/server', '/views');
+let viewsPath = path.join(__dirname, '.tmp', 'views');
 app.set('views', viewsPath);
 
 
