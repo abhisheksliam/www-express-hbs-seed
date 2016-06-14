@@ -2,7 +2,13 @@
   'use strict';
 
   var module = angular.module('automationApp.core', [
-    'ui.router'
+    'ui.router',
+	'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngTouch',
+    'ui.bootstrap'
   ]);
 
   module.config(appConfig);

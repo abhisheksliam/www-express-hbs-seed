@@ -1,23 +1,25 @@
+
 (function() {
-  'use strict';
+//  'use strict';
   
 	angular.module('automationApp')
-	.directive('ngSpinnerLoader', ngSpinnerLoader);
+	.directive('spinnerLoader', SpinnerLoader);
 	
-	ngSpinnerLoader.$inject = ['$rootScope'];
+	SpinnerLoader.$inject = ['$rootScope'];
 
 	// Route State Load Spinner(used on page or content load)
-	function ngSpinnerLoader($rootScope){
+	function SpinnerLoader($rootScope){
+		
 		return {
 			link: function(scope, element, attrs) {
 				// by defult hide the spinner bar
 				element.addClass('hide'); // hide spinner bar by default
 				// display the spinner bar whenever the route changes(the content part started loading)
-				$rootScope.$on('$routeChangeStart', function() {
+				$rootScope.$on('$stateChangeStart', function() {
 					element.removeClass('hide'); // show spinner bar
 				});
 				// hide the spinner bar on rounte change success(after the content loaded)
-				$rootScope.$on('$routeChangeSuccess', function() {
+				$rootScope.$on('$stateChangeSuccess', function() {
 					setTimeout(function(){
 						element.addClass('hide'); // hide spinner bar
 					},500);

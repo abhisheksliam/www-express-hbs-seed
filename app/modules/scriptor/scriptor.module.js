@@ -2,7 +2,13 @@
   'use strict';
 
   var module = angular.module('automationApp.scriptor', [
-    'ui.router'
+    'ui.router',
+	'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ngTouch',
+    'ui.bootstrap'
   ]);
 
   module.config(appConfig);
@@ -11,7 +17,7 @@
 
   function appConfig($stateProvider) {
     $stateProvider
-      .state('app.new', {
+      .state('new', {
         url: '/new',
         templateUrl: 'modules/scriptor/newTask.html',
         controller: 'NewScriptController'
