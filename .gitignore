@@ -1,5 +1,8 @@
 # Node Dependency directory
 node_modules
 
-#Bower installation directory
+# Bower installation directory
 bower_components
+
+# Temporary development directory
+.tmp
