@@ -1,13 +1,13 @@
-(function() {
+/*(function() {
   'use strict';
 
     angular.module('automationApp')
-    .directive('ngViewClass', ngViewClass);
+    .directive('viewClass', ViewClass);
 	
-    ngViewClass.$inject = ['$location'];
+    ViewClass.$inject = ['$location'];
 
 	// Route State Load Spinner(used on page or content load)
-	function ngViewClass($location){
+	function ViewClass($location){
 		return {
 		  link: function (scope, element, attrs, controllers) {
 				var classes = attrs.ngViewClass ? attrs.ngViewClass.replace(/ /g, '').split(',') : [];
@@ -34,3 +34,4 @@
 
 
 
+*/

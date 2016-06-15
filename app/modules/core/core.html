@@ -1,399 +1,164 @@
-<!-- BEGIN PAGE SPINNER -->
-       <!-- <div ng-spinner-loader class="page-spinner-loader">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-        </div>-->
-        <!-- END PAGE SPINNER -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="angular-alert alert alert-info alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">x</span></button>
 
-        <section>
-            <!-- BEGIN SIDEBAR -->
-            <div class="sidebar">
-                <div class="logopanel">
-                    <h1>
-                        <a href="#/"></a>
-                    </h1>
-                </div>
-                <div class="sidebar-inner">
-                    <div class="sidebar-top">
-                        <form action="search-result.html" method="post" class="searchform" id="search-results">
-                            <input type="text" class="form-control" name="keyword" placeholder="Search...">
-                        </form>
-                        <div class="userlogged clearfix">
-                            <i class="icon icons-faces-users-01"></i>
-                            <div class="user-details">
-                                <h4>Mike Mayers</h4>
-                                <div class="dropdown user-login">
-                                    <button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-delay="300">
-                                    <i class="online"></i><span>Available</span><i class="fa fa-angle-down"></i>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#"><i class="busy"></i><span>Busy</span></a></li>
-                                        <li><a href="#"><i class="turquoise"></i><span>Invisible</span></a></li>
-                                        <li><a href="#"><i class="away"></i><span>Away</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="menu-title">
-                        Navigation
-                        <div class="pull-right menu-settings">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-delay="300">
-                            <i class="icon-settings"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" id="reorder-menu" class="reorder-menu">Reorder menu</a></li>
-                                <li><a href="#" id="remove-menu" class="remove-menu">Remove elements</a></li>
-                                <li><a href="#" id="hide-top-sidebar" class="hide-top-sidebar">Hide user &amp; search</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <ul class="nav nav-sidebar">
-                        <li ng-class="{ active  : isActive('/')}"><a ui-sref="app"><i class="icon-home"></i><span>Dashboard</span></a></li>
-						<li ng-class="{ active  : isActive('/')}"><a ui-sref=".new"><i class="icon-home"></i><span>New Task</span></a></li>
-                    </ul>
-                    <div class="sidebar-footer clearfix">
-                        <a class="pull-left footer-settings" data-target="#" data-rel="tooltip" data-placement="top" data-original-title="Settings">
-                        <i class="icon-settings"></i>
-                        </a>
-                        <a class="pull-left toggle_fullscreen" data-target="#" data-rel="tooltip" data-placement="top" data-original-title="Fullscreen">
-                        <i class="icon-size-fullscreen"></i>
-                        </a>
-                        <a class="pull-left" href="../../user-lockscreen.html" data-rel="tooltip" data-placement="top" data-original-title="Lockscreen">
-                        <i class="icon-lock"></i>
-                        </a>
-                        <a class="pull-left btn-effect" href="../../user-login-v1.html" data-modal="modal-1" data-rel="tooltip" data-placement="top" data-original-title="Logout">
-                        <i class="icon-power"></i>
-                        </a>
-                    </div>
-                </div>
+            <div class="media-left">
+            <img src="../assets/various/angularjs.png" class="dis-block" alt="angularjs logo">
+          </div>
+          <div class="media-body width-100p">
+            <p class="angular-title">Discover Make AngularJS new version!</p>
+            <div class="angular-txt">
+                <p>With AngularJS version of Make, you wil discover a very fast browsing for users. Pages change like a Single Page Application with beautiful animation.</p>
+                <p>Want to learn more? Here is tutorial from official website: <a href="https://docs.angularjs.org/tutorial" target="_blank">AngularJS tutorial</a></p>
             </div>
-            <!-- END SIDEBAR -->
-            <div class="main-content">
-                <!-- BEGIN TOPBAR -->
-                <div class="topbar">
-                    <div class="header-left">
-                        <div class="topnav">
-                            <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
-                            <ul class="nav nav-icons">
-                                <li><a href="#" class="toggle-sidebar-top"><span class="icon-user-following"></span></a></li>
-                                <li><a href="#"><span class="octicon octicon-flame"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="header-right">
-                        <ul class="header-menu nav navbar-nav">
-                            <!-- BEGIN USER DROPDOWN -->
-                            <li class="dropdown" id="language-header">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-globe"></i>
-                                <span data-translate="Language">Language</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a data-target="#" data-lang="en"><img src="assets/flags/usa.png" alt="flag-english"> <span>English</span></a>
-                                    </li>
-                                    <li>
-                                        <a data-target="#" data-lang="es"><img src="assets/flags/spanish.png" alt="flag-english"> <span>Español</span></a>
-                                    </li>
-                                    <li>
-                                        <a data-target="#" data-lang="fr"><img src="assets/flags/french.png" alt="flag-english"> <span>Français</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END USER DROPDOWN -->
-                            <!-- BEGIN NOTIFICATION DROPDOWN -->
-                            <li class="dropdown" id="notifications-header">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-danger badge-header">6</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-header clearfix">
-                                        <p class="pull-left">12 Pending Notifications</p>
-                                    </li>
-                                    <li>
-                                        <ul class="dropdown-menu-list withScroll" data-height="220">
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-star p-r-10 f-18 c-orange"></i>
-                                                Steve have rated your photo
-                                                <span class="dropdown-time">Just now</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-heart p-r-10 f-18 c-red"></i>
-                                                John added you to his favs
-                                                <span class="dropdown-time">15 mins</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-file-text p-r-10 f-18"></i>
-                                                New document available
-                                                <span class="dropdown-time">22 mins</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-picture-o p-r-10 f-18 c-blue"></i>
-                                                New picture added
-                                                <span class="dropdown-time">40 mins</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-bell p-r-10 f-18 c-orange"></i>
-                                                Meeting in 1 hour
-                                                <span class="dropdown-time">1 hour</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-bell p-r-10 f-18"></i>
-                                                Server 5 overloaded
-                                                <span class="dropdown-time">2 hours</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-comment p-r-10 f-18 c-gray"></i>
-                                                Bill comment your post
-                                                <span class="dropdown-time">3 hours</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                <i class="fa fa-picture-o p-r-10 f-18 c-blue"></i>
-                                                New picture added
-                                                <span class="dropdown-time">2 days</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-footer clearfix">
-                                        <a data-target="#" class="pull-left">See all notifications</a>
-                                        <a data-target="#" class="pull-right">
-                                        <i class="icon-settings"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END NOTIFICATION DROPDOWN -->
-                            <!-- BEGIN MESSAGES DROPDOWN -->
-                            <li class="dropdown" id="messages-header">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-paper-plane"></i>
-                                <span class="badge badge-primary badge-header">
-                                8
-                                </span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-header clearfix">
-                                        <p class="pull-left">
-                                            You have 8 Messages
-                                        </p>
-                                    </li>
-                                    <li class="dropdown-body">
-                                        <ul class="dropdown-menu-list withScroll" data-height="220">
-                                            <li class="clearfix">
-                                                <span class="pull-left p-r-5">
-                                                <img src="assets/avatars/avatar3.png" alt="avatar 3">
-                                                </span>
-                                                <div class="clearfix">
-                                                    <div>
-                                                        <strong>Alexa Johnson</strong>
-                                                        <small class="pull-right text-muted">
-                                                        <span class="glyphicon glyphicon-time p-r-5"></span>12 mins ago
-                                                        </small>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix">
-                                                <span class="pull-left p-r-5">
-                                                <img src="assets/avatars/avatar4.png" alt="avatar 4">
-                                                </span>
-                                                <div class="clearfix">
-                                                    <div>
-                                                        <strong>John Smith</strong>
-                                                        <small class="pull-right text-muted">
-                                                        <span class="glyphicon glyphicon-time p-r-5"></span>47 mins ago
-                                                        </small>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix">
-                                                <span class="pull-left p-r-5">
-                                                <img src="assets/avatars/avatar5.png" alt="avatar 5">
-                                                </span>
-                                                <div class="clearfix">
-                                                    <div>
-                                                        <strong>Bobby Brown</strong>
-                                                        <small class="pull-right text-muted">
-                                                        <span class="glyphicon glyphicon-time p-r-5"></span>1 hour ago
-                                                        </small>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                                </div>
-                                            </li>
-                                            <li class="clearfix">
-                                                <span class="pull-left p-r-5">
-                                                <img src="assets/avatars/avatar6.png" alt="avatar 6">
-                                                </span>
-                                                <div class="clearfix">
-                                                    <div>
-                                                        <strong>James Miller</strong>
-                                                        <small class="pull-right text-muted">
-                                                        <span class="glyphicon glyphicon-time p-r-5"></span>2 days ago
-                                                        </small>
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END MESSAGES DROPDOWN -->
-                            <!-- BEGIN USER DROPDOWN -->
-                            <li class="dropdown" id="user-header">
-                                <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <img src="assets/avatars/user1.png" alt="user image">
-                                <span class="username">Hi, John Doe</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a data-target="#"><i class="icon-user"></i><span>My Profile</span></a>
-                                    </li>
-                                    <li>
-                                        <a data-target="#"><i class="icon-calendar"></i><span>My Calendar</span></a>
-                                    </li>
-                                    <li>
-                                        <a data-target="#"><i class="icon-settings"></i><span>Account Settings</span></a>
-                                    </li>
-                                    <li>
-                                        <a data-target="#"><i class="icon-logout"></i><span>Logout</span></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- END USER DROPDOWN -->
-                            <!-- CHAT BAR ICON -->
-                            <li id="quickview-toggle"><a href="#"><i class="icon-bubbles"></i></a></li>
-                        </ul>
-                    </div>
-                    <!-- header-right -->
-                </div>
-                <!-- END TOPBAR -->
-                <!-- BEGIN PAGE CONTENT -->
-                <div ui-view class="at-view-slide-in-left page-content" ng-view-class=" page-wizard : /forms-wizard , page-thin : / , page-contact : /pages-contact, 
-                    page-profil : /user-profile, page-app : /user-profile" >
-                </div>
-                <!-- END PAGE CONTENT -->
-            </div>
-            <!-- END MAIN CONTENT -->
-        </section>
-        <!-- BEGIN SEARCH -->
-        <div id="morphsearch" class="morphsearch">
-            <form class="morphsearch-form">
-                <input class="morphsearch-input" type="search" placeholder="Search..." />
-                <button class="morphsearch-submit" type="submit">Search</button>
-            </form>
-            <div class="morphsearch-content withScroll">
-                <div class="dummy-column user-column">
-                    <h2>Users</h2>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/avatars/avatar1_big.png" alt="Avatar 1" />
-                        <h3>John Smith</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/avatars/avatar2_big.png" alt="Avatar 2" />
-                        <h3>Bod Dylan</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/avatars/avatar3_big.png" alt="Avatar 3" />
-                        <h3>Jenny Finlan</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/avatars/avatar4_big.png" alt="Avatar 4" />
-                        <h3>Harold Fox</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/avatars/avatar5_big.png" alt="Avatar 5" />
-                        <h3>Martin Hendrix</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/avatars/avatar6_big.png" alt="Avatar 6" />
-                        <h3>Paul Ferguson</h3>
-                    </a>
-                </div>
-                <div class="dummy-column">
-                    <h2>Articles</h2>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/1.jpg" alt="1" />
-                        <h3>How to change webdesign?</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/2.jpg" alt="2" />
-                        <h3>News From the sky</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/3.jpg" alt="3" />
-                        <h3>Where is the cat?</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/4.jpg" alt="4" />
-                        <h3>Just another funny story</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/5.jpg" alt="5" />
-                        <h3>How many water we drink every day?</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/6.jpg" alt="6" />
-                        <h3>Drag and drop tutorials</h3>
-                    </a>
-                </div>
-                <div class="dummy-column">
-                    <h2>Recent</h2>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/7.jpg" alt="7" />
-                        <h3>Design Inspiration</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/8.jpg" alt="8" />
-                        <h3>Animals drawing</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/9.jpg" alt="9" />
-                        <h3>Cup of tea please</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/10.jpg" alt="10" />
-                        <h3>New application arrive</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/11.jpg" alt="11" />
-                        <h3>Notification prettify</h3>
-                    </a>
-                    <a class="dummy-media-object" href="#">
-                        <img src="assets/gallery/12.jpg" alt="12" />
-                        <h3>My article is the last recent</h3>
-                    </a>
-                </div>
-            </div>
-            <!-- /morphsearch-content -->
-            <span class="morphsearch-close"></span>
+          </div>
         </div>
-        <!-- END SEARCH -->
-        <!-- BEGIN PRELOADER -->
-        <!--<div class="loader-overlay">
-            <div class="spinner">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
+    </div>
+</div
+
+<div class="row">
+    <div class="col-md-4 col-sm-6 portlets">
+        <div class="panel">
+            <div class="panel-header panel-controls">
+                <h3><i class="icon-list"></i> <strong>Todo</strong> List</h3>
             </div>
-        </div>-->
+            <div class="panel-content">
+                <ul class="todo-list ui-sortable">
+                    <li class="high">
+                        <span class="span-check">
+                            <input id="task-1" type="checkbox" data-checkbox="icheckbox_square-blue" />
+                            <label for="task-1"></label>
+                        </span>
+                        <span class="todo-task">Send email to Bob Linch</span>
+                        <div class="todo-date clearfix">
+                            <div class="completed-date"></div>
+                            <div class="due-date">Due on <span class="due-date-span">15 December 2014</span></div>
+                        </div>
+                        <span class="todo-options pull-right">
+                            <a href="javascript:;" class="todo-delete"><i class="icons-office-52"></i></a>
+                        </span>
+                        <div class="todo-tags pull-right">
+                            <div class="label label-success">Work</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="span-check">
+                            <input id="task-2" type="checkbox" data-checkbox="icheckbox_square-blue" />
+                            <label for="task-2"></label>
+                        </span>
+                        <span class="todo-task">Call datacenter for servers</span>
+                        <div class="todo-date clearfix">
+                            <div class="completed-date"></div>
+                            <div class="due-date">Due on <span class="due-date-span">7 January</span></div>
+                        </div>
+                        <span class="todo-options pull-right">
+                            <a href="javascript:;" class="todo-delete"><i class="icons-office-52"></i></a>
+                        </span>
+                    </li>
+                    <li class="low">
+                        <span class="span-check">
+                            <input id="task-3" type="checkbox" data-checkbox="icheckbox_square-blue" />
+                            <label for="task-3"></label>
+                        </span>
+                        <span class="todo-task">Remove all unused icons</span>
+                        <div class="todo-date clearfix">
+                            <div class="completed-date"></div>
+                            <div class="due-date">Due on <span class="due-date-span">5 January</span></div>
+                        </div>
+                        <span class="todo-options pull-right">
+                            <a href="javascript:;" class="todo-delete"><i class="icons-office-52"></i></a>
+                        </span>
+                    </li>
+                    <li class="medium">
+                        <span class="span-check">
+                            <input id="task-4" type="checkbox" data-checkbox="icheckbox_square-blue" />
+                            <label for="task-4"></label>
+                        </span>
+                        <span class="todo-task">Read my todo list</span>
+                        <div class="todo-date clearfix">
+                            <div class="completed-date"></div>
+                            <div class="due-date">Due on <span class="due-date-span">4 January</span></div>
+                        </div>
+                        <span class="todo-options pull-right">
+                            <a href="javascript:;" class="todo-delete"><i class="icons-office-52"></i></a>
+                        </span>
+                        <div class="todo-tags pull-right">
+                            <div class="label label-info">Tuesday</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="span-check">
+                            <input id="task-6" type="checkbox" data-checkbox="icheckbox_square-blue" />
+                            <label for="task-6"></label>
+                        </span>
+                        <span class="todo-task">Have a breakfeast before 12</span>
+                        <div class="todo-date clearfix">
+                            <div class="completed-date"></div>
+                            <div class="due-date">Due on <span class="due-date-span">1 January</span></div>
+                        </div>
+                        <span class="todo-options pull-right">
+                            <a href="javascript:;" class="todo-delete"><i class="icons-office-52"></i></a>
+                        </span>
+                    </li>
+                </ul>
+                <div class="clearfix m-t-10">
+                    <div class="pull-left">
+                        <button type="button" class="btn btn-sm btn-default check-all-tasks">Check All Done</button>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm btn-dark add-task">Add Task</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 portlets">
+        <div class="panel widget-weather"></div>
+        <div class="panel widget-member clearfix">
+            <div class="col-xs-3">
+                <img src="../assets/avatars/user2.png" alt="avatar 12" class="pull-left img-responsive">
+            </div>
+            <div class="col-xs-9">
+                <h3 class="m-t-0 member-name"><strong>John Snow</strong></h3>
+                <p class="member-job">Software Engineer</p>
+                <div class="row">
+                    <div class="col-xlg-6">
+                        <p><i class="icon-envelope c-gray-light p-r-10"></i> cameso@it.com</p>
+                        <p><i class="fa fa-facebook c-gray-light p-r-10"></i> fb.com/jsnow</p>
+                    </div>
+                    <div class="col-xlg-6 align-right">
+                        <p><i class="icon-calendar c-gray-light p-r-10"></i> 6 may 2014</p>
+                        <p><i class="icon-target c-gray-light p-r-10"></i> New York</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6 portlets">
+        <div class="widget widget_calendar bg-dark">
+            <div class="multidatepicker"></div>
+        </div>
+        <div class="panel m-t-0">
+            <div class="panel-header panel-controls">
+                <h3><i class="icon-basket"></i> <strong>Sales</strong> Volume Stats</h3>
+            </div>
+            <div class="panel-content p-t-0 p-b-0">
+                <div id="bar-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="copyright">
+        <p class="pull-left sm-pull-reset">
+            <span>Copyright <span class="copyright">&copy;</span> 2015 </span>
+            <span>THEMES LAB</span>.
+            <span>All rights reserved. </span>
+        </p>
+        <p class="pull-right sm-pull-reset">
+            <span><a href="#" class="m-r-10">Support</a> | <a href="#" class="m-l-10 m-r-10">Terms of use</a> | <a href="#" class="m-l-10">Privacy Policy</a></span>
+        </p>
+    </div>
+</div>
+
