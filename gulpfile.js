@@ -9,7 +9,7 @@ var options = {
     src: 'app',
     server: 'server',
     dist: 'dist',
-    tmp: '.tmp/views',
+    tmp: '.tmp',
     paths : {
         less: ['./app/css/**/*.less'],
         javascript: [
