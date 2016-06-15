@@ -3,14 +3,14 @@
 
   angular.module('automationApp.core')
     .controller('AppController', AppController);
-
-	// , 'coreService'
-  AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'pluginsService', '$location'];
-  function AppController($scope, applicationService, quickViewService, pluginsService, $location) {
+	
+  AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'coreService', 'builderService', 'pluginsService', '$location'];
+  function AppController($scope, applicationService, quickViewService, coreService, builderService, pluginsService, $location) {
 
 	  $(document).ready(function () {
 			applicationService.init();
 			quickViewService.init();
+		    builderService.init();
 			pluginsService.init();
 			Dropzone.autoDiscover = false;
 		});
