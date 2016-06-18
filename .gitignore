@@ -6,3 +6,6 @@ bower_components
 
 # Temporary development directory
 .tmp
+
+# Temporary development directory
+dist

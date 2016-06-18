@@ -3,10 +3,11 @@
 var gulp = require('gulp');
 
 var $ = require('gulp-load-plugins')();
+var wiredep = require('wiredep').stream;
 
 module.exports = function(options) {
 
-  gulp.task('inject', ['scripts'], function () {
+  gulp.task('inject', [], function () {
     var injectStyles = gulp.src(options.paths.css,
         {read: false});
 
@@ -18,6 +19,7 @@ module.exports = function(options) {
     return gulp.src(options.server + '/views/**/*.hbs')
       .pipe($.inject(injectStyles, injectOptions))
       .pipe($.inject(injectScripts, injectOptions))
+      .pipe(wiredep(options.wiredep))
       .pipe(gulp.dest(options.tmp + '/views'))
 
   });

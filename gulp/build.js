@@ -8,13 +8,12 @@ var $ = require('gulp-load-plugins')({
 
 module.exports = function(options) {
 
-  gulp.task('html', ['inject'], function () {
+  gulp.task('html', ['inject','styles'], function () {
+  //  gulp.task('html', ['inject','styles','scripts'], function () {
 
     /*
     * add tasks like:
     * uglify
-    * css filters
-    * js filters
     * replacements
     * html filters
     * minify
