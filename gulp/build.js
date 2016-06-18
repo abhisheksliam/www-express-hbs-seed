@@ -23,5 +23,5 @@ module.exports = function(options) {
 
 //gulp.task('clean', $.del.bind(null, [options.dist + '/', options.tmp + '/']));
 
-  gulp.task('build', ['html']);
+  gulp.task('build', ['html','dist']);
 };

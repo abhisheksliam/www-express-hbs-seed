@@ -47,8 +47,8 @@ module.exports = function(options) {
 
     return gulp.src([
       options.src + '/**/*.*',
-      options.server + '/views/*.hbs',
-      options.server + '/views/**/*.hbs',
+      options.tmp + '/views/*.hbs',
+      options.tmp + '/views/**/*.hbs',
       '!' + options.src + '/**/*.less',
       '!' + options.src + '/**/raw/*.*'
     ])

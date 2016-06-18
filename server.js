@@ -46,7 +46,7 @@ let port = process.env.PORT || 8080;
 app.use("/bower_components", express.static(__dirname + '/bower_components'));
 
 // View engine setup (handlebars) based in viewsPath defined earlier
-app.engine('.hbs', exphbs({ // todo:  how index is redered ?
+app.engine('.hbs', exphbs({
     defaultLayout: 'default',
     layoutsDir: viewsPath + '/layouts',
     partialsDir: viewsPath + '/partials',
