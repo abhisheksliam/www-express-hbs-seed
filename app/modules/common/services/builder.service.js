@@ -11,7 +11,7 @@
 		/* ============================================================
 		* Builder Script
 		=========================================================== */
-		//$.cookie.defaults.path = '/';
+		$.cookie.defaults.path = '/';
 
 		/**** BUILDER FUNCTIONS ****/
 		function toggleBuilder() {
@@ -256,14 +256,6 @@
 
 		builderService.init = function () {
 		  "use strict";
-
-		  // $.removeCookie('main-color');
-		  // $.removeCookie('topbar-color');
-		  // $.removeCookie('topbar-color-custom');
-		  // $.removeCookie('sidebar-color');
-		  // $.removeCookie('sidebar-color-custom');
-		  // $.removeCookie('sidebar-hover');
-		  // $.removeCookie('submenu-hover');
 
 		  toggleBuilder();
 		  builderScroll();
