@@ -19,13 +19,12 @@
     $stateProvider
       .state('app', {
         url: '/',
-        templateUrl: 'modules/core/core.html',
         controller: 'AppController'
       });
 	  
 	  $urlRouterProvider.otherwise(function ($injector) {
           var $state = $injector.get('$state');
-          $state.go('app');
+          $state.go('dashboard');
       });
   }
 })();

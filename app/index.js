@@ -10,6 +10,7 @@
  */
 var automationApp = angular.module('automationApp', [
 'automationApp.core',
+'automationApp.dashboard',
 'automationApp.scriptor'
 ]);
 
