@@ -265,7 +265,7 @@
 						}
 					}
 
-					$.backstretch(["../../../global/images/gallery/bg1.jpg", "../../../global/images/gallery/bg2.jpg", "../../../global/images/gallery/bg3.jpg", "../../../global/images/gallery/bg4.jpg"], {
+					$.backstretch(["../assets/gallery/bg1.jpg", "../assets/gallery/bg2.jpg", "../assets/gallery/bg3.jpg", "../assets/gallery/bg4.jpg"], {
 						fade: 3000,
 						duration: 4000
 					});

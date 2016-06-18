@@ -3,7 +3,9 @@
 
 	angular.module('automationApp').factory('quickViewService', QuickViewService);
 
-	function QuickViewService () {
+	QuickViewService.$inject = ['applicationService'];
+	
+	function QuickViewService (applicationService) {
 	  
 		function quickviewSidebar() {
 
@@ -60,7 +62,7 @@
 				  var chat_message = '<li class="img">' +
 					  '<span>' +
 					  '<div class="chat-detail chat-right">' +
-					  '<img src="../images/avatars/avatar1.png" data-retina-src="../images/avatars/avatar1_2x.png"/>' +
+					  '<img src="../assets/avatars/avatar1.png" data-retina-src="../assets/avatars/avatar1_2x.png"/>' +
 					  '<div class="chat-detail">' +
 					  '<div class="chat-bubble">' +
 					  $(this).val() +
@@ -90,41 +92,6 @@
 				  }
 			  }
 		  });
-
-		  if ($('.settings-chart .progress-bar').length) {
-			  $('.settings-tab').on('click', function () {
-				  setTimeout(function () {
-					  $('.settings-chart .setting1').progressbar();
-					  window.myRadar = new Chart(document.getElementById("setting-chart").getContext("2d")).Radar(radarChartData, {
-						  responsive: true,
-						  tooltipCornerRadius: 0,
-						  animationSteps: 60,
-					  });
-				  }, 200);
-				  setTimeout(function () {
-					  $('.settings-chart .setting2').progressbar();
-				  }, 400);
-
-
-			  });
-		  };
-
-		  /* Radar Chart */
-		  var radarChartData = {
-			  labels: ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
-			  datasets: [
-				  {
-					  label: "My Second dataset",
-					  fillColor: "rgba(151,187,205,0.2)",
-					  strokeColor: "rgba(151,187,205,1)",
-					  pointColor: "rgba(151,187,205,1)",
-					  pointStrokeColor: "#fff",
-					  pointHighlightFill: "#fff",
-					  pointHighlightStroke: "rgba(151,187,205,1)",
-					  data: [38, 48, 40, 89, 96, 27, 90]
-				  }
-			  ]
-		  };
 
 		  toggleqQuickview();
 		}

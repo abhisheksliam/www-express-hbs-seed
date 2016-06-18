@@ -209,8 +209,8 @@
 							if (!state_id) return state.text; // optgroup
 							var res = state_id.split("-");
 							if (res[0] == 'image') {
-								if (res[2]) return "<img class='flag' src='../images/flags/" + res[1].toLowerCase() + "-" + res[2].toLowerCase() + ".png' style='width:27px;padding-right:10px;margin-top: -3px;'/>" + state.text;
-								else return "<img class='flag' src='../images/flags/" + res[1].toLowerCase() + ".png' style='width:27px;padding-right:10px;margin-top: -3px;'/>" + state.text;
+								if (res[2]) return "<img class='flag' src='../assets/flags/" + res[1].toLowerCase() + "-" + res[2].toLowerCase() + ".png' style='width:27px;padding-right:10px;margin-top: -3px;'/>" + state.text;
+								else return "<img class='flag' src='../assets/flags/" + res[1].toLowerCase() + ".png' style='width:27px;padding-right:10px;margin-top: -3px;'/>" + state.text;
 							}
 							else {
 								return state.text;

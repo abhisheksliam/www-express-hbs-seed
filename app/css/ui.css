@@ -2647,7 +2647,7 @@ ul.list-unstyled {
   border: none;
 }
 .modal-image .modal-content:before {
-  background-image: url('../images/gradient-big.png');
+  background-image: url('../assets/gradient-big.png');
   background-repeat: repeat-x;
   bottom: 0;
   content: " ";
@@ -6323,14 +6323,14 @@ div.dataTables_info {
   text-align: left;
 }
 .dataTable thead th input[type=text] {
-  background: url(../images/various/icon-search-gray.png) no-repeat 12px;
+  background: url(../assets/various/icon-search-gray.png) no-repeat 12px;
   display: block;
   font-weight: 400;
   padding-left: 32px;
   float: left;
 }
 .dataTable tfoot th input[type=text] {
-  background: url(../images/various/icon-search-gray.png) no-repeat 12px;
+  background: url(../assets/various/icon-search-gray.png) no-repeat 12px;
   display: block;
   font-weight: 400;
   padding-left: 32px;
