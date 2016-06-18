@@ -1,9 +1,10 @@
+
 (function() {
 	//'use strict';
 
-	angular.module('automationApp').factory('coreService', CoreService);
+	angular.module('automationApp.dashboard').factory('dashboardService', DashboardService);
 
-	function CoreService () {
+	function DashboardService () {
 		var dashboard = {};
     	dashboard.init = function () {
 

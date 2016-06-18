@@ -19,7 +19,6 @@
     $stateProvider
       .state('app', {
         url: '/',
-        templateUrl: 'modules/core/core.html',
         controller: 'AppController'
       });
 	  
