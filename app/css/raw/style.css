@@ -1,3 +1,23 @@
+@import "http://fonts.googleapis.com/css?family=Lato:300,400,700,900";
+@import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700";
+@import "../../plugins/bootstrap/css/bootstrap.min.css";
+@import "../../plugins/bootstrap/css/bootstrap-rtl.min.css";
+@import "../../plugins/mcustom-scrollbar/mcustom_scrollbar.min.css";
+@import "../../plugins/animation-css/animate.min.css";
+@import "../icons/font-awesome/font-awesome.css";
+@import "../icons/line-icons/line-icons.css";
+@import "../icons/line-icons/simple-line-icons.css";
+@import "../../plugins/select2/select2.css";
+@import "../../plugins/slick/slick.css";
+@import "../../plugins/icheck/skins/all.css";
+@import "../../plugins/bootstrap/css/jasny-bootstrap.css";
+@import "../icons/rounded/style.css";
+@import "../icons/octicons/octicons.css";
+@import "../icons/weather/css/weather-icons.min.css";
+@import "../../plugins/bootstrap-loading/lada.min.css";
+@import "../../plugins/bootstrap-tags-input/bootstrap-tagsinput.css";
+@import "../../plugins/bootstrap-editable/css/bootstrap-editable.css";
+@import "../../plugins/prettify/prettify.css";
 /**** SIDEBAR  ****/
 /**** TOPBAR ****/
 /**** QUICKVIEW SIDEBAR ****/
@@ -19,44 +39,24 @@
 /******* THEMES *******/
 /* Mixin */
 /* MANDATORY CSS */
-@import "http://fonts.googleapis.com/css?family=Lato:300,400,700,900";
-@import "http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700";
-@import "../plugins/bootstrap/css/bootstrap.min.css";
-@import "../plugins/bootstrap/css/bootstrap-rtl.min.css";
-@import "../plugins/mcustom-scrollbar/mcustom_scrollbar.min.css";
-@import "../plugins/animation-css/animate.min.css";
-@import "icons/font-awesome/font-awesome.css";
-@import "icons/line-icons/line-icons.css";
-@import "icons/line-icons/simple-line-icons.css";
-@import "../plugins/select2/select2.css";
 /* Select & Radio Inputs */
-@import "../plugins/slick/slick.css";
 /* Text & Image Slider */
-@import "../plugins/icheck/skins/all.css";
 /* Checbox & Radio Icheck */
-@import "../plugins/bootstrap/css/jasny-bootstrap.css";
 /* File Upload and Input Masks */
 /* OPTIONAL CSS */
 /* Depend if you use this functionnalities in your project */
-@import "icons/rounded/style.css";
 /* Rounded Icons - See Icons Page - OPTIONAL */
-@import "icons/octicons/octicons.css";
 /* Topbar Left Icons - OPTIONAL */
-@import "icons/weather/css/weather-icons.min.css";
 /* Weather Icons - See Icons Page - OPTIONAL */
-@import "../plugins/bootstrap-loading/lada.min.css";
 /* Buttons Loading State - See Buttons Page - OPTIONAL */
-@import "../plugins/bootstrap-tags-input/bootstrap-tagsinput.css";
 /* Tags Input - See Form Elements Page - OPTIONAL */
-@import "../plugins/bootstrap-editable/css/bootstrap-editable.css";
 /* Inline Edition X-Editable - OPTIONAL */
-@import "../plugins/prettify/prettify.css";
 /* Show Html Code - OPTIONAL */
 /* FONTS */
 @font-face {
   font-family: 'weather';
-  src: url('icons/weather/artill_clean_icons-webfont.eot');
-  src: url('icons/weather/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'), url('icons/weather/artill_clean_icons-webfont.woff') format('woff'), url('icons/weather/artill_clean_icons-webfont.ttf') format('truetype'), url('icons/weather/weatherfont/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
+  src: url('../icons/weather/artill_clean_icons-webfont.eot');
+  src: url('../icons/weather/artill_clean_icons-webfont.eot?#iefix') format('embedded-opentype'), url('../icons/weather/artill_clean_icons-webfont.woff') format('woff'), url('../icons/weather/artill_clean_icons-webfont.ttf') format('truetype'), url('icons/weather/weatherfont/artill_clean_icons-webfont.svg#artill_clean_weather_iconsRg') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -515,13 +515,13 @@ a.scrollup:hover {
 @-webkit-keyframes color {
   100%,
   0% {
-    stroke: #319DB5;
+    stroke: #319db5;
   }
   30% {
-    stroke: #9B7ED1;
+    stroke: #9b7ed1;
   }
   60% {
-    stroke: #18A689;
+    stroke: #18a689;
   }
   80%,
   90% {
@@ -531,13 +531,13 @@ a.scrollup:hover {
 @keyframes color {
   100%,
   0% {
-    stroke: #319DB5;
+    stroke: #319db5;
   }
   30% {
-    stroke: #9B7ED1;
+    stroke: #9b7ed1;
   }
   60% {
-    stroke: #18A689;
+    stroke: #18a689;
   }
   80%,
   90% {
@@ -764,7 +764,7 @@ a.scrollup:hover {
 .topbar .header-left .topnav .mmenu .dropdown-submenu:hover > .dropdown-menu {
   display: block;
 }
-.topbar .header-left .topnav .mmenu .dropdown-submenu:hover > a after {
+.topbar .header-left .topnav .mmenu .dropdown-submenu:hover > a:after {
   border-left-color: #fff;
 }
 .topbar .header-left .topnav .mmenu .dropdown-submenu > .dropdown-menu {
@@ -1568,7 +1568,7 @@ body:not(.sidebar-collapsed) .topbar .header-left .topnav .menutoggle:hover .men
   margin: 0;
 }
 .sidebar .logopanel h1 a {
-  background: url(../images/logo/logo-white.png) no-repeat;
+  background: url(../../assets/logo/logo-white.png) no-repeat;
   display: block;
   height: 31px;
 }
@@ -1684,7 +1684,7 @@ body:not(.sidebar-collapsed) .topbar .header-left .topnav .menutoggle:hover .men
   -ms-transition: transform 0.15s linear;
   transition: transform 0.15s linear;
 }
-.sidebar .sidebar-inner .nav-sidebar .arrow:not(.fa) before {
+.sidebar .sidebar-inner .nav-sidebar .arrow:not(.fa):before {
   content: "s";
   display: inline-block;
   float: right;
@@ -1989,13 +1989,13 @@ body:not(.sidebar-collapsed) .topbar .header-left .topnav .menutoggle:hover .men
   white-space: nowrap;
   width: 100%;
 }
-.transition(color,.2s, ease-out) .sidebar .sidebar-inner .nav-sidebar > li > a:hover {
+.sidebar .sidebar-inner .nav-sidebar > li > a:hover {
   color: #fff;
 }
-.transition(color,.2s, ease-out) .sidebar .sidebar-inner .nav-sidebar > li > a:hover i {
+.sidebar .sidebar-inner .nav-sidebar > li > a:hover i {
   opacity: 1;
 }
-.transition(color,.2s, ease-out) .sidebar .sidebar-inner .nav-sidebar > li > a:hover span {
+.sidebar .sidebar-inner .nav-sidebar > li > a:hover span {
   opacity: 1;
 }
 .sidebar .sidebar-inner .nav-sidebar > li > a i {
@@ -2749,7 +2749,7 @@ body:not(.sidebar-collapsed) .sidebar .sidebar-inner .nav-sidebar > li.nav-paren
   line-height: 30px;
 }
 .sidebar-hover .logopanel2 h1 a {
-  background: url(../images/logo/logo-dark.png) no-repeat;
+  background: url(../../assets/logo/logo-dark.png) no-repeat;
   display: block;
   height: 30px;
 }
@@ -3179,7 +3179,7 @@ body:not(.sidebar-collapsed) .sidebar .sidebar-inner .nav-sidebar > li.nav-paren
     box-shadow: 0 3px 3px rgba(0, 0, 0, 0.05);
   }
   .sidebar-top .sidebar .logopanel h1 a {
-    background: url(../images/logo/logo-dark.png) no-repeat;
+    background: url(../../assets/logo/logo-dark.png) no-repeat;
   }
   .sidebar-top .sidebar:before {
     display: none;
@@ -3234,9 +3234,6 @@ body:not(.sidebar-collapsed) .sidebar .sidebar-inner .nav-sidebar > li.nav-paren
     -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  }
-  .sidebar-top .sidebar .nav > li .children -header {
-    display: none!important;
   }
   .sidebar-top .sidebar .nav > li > a {
     height: 66px;
@@ -3705,7 +3702,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
   padding-left: 0;
 }
 #quickview-sidebar .quickview .tab-content #chat .chat-body .chat-groups ul li {
-  color: ##818181;
+  color: #818181;
   line-height: 25px;
 }
 #quickview-sidebar .quickview .tab-content #chat .chat-body .chat-groups ul li:hover {
@@ -4361,7 +4358,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
   padding-right: 0;
 }
 .main-content .page-content .panel .panel-header[class*="bg-"] h2 {
-  color: #fff;
+  color: #ffffff;
 }
 .main-content .page-content .panel .panel-header {
   display: block;
@@ -4759,8 +4756,8 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
   -moz-border-radius: 50px;
   border-radius: 50px;
 }
-.main-content .page-content > .header icon-logoutbefore,
-.main-content .page-content > div > .header icon-logoutbefore {
+.main-content .page-content > .header .icon-logout:before,
+.main-content .page-content > div > .header .icon-logout:before {
   bottom: -4px;
   display: inline-block;
   font-size: 28px;
@@ -5290,12 +5287,6 @@ body:not(.fixed-topbar) .main-content .page-content {
   margin-bottom: 5px;
   text-align: center !important;
 }
-.widget-weather .weather .weather-forecast .icon-weather {
-  background: url(images/icons/weather-icons.png) 0 0 no-repeat;
-  height: 24px;
-  margin: 0;
-  width: 24px;
-}
 .widget-weather .weather .weather-forecast .icon-weather-2 {
   background-position: 0 -24px;
 }
@@ -5317,7 +5308,7 @@ body:not(.fixed-topbar) .main-content .page-content {
   color: #ffffff;
 }
 .widget-weather .weather .weather-highlighted .icon-weather {
-  background: url(images/icons/weather-main.png) no-repeat;
+  background: url(assets/icons/weather-main.png) no-repeat;
   float: left;
   height: 57px;
   margin-top: 10px;
@@ -5506,7 +5497,7 @@ body:not(.fixed-topbar) .main-content .page-content {
 }
 .widget_calendar .multidatepicker .ui-widget-content .ui-widget-header .ui-datepicker-prev {
   background-color: transparent!important;
-  background-image: url(../images/widgets/pagination.png) !important;
+  background-image: url(../../assets/widgets/pagination.png) !important;
   background-position: 5px 5px!important;
   background-repeat: no-repeat !important;
   border-radius: 50%;
@@ -5520,7 +5511,7 @@ body:not(.fixed-topbar) .main-content .page-content {
 }
 .widget_calendar .multidatepicker .ui-widget-content .ui-widget-header .ui-datepicker-next {
   background-color: transparent!important;
-  background-image: url(../images/widgets/pagination.png) !important;
+  background-image: url(../../assets/widgets/pagination.png) !important;
   background-position: -45px 5px !important;
   background-repeat: no-repeat !important;
   border-radius: 50%;
@@ -5678,7 +5669,7 @@ body:not(.fixed-topbar) .main-content .page-content {
   margin-bottom: 0;
 }
 .widget-slider-img .slide:before {
-  background-image: url('../images/gradient-big.png');
+  background-image: url('../../assets/gradient-big.png');
   background-repeat: repeat-x;
   bottom: 0;
   content: " ";
@@ -5697,7 +5688,7 @@ body:not(.fixed-topbar) .main-content .page-content {
   top: 0;
 }
 .widget-slider-img .text-top .slide:before {
-  background-image: url('../images/gradient-big.png');
+  background-image: url('../../assets/gradient-big.png');
   bottom: auto;
   filter: FlipV;
   height: 30px;
@@ -5882,7 +5873,7 @@ body:not(.fixed-topbar) .main-content .page-content {
   text-align: center;
   text-transform: uppercase;
 }
-@media and (max-width: 800px) {
+@media (max-width: 800px) {
   .widget-cash-in-hand .row .cash {
     width: 33.3333%;
   }
@@ -5899,7 +5890,7 @@ body:not(.fixed-topbar) .main-content .page-content {
 /* WIDGET CLOCK */
 .jquery-clock {
   -webkit-background-size: cover;
-  background-image: url(../images/clock/clock.png);
+  background-image: url(../../assets/clock/clock.png);
   background-size: cover;
   height: 600px;
   list-style: none;
@@ -5910,7 +5901,7 @@ body:not(.fixed-topbar) .main-content .page-content {
 }
 .jquery-clock .jquery-clock-sec {
   -webkit-background-size: contain;
-  background-image: url(../images/clock/sechand.png);
+  background-image: url(../../assets/clock/sechand.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -5923,7 +5914,7 @@ body:not(.fixed-topbar) .main-content .page-content {
 }
 .jquery-clock .jquery-clock-min {
   -webkit-background-size: contain;
-  background-image: url(../images/clock/minhand.png);
+  background-image: url(../../assets/clock/minhand.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -5936,7 +5927,7 @@ body:not(.fixed-topbar) .main-content .page-content {
 }
 .jquery-clock .jquery-clock-hour {
   -webkit-background-size: contain;
-  background-image: url(../images/clock/hourhand.png);
+  background-image: url(../../assets/clock/hourhand.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -5974,18 +5965,18 @@ body:not(.fixed-topbar) .main-content .page-content {
   width: 200px;
 }
 .jquery-clock.white {
-  background-image: url(../images/clock/clock-white.png);
+  background-image: url(../../assets/clock/clock-white.png);
 }
 .jquery-clock.white .jquery-clock-sec {
-  background-image: url(../images/clock/sechand-white.png);
+  background-image: url(../../assets/clock/sechand-white.png);
   z-index: 3;
 }
 .jquery-clock.white .jquery-clock-min {
-  background-image: url(../images/clock/minhand-white.png);
+  background-image: url(../../assets/clock/minhand-white.png);
   z-index: 2;
 }
 .jquery-clock.white .jquery-clock-hour {
-  background-image: url(../images/clock/hourhand-white.png);
+  background-image: url(../../assets/clock/hourhand-white.png);
   z-index: 1;
 }
 .jquery-clock.white .jquery-clock-pin {
@@ -7017,7 +7008,7 @@ body:not(.fixed-topbar) .main-content .page-content {
     font-family: 'Lato', arial, sans-serif;
     font-weight: 900;
     font-size: 25px;
-    background: url(../images/logo/logo-white.png) no-repeat;
+    background: url(../../assets/logo/logo-white.png) no-repeat;
     height: 31px;
     margin-bottom: 15px;
     display: block;
@@ -7687,7 +7678,7 @@ body:not(.rtl) .layout-options .img-sidebar-right {
   text-align: center;
 }
 .page-profil .profil-content .item .user:before {
-  background-image: url('../images/gradient-big.png');
+  background-image: url('../../assets/gradient-big.png');
   background-repeat: repeat-x;
   bottom: 0;
   content: " ";
@@ -8456,7 +8447,7 @@ body:not(.rtl) .layout-options .img-sidebar-right {
 }
 #timeline .timeline-block .timeline-icon {
   border-radius: 50%;
-  box-shadow: 0 0 0 4px #fff, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 4px #ffffff, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
   height: 40px;
   left: 0;
   position: absolute;
@@ -9515,7 +9506,7 @@ body:not(.rtl) .layout-options .img-sidebar-right {
   margin-top: -5px;
 }
 .email-details .email-subject .go-back-list i:hover {
-  color: #7C7C7C;
+  color: #7c7c7c;
 }
 .email-details .email-subject .dropdown-menu {
   min-width: 110px;
@@ -10085,7 +10076,7 @@ a.message-item:hover {
   overflow: hidden;
 }
 .coming-soon .map-container #map {
-  height: calc(150%) !important;
+  height: 150% !important;
   width: 100%;
 }
 .coming-soon .map-container #map .pulse {
@@ -10480,7 +10471,7 @@ thead .fc-widget-header {
 }
 /**** Search ****/
 .morphsearch {
-  background: #2B2E33;
+  background: #2b2e33;
   min-height: 100%;
   opacity: 0;
   position: absolute;
@@ -10543,7 +10534,7 @@ thead .fc-widget-header {
   font-weight: 700;
   margin: 0;
   vertical-align: middle;
-  width: calc(30%);
+  width: 30%;
 }
 .morphsearch .user-column .dummy-media-object img {
   width: 35px;
@@ -10674,7 +10665,7 @@ thead .fc-widget-header {
 .morphsearch-submit {
   -webkit-transform: translate3d(-30px, -50%, 0) scale3d(0, 0, 1);
   background-size: 100%;
-  background: transparent url(../images/magnifier.svg) no-repeat center center;
+  background: transparent url(../../assets/magnifier.svg) no-repeat center center;
   border: none;
   height: 80px;
   opacity: 0;
@@ -10748,7 +10739,7 @@ thead .fc-widget-header {
   opacity: 1;
 }
 .morphsearch-content {
-  background: #2B2E33;
+  background: #2b2e33;
   color: #333333;
   height: 0;
   margin-top: 4.5em;
@@ -11238,7 +11229,7 @@ thead .fc-widget-header {
 }
 /* Theme Builder */
 .builder {
-  -webkit-transition: -webkit-transform 600ms cubic-beziercubic-bezier(0.25, 0.1, 0.25, 1);
+  -webkit-transition: -webkit-transform 600ms cubic-bezier(0.25, 0.1, 0.25, 1);
   background: #ffffff;
   border-left: 1px solid rgba(224, 226, 234, 0.53);
   bottom: 0;
@@ -11541,7 +11532,7 @@ thead .fc-widget-header {
   transition: all 250ms ease-in-out;
 }
 body.builder-page {
-  background: #fff !important;
+  background: #ffffff !important;
 }
 .rtl {
   direction: rtl;
@@ -12204,7 +12195,7 @@ body.rtl {
 .rtl .main-content .panel .control-btn a {
   float: right;
 }
-.rtl .ckbox input[type="checkbox"]:checked + label after {
+.rtl .ckbox input[type="checkbox"]:checked + label:after {
   left: auto;
   right: 3.1px;
 }
@@ -12559,7 +12550,7 @@ blockquote i {
     width: 100%;
   }
   .rtl .sidebar-top .sidebar .logopanel h1 a {
-    background: url(../images/logo/logo-dark.png) no-repeat;
+    background: url(../../assets/logo/logo-dark.png) no-repeat;
   }
   .rtl .sidebar-top .sidebar:before {
     display: none;
@@ -13153,3 +13144,4 @@ body.rtl .layout-options .img-sidebar-right {
 .rtl .sidebar-condensed.sidebar-hover:not(.sidebar-collapsed) .main-content {
   margin-right: 0;
 }
+.page-content.page-calendar {min-width: 600px;}

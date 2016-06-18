@@ -25,6 +25,28 @@ var options = {
             '!./www/css/ionic.app*.css',
             '!./www/lib/**'
         ]
+    },
+    wiredep: {
+        directory: 'bower_components',
+        exclude: [
+            /bootstrap-sass-official\/.*\.js/,
+            /bootstrap\.css/,
+            /open-sans-fontface\/.*/
+        ],
+        fileTypes: {
+            html: {
+                replace: {
+                    js: function (filePath) {
+                        var options = '';
+                        if (filePath.match(/pace\.js/)) {
+                            options = " data-pace-options='{ \"target\": \".content-wrap\", \"ghostTime\": 1000 }'"
+                        }
+                        return '<script' + options + ' src="' + filePath + '"></script>';
+                    }
+                }
+            }
+        },
+        ignorePath: /^(\.\.\/)+/
     }
 };
 
