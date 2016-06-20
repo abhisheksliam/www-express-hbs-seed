@@ -17,11 +17,14 @@ var options = {
             './app/modules/**/*module.js',
             './app/modules/**/*controller.js',
             './app/modules/**/*.js',
+            './.tmp/serve/**/*.js',
             '!./www/js/app.js',
             '!./www/lib/**'
         ],
         css: [
-            './app/css/dist/*.css',
+            './.tmp/serve/**/*.css',
+            '!./.tmp/serve/**/angular-theme.css',
+            '!./.tmp/serve/**/layout.css',
             '!./www/css/ionic.app*.css',
             '!./www/lib/**'
         ]

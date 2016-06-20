@@ -7,14 +7,14 @@ var wiredep = require('wiredep').stream;
 
 module.exports = function(options) {
 
-  gulp.task('inject', [], function () {
+  gulp.task('inject', function () {
     var injectStyles = gulp.src(options.paths.css,
         {read: false});
 
     var injectScripts = gulp.src(options.paths.javascript,
         {read: false});
 
-    var injectOptions = {relative: false,ignorePath: 'app', addRootSlash: false};
+    var injectOptions = {relative: false,ignorePath: ['app','.tmp', 'serve'], addRootSlash: false};
 
     return gulp.src(options.server + '/views/**/*.hbs')
       .pipe($.inject(injectStyles, injectOptions))

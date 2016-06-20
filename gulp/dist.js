@@ -8,33 +8,7 @@ var $ = require('gulp-load-plugins')({
 
 module.exports = function(options) {
 
-  gulp.task('file-reduce', [], function () {
-
-    /*
-    * add tasks like:
-    * uglify
-    * replacements
-    * html filters
-    * minify
-    * dist copy
-    * */
-
-   });
-
-  gulp.task('file-merge', [], function () {
-
-    /*
-     * add tasks like:
-     * uglify
-     * replacements
-     * html filters
-     * minify
-     * dist copy
-     * */
-
-  });
-
-  gulp.task('file-copy', [], function () {
+  gulp.task('file-copy', function () {
 
     /*
      * add tasks like:
@@ -49,10 +23,14 @@ module.exports = function(options) {
       options.src + '/**/*.*',
       options.tmp + '/views/*.hbs',
       options.tmp + '/views/**/*.hbs',
+      options.tmp + '/serve/**/*.js',
+      options.tmp + '/serve/**/*.css',
+      '!' + options.src + '/js/*.js',
       '!' + options.src + '/**/*.less',
       '!' + options.src + '/**/raw/*.*'
     ])
-        .pipe(gulp.dest(options.dist + '/'));
+    .pipe(gulp.dest(options.dist + '/'));
+
   });
 
   gulp.task('dist', ['file-copy']);
