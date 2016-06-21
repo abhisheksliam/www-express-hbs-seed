@@ -12,7 +12,7 @@ var options = {
     tmp: '.tmp',
     paths : {
         less: ['./app/css/**/*.less'],
-        javascript: [
+        js_dev: [
             './app/index.js',
             './app/modules/**/*module.js',
             './app/modules/**/*controller.js',
@@ -20,8 +20,35 @@ var options = {
             '!./www/js/app.js',
             '!./www/lib/**'
         ],
-        css: [
-            './app/css/dist/*.css',
+        js_dev_lazy: [
+            './.tmp/js/*.js',
+            '!./.tmp/serve/**/*.js'
+        ],
+        css_dev: [
+            './.tmp/**/*.css',
+            '!./.tmp/**/angular-theme.css',
+            '!./.tmp/**/layout.css',
+            '!./.tmp/serve/**/*.css',
+            '!./www/css/ionic.app*.css',
+            '!./www/lib/**'
+        ],
+        css_dev_lazy: [
+            './.tmp/**/angular-theme.css',
+            './.tmp/**/layout.css'
+        ],
+        js_dist: [
+            './app/index.js',
+            './app/modules/**/*module.js',
+            './app/modules/**/*controller.js',
+            './app/modules/**/*.js',
+            './.tmp/serve/**/*.js',
+            '!./.tmp/js',
+            '!./www/js/app.js',
+            '!./www/lib/**'
+        ],
+        css_dist: [
+            './.tmp/serve/**/*.css',
+            '!./.tmp/css',
             '!./www/css/ionic.app*.css',
             '!./www/lib/**'
         ]
