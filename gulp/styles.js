@@ -16,16 +16,16 @@ module.exports = function(options) {
         .pipe(less({
             paths: [ path.join(__dirname, 'less', 'includes') ]
         }))
-        .pipe(gulp.dest(options.tmp + '/css'));
+        .pipe(gulp.dest(options.tmp + '/css'))
+		.pipe($.concat('app.css'))
+        .pipe(gulp.dest(options.tmp + '/serve/styles'));
     });
 
     gulp.task('styles',['dev-styles'], function () {
 
-        return gulp.src([
-            options.tmp + '/css/*.css'
-        ])
-            .pipe($.concat('app.css'))
+    	return gulp.src(options.tmp + '/serve/**/*.*')
             .pipe($.rev())
-            .pipe(gulp.dest(options.tmp + '/serve/styles'))
+            .pipe(gulp.dest(options.dist + '/'));
+            
     });
 };

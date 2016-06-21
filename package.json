@@ -17,6 +17,7 @@
     "compression": "^1.5.2",
     "cookie-parser": "^1.4.1",
     "crypto": "0.0.3",
+	"del": "^2.0.2",
     "express": "^4.9.8",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.13.0",
