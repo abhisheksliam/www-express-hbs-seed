@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')({
 
 module.exports = function(options) {
 
-  gulp.task('html', ['styles', 'scripts', 'inject'], function () {
+  gulp.task('html', ['inject'], function () {
 
     /*
      * add tasks like:
@@ -21,12 +21,10 @@ module.exports = function(options) {
 
     return gulp.src([
       options.src + '/**/*.*',
-      options.tmp + '/views/*.hbs',
-      options.tmp + '/views/**/*.hbs',
       options.tmp + '/serve/**/*.js',
       options.tmp + '/serve/**/*.css',
-      '!' + options.src + '/js/*.js',
-      '!' + options.src + '/**/*.less',
+      '!' + options.src + '/js',
+      '!' + options.src + '/css',
       '!' + options.src + '/**/raw/*.*',
       '!' + options.src + '/**/icons/*.*'
     ])

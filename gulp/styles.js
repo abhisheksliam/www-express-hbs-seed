@@ -6,7 +6,7 @@ var path = require('path');
 var $ = require('gulp-load-plugins')();
 
 module.exports = function(options) {
-    gulp.task('pre-styles', function () {
+    gulp.task('dev-styles', function () {
         return gulp.src([options.src + '/css/less/theme.less',
             options.src + '/css/less/ui.less',
             options.src + '/css/less/style.less',
@@ -19,23 +19,12 @@ module.exports = function(options) {
         .pipe(gulp.dest(options.tmp + '/css'));
     });
 
-    gulp.task('copy-styles', function () {
+    gulp.task('styles',['dev-styles'], function () {
 
         return gulp.src([
-            options.tmp + '/css/angular-theme.css',
-            options.tmp + '/css/layout.css',
+            options.tmp + '/css/*.css'
         ])
-            .pipe(gulp.dest(options.tmp + '/serve/styles'))
-    });
-
-    gulp.task('styles',['pre-styles', 'copy-styles'], function () {
-
-        return gulp.src([
-            options.tmp + '/css/style.css',
-            options.tmp + '/css/theme.css',
-            options.tmp + '/css/ui.css'
-        ])
-            .pipe($.concat('all.css'))
+            .pipe($.concat('app.css'))
             .pipe($.rev())
             .pipe(gulp.dest(options.tmp + '/serve/styles'))
     });

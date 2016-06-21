@@ -7,7 +7,7 @@ var $ = require('gulp-load-plugins')({
 });
 
 module.exports = function(options) {
-  gulp.task('pre-scripts', function () {
+  gulp.task('dev-scripts', function () {
 
       return gulp.src(options.src + '/js/*.js')
           .pipe(gulp.dest(options.tmp + '/js'));
@@ -19,13 +19,12 @@ module.exports = function(options) {
   });
 
 
-    gulp.task('scripts',['pre-scripts'], function () {
+    gulp.task('scripts',['dev-scripts'], function () {
 
         return gulp.src(options.tmp + '/js/*.js')
-            .pipe($.concat('all.js'))
+            .pipe($.concat('app.js'))
             .pipe($.rev())
             .pipe(gulp.dest(options.tmp + '/serve/scripts'));
-
     });
 
 };

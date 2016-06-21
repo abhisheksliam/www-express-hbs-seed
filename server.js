@@ -12,13 +12,13 @@ const config = require("./server/config");
 //Express
 let app = express();
 
-app.use(express.static(__dirname + '/app/'));
-	
 //Default location of Express Views - used in development mode
 let viewsPath = path.join(__dirname, '.tmp', 'views');
 
-//Environment setup (production/development)
+//Environment setup production / development
 if (process.env.NODE_ENV === 'production') {
+    // Override Views location to dist folder
+    viewsPath = path.join(__dirname, 'dist');
     app.use(express.static(__dirname + '/dist/'));
     app.set('views', viewsPath);
 } else {
@@ -27,7 +27,6 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(__dirname + '/app/'));
     app.set('views', viewsPath);
 }
-
 // 3.Support for  json encoded bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
