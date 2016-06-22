@@ -10,9 +10,12 @@ module.exports = function(options) {
   gulp.task('dev-scripts', function () {
 
       return gulp.src(options.src + '/js/*.js')
-          .pipe(gulp.dest(options.tmp + '/js'));
-
-    //return gulp.src(options.src + '/**/*.js')
+          .pipe(gulp.dest(options.tmp + '/js'))
+	      .pipe($.concat('app.js'))
+          .pipe(gulp.dest(options.tmp + '/serve/scripts'));
+    
+	  
+	//return gulp.src(options.src + '/**/*.js')
     //      .pipe(jshint())
     //.pipe(jshint.reporter('jshint-stylish'))
 
@@ -21,10 +24,10 @@ module.exports = function(options) {
 
     gulp.task('scripts',['dev-scripts'], function () {
 
-        return gulp.src(options.tmp + '/js/*.js')
-            .pipe($.concat('app.js'))
+        return gulp.src(options.tmp + '/serve/**/*.*')
             .pipe($.rev())
-            .pipe(gulp.dest(options.tmp + '/serve/scripts'));
+            .pipe(gulp.dest(options.dist + '/'));
+           
     });
 
 };

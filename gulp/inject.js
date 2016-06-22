@@ -40,7 +40,7 @@ module.exports = function(options) {
       var injectScripts = gulp.src(options.paths.js_dist,
           {read: false});
 
-      var injectOptions = {relative: false,ignorePath: ['app','.tmp','serve'], addRootSlash: false};
+      var injectOptions = {relative: false,ignorePath: ['app','.tmp','serve', 'dist'], addRootSlash: false};
 
       return gulp.src(options.server + '/views/**/*.hbs')
           .pipe($.inject(injectStyles, injectOptions))

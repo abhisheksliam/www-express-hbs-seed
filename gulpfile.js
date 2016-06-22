@@ -41,13 +41,13 @@ var options = {
             './app/modules/**/*module.js',
             './app/modules/**/*controller.js',
             './app/modules/**/*.js',
-            './.tmp/serve/**/*.js',
+            './dist/scripts/*.js',
             '!./.tmp/js',
             '!./www/js/app.js',
             '!./www/lib/**'
         ],
         css_dist: [
-            './.tmp/serve/**/*.css',
+            './dist/styles/*.css',
             '!./.tmp/css',
             '!./www/css/ionic.app*.css',
             '!./www/lib/**'
@@ -83,7 +83,7 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
     require('./gulp/' + file)(options);
 });
 
-gulp.task('default',function () {
+gulp.task('default', ['clean'], function () {
     gulp.start('build');
 });
 
