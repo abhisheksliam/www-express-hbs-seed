@@ -17,7 +17,8 @@
 
 		$scope.$on('$viewContentLoaded', function () {
 			pluginsService.init();
-			applicationService.customScroll();
+			// ChildNode Undefined error is coming from this, so commented
+			//	applicationService.customScroll();
 			applicationService.handlePanelAction();
 			$('.nav.nav-sidebar .nav-active').removeClass('nav-active active');
 			$('.nav.nav-sidebar .active:not(.nav-parent)').closest('.nav-parent').addClass('nav-active active');
