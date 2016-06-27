@@ -22,5 +22,10 @@
         templateUrl: 'modules/scriptor/newTask.html',
         controller: 'NewScriptController'
       })
+      .state('displayscript', {
+          url: '/displayscript',
+          templateUrl: 'modules/scriptor/displayScript.html',
+          controller: 'NewScriptController'
+      })
   }
 })();
