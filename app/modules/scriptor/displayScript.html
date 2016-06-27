@@ -1,0 +1,175 @@
+<div>
+
+	<div class="header">
+		<h2><strong>New Script</strong></h2>
+	</div>
+
+	<!--top band-->
+	<div class="panel">
+		<div class="panel-header panel-controls">
+			<h3>{{scriptor.taskId}} > {{scriptor.scenarioType}}</h3>
+		</div>
+		<div class="panel-content" style="display: none;">
+			<!--<p>Panel content.</p>-->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Application</label>
+								<div class="col-sm-6">
+									<select class="col-sm-3 form-control">
+										<option value="ppt">PPT</option>
+										<option value="excel">Excel</option>
+										<option value="word">Word</option>
+										<option value="access">Access</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">Scenario</label>
+								<div class="col-sm-6">
+									<select class="col-sm-3 form-control">
+										<option value="T1">T1</option>
+										<option value="A1">A1</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4">
+                                <span class="input input--hoshi">
+                                <input class="input__field input__field--hoshi" type="text" id="input-4" />
+                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
+									<span class="input__label-content input__label-content--hoshi">Task Id</span>
+								</label>
+                                </span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-9 col-sm-offset-3">
+							<div class="pull-right">
+								<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+								<button type="submit" class="btn btn-embossed btn-primary m-r-20">Update / Save</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end top band-->
+
+	<!--item editor-->
+	<div class="row">
+		<div class="col-md-9">
+					<div class="panel">
+					<div class="panel-content">
+					<div class="dd nestable">
+						<ol class="dd-list">
+							<li class="dd-item" data-id="2">
+								<div class="dd3-content">Item 1</div>
+								<ol class="dd-list">
+									<li class="dd-item" data-id="4">
+										<div class="dd3-content">M1</div>
+										<ol class="dd-list">
+											<li class="dd-item" data-id="5">
+												<!--panel start-->
+
+												<div class="panel">
+													<div class="panel-header panel-controls">
+														<h3>Trigger 1 : selectElement()</h3>
+													</div>
+													<div class="panel-content" style="display: none;">
+														<!--<p>Panel content.</p>-->
+														<div class="row">
+															<div class="col-lg-12">
+																<div class="row">
+																	<div class="col-md-12">
+															<span class="input input--hoshi">
+															<input class="input__field input__field--hoshi" type="text" id="input-41" />
+															<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
+																<span class="input__label-content input__label-content--hoshi">element name</span>
+															</label>
+															</span>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-12">
+															<span class="input input--hoshi">
+															<input class="input__field input__field--hoshi" type="text" id="input-41" />
+															<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
+																<span class="input__label-content input__label-content--hoshi">xpos</span>
+															</label>
+															</span>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-md-12">
+															<span class="input input--hoshi">
+															<input class="input__field input__field--hoshi" type="text" id="input-41" />
+															<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
+																<span class="input__label-content input__label-content--hoshi">ypos</span>
+															</label>
+															</span>
+																	</div>
+																</div>
+																<div class="row">
+																	<div class="col-sm-9 col-sm-offset-3">
+																		<div class="pull-right">
+																			<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+																			<button type="submit" class="btn btn-embossed btn-primary m-r-20">Update / Save</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<!--panel end-->
+
+											</li>
+										</ol>
+									</li>
+								</ol>
+							</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel">
+				<div class="panel-content">
+					<form action="search-result.html" method="post" class="searchform" id="search-results">
+						<input type="text" class="form-control" name="keyword" placeholder="Search...">
+					</form>
+						<h3><strong>Action list</strong></h3>
+						<div class="dd nestable">
+							<ol class="dd-list nestable-dark">
+								<li class="dd-item" data-id="9">
+									<div class="dd-handle">Item 9</div>
+								</li>
+								<li class="dd-item" data-id="10">
+									<div class="dd-handle">Item 10</div>
+								</li>
+							</ol>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end item editor-->
+</div>
+
+
+
+
+
+
+
