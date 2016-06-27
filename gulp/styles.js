@@ -18,6 +18,8 @@ module.exports = function(options) {
         }))
         .pipe(gulp.dest(options.tmp + '/css'))
 		.pipe($.concat('app.css'))
+
+
         .pipe(gulp.dest(options.tmp + '/serve/styles'));
     });
 

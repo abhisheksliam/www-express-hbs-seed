@@ -27,6 +27,5 @@ module.exports = function(options) {
     	.pipe(gulp.dest(options.tmp + '/css/icons'))
 		.pipe(gulp.dest(options.dist + '/styles/icons'));
   });
-	
 
 };

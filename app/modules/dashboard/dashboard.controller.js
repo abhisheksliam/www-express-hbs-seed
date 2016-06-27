@@ -20,11 +20,7 @@
         dashboardService.setHeights()
         handleTodoList();
       });
-
       $scope.activeTab = true;
-	  
-	  	  
   }
-
 })();
 
