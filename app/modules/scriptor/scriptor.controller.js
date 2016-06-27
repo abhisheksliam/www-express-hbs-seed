@@ -30,16 +30,13 @@
 			}
 
 	  });
-  
-  }
-
-
-    $scope.applications = [
-      "Word",
-      "Access",
-      "PPT",
-      "Excel"
-    ];
+	  
+	  $scope.applications = [
+		  "Word",
+		  "Access",
+		  "PPT",
+		  "Excel"
+      ];
 
     $scope.scenarios = [
       "T1",
@@ -56,6 +53,6 @@
 
       $state.go('displayscript');
     };
-
+  
    }
 })();
