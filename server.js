@@ -59,8 +59,6 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 // Define a prefix for all routes
-// Can define something unique like MyRestAPI
-// We'll just leave it so all routes are relative to '/'
 app.use('/', routes.webrouter);
 app.use('/api', routes.apirouter);
 

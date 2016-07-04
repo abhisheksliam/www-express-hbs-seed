@@ -18,11 +18,8 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Application</label>
 								<div class="col-sm-6">
-									<select class="col-sm-3 form-control">
-										<option value="ppt">PPT</option>
-										<option value="excel">Excel</option>
-										<option value="word">Word</option>
-										<option value="access">Access</option>
+									<select class="col-sm-3 form-control" ng-model="applicationName">
+										<option ng-repeat="application in applications" value="{{application}}">{{application}}</option>
 									</select>
 								</div>
 							</div>
@@ -31,9 +28,8 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Scenario</label>
 								<div class="col-sm-6">
-									<select class="col-sm-3 form-control">
-										<option value="T1">T1</option>
-										<option value="A1">A1</option>
+									<select class="col-sm-3 form-control" ng-model="scenarioType">
+										<option ng-repeat="scenario in scenarios" value="{{scenario}}">{{scenario}}</option>
 									</select>
 								</div>
 							</div>
@@ -43,7 +39,7 @@
 					<div class="row">
 						<div class="col-md-4">
                                 <span class="input input--hoshi">
-                                <input class="input__field input__field--hoshi" type="text" id="input-4" />
+                                <input class="input__field input__field--hoshi" type="text" id="input-4" ng-model="taskId" />
                                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
 									<span class="input__label-content input__label-content--hoshi">Task Id</span>
 								</label>
@@ -54,7 +50,7 @@
 						<div class="col-sm-9 col-sm-offset-3">
 							<div class="pull-right">
 								<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
-								<button type="submit" class="btn btn-embossed btn-primary m-r-20">Update / Save</button>
+								<button type="submit" class="btn btn-embossed btn-primary m-r-20" ng-click="">Update / Save</button>
 							</div>
 						</div>
 					</div>
@@ -81,54 +77,9 @@
 												<!--panel start-->
 
 												<div class="panel">
-													<div class="panel-header panel-controls">
-														<h3>Trigger 1 : selectElement()</h3>
-													</div>
-													<div class="panel-content" style="display: none;">
-														<!--<p>Panel content.</p>-->
-														<div class="row">
-															<div class="col-lg-12">
-																<div class="row">
-																	<div class="col-md-12">
-															<span class="input input--hoshi">
-															<input class="input__field input__field--hoshi" type="text" id="input-41" />
-															<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
-																<span class="input__label-content input__label-content--hoshi">element name</span>
-															</label>
-															</span>
-																	</div>
-																</div>
-																<div class="row">
-																	<div class="col-md-12">
-															<span class="input input--hoshi">
-															<input class="input__field input__field--hoshi" type="text" id="input-41" />
-															<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
-																<span class="input__label-content input__label-content--hoshi">xpos</span>
-															</label>
-															</span>
-																	</div>
-																</div>
-																<div class="row">
-																	<div class="col-md-12">
-															<span class="input input--hoshi">
-															<input class="input__field input__field--hoshi" type="text" id="input-41" />
-															<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
-																<span class="input__label-content input__label-content--hoshi">ypos</span>
-															</label>
-															</span>
-																	</div>
-																</div>
-																<div class="row">
-																	<div class="col-sm-9 col-sm-offset-3">
-																		<div class="pull-right">
-																			<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
-																			<button type="submit" class="btn btn-embossed btn-primary m-r-20">Update / Save</button>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
+
+													<!--todo: triggers && trigger editor-->
+
 												</div>
 
 												<!--panel end-->
@@ -143,6 +94,8 @@
 				</div>
 			</div>
 		</div>
+
+		<!--action list and search box-->
 		<div class="col-md-3">
 			<div class="panel">
 				<div class="panel-content">
