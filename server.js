@@ -8,12 +8,25 @@ const path = require('path');
 
 //config
 const config = require("./server/config");
+var routes   = require('./server/routes/index');
+
+/* Database connect
+ * */
+var mongoose = require("mongoose");
+
+try{
+    mongoose.connect(config.mongoconnect);
+}catch(er){
+    console.log("Mongo error" + er);
+}
 
 //Express
 let app = express();
 
 //Default location of Express Views - used in development mode
 let viewsPath = path.join(__dirname, '.tmp', 'views');
+
+process.env.NODE_ENV='development';
 
 //Environment setup production / development
 if (process.env.NODE_ENV === 'production') {
@@ -45,7 +58,11 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
-require('./server/routes/app.server.routes')(app);
+// Define a prefix for all routes
+// Can define something unique like MyRestAPI
+// We'll just leave it so all routes are relative to '/'
+app.use('/', routes.webrouter);
+app.use('/api', routes.apirouter);
 
 //-----------Start listening -------------------
 app.listen(port, function() {
