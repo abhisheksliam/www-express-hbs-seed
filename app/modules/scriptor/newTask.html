@@ -5,8 +5,13 @@
 	</div>
 
 	<div class="panel">
-		<div class="panel-header panel-controls">
+<!--		<div class="panel-header panel-controls">
 			<h3>Portlet with controls</h3>
+		</div>-->
+
+		<div class="panel-header">
+			<span class="col-sm-6"><h3>Task Details</h3></a></span>
+			<span class="col-sm-6"><a href="#" class="panel-toggle pull-right"><i class="fa fa-edit"></i></a></span>
 		</div>
 		<div class="panel-content">
 			<!--<p>Panel content.</p>-->
@@ -17,8 +22,9 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Application</label>
 								<div class="col-sm-6">
-									<select class="col-sm-3 form-control" ng-model="applicationName">
-										<option ng-repeat="application in applications" value="{{application}}">{{application}}</option>
+									<select class="col-sm-3 form-control"
+											ng-model="applicationName"
+											ng-options="application for application in applications">
 									</select>
 								</div>
 							</div>
@@ -27,8 +33,9 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Scenario</label>
 								<div class="col-sm-6">
-									<select class="col-sm-3 form-control" ng-model="scenarioType">
-										<option ng-repeat="scenario in scenarios" value="{{scenario}}">{{scenario}}</option>
+									<select class="col-sm-3 form-control"
+											ng-model="scenarioType"
+											ng-options="scenario for scenario in scenarios">
 									</select>
 								</div>
 							</div>
@@ -38,7 +45,7 @@
 					<div class="row">
 						<div class="col-md-4">
                                 <span class="input input--hoshi">
-                                <input class="input__field input__field--hoshi" type="text" id="input-4" ng-model="taskId" />
+                                <input class="input__field input__field--hoshi" type="text" id="input-4" ng-init="taskId" ng-model="taskId" minlength="4" maxlength="16" required=""/>
                                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
 									<span class="input__label-content input__label-content--hoshi">Task Id</span>
 								</label>

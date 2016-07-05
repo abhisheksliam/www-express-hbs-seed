@@ -38,10 +38,49 @@
 		  "Excel"
       ];
 
-    $scope.scenarios = [
-      "T1",
-      "A1"
-    ];
+	  $scope.scenarios = [
+		  "T1",
+		  "A1"
+	  ];
+
+	  $scope.triggers = [
+		  {
+			  name:"clickAndWait(String elementName)",
+			  id:"clickAndWait(String elementName)"
+		  },
+		  {
+			  name:"selectCell(String cellName)",
+			  id:"selectCell(String cellName)"
+		  },
+		  {
+			  name:"rightClickOnCell(String cellName)",
+			  id:"rightClickOnCell(String cellName)"
+		  },
+		  {
+			  name:"doubleClick(String elementName)",
+			  id:"doubleClick(String elementName)"
+		  },
+		  {
+			  name:"clickAtCurrentPos()",
+			  id:"clickAtCurrentPos()"
+		  },
+		  {
+			  name:"clickAndHoldCurrentPos()",
+			  id:"clickAndHoldCurrentPos()"
+		  },
+		  {
+			  name:"clickMultipleTimes(String elementName , String numOfTimes)",
+			  id:"clickMultipleTimes(String elementName , String numOfTimes)"
+		  },
+		  {
+			  name:"doubleClickAndWait()",
+			  id:"doubleClickAndWait()"
+		  },
+		  {
+			  name:"rightClickCurrentPos()",
+			  id:"rightClickCurrentPos()"
+		  }
+	  ];
 
     $scope.scenarioType = $scope.scenarios[0];
     $scope.applicationName = $scope.applications[0];

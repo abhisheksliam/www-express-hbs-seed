@@ -6,8 +6,9 @@
 
 	<!--top band-->
 	<div class="panel">
-		<div class="panel-header panel-controls">
-			<h3>{{scriptor.taskId}} > {{scriptor.scenarioType}}</h3>
+		<div class="panel-header">
+			<span class="col-sm-6"><h3>{{scriptor.taskId}} > {{scriptor.scenarioType}}</h3></span>
+			<span class="col-sm-6"><a href="#" class="panel-toggle pull-right"><i class="fa fa-edit"></i></a></span>
 		</div>
 		<div class="panel-content" style="display: none;">
 			<!--<p>Panel content.</p>-->
@@ -100,18 +101,15 @@
 			<div class="panel">
 				<div class="panel-content">
 					<form action="search-result.html" method="post" class="searchform" id="search-results">
-						<input type="text" class="form-control" name="keyword" placeholder="Search...">
+						<input ng-model="searchActionText" type="text" class="form-control" name="keyword" placeholder="Search...">
 					</form>
 						<h3><strong>Action list</strong></h3>
 						<div class="dd nestable">
-							<ol class="dd-list nestable-dark">
-								<li class="dd-item" data-id="9">
-									<div class="dd-handle">Item 9</div>
+							<ul class="dd-list">
+								<li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
+									<div class="dd-handle">{{trigger.name}}</div>
 								</li>
-								<li class="dd-item" data-id="10">
-									<div class="dd-handle">Item 10</div>
-								</li>
-							</ol>
+							</ul>
 						</div>
 				</div>
 			</div>
