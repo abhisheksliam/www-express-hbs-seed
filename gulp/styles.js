@@ -11,7 +11,8 @@ module.exports = function(options) {
             options.src + '/css/less/ui.less',
             options.src + '/css/less/style.less',
             options.src + '/css/less/layout.less',
-            options.src + '/css/less/angular-theme.less'
+            options.src + '/css/less/angular-theme.less',
+            options.src + '/css/less/custom.less'
         ])
         .pipe(less({
             paths: [ path.join(__dirname, 'less', 'includes') ]
