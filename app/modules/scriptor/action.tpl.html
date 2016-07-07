@@ -1,0 +1,20 @@
+<div class="panel">
+    <div class="panel-header panel-controls">
+        <h3>Trigger {{index}}: {{action.name}}</h3>
+    </div>
+    <div class="panel-content">
+        <div ng-repeat="attribute in action.values" >
+            <span class="input input--hoshi">
+                <input class="input__field input__field--hoshi" type="text" id="input-41" value="{{attribute.actVal}}"/>
+                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
+                    <span class="input__label-content input__label-content--hoshi">{{attribute.actKey}}</span>
+                </label>
+            </span>
+        </div>
+        <div class="" style="text-align: right; background-color: #dddddd">
+            <button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
+            <button type="submit" class="btn btn-embossed btn-primary m-r-20" ng-click="saveTrigger()">Update / Save</button>
+        </div>
+    </div>
+</div>
+

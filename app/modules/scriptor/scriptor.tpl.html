@@ -6,7 +6,7 @@
                 <div class="dd3-content">M {{$index+1}}</div>
                 <ol class="dd-list" ng-repeat="action in method.actions">
                     <li class="dd-item" data-id="{{10000*($parent.$parent.$index+1)+$index+1}}">
-                        <div class="dd3-content">{{action.name}}</div>
+                        <div class="dd3-content" action-item action="action" index="$index+1"></div>
                     </li>
                 </ol>
             </li>

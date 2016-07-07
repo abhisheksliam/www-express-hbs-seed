@@ -77,7 +77,7 @@
 			<div class="panel col-md-9">
 				<div class="panel-content">
 						
-					<div class="dd nestable" runner-nested-list data-items="taskJson">
+					<div class="dd nestable" runner-nested-list data-items="taskJson" id="authoring-nested-list">
 					</div>
 
 				</div>
@@ -90,7 +90,7 @@
 						<input ng-model="searchActionText" type="text" class="form-control" name="keyword" placeholder="Search...">
 					</form>
 						<h3><strong>Action list</strong></h3>
-						<div class="dd nestable">
+						<div class="dd nestable" id="actionList">
 							<ul class="dd-list">
 								<li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
 									<div class="dd-handle">{{trigger.name}}</div>
