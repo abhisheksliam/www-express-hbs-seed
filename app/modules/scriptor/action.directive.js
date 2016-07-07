@@ -4,19 +4,17 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('methodItem', ['$timeout', function($timeout) {
+    .directive('actionItem', ['$timeout', function($timeout) {
 
         return {
             restrict: 'A',
-            templateUrl: 'modules/scriptor/method.tpl.html',
+            templateUrl: 'modules/scriptor/action.tpl.html',
             scope: {
-                'item': '='
+                'action': '=',
+                'index' : '='
             },
             link: function (scope, element, attributes) {
-                $timeout(function(){
-                    element.nestable();
-                    element.nestable('collapseAll');
-                });
+
             }
         }
     }]);
