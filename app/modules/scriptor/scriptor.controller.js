@@ -1,13 +1,16 @@
-(function() {
-  'use strict';
+/**
+ * Created by Shipra
+ */
+'use strict';
 
-  angular.module('automationApp.scriptor')
-    .controller('NewScriptController', NewScriptController);
-
-
-  NewScriptController.$inject = ['$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService'];
-  function NewScriptController($scope, pluginsService, applicationService, $location, $state, scriptorService) {
-	  $scope.scriptor = scriptorService;
+angular.module('automationApp.scriptor')
+.controller('NewScriptController', ['$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
+									function($scope, pluginsService, applicationService, $location, $state, scriptorService) {
+	
+   $scope.scriptor = scriptorService.uiElements;
+	  $scope.applications =  scriptorService.getApplications();
+	  $scope.scenarios =  scriptorService.getScenarios();
+	  $scope.taskJson =  scriptorService.getTaskJson();
 	  
 	  /* Template Code to be kept in first route to be loaded */
 	  $scope.$on('$viewContentLoaded', function () {
@@ -31,28 +34,15 @@
 
 	  });
 	  
-	  $scope.applications = [
-		  "Word",
-		  "Access",
-		  "PPT",
-		  "Excel"
-      ];
+	  $scope.scenarioType = $scope.scenarios[0];
+	  $scope.applicationName = $scope.applications[0];
 
-    $scope.scenarios = [
-      "T1",
-      "A1"
-    ];
-
-    $scope.scenarioType = $scope.scenarios[0];
-    $scope.applicationName = $scope.applications[0];
-
-    $scope.displayScript = function(){
+    $scope.displayScript = function() {
       $scope.scriptor.scenarioType = $scope.scenarioType;
       $scope.scriptor.applicationName = $scope.applicationName;
       $scope.scriptor.taskId = $scope.taskId;
 
       $state.go('displayscript');
     };
-  
-   }
-})();
+
+}]);

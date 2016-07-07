@@ -72,9 +72,9 @@
 
 		/**** Nestable List ****/
 		function nestable() {
-			if ($('.nestable').length && $.fn.nestable) {
+			/*if ($('.nestable').length && $.fn.nestable) {
 				$(".nestable").nestable();
-			}
+			}*/
 		}
 
 		/**** Sortable Table ****/
