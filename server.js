@@ -14,12 +14,6 @@ var routes   = require('./server/routes/index');
  * */
 var mongoose = require("mongoose");
 
-try{
-   // mongoose.connect(config.mongoconnect);
-}catch(er){
-    console.log("Mongo error" + er);
-}
-
 //Express
 let app = express();
 
@@ -62,8 +56,22 @@ app.set('view engine', '.hbs');
 app.use('/', routes.webrouter);
 app.use('/api', routes.apirouter);
 
+
+//-----------Connecting Mongo ------------------- // todo: synchronize mongo connection with app listen
+try{
+    mongoose.connect(config.mongoconnect);
+    var conn = mongoose.connection;
+    conn.on('error', console.error.bind(console, 'Mongo connection error:'));
+
+    conn.once('open', function() {
+        console.log('Mongo Connection Successful');
+    });
+}catch(er){
+    console.log("Mongo error" + er);
+}
+
 //-----------Start listening -------------------
 app.listen(port, function() {
-	console.log('Your Automation App is running on http://localhost:' + port);
-	console.log('Environment is set to ' + (process.env.NODE_ENV || 'development'));
+    console.log('Your Automation App is running on http://localhost:' + port);
+    console.log('Environment is set to ' + (process.env.NODE_ENV || 'development'));
 });
