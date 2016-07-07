@@ -32,10 +32,10 @@
 	  });
 	  
 	  $scope.applications = [
+		  "Excel",
 		  "Word",
 		  "Access",
-		  "PPT",
-		  "Excel"
+		  "PPT"
       ];
 
 	  $scope.scenarios = [
