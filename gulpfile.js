@@ -30,11 +30,13 @@ var options = {
             '!./.tmp/**/layout.css',
             '!./.tmp/serve/**/*.css',
             '!./www/css/ionic.app*.css',
-            '!./www/lib/**'
+            '!./www/lib/**',
+            '!./.tmp/**/custom.css'
         ],
         css_dev_lazy: [
             './.tmp/**/angular-theme.css',
-            './.tmp/**/layout.css'
+            './.tmp/**/layout.css',
+            './.tmp/**/custom.css'
         ],
         js_dist: [
             './app/index.js',

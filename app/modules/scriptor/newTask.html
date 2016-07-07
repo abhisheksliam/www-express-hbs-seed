@@ -5,11 +5,17 @@
 	</div>
 
 	<div class="panel">
-		<div class="panel-header panel-controls">
+<!--		<div class="panel-header panel-controls">
 			<h3>Portlet with controls</h3>
+		</div>-->
+
+		<div class="panel-header">
+			<span class="col-sm-6"><h3>Task Details</h3></a></span>
+			<span id="custom" class="col-sm-6"><a href="#" class="panel-toggle pull-right edit-icon-topband"><i class="fa fa-edit"></i></a></span>
 		</div>
 		<div class="panel-content">
 			<!--<p>Panel content.</p>-->
+			<form name="userForm">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="row">
@@ -17,8 +23,9 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Application</label>
 								<div class="col-sm-6">
-									<select class="col-sm-3 form-control" ng-model="applicationName">
-										<option ng-repeat="application in applications" value="{{application}}">{{application}}</option>
+									<select class="col-sm-3 form-control"
+											ng-model="applicationName"
+											ng-options="application for application in applications" required>
 									</select>
 								</div>
 							</div>
@@ -27,8 +34,9 @@
 							<div class="form-group">
 								<label class="col-sm-3 control-label">Scenario</label>
 								<div class="col-sm-6">
-									<select class="col-sm-3 form-control" ng-model="scenarioType">
-										<option ng-repeat="scenario in scenarios" value="{{scenario}}">{{scenario}}</option>
+									<select class="col-sm-3 form-control"
+											ng-model="scenarioType"
+											ng-options="scenario for scenario in scenarios" required>
 									</select>
 								</div>
 							</div>
@@ -38,23 +46,30 @@
 					<div class="row">
 						<div class="col-md-4">
                                 <span class="input input--hoshi">
-                                <input class="input__field input__field--hoshi" type="text" id="input-4" ng-model="taskId" />
-                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-4">
+                                <input class="input__field input__field--hoshi" type="text" id="taskid" ng-init="taskId" ng-model="taskId" ng-minlength="4" ng-maxlength="24" required>
+                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
 									<span class="input__label-content input__label-content--hoshi">Task Id</span>
 								</label>
                                 </span>
 						</div>
 					</div>
+					<!-- show an error if username is too short -->
+					<p class="form-error" ng-show="userForm.$error.minlength">** Task Id is too short.</p>
+
+					<!-- show an error if username is too long -->
+					<p ng-show="userForm.$error.maxlength">** Task Id is too long.</p>
+
 					<div class="row">
 						<div class="col-sm-9 col-sm-offset-3">
 							<div class="pull-right">
 								<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
-								<button type="submit" class="btn btn-embossed btn-primary m-r-20" ng-click="displayScript()">Update / Save</button>
+								<button type="submit" class="btn btn-embossed btn-primary m-r-20" ng-click="userForm.$valid && displayScript()">Update / Save</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</form>
 		</div>
 	</div>
 

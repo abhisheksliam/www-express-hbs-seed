@@ -1,6 +1,3 @@
-/**
- * Created by Shipra
- */
 'use strict';
 
 angular.module('automationApp.scriptor')
@@ -34,14 +31,80 @@ angular.module('automationApp.scriptor')
 
 	  });
 	  
-	  $scope.scenarioType = $scope.scenarios[0];
-	  $scope.applicationName = $scope.applications[0];
+	  $scope.applications = [
+		  "Excel",
+		  "Word",
+		  "Access",
+		  "PPT"
+      ];
 
-    $scope.displayScript = function() {
-      $scope.scriptor.scenarioType = $scope.scenarioType;
-      $scope.scriptor.applicationName = $scope.applicationName;
-      $scope.scriptor.taskId = $scope.taskId;
+	  $scope.scenarios = [
+		  "T1",
+		  "A1"
+	  ];
 
+	  $scope.triggers = [
+		  {
+			  name:"clickAndWait(String elementName)",
+			  id:"clickAndWait(String elementName)"
+		  },
+		  {
+			  name:"selectCell(String cellName)",
+			  id:"selectCell(String cellName)"
+		  },
+		  {
+			  name:"rightClickOnCell(String cellName)",
+			  id:"rightClickOnCell(String cellName)"
+		  },
+		  {
+			  name:"doubleClick(String elementName)",
+			  id:"doubleClick(String elementName)"
+		  },
+		  {
+			  name:"clickAtCurrentPos()",
+			  id:"clickAtCurrentPos()"
+		  },
+		  {
+			  name:"clickAndHoldCurrentPos()",
+			  id:"clickAndHoldCurrentPos()"
+		  },
+		  {
+			  name:"clickMultipleTimes(String elementName , String numOfTimes)",
+			  id:"clickMultipleTimes(String elementName , String numOfTimes)"
+		  },
+		  {
+			  name:"doubleClickAndWait()",
+			  id:"doubleClickAndWait()"
+		  },
+		  {
+			  name:"rightClickCurrentPos()",
+			  id:"rightClickCurrentPos()"
+		  }
+	  ];
+
+	  if($scope.scriptor.taskId){
+		  $scope.taskId = $scope.scriptor.taskId;
+	  }
+	  if($scope.scriptor.scenarioType){
+		  $scope.scenarioType = $scope.scriptor.scenarioType;
+	  }else{
+		  $scope.scenarioType = $scope.scenarios[0];
+	  };
+
+	  if($scope.scriptor.applicationName){
+		  $scope.applicationName = $scope.scriptor.applicationName;
+	  }else{
+		  $scope.applicationName = $scope.applications[0];
+	  }
+
+	  $scope.updateData = function(){
+		  $scope.scriptor.scenarioType = $scope.scenarioType;
+		  $scope.scriptor.applicationName = $scope.applicationName;
+		  $scope.scriptor.taskId = $scope.taskId;
+	  };
+
+    $scope.displayScript = function(){
+		$scope.updateData();
       $state.go('displayscript');
     };
 
