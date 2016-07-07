@@ -8,7 +8,12 @@
 	<div class="panel">
 		<div class="panel-header">
 			<span class="col-sm-6"><h3>{{scriptor.taskId}} > {{scriptor.scenarioType}}</h3></span>
-			<span id="custom" class="col-sm-6"><a href="#" class="panel-toggle pull-right edit-icon-topband"><i class="fa fa-edit"></i></a></span>
+			<span id="custom" class="col-sm-6 pull-right">
+				<span class="col-sm-9">
+				<h5 class="appname-topband-collapsed"><strong>Application > {{scriptor.applicationName}}</strong></h5>
+				</span>
+				<a href="#" class="panel-toggle edit-icon-topband pull-right"><i class="fa fa-edit"></i></a>
+			</span>
 		</div>
 		<div class="panel-content" style="display: none;">
 			<!--<p>Panel content.</p>-->
@@ -86,10 +91,11 @@
 		<div class="col-md-3">
 			<div class="panel">
 				<div class="panel-content">
+
 					<form action="search-result.html" method="post" class="searchform" id="search-results">
+						<h3><strong>Action list</strong></h3>
 						<input ng-model="searchActionText" type="text" class="form-control" name="keyword" placeholder="Search...">
 					</form>
-						<h3><strong>Action list</strong></h3>
 						<div class="dd nestable">
 							<ul class="dd-list">
 								<li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
