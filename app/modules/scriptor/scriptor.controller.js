@@ -82,14 +82,29 @@
 		  }
 	  ];
 
-    $scope.scenarioType = $scope.scenarios[0];
-    $scope.applicationName = $scope.applications[0];
+	  if($scope.scriptor.taskId){
+		  $scope.taskId = $scope.scriptor.taskId;
+	  }
+	  if($scope.scriptor.scenarioType){
+		  $scope.scenarioType = $scope.scriptor.scenarioType;
+	  }else{
+		  $scope.scenarioType = $scope.scenarios[0];
+	  };
+
+	  if($scope.scriptor.applicationName){
+		  $scope.applicationName = $scope.scriptor.applicationName;
+	  }else{
+		  $scope.applicationName = $scope.applications[0];
+	  }
+
+	  $scope.updateData = function(){
+		  $scope.scriptor.scenarioType = $scope.scenarioType;
+		  $scope.scriptor.applicationName = $scope.applicationName;
+		  $scope.scriptor.taskId = $scope.taskId;
+	  };
 
     $scope.displayScript = function(){
-      $scope.scriptor.scenarioType = $scope.scenarioType;
-      $scope.scriptor.applicationName = $scope.applicationName;
-      $scope.scriptor.taskId = $scope.taskId;
-
+		$scope.updateData();
       $state.go('displayscript');
     };
   
