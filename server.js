@@ -15,7 +15,7 @@ var routes   = require('./server/routes/index');
 var mongoose = require("mongoose");
 
 try{
-    mongoose.connect(config.mongoconnect);
+   // mongoose.connect(config.mongoconnect);
 }catch(er){
     console.log("Mongo error" + er);
 }
