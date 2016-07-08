@@ -17,6 +17,23 @@ angular.module('automationApp.scriptor')
                 element.nestable();
                 element.nestable('collapseAll');
 
+                element.sortable({
+                    placeholder: "placeholder-ui",
+                    handle: ".item-level-0"
+                });
+
+                element.find( ".li-level-0" ).sortable({
+                    items: "ol",
+                    placeholder: "placeholder-ui",
+                    handle: ".item-level-1"
+                });
+
+                element.find( ".li-level-1" ).sortable({
+                    items: "ol",
+                    placeholder: "placeholder-ui",
+                    handle: ".item-level-2"
+                });
+
                 element.find(".top-level.dd3-content").click(function (event) {
                     //event.preventDefault();
                     //element.find('.bg-primary').removeClass('bg-primary');
