@@ -16,6 +16,13 @@ angular.module('automationApp.scriptor')
             $timeout(function(){
                 element.nestable();
                 element.nestable('collapseAll');
+
+                element.find(".top-level.dd3-content").click(function (event) {
+                    //event.preventDefault();
+                    //element.find('.bg-primary').removeClass('bg-primary');
+                    //$(this).addClass('bg-primary');
+                });
+
             });
         }
     }

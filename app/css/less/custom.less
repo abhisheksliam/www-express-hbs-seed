@@ -17,10 +17,18 @@
     -webkit-border-radius : 0;
     border-radius: 0;
     -moz-border-radius: 0;
+
+    h4 {
+      font-weight: 500;
+    }
   }
 
   .border-left {
     border-left: 1px solid @tm-primary !important;
+  }
+
+  button {
+    margin-top: 14px;
   }
 
   .dd-list .dd-list {
@@ -28,20 +36,32 @@
     button {
       margin-left: 10px;
     }
+
+    .dd3-content {
+      border: none;
+      border-bottom: 1px dashed @main-color-light;
+
+    }
   }
 
   .panel {
     margin-bottom: 0;
+
+
+    .panel-header {
+      height: 30px;
+      padding: 0px 15px 0px 18px;
+    }
+
     .panel-content {
       padding: 0;
+      button {
+        margin-top: 8px;
+        margin-bottom: 8px;
+      }
     }
   }
 
-
-
-  button {
-    margin-top: 14px;
-  }
 
   .text-center {
     text-align: center;
@@ -71,6 +91,10 @@
     margin-top: 0;
     padding: 0.1em .15em 1.15em .15em;
     font-weight: normal;
+  }
+
+  .border-dotted {
+    border: 1px dotted @main-color-light;
   }
 
 }
