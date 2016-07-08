@@ -22,8 +22,9 @@ apirouter.get('/', function(req, res) {
                     " **Replace http://localhost:8080 with server url"
                ]
     });*/
+    var rand = Math.random() * (9999999 - 9999) + 9999;
     res.writeHead(301,
-        {Location: 'https://apiui.herokuapp.com?raw.githubusercontent.com/sim5runner/runner-v2/master/server/routes/api/docs/swagger.json'}
+        {Location: 'https://apiui.herokuapp.com?https://raw.githubusercontent.com/sim5runner/runner-v2/master/server/routes/api/docs/swagger.json&' + rand }
     );
     res.end();
 });
