@@ -12,7 +12,7 @@ apirouter.use(function timeLog(req, res, next) {
 
 // Welcome message for a GET at http://localhost:8080/restapi
 apirouter.get('/', function(req, res) {
-    res.json({ message: 'Welcome to runner-v2 REST API',
+/*    res.json({ message: 'Welcome to runner-v2 REST API',
                APIList: [
                     "GET all json (using a GET at http://localhost:8080/taskjson)",
                     "Create a taskjson (using POST at http://localhost:8080/taskjson)",
@@ -21,7 +21,11 @@ apirouter.get('/', function(req, res) {
                     "Delete taskjson with id (using a DELETE at http://localhost:8080/taskjson/:task_id)",
                     " **Replace http://localhost:8080 with server url"
                ]
-    });
+    });*/
+    res.writeHead(301,
+        {Location: 'https://apiui.herokuapp.com?raw.githubusercontent.com/sim5runner/runner-v2/master/server/routes/api/docs/swagger.json'}
+    );
+    res.end();
 });
 
 // GET all json (using a GET at http://localhost:8080/taskjson)
