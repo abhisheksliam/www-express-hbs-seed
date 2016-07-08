@@ -82,6 +82,14 @@ angular.module('automationApp.scriptor')
                                             {
                                                 "actKey": "elementName",
                                                 "actVal": "FileBackstage_TemplateItem1"
+                                            },
+                                            {
+                                                "actKey": "xPos",
+                                                "actVal": "210"
+                                            },
+                                            {
+                                                "actKey": "yPos",
+                                                "actVal": "320"
                                             }
                                         ],
                                         "balooActionIndex": "",

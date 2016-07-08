@@ -1,2 +1,77 @@
 @import "custom/icons";
 @import "custom/text";
+@import "variable";
+
+
+
+.nestable ol li {
+  margin-left: 0;
+}
+
+#authoring-nested-list {
+  .dd3-content {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    -webkit-border-radius : 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+  }
+
+  .border-left {
+    border-left: 1px solid @tm-primary !important;
+  }
+
+  .dd-list .dd-list {
+    padding-left: 0;
+    button {
+      margin-left: 10px;
+    }
+  }
+
+  .panel {
+    margin-bottom: 0;
+    .panel-content {
+      padding: 0;
+    }
+  }
+
+
+
+  button {
+    margin-top: 14px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .action-content {
+    h6 {
+      font-size: 13px;
+    }
+  }
+
+  .input {
+    margin: 0;
+    font-size: 12px;
+    max-width: none;
+  }
+
+  .input__label-content {
+    padding: 0.8em 0;
+  }
+
+  .input__field--hoshi {
+    margin-top: 0;
+    padding: 0.1em .15em 1.15em .15em;
+    font-weight: normal;
+  }
+
+}
+
