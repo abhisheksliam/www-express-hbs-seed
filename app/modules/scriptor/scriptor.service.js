@@ -1141,7 +1141,7 @@ angular.module('automationApp.scriptor')
         "uiElements" : {},
         "getApplications": getApplications,
         "getScenarios": getScenarios,
-        "getTriggers":  getTriggers(),
+        "getTriggers":  getTriggers,
         "getTaskJson": getTaskJson
     };
 });
