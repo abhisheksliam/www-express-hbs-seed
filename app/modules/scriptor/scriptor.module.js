@@ -22,12 +22,12 @@
     $stateProvider
       .state('new', {
         url: '/new',
-        templateUrl: 'modules/scriptor/newTask.html',
+        templateUrl: 'modules/scriptor/views/newTask.html',
         controller: 'NewScriptController'
       })
       .state('displayscript', {
           url: '/displayscript',
-          templateUrl: 'modules/scriptor/displayScript.html',
+          templateUrl: 'modules/scriptor/views/displayScript.html',
           controller: 'NewScriptController'
       })
   }
