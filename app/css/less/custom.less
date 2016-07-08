@@ -1,4 +1,6 @@
 @import "custom/icons";
+@import "variable";
+
 
 
 .nestable ol li {
@@ -8,9 +10,16 @@
 #authoring-nested-list {
   .dd3-content {
     margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
     -webkit-border-radius : 0;
     border-radius: 0;
     -moz-border-radius: 0;
+  }
+
+  .border-left {
+    border-left: 1px solid @tm-primary !important;
   }
 
   .dd-list .dd-list {
@@ -20,14 +29,28 @@
     }
   }
 
+  .panel {
+    margin-bottom: 0;
+    .panel-content {
+      padding: 0;
+    }
+  }
+
+
 
   button {
     margin-top: 14px;
   }
 
-  .action-content {
-    margin-left: 24px;
+  .text-center {
+    text-align: center;
+  }
 
+  .text-right {
+    text-align: right;
+  }
+
+  .action-content {
     h6 {
       font-size: 13px;
     }
@@ -42,7 +65,6 @@
   .input__label-content {
     padding: 0.8em 0;
   }
-
 
   .input__field--hoshi {
     margin-top: 0;
