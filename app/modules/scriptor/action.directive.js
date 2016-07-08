@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('actionItem', ['$timeout', function($timeout) {
+    .directive('actionItem', function() {
 
         return {
             restrict: 'A',
@@ -17,5 +17,5 @@ angular.module('automationApp.scriptor')
 
             }
         }
-    }]);
+    });
 

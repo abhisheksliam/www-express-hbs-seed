@@ -1,9 +1,9 @@
 <ol class="dd-list" ng-repeat="item in items[0].items">
     <li class="dd-item" data-id="{{$index+1}}">
-        <div class="dd3-content">Item {{$index+1}}</div>
+        <div class="dd3-content"><h4>Item {{$index+1}}</h4></div>
         <ol class="dd-list" ng-repeat="method in item.methods">
             <li class="dd-item" data-id="{{100*($parent.$index+1)+$index+1}}">
-                <div class="dd3-content">M {{$index+1}}</div>
+                <div class="dd3-content"><h5>M {{$index+1}}</h5></div>
                 <ol class="dd-list" ng-repeat="action in method.actions">
                     <li class="dd-item" data-id="{{10000*($parent.$parent.$index+1)+$index+1}}">
                         <div class="dd3-content" action-item action="action" index="$index+1"></div>
