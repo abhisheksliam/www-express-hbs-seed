@@ -29,7 +29,7 @@ angular.module('automationApp.scriptor')
                 });
 
                 element.find( ".li-level-1" ).sortable({
-                    items: "ol",
+                    items: "ol:not(.ui-sort-disabled)",
                     placeholder: "placeholder-ui",
                     handle: ".item-level-2"
                 });
