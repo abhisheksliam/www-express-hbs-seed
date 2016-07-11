@@ -41,18 +41,13 @@
 					<div class="row">
 						<div class="col-md-4">
                                 <span class="input input--hoshi">
-                                <input class="input__field input__field--hoshi" type="text" id="taskid" ng-init="taskId" ng-model="taskId" ng-minlength="4" ng-maxlength="24" placeholder="Task Id" required>
+                                <input class="input__field input__field--hoshi" type="text" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="taskid" ng-init="taskId" ng-model="taskId" ng-minlength="4" ng-maxlength="24" placeholder="Task Id" required>
                                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
 									<span class="input__label-content input__label-content--hoshi"></span>
 								</label>
                                 </span>
 						</div>
 					</div>
-					<!-- show an error if username is too short -->
-					<p class="form-error" ng-show="userForm.$error.minlength">** Task Id is too short.</p>
-
-					<!-- show an error if username is too long -->
-					<p ng-show="userForm.$error.maxlength">** Task Id is too long.</p>
 					<!--http://stackoverflow.com/questions/13798313/set-custom-html5-required-field-validation-message-->
 
 <!--						<div class="col-sm-9 col-sm-offset-3">
