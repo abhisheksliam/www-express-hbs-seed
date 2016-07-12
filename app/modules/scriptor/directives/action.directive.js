@@ -18,7 +18,31 @@ angular.module('automationApp.scriptor')
                 // Toggle Panel Content
                 element.find(".panel-header .panel-toggle").click(function (event) {
                     event.preventDefault();
+
+                    if($(this).find('.panel-toggle.closed').length == 0) {
+                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
+                        if(activeElement.length != 0) {
+                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                        }
+                    }
+
                     $(this).toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                    event.stopPropagation();
+                });
+
+                element.find(".panel-header").click(function (event) {
+                    event.preventDefault();
+
+                    if($(this).find('.panel-toggle.closed').length == 0) {
+                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
+                        if(activeElement.length != 0) {
+                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                        }
+                    }
+
+                    $(this).find(".panel-toggle").toggleClass("closed");
+                    $(this).siblings(".panel-content").slideToggle();
+                    event.stopPropagation();
                 });
 
                 element.find(".panel-content").slideToggle();
@@ -26,7 +50,7 @@ angular.module('automationApp.scriptor')
                 element.find(".panel-header .panel-close").click(function (event) {
                     event.preventDefault();
                     var $item = $(this).parents(".dd-item:first");
-                    bootbox.confirm("Are you sure to remove this panel?", function (result) {
+                    bootbox.confirm("Are you sure to remove this trigger?", function (result) {
                         if (result === true) {
                             $item.addClass("animated bounceOutRight");
                             window.setTimeout(function () {
@@ -34,6 +58,18 @@ angular.module('automationApp.scriptor')
                             }, 300);
                         }
                     });
+                });
+
+                element.find(".panel-move").click(function (event) {
+                    event.preventDefault();
+                    //todo
+                    event.stopPropagation();
+                });
+
+                element.find(".panel-copy").click(function (event) {
+                    event.preventDefault();
+                    //todo
+                    event.stopPropagation();
                 });
             }
         }
