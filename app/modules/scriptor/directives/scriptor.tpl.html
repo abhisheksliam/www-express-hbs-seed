@@ -15,16 +15,19 @@
                         <i class="fa fa-caret-right" aria-hidden="true"></i>
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                         <h5>M{{$index+1}}  <span class="method-type-value">{{method.type}}</span>
-                            <select class="method-type-selector hide">
-                                <option>Ribbon</option>
-                                <option>Keyboard</option>
-                                <option>Toolbar</option>
-                                <option>Mouse</option>
-                                <option>Shortcut Menu</option>
-                                <option>Other</option>
-                                <option>Menu</option>
-                                <option>Right Click</option>
-                            </select>
+                            <span class="method-type-selector">
+                                  <select class="form-white" data-style="white">
+                                      <option>Ribbon</option>
+                                      <option>Keyboard</option>
+                                      <option>Toolbar</option>
+                                      <option>Mouse</option>
+                                      <option>Shortcut Menu</option>
+                                      <option>Other</option>
+                                      <option>Menu</option>
+                                      <option>Right Click</option>
+                                  </select>
+                            </span>
+
                         </h5>
                         <div class="control-btn">
                             <a href="#" class="panel-close"><i class="icon-trash"></i></a>
@@ -39,7 +42,7 @@
                                 <div class="item-level-2 dd3-content" action-item action="action" index="$index+1"></div>
                             </li>
                         </ol>
-                        <ol class="dd-list ui-sort-disabled" style="display: none">
+                        <ol class="dd-list ui-sort-disabled">
                             <li class="dd-item">
                                 <div class="dd3-content p-20 f-12">
                                     <div class="border-dotted p-5 text-center">Drop Action Here</div>

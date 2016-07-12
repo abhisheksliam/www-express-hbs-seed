@@ -53,6 +53,14 @@
     background-color: rgb(235,246,248);
   }
 
+  /*
+    .li-level-1 {
+    .data-items {
+      min-height: 150px;
+    }
+  }
+  */
+
 
   .item-level-1 {
     cursor: pointer;
@@ -60,7 +68,7 @@
     .baloo-actions-text {
       position: absolute;
       right: 0;
-      top: 30px;
+      top: 34px;
       z-index: 2;
       background-color: #fff6dd;
       font-size: 10px;
@@ -96,6 +104,19 @@
     }
 
     .fa-caret-right {
+      display: none;
+    }
+
+    h5 {
+      margin-bottom: 0;
+      margin-top: 5px;
+    }
+
+    .method-type-selector {
+      display: inline-block;
+    }
+    
+    .method-type-value {
       display: none;
     }
   }
@@ -143,8 +164,8 @@
   .baloo-action-content {
     position: absolute;
     width: 40%;
-    top: 51px;
-    padding-bottom: 51px;
+    top: 55px;
+    padding-bottom: 55px;
     right: 0;
     height: 100%;
     background-color: #fff6dd;
@@ -159,7 +180,7 @@
         padding-right: 8px;
         padding-top: 6px;
         font-size: 18px;
-
+        color: #ada89c;
       }
     }
 
@@ -207,6 +228,25 @@
 
     h5 {
       padding-left: 30px;
+    }
+
+
+
+    .method-type-selector {
+      display: none;
+      margin-left: 10px;
+      
+      .select2-container {
+        min-width: 150px;
+      }
+      .select2-chosen {
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+
+      .select2-arrow {
+        top: -4px;
+      }
     }
   }
 
