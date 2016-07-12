@@ -5,26 +5,26 @@
 	</div>
 
 	<!--top band-->
-	<div class="panel">
+	<div class="panel" id="topband">
 		<div class="panel-header">
-			<span class="col-sm-6"><h3>{{scriptor.taskId}} > {{scriptor.scenarioType}}</h3></span>
-			<span id="custom" class="col-sm-6 pull-right">
+			<span class="col-sm-6"><h3>{{scriptor.taskId}} > Scenario {{scriptor.scenarioType}}</h3></span>
+			<span id="custom" class="col-sm-6 pull-right p-r-0">
 				<span class="col-sm-9">
-				<h5 class="appname-topband-collapsed"><strong>Application > {{scriptor.applicationName}}</strong></h5>
+				<h5 class="appname-topband-collapsed pull-right"><strong>Application > {{scriptor.applicationName}}</strong></h5>
 				</span>
-				<a href="#" class="panel-toggle edit-icon-topband pull-right"><i class="fa fa-edit"></i></a>
+				<a href="#" class="panel-toggle edit-icon-topband pull-right m-l-5"><i class="fa fa-pencil"></i></a>
 			</span>
 		</div>
-		<div class="panel-content" style="display: none;">
-			<!--<p>Panel content.</p>-->
-			<form name="userForm">
+		<hr class="m-0">
+		<form name="userForm">
+			<div class="panel-content p-b-0" style="display: none;">
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<div class="form-group">
-									<label class="col-sm-3 control-label">Application</label>
-									<div class="col-sm-6">
+									<label class="col-sm-5 control-label m-t-5">Application</label>
+									<div class="col-sm-7">
 										<select class="col-sm-3 form-control"
 												ng-model="applicationName"
 												ng-options="application for application in applications" required>
@@ -32,10 +32,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-3">
 								<div class="form-group">
-									<label class="col-sm-3 control-label">Scenario</label>
-									<div class="col-sm-6">
+									<label class="col-sm-3 control-label m-t-5">Scenario</label>
+									<div class="col-sm-5">
 										<select class="col-sm-3 form-control"
 												ng-model="scenarioType"
 												ng-options="scenario for scenario in scenarios" required>
@@ -46,62 +46,56 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-4">
-                                <span class="input input--hoshi">
-                                <input class="input__field input__field--hoshi" type="text" id="taskid" ng-init="taskId" ng-model="taskId" ng-minlength="4" ng-maxlength="24" required>
+							<div class="col-md-6">
+                                <span class="input input--hoshi taskid-input">
+                                <input class="input__field input__field--hoshi" type="text" pattern="[A-Za-z0-9\.]{3,}" id="taskid" ng-init="taskId" ng-model="taskId" placeholder="Task Id" required>
                                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
-									<span class="input__label-content input__label-content--hoshi">Task Id</span>
+									<span class="input__label-content input__label-content--hoshi"></span>
 								</label>
                                 </span>
 							</div>
 						</div>
-						<!-- show an error if username is too short -->
-						<p class="form-error" ng-show="userForm.$error.minlength">** Task Id is too short.</p>
+						<!--http://stackoverflow.com/questions/13798313/set-custom-html5-required-field-validation-message-->
 
-						<!-- show an error if username is too long -->
-						<p ng-show="userForm.$error.maxlength">** Task Id is too long.</p>
-
-						<div class="row">
-							<div class="col-sm-9 col-sm-offset-3">
-								<div class="pull-right">
-									<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
-									<button type="submit" class="btn btn-embossed btn-primary m-r-20" ng-click="userForm.$valid && updateData()">Update / Save</button>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
-			</form>
-		</div>
+				<div class="row margin-minus-r-l-20">
+					<div class="bg-light text-right">
+						<button type="reset" class="cancel btn btn-embossed btn-white m-r-20 m-t-10">Cancel</button>
+						<button type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10" ng-click="userForm.$valid && updateData()">Update / Save</button>
+					</div>
+				</div>
+			</div>
+		</form>
 	</div>
 	<!--end top band-->
 
 	<!--item editor-->
 	<div class="row">
-		<div class="col-md-9">
-                <div class="dd nestable" runner-nested-list data-items="taskJson" id="authoring-nested-list">
-                </div>
+		<div class="col-md-8">
+			<div class="dd nestable" runner-nested-list data-items="taskJson" id="authoring-nested-list">
+			</div>
 		</div>
 		<!--action list and search box-->
-		<div class="col-md-3">
+		<div class="col-md-4">
 			<div class="panel">
-				<div class="panel-content">
+				<div class="panel-content" id="trigger">
 
 					<form action="search-result.html" method="post" class="searchform" id="search-results">
-						<h3><strong>Action list</strong></h3>
-						<input ng-model="searchActionText" type="text" class="form-control" name="keyword" placeholder="Search...">
+						<h3 class="m-t-0"><strong>Action list</strong></h3>
+						<input ng-model="searchActionText" type="text" class="form-control m-b-5" name="keyword" placeholder="Search...">
 					</form>
-						<div class="dd nestable">
-							<ul class="dd-list">
-								<li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
-									<div class="dd-handle">{{trigger.name}}</div>
-								</li>
-							</ul>
-						</div>
+					<div class="dd nestable">
+						<ul class="dd-list">
+							<li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
+								<div class="dd-handle"><span class="trigger-text">{{trigger.name}}</span><span class="pull-right trigger-dragger"><i class="fa fa-bars"></i></span></div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
-	<!--end item editor-->
-</div>
+		<!--end item editor-->
+	</div>
 
 </div>

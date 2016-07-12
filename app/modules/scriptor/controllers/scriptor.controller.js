@@ -58,4 +58,12 @@ angular.module('automationApp.scriptor')
 				$state.go('displayscript');
 			};
 
+			InvalidInputHelper(document.getElementById("taskid"), {
+				defaultText: "Please enter a task id!",
+				emptyText: "Please enter task id!",
+				invalidText: function (input) {
+					return 'The task id "' + input.value + '" is invalid!';
+				}
+			});
+
 		}]);
