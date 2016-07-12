@@ -43,6 +43,12 @@ angular.module('automationApp.scriptor')
                         $(this).removeClass('bg-primary');
                     }
                     else {
+                        var activeElement = element.find('.bg-primary');
+                        if(activeElement.length != 0) {
+                            activeElement.siblings(".data-items").hide();
+                            activeElement.removeClass('bg-primary');
+                        }
+
                         $(this).siblings(".data-items").show();
                         $(this).addClass('bg-primary');
                     }
@@ -56,6 +62,11 @@ angular.module('automationApp.scriptor')
                         $(this).removeClass('selected');
                     }
                     else {
+                        var activeElement = element.find('.selected');
+                        if(activeElement.length != 0) {
+                            activeElement.siblings(".data-items").hide();
+                            activeElement.removeClass('selected');
+                        }
                         $(this).siblings(".data-items").show();
                         $(this).addClass('selected');
                     }
@@ -64,7 +75,6 @@ angular.module('automationApp.scriptor')
 
                 element.find(".item-level-1 .baloo-actions-text").click(function (event) {
                     event.preventDefault();
-                    console.log("Baloo Action clicked");
 
                     var parent = $(this).parent();
                     parent.siblings(".data-items").width("60%");
@@ -88,7 +98,7 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
                     var $item = $(this).parents(".dd-item:first");
 
-                    bootbox.confirm("Are you sure to remove this panel?", function (result) {
+                    bootbox.confirm("Are you sure to delete this item?", function (result) {
                         if (result === true) {
                             $item.addClass("animated bounceOutRight");
                             window.setTimeout(function () {
@@ -103,7 +113,7 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
                     var $item = $(this).parents(".dd-item:first");
 
-                    bootbox.confirm("Are you sure to remove this panel?", function (result) {
+                    bootbox.confirm("Are you sure to delete this method?", function (result) {
                         if (result === true) {
                             $item.addClass("animated bounceOutRight");
                             window.setTimeout(function () {
