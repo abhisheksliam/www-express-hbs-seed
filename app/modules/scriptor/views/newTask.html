@@ -4,65 +4,56 @@
 		<h2><strong>New Script</strong></h2>
 	</div>
 
-	<div class="panel">
-
-
-			<!--<p>Panel content.</p>-->
-			<form name="userForm">
-
-				<div class="panel-content">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								<label class="col-sm-3 control-label m-t-5">Application</label>
-								<div class="col-sm-6">
-									<select class="col-sm-3 form-control"
-											ng-model="applicationName"
-											ng-options="application for application in applications" required>
-									</select>
+	<div class="panel" id="topband">
+		<!--<p>Panel content.</p>-->
+		<form name="userForm">
+			<div class="panel-content">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="col-sm-5 control-label m-t-5">Application</label>
+									<div class="col-sm-7">
+										<select class="col-sm-3 form-control"
+												ng-model="applicationName"
+												ng-options="application for application in applications" required>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label class="col-sm-3 control-label m-t-5">Scenario</label>
+									<div class="col-sm-5">
+										<select class="col-sm-3 form-control"
+												ng-model="scenarioType"
+												ng-options="scenario for scenario in scenarios" required>
+										</select>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-3">
-							<div class="form-group">
-								<label class="col-sm-3 control-label m-t-5">Scenario</label>
-								<div class="col-sm-6">
-									<select class="col-sm-3 form-control"
-											ng-model="scenarioType"
-											ng-options="scenario for scenario in scenarios" required>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
 
-					<div class="row">
-						<div class="col-md-4">
-                                <span class="input input--hoshi">
-                                <input class="input__field input__field--hoshi" type="text" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="taskid" ng-init="taskId" ng-model="taskId" ng-minlength="4" ng-maxlength="24" placeholder="Task Id" required>
+						<div class="row">
+							<div class="col-md-6">
+                                <span class="input input--hoshi taskid-input">
+                                <input class="input__field input__field--hoshi" type="text" pattern="[A-Za-z0-9\.]{3,}" id="taskid" ng-init="taskId" ng-model="taskId" placeholder="Task Id" required>
                                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
 									<span class="input__label-content input__label-content--hoshi"></span>
 								</label>
                                 </span>
-						</div>
-					</div>
-					<!--http://stackoverflow.com/questions/13798313/set-custom-html5-required-field-validation-message-->
-
-<!--						<div class="col-sm-9 col-sm-offset-3">
-							<div class="pull-right">
-								<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>
-								<button type="submit" class="btn btn-embossed btn-primary m-r-20" ng-click="userForm.$valid && displayScript()">Update / Save</button>
 							</div>
-						</div>-->
+						</div>
+						<!--http://stackoverflow.com/questions/13798313/set-custom-html5-required-field-validation-message-->
+
+					</div>
 				</div>
 			</div>
-				</div>
-				<div class="bg-light text-right">
-					<button type="reset" class="cancel btn btn-embossed btn-white m-r-20 m-t-10">Cancel</button>
-					<button type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10" ng-click="userForm.$valid && displayScript()">Update / Save</button>
-				</div>
+			<div class="bg-light text-right">
+				<button type="reset" class="cancel btn btn-embossed btn-white m-r-20 m-t-10">Cancel</button>
+				<button type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10" ng-click="userForm.$valid && displayScript()">Update / Save</button>
+			</div>
 		</form>
 
 
