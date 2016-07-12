@@ -15,7 +15,7 @@
 				<a href="#" class="panel-toggle edit-icon-topband pull-right m-l-5"><i class="fa fa-pencil"></i></a>
 			</span>
 		</div>
-
+		<hr class="m-0">
 		<form name="userForm">
 			<div class="panel-content p-b-0" style="display: none;">
 				<div class="row">
@@ -79,7 +79,7 @@
 		<!--action list and search box-->
 		<div class="col-md-4">
 			<div class="panel">
-				<div class="panel-content">
+				<div class="panel-content" id="trigger">
 
 					<form action="search-result.html" method="post" class="searchform" id="search-results">
 						<h3 class="m-t-0"><strong>Action list</strong></h3>
@@ -88,7 +88,7 @@
 					<div class="dd nestable">
 						<ul class="dd-list">
 							<li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
-								<div class="dd-handle">{{trigger.name}}</div>
+								<div class="dd-handle"><span class="trigger-text">{{trigger.name}}</span><span class="pull-right trigger-dragger"><i class="fa fa-bars"></i></span></div>
 							</li>
 						</ul>
 					</div>

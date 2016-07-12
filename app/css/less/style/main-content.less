@@ -1,12 +1,13 @@
 @import "../variable";
 @import "../mixins";
+@import "../custom/colors";
 
 .main-content {
-    background: #F5F5F5;
+    background: @color-background;
     margin-left: @sidebar-width;
     min-height: 750px;
     .page-content {
-        background: #F5F5F5;
+        background: @color-background;
         margin-top: 50px;
         overflow: hidden;
         padding: 20px 50px 0;
