@@ -19,8 +19,32 @@
 
   .item-level-0 {
     cursor: pointer;
+
+    .fa-caret-right {
+      position: absolute;
+      top:17px;
+      left: 10px;
+      z-index: 2;
+    }
+
+    .fa-caret-down {
+      position: absolute;
+      top:19px;
+      left: 8px;
+      z-index: 2;
+      display: none;
+    }
   }
 
+  .item-level-0.bg-primary {
+    .fa-caret-down {
+      display: block;
+    }
+
+    .fa-caret-right {
+      display: none;
+    }
+  }
 
   .item-level-0:hover {
     .control-btn {
@@ -45,6 +69,21 @@
       display: none;
       cursor: pointer;
     }
+
+    .fa-caret-right {
+      position: absolute;
+      top:17px;
+      left: 16px;
+      z-index: 2;
+    }
+
+    .fa-caret-down {
+      position: absolute;
+      top:18px;
+      left: 14px;
+      z-index: 2;
+      display: none;
+    }
   }
 
   .item-level-1.selected {
@@ -52,6 +91,13 @@
       display: block !important;
     }
 
+    .fa-caret-down {
+      display: block;
+    }
+
+    .fa-caret-right {
+      display: none;
+    }
   }
 
   .item-level-1:hover {
@@ -92,10 +138,46 @@
       padding: 0;
     }
 
-
-
   }
 
+  .baloo-action-content {
+    position: absolute;
+    width: 40%;
+    top: 51px;
+    padding-bottom: 51px;
+    right: 0;
+    height: 100%;
+    background-color: #fff6dd;
+    border-left: 1px dashed @main-color-light;
+    border-right: 1px dashed @main-color-light;
+
+    .baloo-header {
+      padding-left: 10px;
+      height: 36px;
+      border-bottom: 1px dashed @main-color-light;
+      .baloo-action-close {
+        padding-right: 8px;
+        padding-top: 6px;
+        font-size: 18px;
+
+      }
+    }
+
+    .baloo-data {
+      overflow: scroll;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 55px;
+      height: 100%;
+      font-size: 12px;
+
+      ul
+      {
+        list-style-type: none;
+      }
+      //border-bottom: 1px dashed @main-color-light;
+    }
+  }
 
 
   #add-item-link {
@@ -118,6 +200,13 @@
 
     h4 {
       font-weight: 500;
+      padding-left: 20px;
+      font-size: 16px;
+      padding-bottom: 6px;
+    }
+
+    h5 {
+      padding-left: 30px;
     }
   }
 

@@ -14,8 +14,8 @@ angular.module('automationApp.scriptor')
         },
         link: function (scope, element, attributes) {
             $timeout(function(){
-                element.nestable();
-                element.nestable('collapseAll');
+                //element.nestable();
+                //element.nestable('collapseAll');
 
                 element.sortable({
                     placeholder: "placeholder-ui",
@@ -39,11 +39,11 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     if($(this).hasClass('bg-primary')) {
-                        $(this).siblings("ol").hide();
+                        $(this).siblings(".data-items").hide();
                         $(this).removeClass('bg-primary');
                     }
                     else {
-                        $(this).siblings("ol").show();
+                        $(this).siblings(".data-items").show();
                         $(this).addClass('bg-primary');
                     }
                 });
@@ -52,11 +52,11 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     if($(this).hasClass('selected')) {
-                        $(this).siblings("ol").hide();
+                        $(this).siblings(".data-items").hide();
                         $(this).removeClass('selected');
                     }
                     else {
-                        $(this).siblings("ol").show();
+                        $(this).siblings(".data-items").show();
                         $(this).addClass('selected');
                     }
                 });
@@ -65,6 +65,21 @@ angular.module('automationApp.scriptor')
                 element.find(".item-level-1 .baloo-actions-text").click(function (event) {
                     event.preventDefault();
                     console.log("Baloo Action clicked");
+
+                    var parent = $(this).parent();
+                    parent.siblings(".data-items").width("60%");
+                    parent.siblings(".baloo-action-content").show();
+
+                    event.stopPropagation();
+                });
+
+                element.find(".li-level-1 .baloo-action-close").click(function (event) {
+                    event.preventDefault();
+
+                    var content = $(this).parent().parent();
+                    content.siblings(".data-items").width("100%");
+                    content.hide();
+
                     event.stopPropagation();
                 });
 
