@@ -52,7 +52,22 @@ angular.module('automationApp.scriptor')
                         $(this).siblings(".data-items").show();
                         $(this).addClass('bg-primary');
                     }
+
+                    closeLevel1Elements();
+                    closeLevel2Elements();
                 });
+
+                var  closeLevel1Elements = function () {
+                    //close all child elements if these are opened
+                    var level1items = element.find('.selected');
+                    level1items.siblings(".data-items").hide();
+                    level1items.removeClass('selected')
+                }
+
+                var  closeLevel2Elements = function () {
+                    var level2items = element.find('.item-level-2 .panel-toggle.closed');
+                    level2items.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                }
 
                 element.find(".item-level-1.dd3-content").click(function (event) {
                     event.preventDefault();
@@ -70,6 +85,7 @@ angular.module('automationApp.scriptor')
                         $(this).siblings(".data-items").show();
                         $(this).addClass('selected');
                     }
+                    closeLevel2Elements();
                 });
 
 

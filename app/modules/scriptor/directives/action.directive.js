@@ -18,6 +18,14 @@ angular.module('automationApp.scriptor')
                 // Toggle Panel Content
                 element.find(".panel-header .panel-toggle").click(function (event) {
                     event.preventDefault();
+
+                    if($(this).find('.panel-toggle.closed').length == 0) {
+                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
+                        if(activeElement.length != 0) {
+                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                        }
+                    }
+
                     $(this).toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
                     event.stopPropagation();
                 });
@@ -25,21 +33,15 @@ angular.module('automationApp.scriptor')
                 element.find(".panel-header").click(function (event) {
                     event.preventDefault();
 
-                    if($(this).find('.panel-toggle.closed').length != 0) {
-
+                    if($(this).find('.panel-toggle.closed').length == 0) {
+                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
+                        if(activeElement.length != 0) {
+                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                        }
                     }
 
                     $(this).find(".panel-toggle").toggleClass("closed");
                     $(this).siblings(".panel-content").slideToggle();
-
-                    /*
-                    var activeElement = element.find('.panel-toggle.closed');
-                    if(activeElement.length != 0) {
-                        activeElement.siblings(".data-items").hide();
-                        activeElement.removeClass('selected');
-                    }
-                    */
-
                     event.stopPropagation();
                 });
 

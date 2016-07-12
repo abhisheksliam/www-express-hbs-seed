@@ -517,7 +517,7 @@ angular.module('automationApp.scriptor')
                             }
                         ],
                         "skip": false,
-                        "text": "Click the Review tab, and then add Spelling &amp; Grammar to the Quick Access Toolbar. Close any open dialog boxes."
+                        "text": "Click the Review tab, and then add Spelling & Grammar to the Quick Access Toolbar. Close any open dialog boxes."
                     },
                     {
                         "init": true,
