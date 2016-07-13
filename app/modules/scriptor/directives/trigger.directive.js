@@ -4,11 +4,11 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('actionItem', function() {
+    .directive('triggerItem', function() {
 
         return {
             restrict: 'A',
-            templateUrl: 'modules/scriptor/directives/action.tpl.html',
+            templateUrl: 'modules/scriptor/directives/trigger.tpl.html',
             scope: {
                 'action': '=',
                 'index' : '='
@@ -58,6 +58,7 @@ angular.module('automationApp.scriptor')
                             }, 300);
                         }
                     });
+                    event.stopPropagation();
                 });
 
                 element.find(".panel-move").click(function (event) {

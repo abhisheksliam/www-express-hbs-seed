@@ -1,0 +1,28 @@
+<ol class="dd-list" ng-repeat="item in items[0].items">
+    <li class="li-level-0 dd-item m-b-10" data-id="{{$index+1}}">
+        <div class="item-level-0 dd3-content border-left">
+            <i class="fa fa-caret-right" aria-hidden="true"></i>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <h4>Item {{$index+1}} ({{item.text}})</h4>
+            <div class="control-btn">
+                <a href="#" class="panel-close"><i class="icon-trash"></i></a>
+            </div>
+        </div>
+        <div class="data-items" style="display: none">
+            <ol class="dd-list" ng-repeat="method in item.methods">
+               <method method="method"></method>
+            </ol>
+            <ol class="dd-list ui-sort-disabled">
+                <li class="li-level-0 dd-item m-b-10">
+                    <div class="item-level-1 dd3-content add-method-link"><a href="#">+   Add Method</a></div>
+                </li>
+            </ol>
+        </div>
+
+    </li>
+</ol>
+<ol class="dd-list ui-sort-disabled">
+    <li class="li-level-0 dd-item m-b-10">
+        <div id="add-item-link" class="item-level-0 dd3-content border-left"><a href="#">+   Add Item</a></div>
+    </li>
+</ol>
