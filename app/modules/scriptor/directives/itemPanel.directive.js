@@ -31,18 +31,7 @@ angular.module('automationApp.scriptor')
                     element.find( ".li-level-1 .data-items" ).sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
-                        handle: ".item-level-2",
-                        opacity: 0.5,
-                        cursor: "move",
-                        forcePlaceholderSize: true,
-                        revert: true,
-                        scroll: false,
-                        receive: function( event, ui ) {
-                            console.log("receive");
-                        },
-                        over: function( event, ui ) {
-                            console.log("over");
-                        }
+                        handle: ".item-level-2"
                     });
 
 
