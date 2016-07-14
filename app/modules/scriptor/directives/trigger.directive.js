@@ -17,19 +17,6 @@ angular.module('automationApp.scriptor')
             link: function (scope, element, attributes) {
 
                 // Toggle Panel Content
-                element.find(".panel-header .panel-toggle").click(function (event) {
-                    event.preventDefault();
-
-                    if($(this).find('.panel-toggle.closed').length == 0) {
-                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
-                        if(activeElement.length != 0) {
-                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
-                        }
-                    }
-
-                    $(this).toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
-                    event.stopPropagation();
-                });
 
                 element.find(".panel-header").click(function (event) {
                     event.preventDefault();

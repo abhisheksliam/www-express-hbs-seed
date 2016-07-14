@@ -24,9 +24,9 @@ angular.module('automationApp.scriptor')
                         cursor: "move",
                         stop: function( event, ui ) {
                            element.find(".drop-action-handle:visible").removeClass("highlight-drop");
-
                         },
                         start: function( event, ui ) {
+                            ui.helper.addClass("ui-draggable-handle");
                             element.find(".drop-action-handle:visible").addClass("highlight-drop");
                         }
                     });
