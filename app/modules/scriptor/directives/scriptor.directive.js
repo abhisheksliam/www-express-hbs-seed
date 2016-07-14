@@ -21,9 +21,11 @@ angular.module('automationApp.scriptor')
                     element.find( ".dd-handle" ).draggable({
                         connectToSortable: ".li-level-1 .data-items",
                         helper: "clone",
-                        revert: "invalid"
+                        revert: "invalid",
+                        stop: function( event, ui ) {
+                            console.log("event in parent drop.")
+                        }
                     });
-                    console.log("parent directive");
                 },1000);
             }
         }
