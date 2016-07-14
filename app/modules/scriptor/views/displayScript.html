@@ -69,33 +69,7 @@
 		</form>
 	</div>
 	<!--end top band-->
+    <scriptor items="taskJson" triggers="triggers"></scriptor>
 
-	<!--item editor-->
-	<div class="row">
-		<div class="col-md-8">
-			<div class="dd nestable" runner-nested-list data-items="taskJson" id="authoring-nested-list">
-			</div>
-		</div>
-		<!--action list and search box-->
-		<div class="col-md-4">
-			<div class="panel">
-				<div class="panel-content" id="triggerlist">
-
-					<form action="search-result.html" method="post" class="searchform" id="search-results">
-						<h3 class="m-t-0"><strong>Action list</strong></h3>
-						<input ng-model="searchActionText" type="text" class="form-control m-b-5" name="keyword" placeholder="Search...">
-					</form>
-					<div class="dd nestable">
-						<ul class="dd-list">
-							<li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
-								<div class="dd-handle"><span class="trigger-text">{{trigger.name}}</span><span class="pull-right trigger-dragger"><i class="fa fa-bars"></i></span></div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--end item editor-->
-	</div>
 
 </div>

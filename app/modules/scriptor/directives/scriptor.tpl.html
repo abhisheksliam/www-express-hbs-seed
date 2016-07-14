@@ -1,83 +1,12 @@
-<ol class="dd-list" ng-repeat="item in items[0].items">
-    <li class="li-level-0 dd-item m-b-10" data-id="{{$index+1}}">
-        <div class="item-level-0 dd3-content border-left">
-            <i class="fa fa-caret-right" aria-hidden="true"></i>
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <h4>Item {{$index+1}} ({{item.text}})</h4>
-            <div class="control-btn">
-                <a href="#" class="panel-close"><i class="icon-trash"></i></a>
-            </div>
+<!--item editor-->
+<div class="row">
+    <div class="col-md-8">
+        <div class="dd nestable" item-panel data-items="items" id="authoring-nested-list">
         </div>
-        <div class="data-items" style="display: none">
-            <ol class="dd-list" ng-repeat="method in item.methods">
-                <li class="li-level-1 dd-item" data-id="{{100*($parent.$index+1)+$index+1}}">
-                    <div class="item-level-1 dd3-content p-b-10">
-                        <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        <h5>M{{$index+1}}  <span class="method-type-value">{{method.type}}</span>
-                            <span class="method-type-selector">
-                                  <select class="form-white" data-style="white">
-                                      <option>Ribbon</option>
-                                      <option>Keyboard</option>
-                                      <option>Toolbar</option>
-                                      <option>Mouse</option>
-                                      <option>Shortcut Menu</option>
-                                      <option>Other</option>
-                                      <option>Menu</option>
-                                      <option>Right Click</option>
-                                  </select>
-                            </span>
+    </div>
+    <!--action list and search box-->
+    <div class="col-md-4" action-list data-triggers="triggers">
 
-                        </h5>
-                        <div class="control-btn">
-                            <a href="#" class="panel-close"><i class="icon-trash"></i></a>
-                            <a href="#" class="panel-copy"><i class="fa fa-copy"></i></a>
-                            <a href="#" class="panel-move"><i class="fa fa-bars"></i></a>
-                        </div>
-                        <div class="baloo-actions-text">Baloo Actions</div>
-                    </div>
-                    <div class="data-items"  style="display: none">
-                        <ol class="dd-list" ng-repeat="action in method.actions">
-                            <li class="dd-item" data-id="{{10000*($parent.$parent.$index+1)+$index+1}}">
-                                <div class="item-level-2 dd3-content" action-item action="action" index="$index+1"></div>
-                            </li>
-                        </ol>
-                        <ol class="dd-list ui-sort-disabled">
-                            <li class="dd-item">
-                                <div class="dd3-content p-20 f-12">
-                                    <div class="border-dotted p-5 text-center">Drop Action Here</div>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
-                    <div class="baloo-action-content" style="display: none" >
-                        <div class="baloo-header">
-                            <h5 class="pull-left">Baloo Actions</h5>
-                            <a href="#" class="baloo-action-close pull-right"><i class="fa fa-close"></i></a>
-                        </div>
-
-                        <div class="baloo-data">
-                            <ul>
-                                <li ng-repeat="balooAction in method.balooActions">
-                                    Action {{$index+1}}: {{balooAction.text}}
-                                </li>
-
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-            </ol>
-            <ol class="dd-list ui-sort-disabled">
-                <li class="li-level-0 dd-item m-b-10">
-                    <div class="item-level-1 dd3-content add-method-link"><a href="#">+   Add Method</a></div>
-                </li>
-            </ol>
-        </div>
-
-    </li>
-</ol>
-<ol class="dd-list ui-sort-disabled">
-    <li class="li-level-0 dd-item m-b-10">
-        <div id="add-item-link" class="item-level-0 dd3-content border-left"><a href="#">+   Add Item</a></div>
-    </li>
-</ol>
+    </div>
+    <!--end item editor-->
+</div>
