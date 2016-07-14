@@ -11,7 +11,8 @@ angular.module('automationApp.scriptor')
             templateUrl: 'modules/scriptor/directives/trigger.tpl.html',
             scope: {
                 'action': '=',
-                'index' : '='
+                'index' : '=',
+                'close' : '='
             },
             link: function (scope, element, attributes) {
 
@@ -45,7 +46,13 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.find(".panel-content").slideToggle();
+                if(scope.close) {
+                    element.find(".panel-content").slideToggle();
+                }
+                else {
+                    element.find(".panel-toggle").addClass("closed");
+                }
+
 
                 element.find(".panel-header .panel-close").click(function (event) {
                     event.preventDefault();
