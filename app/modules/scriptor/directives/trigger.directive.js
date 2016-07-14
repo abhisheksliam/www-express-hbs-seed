@@ -11,24 +11,12 @@ angular.module('automationApp.scriptor')
             templateUrl: 'modules/scriptor/directives/trigger.tpl.html',
             scope: {
                 'action': '=',
-                'index' : '='
+                'index' : '=',
+                'close' : '='
             },
             link: function (scope, element, attributes) {
 
                 // Toggle Panel Content
-                element.find(".panel-header .panel-toggle").click(function (event) {
-                    event.preventDefault();
-
-                    if($(this).find('.panel-toggle.closed').length == 0) {
-                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
-                        if(activeElement.length != 0) {
-                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
-                        }
-                    }
-
-                    $(this).toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
-                    event.stopPropagation();
-                });
 
                 element.find(".panel-header").click(function (event) {
                     event.preventDefault();
@@ -45,7 +33,37 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.find(".panel-content").slideToggle();
+
+                //Save button clicked
+                element.find(".trigger-save").click(function (event) {
+                    event.preventDefault();
+
+                    //todo
+
+                    element.find(".panel-toggle").toggleClass("closed");
+                    element.find(".panel-content").slideToggle();
+                    event.stopPropagation();
+                });
+
+                //cancel button clicked
+                element.find(".trigger-cancel").click(function (event) {
+                    event.preventDefault();
+
+                    //todo
+
+                    element.find(".panel-toggle").toggleClass("closed");
+                    element.find(".panel-content").slideToggle();
+                    event.stopPropagation();
+                });
+
+
+                if(scope.close) {
+                    element.find(".panel-content").slideToggle();
+                }
+                else {
+                    element.find(".panel-toggle").addClass("closed");
+                }
+
 
                 element.find(".panel-header .panel-close").click(function (event) {
                     event.preventDefault();

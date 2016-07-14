@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('scriptor', ['$timeout', function($timeout) {
+    .directive('scriptor', ['$timeout', '$compile', 'scriptorService', function($timeout, $compile, scriptorService) {
 
         return {
             restrict: 'E',
@@ -19,11 +19,36 @@ angular.module('automationApp.scriptor')
                 // due to bug: https://github.com/angular/angular.js/issues/8877
                 $timeout(function(){
                     element.find( ".dd-handle" ).draggable({
-                        connectToSortable: ".li-level-1 .data-items",
                         helper: "clone",
-                        revert: "invalid"
+                        revert: "invalid",
+                        cursor: "move",
+                        stop: function( event, ui ) {
+                           element.find(".drop-action-handle:visible").removeClass("highlight-drop");
+                        },
+                        start: function( event, ui ) {
+                            ui.helper.addClass("ui-draggable-handle");
+                            element.find(".drop-action-handle:visible").addClass("highlight-drop");
+                        }
                     });
-                    console.log("parent directive");
+
+                    $( ".dd3-content.drop-action-handle" ).droppable({
+                        accept: ".dd-handle",
+                        drop: function( event, ui ) {
+
+                            var id =  ui.draggable.data("id");
+                            var action = scriptorService.getTriggerForID(id) ;
+                            //console.log($(this));
+                            scope.action = action;
+
+                            var el = $compile( "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item action='action' close='false' index='0'></div></li></ol>" )( scope );
+                            $(this).closest('.dd-list.ui-sort-disabled').before( el );
+                            //if any other trigger is opened, close it
+                            var level2items = element.find('.item-level-2 .panel-toggle.closed');
+                            level2items.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                        }
+                    });
+
+
                 },1000);
             }
         }

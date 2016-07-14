@@ -6,8 +6,8 @@
         </form>
         <div class="dd nestable">
             <ul class="dd-list">
-                <li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item" data-id="{{trigger.id}}">
-                    <div class="dd-handle"><span class="trigger-text">{{trigger.name}}</span><span class="pull-right trigger-dragger"><i class="fa fa-bars"></i></span></div>
+                <li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item">
+                    <div class="dd-handle" data-id="{{trigger.id}}"><span class="trigger-text">{{trigger.syntax}}</span><span class="pull-right trigger-dragger"><i class="fa fa-bars"></i></span></div>
                 </li>
             </ul>
         </div>
