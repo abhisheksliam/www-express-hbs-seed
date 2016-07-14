@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('scriptor', ['$timeout', '$compile', function($timeout, $compile) {
+    .directive('scriptor', ['$timeout', '$compile', 'scriptorService', function($timeout, $compile, scriptorService) {
 
         return {
             restrict: 'E',
@@ -35,25 +35,12 @@ angular.module('automationApp.scriptor')
                         accept: ".dd-handle",
                         drop: function( event, ui ) {
 
-
-                            var action =  {
-                                "values": [
-                                    {
-                                        "actVal": "Customize_Quick_Access_Toolbar",
-                                        "actKey": "elementName"
-                                    },
-                                    {
-                                        "actVal": "ALT,F,T",
-                                        "actKey": "keyName"
-                                    }
-                                ],
-                                "name": "clickAndWait()",
-                                "syntax": "clickAndWait(String elementName)"
-                            };
+                            var id =  ui.draggable.data("id");
+                            var action = scriptorService.getTriggerForID(id) ;
                             //console.log($(this));
                             scope.action = action;
 
-                            var el = $compile( "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item action='action' close='false' index='8'></div></li></ol>" )( scope );
+                            var el = $compile( "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item action='action' close='false' index='0'></div></li></ol>" )( scope );
                             $(this).closest('.dd-list.ui-sort-disabled').before( el );
                             //if any other trigger is opened, close it
                             var level2items = element.find('.item-level-2 .panel-toggle.closed');

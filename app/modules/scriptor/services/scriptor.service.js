@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-.factory('scriptorService', function() {
+.factory('scriptorService', ['$filter',function($filter) {
 
         /**************** Constants ****************/
         var applications = [
@@ -21,40 +21,87 @@ angular.module('automationApp.scriptor')
 
         var triggers = [
             {
-                name:"clickAndWait(String elementName)",
-                id:"clickAndWait(String elementName)"
+                name:"clickAndWait()",
+                id:"1",
+                syntax: "clickAndWait(String elementName)",
+                values: [
+                    {
+                        "actVal": "Customize_Quick_Access_Toolbar",
+                        "actKey": "elementName"
+                    }
+                ]
             },
             {
-                name:"selectCell(String cellName)",
-                id:"selectCell(String cellName)"
+                name:"selectCell()",
+                id:"2",
+                syntax: "selectCell(String cellName)",
+                values: [
+                    {
+                        "actVal": "abc",
+                        "actKey": "cellName"
+                    }
+                ]
             },
             {
-                name:"rightClickOnCell(String cellName)",
-                id:"rightClickOnCell(String cellName)"
+                name:"rightClickOnCell()",
+                id:"3",
+                syntax: "rightClickOnCell(String cellName)",
+                values: [
+                    {
+                        "actVal": "abc",
+                        "actKey": "cellName"
+                    }
+                ]
             },
             {
-                name:"doubleClick(String elementName)",
-                id:"doubleClick(String elementName)"
+                name:"doubleClick()",
+                id:"4",
+                syntax: "doubleClick(String elementName)",
+                values: [
+                    {
+                        "actVal": "abc",
+                        "actKey": "elementName"
+                    }
+                ]
             },
             {
                 name:"clickAtCurrentPos()",
-                id:"clickAtCurrentPos()"
+                id:"5",
+                syntax: "clickAtCurrentPos()",
+                values: []
             },
             {
                 name:"clickAndHoldCurrentPos()",
-                id:"clickAndHoldCurrentPos()"
+                id:"6",
+                syntax: "clickAndHoldCurrentPos()",
+                values: []
             },
             {
-                name:"clickMultipleTimes(String elementName , String numOfTimes)",
-                id:"clickMultipleTimes(String elementName , String numOfTimes)"
+                name:"clickMultipleTimes()",
+                id:"7",
+                syntax: "clickMultipleTimes(String elementName , String numOfTimes)",
+                values: [
+                    {
+                        "actVal": "Customize_Quick_Access_Toolbar",
+                        "actKey": "elementName"
+                    },
+                    {
+                        "actVal": "4",
+                        "actKey": "numOfTimes"
+                    }
+                ]
             },
             {
                 name:"doubleClickAndWait()",
-                id:"doubleClickAndWait()"
+                id:"8",
+                syntax: "doubleClickAndWait()",
+                values: []
             },
             {
                 name:"rightClickCurrentPos()",
-                id:"rightClickCurrentPos()"
+                id:"9",
+                syntax: "rightClickCurrentPos()",
+                values: []
             }
         ];
 
@@ -712,6 +759,10 @@ angular.module('automationApp.scriptor')
             return triggers;
         }
 
+        var getTriggerForID = function(id) {
+            return $filter('filter')(triggers, {id:id})[0];
+        }
+
         var getTaskJson = function() {
             return taskJson;
         }
@@ -721,6 +772,7 @@ angular.module('automationApp.scriptor')
         "getApplications": getApplications,
         "getScenarios": getScenarios,
         "getTriggers":  getTriggers,
+        "getTriggerForID": getTriggerForID,
         "getTaskJson": getTaskJson
     };
-});
+}]);

@@ -46,6 +46,30 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
+
+                //Save button clicked
+                element.find(".trigger-save").click(function (event) {
+                    event.preventDefault();
+
+                    //todo
+
+                    element.find(".panel-toggle").toggleClass("closed");
+                    element.find(".panel-content").slideToggle();
+                    event.stopPropagation();
+                });
+
+                //cancel button clicked
+                element.find(".trigger-cancel").click(function (event) {
+                    event.preventDefault();
+
+                    //todo
+
+                    element.find(".panel-toggle").toggleClass("closed");
+                    element.find(".panel-content").slideToggle();
+                    event.stopPropagation();
+                });
+
+
                 if(scope.close) {
                     element.find(".panel-content").slideToggle();
                 }
