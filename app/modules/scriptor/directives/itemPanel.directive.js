@@ -93,7 +93,7 @@ angular.module('automationApp.scriptor')
                     });
 
 
-                    element.find(".item-level-1.dd3-content").click(function (event) {
+                    element.on('click',".item-level-1.dd3-content",function (event) {
                         event.preventDefault();
 
                         if($(this).hasClass('selected')) {
