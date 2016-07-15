@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('NewScriptController', ['$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
-		function($scope, pluginsService, applicationService, $location, $state, scriptorService) {
+	.controller('NewScriptController', ['$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService', '$interval',
+		function($scope, pluginsService, applicationService, $location, $state, scriptorService, $interval) {
 	
 			$scope.scriptor = scriptorService.uiElements;
 			$scope.applications =  scriptorService.getApplications();
@@ -66,5 +66,10 @@ angular.module('automationApp.scriptor')
 					return 'The task id "' + input.value + '" is invalid!';
 				}
 			});
+
+
+          /*  $interval(function(){
+                console.log($scope.taskJson);
+            }, 30000, 10);*/
 
 		}]);
