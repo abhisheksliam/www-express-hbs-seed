@@ -17,6 +17,9 @@ angular.module('automationApp.scriptor')
 
                 // timeout is added so thar both child directive dom is ready
                 // due to bug: https://github.com/angular/angular.js/issues/8877
+                var index=0;
+                scope.action = [];
+
                 $timeout(function(){
                     element.find( ".dd-handle" ).draggable({
                         helper: "clone",
@@ -38,9 +41,12 @@ angular.module('automationApp.scriptor')
                             var id =  ui.draggable.data("id");
                             var action = scriptorService.getTriggerForID(id) ;
                             //console.log($(this));
-                            scope.action = action;
 
-                            var el = $compile( "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item action='action' close='false' index='0'></div></li></ol>" )( scope );
+                            scope.action[index] = action;
+
+                            var templateString = "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item action='action["+ index +"]' close='false' index='0'></div></li></ol>";
+                            index++;
+                            var el = $compile( templateString )( scope );
                             $(this).closest('.dd-list.ui-sort-disabled').before( el );
                             //if any other trigger is opened, close it
                             var level2items = element.find('.item-level-2 .panel-toggle.closed');
@@ -49,7 +55,7 @@ angular.module('automationApp.scriptor')
                     });
 
 
-                },1000);
+                },1500);
             }
         }
     }]);

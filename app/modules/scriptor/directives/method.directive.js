@@ -16,7 +16,7 @@ angular.module('automationApp.scriptor')
             },
             link: function (scope, element, attributes) {
 
-                element.find(".baloo-actions-text").click(function (event) {
+                element.on('click',".baloo-actions-text",function (event) {
                     event.preventDefault();
 
                     var parent = $(this).parent();
@@ -26,7 +26,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.find(".baloo-action-close").click(function (event) {
+                element.on('click',".baloo-action-close",function (event) {
                     event.preventDefault();
 
                     var content = $(this).closest(".baloo-action-content");
@@ -36,7 +36,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.find(".item-level-1 .panel-close").click(function (event) {
+                element.on('click',".item-level-1 .panel-close",function (event) {
                     event.preventDefault();
                     var $item = $(this).parents(".dd-item:first");
 
@@ -51,14 +51,14 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.find(".item-level-1 .panel-copy").click(function (event) {
+                element.on('click',".item-level-1 .panel-copy",function (event) {
                     event.preventDefault();
                     //todo
 
                     event.stopPropagation();
 
                 });
-                element.find(".item-level-1 .panel-move").click(function (event) {
+                element.on('click',".item-level-1 .panel-move",function (event) {
                     event.preventDefault();
                     //todo
                     event.stopPropagation();

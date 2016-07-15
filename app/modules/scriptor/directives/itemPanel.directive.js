@@ -16,26 +16,10 @@ angular.module('automationApp.scriptor')
 
                 $timeout(function(){
 
-                    element.sortable({
-                        items: "ol:not(.ui-sort-disabled)",
-                        placeholder: "placeholder-ui",
-                        handle: ".item-level-0"
-                    });
-
-                    element.find( ".li-level-0 .data-items" ).sortable({
-                        items: "ol:not(.ui-sort-disabled)",
-                        placeholder: "placeholder-ui",
-                        handle: ".item-level-1"
-                    });
-
-                    element.find( ".li-level-1 .data-items" ).sortable({
-                        items: "ol:not(.ui-sort-disabled)",
-                        placeholder: "placeholder-ui",
-                        handle: ".item-level-2"
-                    });
 
 
-                    element.find(".item-level-0.dd3-content").click(function(event) {
+
+                    element.on('click',".item-level-0.dd3-content",function(event) {
 
                         event.preventDefault();
 
@@ -77,7 +61,7 @@ angular.module('automationApp.scriptor')
                     }
 
 
-                    element.find(".item-level-0 .panel-close").click(function (event) {
+                    element.on('click',".item-level-0 .panel-close",function (event) {
                         event.preventDefault();
                         var $item = $(this).parents(".dd-item:first");
 
@@ -112,6 +96,29 @@ angular.module('automationApp.scriptor')
                         closeLevel2Elements();
                     });
                 });
+
+                //to fix this, implement template cache, then there is no need of timeout
+                $timeout(function(){
+                    element.sortable({
+                        items: "ol:not(.ui-sort-disabled)",
+                        placeholder: "placeholder-ui",
+                        handle: ".item-level-0"
+                    });
+
+                    element.find( ".li-level-0 .data-items" ).sortable({
+                        items: "ol:not(.ui-sort-disabled)",
+                        placeholder: "placeholder-ui",
+                        handle: ".item-level-1"
+                    });
+
+                    element.find( ".li-level-1 .data-items" ).sortable({
+                        items: "ol:not(.ui-sort-disabled)",
+                        placeholder: "placeholder-ui",
+                        handle: ".item-level-2",
+                        helper : 'clone'
+                    });
+                },2000);
+
             }
         }
     }]);

@@ -18,7 +18,7 @@ angular.module('automationApp.scriptor')
 
                 // Toggle Panel Content
 
-                element.find(".panel-header").click(function (event) {
+                element.on('click',".panel-header",function (event) {
                     event.preventDefault();
 
                     if($(this).find('.panel-toggle.closed').length == 0) {
@@ -35,7 +35,7 @@ angular.module('automationApp.scriptor')
 
 
                 //Save button clicked
-                element.find(".trigger-save").click(function (event) {
+                element.on('click',".trigger-save",function (event) {
                     event.preventDefault();
 
                     //todo
@@ -46,7 +46,7 @@ angular.module('automationApp.scriptor')
                 });
 
                 //cancel button clicked
-                element.find(".trigger-cancel").click(function (event) {
+                element.on('click',".trigger-cancel",function (event) {
                     event.preventDefault();
 
                     //todo
@@ -65,7 +65,7 @@ angular.module('automationApp.scriptor')
                 }
 
 
-                element.find(".panel-header .panel-close").click(function (event) {
+                element.on('click',".panel-header .panel-close",function (event) {
                     event.preventDefault();
                     var $item = $(this).parents(".dd-item:first");
                     bootbox.confirm("Are you sure to remove this trigger?", function (result) {
@@ -79,13 +79,13 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.find(".panel-move").click(function (event) {
+                element.on('click',".panel-move",function (event) {
                     event.preventDefault();
                     //todo
                     event.stopPropagation();
                 });
 
-                element.find(".panel-copy").click(function (event) {
+                element.on('click',".panel-copy",function (event) {
                     event.preventDefault();
                     //todo
                     event.stopPropagation();
