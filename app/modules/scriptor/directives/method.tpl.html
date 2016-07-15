@@ -19,7 +19,7 @@
     </div>
     <div class="data-items"  style="display: none">
         <ol class="dd-list" ng-repeat="action in method.actions">
-            <li class="dd-item">
+            <li class="dd-item li-level-2" data-id="{{$index}}">
                 <div class="item-level-2 dd3-content" trigger-item action="action" index="$index+1" close="true"></div>
             </li>
         </ol>

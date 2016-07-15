@@ -3,7 +3,12 @@
         <div class="m-l-30">
             <h6>Trigger {{index}}: {{action.syntax}}</h6>
         </div>
-
+        <div class="trigger-values">
+            <div ng-repeat="attribute in action.values|limitTo:2">
+                <span class="attr-label">{{attribute.actKey}}</span>
+                <span class="attr-value">{{attribute.actVal}}</span>
+            </div>
+        </div>
         <div class="control-btn">
             <a href="#" class="panel-close"><i class="icon-trash"></i></a>
             <a href="#" class="panel-copy"><i class="fa fa-copy"></i></a>

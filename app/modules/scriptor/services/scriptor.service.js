@@ -79,7 +79,7 @@ angular.module('automationApp.scriptor')
             {
                 name:"clickMultipleTimes()",
                 id:"7",
-                syntax: "clickMultipleTimes(String elementName , String numOfTimes)",
+                syntax: "clickMultipleTimes(String elementName , String numOfTimes, String extra)",
                 values: [
                     {
                         "actVal": "Customize_Quick_Access_Toolbar",
@@ -88,6 +88,10 @@ angular.module('automationApp.scriptor')
                     {
                         "actVal": "4",
                         "actKey": "numOfTimes"
+                    },
+                    {
+                        "actVal": "test",
+                        "actKey": "extra"
                     }
                 ]
             },

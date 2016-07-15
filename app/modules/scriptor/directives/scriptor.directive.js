@@ -39,13 +39,21 @@ angular.module('automationApp.scriptor')
                         accept: ".dd-handle",
                         drop: function( event, ui ) {
 
+
                             var id =  ui.draggable.data("id");
                             var action = scriptorService.getTriggerForID(id) ;
                             //console.log($(this));
 
+                            /*
+                            var item_id = $(this).closest('.li-level-0').data('id');
+                            var method = $(this).closest('.li-level-1');
+                            var method_id = method.data('id');
+                            var newDataID = method.find('.dd-list').length-1;
+                            */
+
                             scope.action[index] = action;
 
-                            var templateString = "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item action='action["+ index +"]' close='false' index='0'></div></li></ol>";
+                            var templateString = "<ol class='dd-list'><li class='dd-item li-level-2'><div class='item-level-2 dd3-content' trigger-item action='action["+ index +"]' close='false' index='0'></div></li></ol>";
                             index++;
                             var el = $compile( templateString )( scope );
                             $(this).closest('.dd-list.ui-sort-disabled').before( el );

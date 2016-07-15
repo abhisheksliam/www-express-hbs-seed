@@ -1,16 +1,16 @@
 <ol class="dd-list" ng-repeat="item in items[0].items">
-    <li class="li-level-0 dd-item m-b-10" data-id="{{$index+1}}">
+    <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
         <div class="item-level-0 dd3-content border-left">
             <i class="fa fa-caret-right" aria-hidden="true"></i>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <h4>Item {{$index+1}} ({{item.text}})</h4>
+            <h4>Item {{$index+1}}(<span class="item-text">{{item.text}}</span>)</h4>
             <div class="control-btn">
                 <a href="#" class="panel-close"><i class="icon-trash"></i></a>
             </div>
         </div>
         <div class="data-items" style="display: none">
             <ol class="dd-list" ng-repeat="method in item.methods">
-               <method method="method" index="$index+1" methodtypelist="methodtypelist"></method>
+               <method method="method" index="$index+1" data-id="{{$index}}" methodtypelist="methodtypelist"></method>
             </ol>
             <ol class="dd-list ui-sort-disabled">
                 <li class="li-level-0 dd-item m-b-10">
