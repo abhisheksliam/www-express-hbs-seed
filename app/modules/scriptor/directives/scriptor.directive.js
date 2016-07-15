@@ -55,7 +55,6 @@ angular.module('automationApp.scriptor')
                         }
                     });
 
-
                 },1500);
             }
         }

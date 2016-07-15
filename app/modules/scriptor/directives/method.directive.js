@@ -15,7 +15,7 @@ angular.module('automationApp.scriptor')
                 'index' : '=',
                 'methodtypelist' : '='
             },
-            link: function (scope, element, attributes,methodtypelist) {
+            link: function (scope, element, attributes) {
 
                 element.on('click',".baloo-actions-text",function (event) {
                     event.preventDefault();

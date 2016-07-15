@@ -13,8 +13,7 @@ module.exports = function(options) {
           .pipe(gulp.dest(options.tmp + '/js'))
 	      .pipe($.concat('app.js'))
           .pipe(gulp.dest(options.tmp + '/serve/scripts'));
-    
-	  
+
 	//return gulp.src(options.src + '/**/*.js')
     //      .pipe(jshint())
     //.pipe(jshint.reporter('jshint-stylish'))

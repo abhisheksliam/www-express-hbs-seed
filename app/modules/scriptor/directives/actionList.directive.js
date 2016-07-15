@@ -15,7 +15,6 @@ angular.module('automationApp.scriptor')
             },
             link: function (scope, element, attributes) {
                 console.log("child 2")
-
             }
         }
     });
