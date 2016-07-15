@@ -32,7 +32,7 @@ angular.module('automationApp.scriptor')
 				}
 
 			});
-	  
+
 			if($scope.scriptor.taskId){
 				$scope.taskId = $scope.scriptor.taskId;
 			}
@@ -48,24 +48,52 @@ angular.module('automationApp.scriptor')
 				$scope.applicationName = $scope.applications[0];
 			}
 
+			// todo: move to appropriate file
+			function validateTaskId(input){
+				var regex = /[^a-z0-9.]/i; // not a valid task id string - contains other characters from a-z0-9.
+
+				if (input.trim().length === 0 || regex.test(input)) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+
+			// todo: move to appropriate file && abstract showNotify
 			$scope.updateData = function(){
-				$scope.scriptor.scenarioType = $scope.scenarioType;
-				$scope.scriptor.applicationName = $scope.applicationName;
-				$scope.scriptor.taskId = $scope.taskId;
+
+				function showNotify(customText){
+					noty({
+						text        : customText,
+						layout      : 'topRight',
+						theme       : 'made',
+						maxVisible  : 1,
+						animation   : {
+							open  : 'animated fadeInUp',
+							close : 'animated fadeOut'
+						},
+						timeout: 3000
+					});
+				}
+
+				if (validateTaskId($scope.taskId)){
+					$scope.scriptor.scenarioType = $scope.scenarioType;
+					$scope.scriptor.applicationName = $scope.applicationName;
+					$scope.scriptor.taskId = $scope.taskId;
+					showNotify('<div class="alert alert-success"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
+					return true;
+				} else{
+					showNotify('<div class="alert alert-danger"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
+					return false;
+				}
 			};
 
 			$scope.displayScript = function(){
-				$scope.updateData();
-				$state.go('displayscript');
-			};
-
-			InvalidInputHelper(document.getElementById("taskid"), {
-				defaultText: "Please enter a task id!",
-				emptyText: "Please enter task id!",
-				invalidText: function (input) {
-					return 'The task id "' + input.value + '" is invalid!';
+				var dataUpdated = $scope.updateData();
+				if(dataUpdated){
+					$state.go('displayscript');
 				}
-			});
+			};
 
 
           /*  $interval(function(){

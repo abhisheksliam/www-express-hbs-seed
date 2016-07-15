@@ -17,9 +17,6 @@ angular.module('automationApp.scriptor')
 
                 $timeout(function(){
 
-
-
-
                     element.on('click',".item-level-0.dd3-content",function(event) {
 
                         event.preventDefault();
