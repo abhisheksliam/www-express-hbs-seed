@@ -17,6 +17,7 @@ angular.module('automationApp.scriptor')
             link: function (scope, element, attributes) {
 
                 // Toggle Panel Content
+                scope.oldAction = angular.copy(scope.action);
 
                 element.on('click',".panel-header",function (event) {
                     event.preventDefault();
@@ -39,6 +40,7 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     //todo
+                    scope.oldAction = angular.copy(scope.action);
 
                     element.find(".panel-toggle").toggleClass("closed");
                     element.find(".panel-content").slideToggle();
@@ -50,6 +52,8 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     //todo
+                    scope.action = angular.copy(scope.oldAction);
+                    scope.$apply();
 
                     element.find(".panel-toggle").toggleClass("closed");
                     element.find(".panel-content").slideToggle();
