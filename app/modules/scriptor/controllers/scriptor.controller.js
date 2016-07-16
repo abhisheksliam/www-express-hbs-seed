@@ -52,7 +52,7 @@ angular.module('automationApp.scriptor')
 			function validateTaskId(input){
 				var regex = /[^a-z0-9.]/i; // not a valid task id string - contains other characters from a-z0-9.
 
-				if (input.trim().length === 0 || regex.test(input)) {
+				if (regex.test(input)) {
 					return false;
 				} else {
 					return true;
@@ -76,7 +76,11 @@ angular.module('automationApp.scriptor')
 					});
 				}
 
-				if (validateTaskId($scope.taskId)){
+				if ($scope.taskId == undefined || $scope.taskId.length === 0) {
+					showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>');
+					return false;
+				}
+				else if (validateTaskId($scope.taskId)){
 					$scope.scriptor.scenarioType = $scope.scenarioType;
 					$scope.scriptor.applicationName = $scope.applicationName;
 					$scope.scriptor.taskId = $scope.taskId;
