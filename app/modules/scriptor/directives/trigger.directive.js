@@ -112,13 +112,39 @@ angular.module('automationApp.scriptor')
 
 
 
-                var setAutoComplete =  function() {
+                var setXPathValue = function() {
+                    if(isElementName) {
+                        var val = element.find( ".input__field:first").val();
 
-                    element.find( ".input__field" ).autocomplete({
+                        if(val) {
+                            var xPath = scriptorService.getXPathForElement(val);
+                            if(xPath) {
+                                element.find( ".input--hoshi:first .xpath-text" ).html(xPath);
+                            }
+                            else {
+                                element.find( ".input--hoshi:first .xpath-text" ).html("");
+                            }
+                        }
+                    }
+                };
+
+
+                var setAutoComplete =  function() {
+                    setXPathValue();
+                    element.find( ".input__field:first" ).autocomplete({
                         source: suggestions,
                         select: function( event, ui ) {
                             scope.action.values[0].actVal = ui.item.value;
+
+                            if(isElementName) {
+                                var xPath = scriptorService.getXPathForElement(ui.item.value);
+                                if(xPath) {
+                                    $(this).siblings('.xpath-text').html(xPath);
+                                }
+                            }
+
                             scope.$apply();
+
                             return true;
                         }
                     });
@@ -132,6 +158,9 @@ angular.module('automationApp.scriptor')
                 }
 
 
+                element.find( ".input__field:first" ).live( "blur", function( event ) {
+                    setXPathValue();
+                });
 
             }
         }

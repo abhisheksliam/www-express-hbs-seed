@@ -143,7 +143,7 @@ angular.module('automationApp.scriptor')
                                         "balooActionIndex": 0,
                                         "values": [
                                             {
-                                                "actVal": "Customize_Quick_Access_Toolbar",
+                                                "actVal": "DialogFormIcon",
                                                 "actKey": "elementName"
                                             }
                                         ],
@@ -196,7 +196,7 @@ angular.module('automationApp.scriptor')
                                         "balooActionIndex": 0,
                                         "values": [
                                             {
-                                                "actVal": "Ribbon__File",
+                                                "actVal": "DialogFormIcon",
                                                 "actKey": "elementName"
                                             }
                                         ],
@@ -830,6 +830,7 @@ angular.module('automationApp.scriptor')
         "getTaskJson": getTaskJson,
         "getMethodTypeList": getMethodTypeList,
         "getKeyNameSuggestions":getKeyNameSuggestions,
-        "getElementNameSuggestions":getElementNameSuggestions
+        "getElementNameSuggestions":getElementNameSuggestions,
+        "getXPathForElement" : getXPathForElement
     };
 }]);
