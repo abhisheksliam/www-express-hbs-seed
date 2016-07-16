@@ -71,10 +71,15 @@ angular.module('automationApp.scriptor')
                 values: []
             },
             {
-                name:"clickAndHoldCurrentPos()",
+                name:"pressKey()",
                 id:"6",
-                syntax: "clickAndHoldCurrentPos()",
-                values: []
+                syntax: "pressKey(MyKeys keyName)",
+                values: [
+                    {
+                        "actVal": "ALT",
+                        "actKey": "keyName"
+                    }
+                ]
             },
             {
                 name:"clickMultipleTimes()",
@@ -748,6 +753,22 @@ angular.module('automationApp.scriptor')
                         ];
 
 
+        var keyboardActions =
+            ["ALT","ARROW_DOWN","ARROW_LEFT","ARROW_RIGHT","ARROW_UP","BACK_SPACE","CONTROL","DECIMAL","DELETE","END","ENTER","ESCAPE","F1","F10","F11","F12","F2","F3","F4","F5","F6","F7","F8","F9","HOME","PAGE_DOWN","SHIFT","SPACEBAR","TAB","CTRL","ESC","PAGE_UP"];
+
+        var elementNameSuggestion = [
+            "DialogFormIcon",
+            "Access_TaskBar_StartButton",
+            "Ribbon_Minimize",
+            "Ribbon_ClosePreview_ClosePrintPreview"
+        ];
+
+        var xPathForElement = {
+            "DialogFormIcon" : "//*[@id='12_frameicon']",
+            "Access_TaskBar_StartButton" : "//*[@id='win10tb-start-btn']",
+            "Ribbon_Minimize" : "//*[@class='title-bar']//*[contains(@class,'titlebar-control')][descendant::*[text()='Minimize']]",
+            "Ribbon_ClosePreview_ClosePrintPreview" : "//*[@id='ribbon-tab-Print Preview']/li[descendant::*[text()='C']]"
+        }
         /**************** Private functions ********/
 
 
@@ -786,6 +807,19 @@ angular.module('automationApp.scriptor')
             return methodtypelist;
         }
 
+        var getKeyNameSuggestions = function() {
+            return keyboardActions;
+        }
+
+        var getElementNameSuggestions = function() {
+            return elementNameSuggestion;
+        }
+
+
+        var getXPathForElement = function(elementName) {
+            return xPathForElement[elementName];
+        }
+
 
         return {
         "uiElements" : {},
@@ -794,6 +828,8 @@ angular.module('automationApp.scriptor')
         "getTriggers":  getTriggers,
         "getTriggerForID": getTriggerForID,
         "getTaskJson": getTaskJson,
-        "getMethodTypeList": getMethodTypeList
+        "getMethodTypeList": getMethodTypeList,
+        "getKeyNameSuggestions":getKeyNameSuggestions,
+        "getElementNameSuggestions":getElementNameSuggestions
     };
 }]);

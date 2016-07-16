@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('triggerItem', function() {
+    .directive('triggerItem', ['$timeout', 'scriptorService', function($timeout, scriptorService) {
 
         return {
             restrict: 'A',
@@ -57,6 +57,9 @@ angular.module('automationApp.scriptor')
 
                     element.find(".panel-toggle").toggleClass("closed");
                     element.find(".panel-content").slideToggle();
+
+                    setAutoComplete();
+
                     event.stopPropagation();
                 });
 
@@ -94,7 +97,43 @@ angular.module('automationApp.scriptor')
                     //todo
                     event.stopPropagation();
                 });
+
+                // if suggestions needs to be shown
+
+                var isElementName = scope.action.syntax.toLowerCase().indexOf("elementname") >= 0;
+                var isKeyName = scope.action.syntax.toLowerCase().indexOf("keyname") >= 0;
+                var suggestions;
+                if(isElementName) {
+                    suggestions = scriptorService.getElementNameSuggestions();
+                }
+                else if(isKeyName) {
+                    suggestions = scriptorService.getKeyNameSuggestions();
+                }
+
+
+
+                var setAutoComplete =  function() {
+
+                    element.find( ".input__field" ).autocomplete({
+                        source: suggestions,
+                        select: function( event, ui ) {
+                            scope.action.values[0].actVal = ui.item.value;
+                            scope.$apply();
+                            return true;
+                        }
+                    });
+                }
+
+                if(isElementName || isKeyName)
+                {
+                    $timeout(function(){
+                        setAutoComplete();
+                    },200);
+                }
+
+
+
             }
         }
-    });
+    }]);
 
