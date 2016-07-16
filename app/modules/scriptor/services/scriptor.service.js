@@ -796,7 +796,10 @@ angular.module('automationApp.scriptor')
         }
 
         var getTriggerForID = function(id) {
-            return $filter('filter')(triggers, {id:id})[0];
+            var dest = {};
+            var source = $filter('filter')(triggers, {id:id})[0];
+            angular.copy(source, dest);
+            return dest;
         }
 
         var getTaskJson = function() {
