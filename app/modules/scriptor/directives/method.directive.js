@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('method', function() {
+    .directive('method', ['$timeout', function($timeout) {
 
         return {
             restrict: 'E',
@@ -65,7 +65,22 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
+
+                $timeout(function(){
+                    var methodTypeSelect = element.find('select').select2({
+                        dropdownCssClass: 'form-white',
+                        minimumResultsForSearch: -1
+                    });
+                    methodTypeSelect.select2('val', scope.method.type);
+                    methodTypeSelect.on("change", function (e) {
+                        scope.method.type = e.val;
+                        scope.$apply();
+                    });
+                },200);
+
+
+
             }
         }
-    });
+    }]);
 

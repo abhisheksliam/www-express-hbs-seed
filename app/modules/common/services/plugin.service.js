@@ -203,7 +203,7 @@
 
 			if ($.fn.select2) {
 				setTimeout(function () {
-					$('select').each(function () {
+					$('select.use-select2').each(function () {
 						function format(state) {
 							var state_id = state.id;
 							if (!state_id) return state.text; // optgroup
