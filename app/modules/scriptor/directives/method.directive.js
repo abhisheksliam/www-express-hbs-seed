@@ -40,6 +40,7 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-close",function (event) {
                     event.preventDefault();
+                    alert('len ' + scope.method.length);
                     var $item = $(this).parents(".dd-item:first");
 
                     bootbox.confirm("Are you sure to delete this method?", function (result) {

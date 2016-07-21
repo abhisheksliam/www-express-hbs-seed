@@ -42,6 +42,31 @@ angular.module('automationApp.scriptor')
                         scope.items[0].items.push(newItemTemplate);
                         console.log(scope.items[0].items);
                     };
+                    element.on('click',".add-method-link",function(event) {
+
+                        event.preventDefault();
+                        var newMethodTemplate = {
+                            "init": true,
+                            "type": "Ribbon",
+                            "balooActions": [
+                                {
+                                    "text": ""
+                                }
+                            ],
+                            "actions": [
+
+                            ],
+                            "group": "NOT_FOUND"
+                        };
+                        console.log($(this));
+                        var itemNumber = parseInt($(this).closest('.data-items').parent().data('id'));
+                        scope.items[0].items[itemNumber-1].methods.push(newMethodTemplate);
+                        methodScope.method.push(newMethodTemplate);
+                        methodScope.$apply();
+                        alert('hi');
+
+                        event.stopPropagation();
+                    });
 
                     element.on('click',".item-level-0.dd3-content",function(event) {
 
