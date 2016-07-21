@@ -87,7 +87,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.closest('.add-method-link').on('click',function (event) {
+                element.closest('.li-level-0').find('.add-method-link').on('click',function (event) {
                     event.preventDefault();
 
                     var newMethodTemplate = {
