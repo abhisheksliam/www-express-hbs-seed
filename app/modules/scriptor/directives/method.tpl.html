@@ -12,7 +12,7 @@
         </h5>
         <div class="control-btn">
             <a href="#" class="panel-close"><i class="icon-trash"></i></a>
-            <a href="#" class="panel-copy"><i class="fa fa-copy"></i></a>
+            <a href="#" class="panel-copy copy-method"><i class="fa fa-copy"></i></a>
             <a href="#" class="panel-move"><i class="fa fa-bars"></i></a>
         </div>
         <div class="baloo-actions-text">Baloo Actions</div>
@@ -20,7 +20,7 @@
     <div class="data-items"  style="display: none">
         <ol class="dd-list" ng-repeat="action in method.actions">
             <li class="dd-item li-level-2" data-id="{{$index}}">
-                <div class="item-level-2 dd3-content" trigger-item action="action" index="$index+1" close="true"></div>
+                <div class="item-level-2 dd3-content" trigger-item method="method" action="action" index="$index+1" close="true"></div>
             </li>
         </ol>
         <ol class="dd-list ui-sort-disabled">

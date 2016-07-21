@@ -10,6 +10,7 @@ angular.module('automationApp.scriptor')
             restrict: 'A',
             templateUrl: 'modules/scriptor/directives/trigger.tpl.html',
             scope: {
+                'method' : '=',
                 'action': '=',
                 'index' : '=',
                 'close' : '='
@@ -92,9 +93,19 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.on('click',".panel-copy",function (event) {
+/*                element.on('click',".panel-copy",function (event) {
                     event.preventDefault();
                     //todo
+                    event.stopPropagation();
+                });*/
+
+                element.on('click',".copy-trigger",function (event) {
+                    event.preventDefault();
+                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                    var triggerToCopy = angular.copy(scope.method.actions[triggerNumber]);
+
+                    scope.method.actions.splice(triggerNumber, 0, triggerToCopy);
+                    scope.$apply();
                     event.stopPropagation();
                 });
 
