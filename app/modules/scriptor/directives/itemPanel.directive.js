@@ -40,7 +40,7 @@ angular.module('automationApp.scriptor')
                             "text": ""
                         };
                         scope.items[0].items.push(newItemTemplate);
-                        console.log(scope.items[0].items);
+                        scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     };
 
                     element.on('click',".add-method-link a",function(event) {
@@ -65,6 +65,7 @@ angular.module('automationApp.scriptor')
                         scope.items[0].items[itemNumber].methods.push(newMethodTemplate);
 
                         scope.$apply();
+                        scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                         event.stopPropagation();
                     });
 
