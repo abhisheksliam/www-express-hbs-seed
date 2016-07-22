@@ -21,6 +21,34 @@ angular.module('automationApp.scriptor')
                 var index=0;
                 scope.action = [];
 
+                var dropHandler = {
+                    accept: ".dd-handle",
+                    drop: function( event, ui ) {
+
+
+                        var id =  ui.draggable.data("id");
+                        var action = scriptorService.getTriggerForID(id) ;
+                        //console.log($(this));
+
+                        /*
+                         var item_id = $(this).closest('.li-level-0').data('id');
+                         var method = $(this).closest('.li-level-1');
+                         var method_id = method.data('id');
+                         var newDataID = method.find('.dd-list').length-1;
+                         */
+
+                        scope.action[index] = action;
+
+                        var templateString = "<ol class='dd-list'><li class='dd-item li-level-2'><div class='item-level-2 dd3-content' trigger-item action='action["+ index +"]' close='false' index='0'></div></li></ol>";
+                        index++;
+                        var el = $compile( templateString )( scope );
+                        $(this).closest('.dd-list.ui-sort-disabled').before( el );
+                        //if any other trigger is opened, close it
+                        var level2items = element.find('.item-level-2 .panel-toggle.closed');
+                        level2items.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                    }
+                };
+
                 $timeout(function(){
                     element.find( ".dd-handle" ).draggable({
                         helper: "clone",
@@ -35,35 +63,15 @@ angular.module('automationApp.scriptor')
                         }
                     });
 
-                    $( ".dd3-content.drop-action-handle" ).droppable({
-                        accept: ".dd-handle",
-                        drop: function( event, ui ) {
-
-
-                            var id =  ui.draggable.data("id");
-                            var action = scriptorService.getTriggerForID(id) ;
-                            //console.log($(this));
-
-                            /*
-                            var item_id = $(this).closest('.li-level-0').data('id');
-                            var method = $(this).closest('.li-level-1');
-                            var method_id = method.data('id');
-                            var newDataID = method.find('.dd-list').length-1;
-                            */
-
-                            scope.action[index] = action;
-
-                            var templateString = "<ol class='dd-list'><li class='dd-item li-level-2'><div class='item-level-2 dd3-content' trigger-item action='action["+ index +"]' close='false' index='0'></div></li></ol>";
-                            index++;
-                            var el = $compile( templateString )( scope );
-                            $(this).closest('.dd-list.ui-sort-disabled').before( el );
-                            //if any other trigger is opened, close it
-                            var level2items = element.find('.item-level-2 .panel-toggle.closed');
-                            level2items.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
-                        }
-                    });
+                    $( ".dd3-content.drop-action-handle" ).droppable(dropHandler);
 
                 },1500);
+
+                scope.$on('SCRIPTOR_NEW_ITEM_ADDED', function(event) {
+                    scope.$apply();
+                    $( ".dd3-content.drop-action-handle" ).droppable(dropHandler);
+                });
+
             }
         }
     }]);
