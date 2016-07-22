@@ -16,7 +16,7 @@ angular.module('automationApp.scriptor')
             link: function (scope, element, methodScope) {
                 $timeout(function(){
 
-                    scope.addBlankItem = function () {
+                    scope.addNewItem = function () {
 
                         var newItemTemplate = {
                             "init": true,
@@ -42,9 +42,10 @@ angular.module('automationApp.scriptor')
                         scope.items[0].items.push(newItemTemplate);
                         console.log(scope.items[0].items);
                     };
-                    element.on('click',".add-method-link",function(event) {
 
+                    element.on('click',".add-method-link a",function(event) {
                         event.preventDefault();
+
                         var newMethodTemplate = {
                             "init": true,
                             "type": "Ribbon",
@@ -58,13 +59,12 @@ angular.module('automationApp.scriptor')
                             ],
                             "group": "NOT_FOUND"
                         };
-                        console.log($(this));
-                        var itemNumber = parseInt($(this).closest('.data-items').parent().data('id'));
-                        scope.items[0].items[itemNumber-1].methods.push(newMethodTemplate);
-                        methodScope.method.push(newMethodTemplate);
-                        methodScope.$apply();
-                        alert('hi');
 
+
+                        var itemNumber = $(this).closest('.li-level-0').data('id');
+                        scope.items[0].items[itemNumber].methods.push(newMethodTemplate);
+
+                        scope.$apply();
                         event.stopPropagation();
                     });
 
@@ -143,44 +143,6 @@ angular.module('automationApp.scriptor')
                         closeLevel2Elements();
                     });
 
-/*                    element.on('click',"#add-item-link",function (event) {
-
-                        event.preventDefault();
-
-                        console.log(scope.items[0].items);
-
-                        var itemTemplate = {
-                            "init": true,
-                            "methods": [
-                                {
-                                    "init": true,
-                                    "type": "Ribbon",
-                                    "balooActions": [
-                                        {
-                                            "text": ""
-                                        }
-                                    ],
-                                    "actions": [
-
-                                    ],
-                                    "group": "NOT_FOUND"
-                                }
-
-                            ],
-                            "skip": false,
-                            "text": ""
-                        };
-
-                        scope.items[0].items.push(itemTemplate);
-                        //var currentItemNumber = scope.items[0].length;
-
-*//*                        var templateString = '<li class="li-level-0 dd-item m-b-10" data-id="{{currentItemNumber}}"> <div class="item-level-0 dd3-content border-left"></div></li>';
-                        var el = $compile( templateString )( scope );
-                        $(this).closest('.li-level-0.dd-item').parent().siblings().last().append( el );*//*
-
-                        event.stopPropagation();
-
-                    });*/
                 });
 
                 //to fix this, implement template cache, then there is no need of timeout

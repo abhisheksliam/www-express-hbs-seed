@@ -77,41 +77,6 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.on('click',".add-method-link",function (event) {
-                    event.preventDefault();
-                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
-                    var methodToCopy = angular.copy(scope.item.methods[methodNumber]);
-
-                    scope.item.methods.splice(methodNumber, 0, methodToCopy);
-                    scope.$apply();
-                    event.stopPropagation();
-                });
-
-                element.closest('.li-level-0').find('.add-method-link').on('click',function (event) {
-                    event.preventDefault();
-
-                    var newMethodTemplate = {
-                        "init": true,
-                        "type": "Ribbon",
-                        "balooActions": [
-                            {
-                                "text": ""
-                            }
-                        ],
-                        "actions": [
-
-                        ],
-                        "group": "NOT_FOUND"
-                    };
-
-                    console.log($(this));
-                    //var itemNumber = parseInt($(this).closest('.li-level-0').data('id'));
-                    scope.item.methods.push(newMethodTemplate);
-
-                    scope.$apply();
-                    event.stopPropagation();
-                });
-
                 $timeout(function(){
                     var methodTypeSelect = element.find('select').select2({
                         dropdownCssClass: 'form-white',
