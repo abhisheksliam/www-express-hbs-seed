@@ -11,6 +11,7 @@ angular.module('automationApp.scriptor')
             replace: true,
             templateUrl: 'modules/scriptor/directives/method.tpl.html',
             scope: {
+                'item': '=',
                 'method': '=',
                 'index' : '=',
                 'methodtypelist' : '='
@@ -39,6 +40,7 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-close",function (event) {
                     event.preventDefault();
+                    alert('len ' + scope.method.length);
                     var $item = $(this).parents(".dd-item:first");
 
                     bootbox.confirm("Are you sure to delete this method?", function (result) {
@@ -57,14 +59,58 @@ angular.module('automationApp.scriptor')
                     //todo
 
                     event.stopPropagation();
-
                 });
+
                 element.on('click',".item-level-1 .panel-move",function (event) {
                     event.preventDefault();
                     //todo
                     event.stopPropagation();
                 });
 
+                element.on('click',".copy-method",function (event) {
+                    event.preventDefault();
+                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
+                    var methodToCopy = angular.copy(scope.item.methods[methodNumber]);
+
+                    scope.item.methods.splice(methodNumber, 0, methodToCopy);
+                    scope.$apply();
+                    event.stopPropagation();
+                });
+
+                element.on('click',".add-method-link",function (event) {
+                    event.preventDefault();
+                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
+                    var methodToCopy = angular.copy(scope.item.methods[methodNumber]);
+
+                    scope.item.methods.splice(methodNumber, 0, methodToCopy);
+                    scope.$apply();
+                    event.stopPropagation();
+                });
+
+                element.closest('.li-level-0').find('.add-method-link').on('click',function (event) {
+                    event.preventDefault();
+
+                    var newMethodTemplate = {
+                        "init": true,
+                        "type": "Ribbon",
+                        "balooActions": [
+                            {
+                                "text": ""
+                            }
+                        ],
+                        "actions": [
+
+                        ],
+                        "group": "NOT_FOUND"
+                    };
+
+                    console.log($(this));
+                    //var itemNumber = parseInt($(this).closest('.li-level-0').data('id'));
+                    scope.item.methods.push(newMethodTemplate);
+
+                    scope.$apply();
+                    event.stopPropagation();
+                });
 
                 $timeout(function(){
                     var methodTypeSelect = element.find('select').select2({
@@ -77,8 +123,6 @@ angular.module('automationApp.scriptor')
                         scope.$apply();
                     });
                 },200);
-
-
 
             }
         }

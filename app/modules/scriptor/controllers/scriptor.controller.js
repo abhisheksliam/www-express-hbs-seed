@@ -99,6 +99,33 @@ angular.module('automationApp.scriptor')
 				}
 			};
 
+			$scope.addBlankItem = function(){
+
+				var itemTemplate = {
+					"init": true,
+					"methods": [
+						{
+							"init": true,
+							"type": "Ribbon",
+							"balooActions": [
+								{
+									"text": ""
+								}
+							],
+							"actions": [
+
+							],
+							"group": "NOT_FOUND"
+						}
+
+					],
+					"skip": false,
+					"text": ""
+				};
+				$scope.items[0].items.push(itemTemplate);
+				console.log($scope.items[0].items);
+			};
+
 
           /*  $interval(function(){
                 console.log($scope.taskJson);
