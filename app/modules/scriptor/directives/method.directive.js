@@ -11,6 +11,7 @@ angular.module('automationApp.scriptor')
             replace: true,
             templateUrl: 'modules/scriptor/directives/method.tpl.html',
             scope: {
+                'item': '=',
                 'method': '=',
                 'index' : '=',
                 'methodtypelist' : '='
@@ -39,6 +40,7 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-close",function (event) {
                     event.preventDefault();
+                    alert('len ' + scope.method.length);
                     var $item = $(this).parents(".dd-item:first");
 
                     bootbox.confirm("Are you sure to delete this method?", function (result) {
@@ -54,17 +56,19 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-copy",function (event) {
                     event.preventDefault();
-                    //todo
+                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
+                    var methodToCopy = angular.copy(scope.item.methods[methodNumber]);
 
+                    scope.item.methods.splice(methodNumber, 0, methodToCopy);
+                    scope.$apply();
                     event.stopPropagation();
-
                 });
+
                 element.on('click',".item-level-1 .panel-move",function (event) {
                     event.preventDefault();
                     //todo
                     event.stopPropagation();
                 });
-
 
                 $timeout(function(){
                     var methodTypeSelect = element.find('select').select2({
@@ -77,8 +81,6 @@ angular.module('automationApp.scriptor')
                         scope.$apply();
                     });
                 },200);
-
-
 
             }
         }

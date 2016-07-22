@@ -4,18 +4,69 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('itemPanel', ['$timeout', function($timeout) {
-
+    .directive('itemPanel', ['$timeout', '$compile', function($timeout, $compile, $templateRequest) {
         return {
             restrict: 'A',
             templateUrl: 'modules/scriptor/directives/itemPanel.tpl.html',
             scope: {
                 'items': '=',
-                'methodtypelist': '='
-            },
-            link: function (scope, element, attributes) {
-
+                'methodtypelist': '=',
+                'index': '='
+                },
+            link: function (scope, element, methodScope) {
                 $timeout(function(){
+
+                    scope.addNewItem = function () {
+
+                        var newItemTemplate = {
+                            "init": true,
+                            "methods": [
+                                {
+                                    "init": true,
+                                    "type": "Ribbon",
+                                    "balooActions": [
+                                        {
+                                            "text": ""
+                                        }
+                                    ],
+                                    "actions": [
+
+                                    ],
+                                    "group": "NOT_FOUND"
+                                }
+
+                            ],
+                            "skip": false,
+                            "text": ""
+                        };
+                        scope.items[0].items.push(newItemTemplate);
+                        console.log(scope.items[0].items);
+                    };
+
+                    element.on('click',".add-method-link a",function(event) {
+                        event.preventDefault();
+
+                        var newMethodTemplate = {
+                            "init": true,
+                            "type": "Ribbon",
+                            "balooActions": [
+                                {
+                                    "text": ""
+                                }
+                            ],
+                            "actions": [
+
+                            ],
+                            "group": "NOT_FOUND"
+                        };
+
+
+                        var itemNumber = $(this).closest('.li-level-0').data('id');
+                        scope.items[0].items[itemNumber].methods.push(newMethodTemplate);
+
+                        scope.$apply();
+                        event.stopPropagation();
+                    });
 
                     element.on('click',".item-level-0.dd3-content",function(event) {
 
@@ -46,7 +97,7 @@ angular.module('automationApp.scriptor')
                         var level1items = element.find('.selected');
                         level1items.siblings(".data-items").hide();
                         level1items.removeClass('selected');
-                    }
+                    };
 
                     var  closeLevel2Elements = function () {
                         var level2items = element.find('.item-level-2 .panel-toggle.closed');
@@ -56,8 +107,7 @@ angular.module('automationApp.scriptor')
                             content.siblings(".data-items").width("100%");
                             content.hide();
                         }
-                    }
-
+                    };
 
                     element.on('click',".item-level-0 .panel-close",function (event) {
                         event.preventDefault();
@@ -73,7 +123,6 @@ angular.module('automationApp.scriptor')
                         });
                         event.stopPropagation();
                     });
-
 
                     element.on('click',".item-level-1.dd3-content",function (event) {
                         event.preventDefault();
@@ -93,6 +142,7 @@ angular.module('automationApp.scriptor')
                         }
                         closeLevel2Elements();
                     });
+
                 });
 
                 //to fix this, implement template cache, then there is no need of timeout
@@ -116,7 +166,6 @@ angular.module('automationApp.scriptor')
                         helper : 'clone'
                     });
                 },2000);
-
             }
         }
     }]);
