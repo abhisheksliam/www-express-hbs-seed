@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('itemPanel', ['$timeout', '$compile', function($timeout, $compile, $templateRequest) {
+    .directive('itemPanel', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             templateUrl: 'modules/scriptor/directives/itemPanel.tpl.html',
@@ -13,7 +13,7 @@ angular.module('automationApp.scriptor')
                 'methodtypelist': '=',
                 'index': '='
                 },
-            link: function (scope, element, methodScope) {
+            link: function (scope, element) {
                 $timeout(function(){
 
                     scope.addNewItem = function () {
