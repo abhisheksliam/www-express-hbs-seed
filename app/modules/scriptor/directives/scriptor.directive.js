@@ -38,7 +38,9 @@ angular.module('automationApp.scriptor')
                         var level2items = element.find('.item-level-2 .panel-toggle.closed');
                         level2items.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
 
-                        scope.$apply();
+                        if(!scope.$$phase) {
+                            scope.$apply();
+                        }
                     }
                 };
 
@@ -61,7 +63,6 @@ angular.module('automationApp.scriptor')
                 },1500);
 
                 scope.$on('SCRIPTOR_NEW_ITEM_ADDED', function(event) {
-                    scope.$apply();
                     $( ".dd3-content.drop-action-handle" ).droppable(dropHandler);
                 });
 

@@ -16,7 +16,7 @@ angular.module('automationApp.scriptor')
             link: function (scope, element) {
                 $timeout(function(){
 
-                    scope.addNewItem = function () {
+                    element.on('click',"#add-item-link a",function(event) {
 
                         var newItemTemplate = {
                             "init": true,
@@ -40,8 +40,13 @@ angular.module('automationApp.scriptor')
                             "text": ""
                         };
                         scope.items[0].items.push(newItemTemplate);
+
+                        if(!scope.$$phase) {
+                            scope.$apply();
+                        }
+
                         scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
-                    };
+                    });
 
                     element.on('click',".add-method-link a",function(event) {
                         event.preventDefault();
@@ -64,7 +69,10 @@ angular.module('automationApp.scriptor')
                         var itemNumber = $(this).closest('.li-level-0').data('id');
                         scope.items[0].items[itemNumber].methods.push(newMethodTemplate);
 
-                        scope.$apply();
+                        if(!scope.$$phase) {
+                            scope.$apply();
+                        }
+
                         scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                         event.stopPropagation();
                     });
