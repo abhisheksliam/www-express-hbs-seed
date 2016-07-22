@@ -56,24 +56,17 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-copy",function (event) {
                     event.preventDefault();
-                    //todo
+                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
+                    var methodToCopy = angular.copy(scope.item.methods[methodNumber]);
 
+                    scope.item.methods.splice(methodNumber, 0, methodToCopy);
+                    scope.$apply();
                     event.stopPropagation();
                 });
 
                 element.on('click',".item-level-1 .panel-move",function (event) {
                     event.preventDefault();
                     //todo
-                    event.stopPropagation();
-                });
-
-                element.on('click',".copy-method",function (event) {
-                    event.preventDefault();
-                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
-                    var methodToCopy = angular.copy(scope.item.methods[methodNumber]);
-
-                    scope.item.methods.splice(methodNumber, 0, methodToCopy);
-                    scope.$apply();
                     event.stopPropagation();
                 });
 

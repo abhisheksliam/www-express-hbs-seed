@@ -93,12 +93,6 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-/*                element.on('click',".panel-copy",function (event) {
-                    event.preventDefault();
-                    //todo
-                    event.stopPropagation();
-                });*/
-
                 element.on('click',".copy-trigger",function (event) {
                     event.preventDefault();
                     var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
@@ -109,8 +103,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                // if suggestions needs to be shown
-
+                // If suggestions needs to be shown
                 var isElementName = scope.action.syntax.toLowerCase().indexOf("elementname") >= 0;
                 var isKeyName = scope.action.syntax.toLowerCase().indexOf("keyname") >= 0;
                 var suggestions;
