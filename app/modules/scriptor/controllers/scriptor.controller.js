@@ -5,7 +5,6 @@ angular.module('automationApp.scriptor')
 		function($scope, pluginsService, applicationService, $location, $state, scriptorService, $interval) {
 	
 			$scope.scriptor = scriptorService.uiElements;
-			$scope.taskJson =  scriptorService.getTaskJson();
 			$scope.triggers =	scriptorService.getTriggers();
 
             scriptorService.getNewScriptContext().then(function(res) {
@@ -21,6 +20,10 @@ angular.module('automationApp.scriptor')
                     $scope.scenarioType = $scope.scriptor.scenarioType;
                     $scope.applicationName = $scope.scriptor.applicationName;
                 }
+            });
+
+            scriptorService.getTaskJson().then(function(res) {
+                $scope.taskJson =  res.data;
             });
 
             /* Template Code to be kept in first route to be loaded */

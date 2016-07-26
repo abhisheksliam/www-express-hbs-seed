@@ -1,0 +1,1598 @@
+[
+  {
+    "version": "1.0",
+    "id": "GO16.PPT.04.4A.01",
+    "description": "PP Activity 4.01: Displaying and Editing Slide Masters",
+    "name": "PP Activity 4.01",
+    "init": true,
+    "appName": "ppt",
+    "scenario": "T1",
+    "source": "nlp",
+    "items": [
+      {
+        "methods": [
+          {
+            "balooActions": [
+              {
+                "text": "Click the View tab, in the Master Views group, click Slide Master."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Ribbon",
+            "actions": [
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Ribbon__View",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "Click the View tab, in the Master Views group, click Slide Master.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Ribbon__Master Views__Slide Master",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "Click the View tab, in the Master Views group, click Slide Master.",
+                "init": true,
+                "balooActionIndex": 0
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "Press ALT (or F10, or press F6 until the ribbon is selected), W, M."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ALT,W,M",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ALT (or F10, or press F6 until the ribbon is selected), W, M.",
+                "init": true,
+                "balooActionIndex": 0
+              }
+            ]
+          }
+        ],
+        "text": "Change to Slide Master view.",
+        "init": true,
+        "skip": true
+      },
+      {
+        "methods": [
+          {
+            "balooActions": [
+              {
+                "text": "In the thumbnail pane, scroll up and click the first slide."
+              },
+              {
+                "text": "On the Slide Master tab, in the Background group, click Fonts, scroll down, and then click Georgia."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Other",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "SlidePane_Go_4_4A_11_OfficeThemeSlideMaster"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Ribbon__Slide Master",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "On the Slide Master tab, in the Background group, click Fonts, scroll down, and then click Georgia.",
+                "init": true,
+                "balooActionIndex": 1
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Go_4_4A_11_Fonts"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "slideMaster_font_georgia"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "Press F6 until the Slides pane is selected. Press UP ARROW (orPAGE UP or HOME or CTRL+HOME)."
+              },
+              {
+                "text": "Press ALT (or F10, or press F6 until the ribbon is selected), M, TF, TAB or ARROW to select Georgia, then press ENTER. Alternatively, press ALT (or F10, or press F6 until the ribbon is selected), M, TF, TAB or ARROW to select Georgia, press SHIFT+F10, S (or TAB or ARROW to select Apply to Slide Master and press ENTER or SPACEBAR)."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "init": true,
+                "name": "pressKeyMultipleTimes()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "ARROW_UP"
+                  },
+                  {
+                    "actKey": "numOfTimes",
+                    "actVal": "1"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "pressKeyMultipleTimes(MyKeys keyName, String numOfTimes)"
+              },
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "ALT,M,TF"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "pressKeyMultipleTimes()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "ARROW_DOWN"
+                  },
+                  {
+                    "actKey": "numOfTimes",
+                    "actVal": "11"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "pressKeyMultipleTimes(MyKeys keyName , String numOfTimes)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ENTER",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ALT (or F10, or press F6 until the ribbon is selected), M, TF, TAB or ARROW to select Georgia, then press ENTER. Alternatively, press ALT (or F10, or press F6 until the ribbon is selected), M, TF, TAB or ARROW to select Georgia, press SHIFT+F10, S (or TAB or ARROW to select Apply to Slide Master and press ENTER or SPACEBAR).",
+                "init": true,
+                "balooActionIndex": 1
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "On the scroll bar, click the Previous Slide button (or the up arrow)."
+              },
+              {
+                "text": "On the Slide Master tab, in the Background group, click Fonts, scroll down, right-click Georgia, then click Apply to Slide Master."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Other",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "PPTSlidedisplayArea__Previous Slide"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Go_4_4A_11_Fonts"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "slideMaster_font_georgia"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              }
+            ]
+          }
+        ],
+        "text": "Display the Office Theme Slide Master and c<span style=\"color:rgb(115, 115, 115)\">hange the theme fonts to Georgia.</span>",
+        "init": true,
+        "skip": true
+      },
+      {
+        "methods": [
+          {
+            "balooActions": [
+              {
+                "text": "Click the second thumbnail. On the slide, click anywhere on the dashed border on the Master title style placeholder to display the border as a solid line. Click the Home tab."
+              },
+              {
+                "text": "On the Home tab, in the Font group, click the Font arrow, scroll down, and then click Lucida Sans Unicode."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Ribbon",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlide"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "title_slide_titlePlaceholder"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "1"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "1"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Ribbon__Home",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "Click the second thumbnail. On the slide, click anywhere on the dashed border on the Master title style placeholder to display the border as a solid line. Click the Home tab.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font{dropdown-button}"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "scroll()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font__Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "scroll(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font__Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "In the Slides pane, click the second thumbnail. Select the text in the title placeholder. On the Mini toolbar, click the Font arrow, scroll down, and then click Lucida Sans Unicode."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Toolbar",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlide"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlideText"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "5"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "10"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "SHIFT"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlideText"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "80"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "90"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "init": true,
+                "name": "releaseKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "SHIFT"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "releaseKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "shyToolbar_fontArrow"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "scroll()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "shyToolbar_LucidaSansUnicode"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "scroll(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "shyToolbar_LucidaSansUnicode"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "Press DOWN ARROW (or PAGE DOWN) to display the title slide."
+              },
+              {
+                "text": "Press F6 until the slide is selected and press TAB to select the title placeholder. Press ALT (or F10, or F6 until the ribbon is selected), H, FF, type Lucida Sans U (any case, or press DOWN ARROW) to select Lucida Sans Unicode, then press ENTER."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "syntax": "pressKeyMultipleTimes(MyKeys keyName, String numOfTimes)",
+                "values": [
+                  {
+                    "actVal": "ARROW_DOWN",
+                    "actKey": "keyName"
+                  },
+                  {
+                    "actVal": "1",
+                    "actKey": "numOfTimes"
+                  }
+                ],
+                "name": "pressKeyMultipleTimes()",
+                "balooActionText": "Press DOWN ARROW (or PAGE DOWN) to display the title slide.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "TAB"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ALT,H,FF",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press F6 until the slide is selected and press TAB to select the title placeholder. Press ALT (or F10, or F6 until the ribbon is selected), H, FF, type Lucida Sans U (any case, or press DOWN ARROW) to select Lucida Sans Unicode, then press ENTER.",
+                "init": true,
+                "balooActionIndex": 1
+              },
+              {
+                "init": true,
+                "name": "enterText()",
+                "values": [
+                  {
+                    "actKey": "text",
+                    "actVal": "Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "enterText(String text)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ENTER",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press F6 until the slide is selected and press TAB to select the title placeholder. Press ALT (or F10, or F6 until the ribbon is selected), H, FF, type Lucida Sans U (any case, or press DOWN ARROW) to select Lucida Sans Unicode, then press ENTER.",
+                "init": true,
+                "balooActionIndex": 1
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "On the scroll bar, click the Next Slide button (or click the down arrow) to display the Title Slide Layout. Select the title text. Right-click and click Font."
+              },
+              {
+                "text": "In the Font dialog box, on the Font tab, click the Latin text font drop-down arrow and click Lucida Sans Unicode. Click OK. Alternatively, click the Latin text font drop-down arrow, type Lucida Sans Unicode (any case), then press ENTER."
+              },
+              {
+                "text": "Click OK."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Right-Click",
+            "actions": [
+              {
+                "init": true,
+                "name": "click()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "PPTSlidedisplayArea__Next Slide"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "click(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlideText"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "5"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "10"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "SHIFT"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlideText"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "90"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "90"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "init": true,
+                "name": "releaseKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "SHIFT"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "releaseKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "rightClickCurrentPos()",
+                "values": [],
+                "balooActionIndex": "",
+                "syntax": "rightClickCurrentPos()"
+              },
+              {
+                "init": true,
+                "name": "click()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "ContextMenu_Font"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "click(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Dialog_Latin text font{dropdown-button}"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "scroll()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Dialog__Latin text font__Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "scroll(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Dialog__Latin text font__Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Dialog__OK",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "In the Font dialog box, on the Font tab, click the Latin text font drop-down arrow and click Lucida Sans Unicode. Click OK. Alternatively, click the Latin text font drop-down arrow, type Lucida Sans Unicode (any case), then press ENTER.",
+                "init": true,
+                "balooActionIndex": 1
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "In the Slides pane, click the second thumbnail. Select the title text (or click the title placeholder). On the Home tab, in the Font group, click the Font Dialog Box Launcher (or click Character Spacing, then click More Spacing)."
+              },
+              {
+                "text": "In the Font dialog box, on the Font tab, click the Latin text font drop-down arrow and click Lucida Sans Unicode. Click OK. Alternatively, click the Latin text font drop-down arrow, type Lucida Sans Unicode (any case), then press ENTER."
+              },
+              {
+                "text": "Click OK."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Ribbon",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlide"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "title_slide_titlePlaceholder"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "0"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "0"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Ribbon__Home",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "In the Slides pane, click the second thumbnail. Select the title text (or click the title placeholder). On the Home tab, in the Font group, click the Font Dialog Box Launcher (or click Character Spacing, then click More Spacing).",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font{launcher}"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Dialog_Latin text font{dropdown-button}"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "scroll()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Dialog__Latin text font__Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "scroll(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Dialog__Latin text font__Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Dialog__OK",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "Click OK.",
+                "init": true,
+                "balooActionIndex": 2
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "Press DOWN ARROW (or PAGE DOWN) to display the title slide."
+              },
+              {
+                "text": "Press F6 until the slide is selected and press TAB to select the title placeholder."
+              },
+              {
+                "text": "Press ALT (or F10, or F6 until the ribbon is selected), H, FN (or 6, M). Alternatively, press CTRL+SHIFT+F (or CTRL+T or CTRL+SHIFT+P)."
+              },
+              {
+                "text": "In the Font dialog box, press CTRL+TAB (or CTRL+SHIFT+TAB or LEFT (or RIGHT) ARROW) to display the Font tab, if necessary."
+              },
+              {
+                "text": "Press ALT+F (or TAB) to select the Latin text font box, type Lucida Sans U (any case) to select Lucida Sans Unicode, then press ENTER."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "syntax": "pressKeyMultipleTimes(MyKeys keyName, String numOfTimes)",
+                "values": [
+                  {
+                    "actVal": "ARROW_DOWN",
+                    "actKey": "keyName"
+                  },
+                  {
+                    "actVal": "1",
+                    "actKey": "numOfTimes"
+                  }
+                ],
+                "name": "pressKeyMultipleTimes()",
+                "balooActionText": "Press DOWN ARROW (or PAGE DOWN) to display the title slide.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "TAB"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ALT,H,FN",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ALT (or F10, or F6 until the ribbon is selected), H, FN (or 6, M). Alternatively, press CTRL+SHIFT+F (or CTRL+T or CTRL+SHIFT+P).",
+                "init": true,
+                "balooActionIndex": 2
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ALT+F",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ALT+F (or TAB) to select the Latin text font box, type Lucida Sans U (any case) to select Lucida Sans Unicode, then press ENTER.",
+                "init": true,
+                "balooActionIndex": 4
+              },
+              {
+                "init": true,
+                "name": "enterText()",
+                "values": [
+                  {
+                    "actKey": "text",
+                    "actVal": "Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": 4,
+                "syntax": "enterText(String text)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ENTER",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ALT+F (or TAB) to select the Latin text font box, type Lucida Sans U (any case) to select Lucida Sans Unicode, then press ENTER.",
+                "init": true,
+                "balooActionIndex": 4
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "In the Slides pane, click the second thumbnail. Select the title text. Press SHIFT+F10, F."
+              },
+              {
+                "text": "Press ALT+F (or TAB) to select the Latin text font box, press DOWN ARROW to select Lucida Sans Unicode, then press ENTER (or TAB)."
+              },
+              {
+                "text": "Press ENTER (or TAB to select OK and press ENTER (or SPACEBAR))."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlide"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlideText"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "5"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "10"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "SHIFT"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "clickAtPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlideText"
+                  },
+                  {
+                    "actKey": "xposPercent",
+                    "actVal": "90"
+                  },
+                  {
+                    "actKey": "yposPercent",
+                    "actVal": "90"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)"
+              },
+              {
+                "init": true,
+                "name": "releaseKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "SHIFT"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "releaseKey(MyKeys keyName)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "SHIFT+F10,F",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "In the Slides pane, click the second thumbnail. Select the title text. Press SHIFT+F10, F.",
+                "init": true,
+                "balooActionIndex": ""
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ALT+F",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ALT+F (or TAB) to select the Latin text font box, press DOWN ARROW to select Lucida Sans Unicode, then press ENTER (or TAB).",
+                "init": true,
+                "balooActionIndex": 1
+              },
+              {
+                "init": true,
+                "name": "enterText()",
+                "values": [
+                  {
+                    "actKey": "text",
+                    "actVal": "Lucida Sans Unicode"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "enterText(String text)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ENTER",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ENTER (or TAB to select OK and press ENTER (or SPACEBAR)).",
+                "init": true,
+                "balooActionIndex": 2
+              }
+            ]
+          }
+        ],
+        "text": "<span style=\"color:rgb(115, 115, 115)\">On the Title Slide Layout master, change the font of the title placeholder to Lucida Sans Unicode.</span>",
+        "init": true,
+        "skip": false,
+        "copiedFrom": {
+          "scenarioId": "55f29dd783514edc454b1bbe",
+          "label": "task",
+          "stepId": "55f2a2b732fbf9030b0b11dd"
+        }
+      },
+      {
+        "methods": [
+          {
+            "balooActions": [
+              {
+                "text": "On the Home tab, in the Font group, click the Font Size arrow and click 40."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Ribbon",
+            "actions": [
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Ribbon__Home",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "On the Home tab, in the Font group, click the Font Size arrow and click 40.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font__Font Size{dropdown-button}"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font__40"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "Select the text in the title placeholder, if necessary. Right-click and on the Mini toolbar, click the Font Size arrow and click 40 (or click the Decrease Font Size button until 40 is selected)."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Toolbar",
+            "actions": [
+              {
+                "init": true,
+                "name": "moveToElementPercent()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "GO16_04_4A_01_titleSlideText"
+                  },
+                  {
+                    "actKey": "xOffsetPercent",
+                    "actVal": "50"
+                  },
+                  {
+                    "actKey": "yOffsetPercent",
+                    "actVal": "50"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "moveToElementPercent(String elementName, double xOffsetPercent, double yOffsetPercent)"
+              },
+              {
+                "init": true,
+                "name": "rightClickCurrentPos()",
+                "values": [],
+                "balooActionIndex": 0,
+                "syntax": "rightClickCurrentPos()"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "MiniToolbar_FontSize{dropdown-button}"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "MiniToolbar_FontSize_40"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "With the text or the placeholder selected, on the Home tab, in the Font group, click the Font Dialog Box Launcher."
+              },
+              {
+                "text": "In the Font dialog box, click the Size down spin box arrow to display 40. Alternatively, in the Size box, type 40."
+              },
+              {
+                "text": "Click OK."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Ribbon",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Home"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font{launcher}"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Dialog__Size:{spinInput}"
+                  }
+                ],
+                "balooActionIndex": 1,
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "CTRL+A"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "enterText()",
+                "values": [
+                  {
+                    "actKey": "text",
+                    "actVal": "40"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "enterText(String text)"
+              },
+              {
+                "syntax": "clickAndWait(String elementName)",
+                "values": [
+                  {
+                    "actVal": "Dialog__OK",
+                    "actKey": "elementName"
+                  }
+                ],
+                "name": "clickAndWait()",
+                "balooActionText": "Click OK.",
+                "init": true,
+                "balooActionIndex": 2
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "With the text or the placeholder selected, on the Home tab, in the Font group, click the Decrease Font Size button until 40 is selected. Alternatively, click in the Font Size box, type 40, then press ENTER."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Ribbon",
+            "actions": [
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Home"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "clickAndWait(String elementName)"
+              },
+              {
+                "init": true,
+                "name": "clickAndWait()",
+                "values": [
+                  {
+                    "actKey": "elementName",
+                    "actVal": "Ribbon__Font__Decrease Font Size"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "clickAndWait(String elementName)"
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "With the text or the placeholder selected, press CTRL+SHIFT+F (or CTRL+SHIFT+P or CTRL+T). Alternatively, press ALT (or F10, or F6 until the ribbon is selected), H, FN."
+              },
+              {
+                "text": "In the Font dialog box, press ALT+S (or S or TAB) to select the Size box, type 40 (or press DOWN ARROW to select 40)."
+              },
+              {
+                "text": "Press ENTER (or TAB to select OK and press ENTER)."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "CTRL+SHIFT+F",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "With the text or the placeholder selected, press CTRL+SHIFT+F (or CTRL+SHIFT+P or CTRL+T). Alternatively, press ALT (or F10, or F6 until the ribbon is selected), H, FN.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ALT+S",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "In the Font dialog box, press ALT+S (or S or TAB) to select the Size box, type 40 (or press DOWN ARROW to select 40).",
+                "init": true,
+                "balooActionIndex": 1
+              },
+              {
+                "syntax": "enterText(String text)",
+                "values": [
+                  {
+                    "actVal": "40",
+                    "actKey": "text"
+                  }
+                ],
+                "name": "enterText()",
+                "balooActionText": "In the Font dialog box, press ALT+S (or S or TAB) to select the Size box, type 40 (or press DOWN ARROW to select 40).",
+                "init": true,
+                "balooActionIndex": 1
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ENTER",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "Press ENTER (or TAB to select OK and press ENTER).",
+                "init": true,
+                "balooActionIndex": 2
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "With the text or the placeholder selected, press ALT (or F10, or F6 until the ribbon is selected), H, FS, type 40 (or press UP ARROW to select 40), then press ENTER."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "ALT"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "pressKey(MyKeys keyName)"
+              },
+              {
+                "init": true,
+                "name": "releaseKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "ALT"
+                  }
+                ],
+                "balooActionIndex": "",
+                "syntax": "releaseKey(MyKeys keyName)"
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ALT,H,FS",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "With the text or the placeholder selected, press ALT (or F10, or F6 until the ribbon is selected), H, FS, type 40 (or press UP ARROW to select 40), then press ENTER.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "syntax": "enterText(String text)",
+                "values": [
+                  {
+                    "actVal": "40",
+                    "actKey": "text"
+                  }
+                ],
+                "name": "enterText()",
+                "balooActionText": "With the text or the placeholder selected, press ALT (or F10, or F6 until the ribbon is selected), H, FS, type 40 (or press UP ARROW to select 40), then press ENTER.",
+                "init": true,
+                "balooActionIndex": 0
+              },
+              {
+                "syntax": "pressKey(MyKeys keyName)",
+                "values": [
+                  {
+                    "actVal": "ENTER",
+                    "actKey": "keyName"
+                  }
+                ],
+                "name": "pressKey()",
+                "balooActionText": "With the text or the placeholder selected, press ALT (or F10, or F6 until the ribbon is selected), H, FS, type 40 (or press UP ARROW to select 40), then press ENTER.",
+                "init": true,
+                "balooActionIndex": 0
+              }
+            ]
+          },
+          {
+            "balooActions": [
+              {
+                "text": "Select the placeholder, press CTRL+SHIFT+&lt; (or press ALT (or F10, or F6 until the ribbon is selected), H, FK) until the font size is 40."
+              }
+            ],
+            "init": true,
+            "group": "NOT_FOUND",
+            "type": "Keyboard",
+            "actions": [
+              {
+                "init": true,
+                "name": "pressKey()",
+                "values": [
+                  {
+                    "actKey": "keyName",
+                    "actVal": "CTRL+SHIFT+&lt;"
+                  }
+                ],
+                "balooActionIndex": 0,
+                "syntax": "pressKey(MyKeys keyName)"
+              }
+            ]
+          }
+        ],
+        "text": "On the Title Slide Layout master, change the font size of the title placeholder to 40.",
+        "init": true,
+        "skip": false,
+        "copiedFrom": {
+          "scenarioId": "55f29dd783514edc454b1bbe",
+          "label": "task",
+          "stepId": "55f29ed032fbf9030b0854d6"
+        }
+      }
+    ]
+  },
+  [
+    [
+      "\"1\", \"1\"",
+      "\"2\", \"1\"",
+      "\"3\", \"1\"",
+      "\"4\", \"1\""
+    ],
+    "\"Primary\",\"Ribbon\"",
+    [
+      "\"1\", \"2\"",
+      "\"2\", \"2\"",
+      "\"3\", \"2\"",
+      "\"4\", \"2\""
+    ],
+    "\"Keyboard\",\"Toolbar\"",
+    [
+      "\"1\", \"2\"",
+      "\"2\", \"3\"",
+      "\"3\", \"3\"",
+      "\"4\", \"3\""
+    ],
+    "\"Ribbon\",\"Keyboard\"",
+    [
+      "\"1\", \"1\"",
+      "\"2\", \"1\"",
+      "\"3\", \"4\"",
+      "\"4\", \"4\""
+    ],
+    "\"Ribbon\",\"Right - Click\"",
+    [
+      "\"1\", \"2\"",
+      "\"2\", \"2\"",
+      "\"3\", \"5\"",
+      "\"4\", \"5\""
+    ],
+    "\"Ribbon\",\"Keyboard\"",
+    [
+      "\"1\", \"2\"",
+      "\"2\", \"2\"",
+      "\"3\", \"6\"",
+      "\"4\", \"6\""
+    ],
+    "\"Keyboard\"",
+    [
+      "\"1\", \"2\"",
+      "\"2\", \"2\"",
+      "\"3\", \"7\"",
+      "\"4\", \"7\""
+    ],
+    "\"Keyboard\""
+  ]
+]
