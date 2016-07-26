@@ -3,8 +3,19 @@
 /* dependencies */
 const express = require('express');
 const exphbs = require('express-handlebars');
+const expressValidator = require('express-validator');
+const compress = require('compression');
 const bodyParser = require('body-parser');
 const path = require('path');
+
+// Error Handler
+const appError = require('./server/error/apperror.server.service.js');
+
+// Logger
+const bunyan = require("bunyan");
+const bunyanformat = require('bunyan-format');
+const formatOut = bunyanformat({ outputMode: 'short' });
+const logger = bunyan.createLogger({name: 'SIM5Automation', stream: formatOut, level: 'info' });
 
 //config
 const config = require("./server/config");
@@ -16,6 +27,22 @@ var mongoose = require("mongoose");
 
 //Express
 let app = express();
+
+//-----------Express Middlewares-------------------
+// 1. HTTP CACHE HEADERS
+app.use(function(req, res, next) {
+
+    if (req.url.match(/^\/(css|js)\/.+/)) {
+        // set cacahe time in header as 3 days.
+        res.setHeader('Cache-Control', 'public, max-age=259200');
+        // while calculating the expiry date, add 3 days(change to milliseconds), in the current date.
+        res.setHeader("Expires", new Date(Date.now() + 259200000).toUTCString());
+    }
+    return next();
+});
+
+// 2. GZIP compression
+app.use(compress());
 
 //Default location of Express Views - used in development mode
 let viewsPath = path.join(__dirname, '.tmp', 'views');
@@ -37,6 +64,7 @@ if (process.env.NODE_ENV === 'production') {
 // 3.Support for  json encoded bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator());
 
 //-----------Express WWW Server-------------------
 let port = process.env.PORT || 8080;
@@ -70,8 +98,16 @@ try{
     console.log("Mongo error" + er);
 }
 
+// error handling
+app.use(function(err, req, res, next){
+    logger.error(err);
+    res.status(err.status || appError.ERROR_CODES.OTHER.httpCode)
+        .send(err);
+
+});
+
 //-----------Start listening -------------------
 app.listen(port, function() {
-    console.log('Your Automation App is running on http://localhost:' + port);
-    console.log('Environment is set to ' + (process.env.NODE_ENV || 'development'));
+    logger.info('Your Automation App is running on http://localhost:' + port);
+    logger.info('Environment is set to ' + (process.env.NODE_ENV || 'development'));
 });
