@@ -4,21 +4,9 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-.factory('scriptorService', ['$filter',function($filter) {
+.factory('scriptorService', ['$filter' , '$http' ,function($filter, $http) {
 
         /**************** Constants ****************/
-        var applications = [
-            "Word",
-            "Access",
-            "PPT",
-            "Excel"
-        ];
-
-        var scenarios = [
-            "T1",
-            "A1"
-        ];
-
         var triggers = [
             {
                 name:"clickAndWait()",
@@ -27,7 +15,9 @@ angular.module('automationApp.scriptor')
                 values: [
                     {
                         "actVal": "Customize_Quick_Access_Toolbar",
-                        "actKey": "elementName"
+                        "actKey": "elementName",
+                        "displayXpath" : true,
+                        "dataType": "string"
                     }
                 ]
             },
@@ -38,7 +28,8 @@ angular.module('automationApp.scriptor')
                 values: [
                     {
                         "actVal": "abc",
-                        "actKey": "cellName"
+                        "actKey": "cellName",
+                        "dataType": "string"
                     }
                 ]
             },
@@ -49,7 +40,8 @@ angular.module('automationApp.scriptor')
                 values: [
                     {
                         "actVal": "abc",
-                        "actKey": "cellName"
+                        "actKey": "cellName",
+                        "dataType": "string"
                     }
                 ]
             },
@@ -60,7 +52,9 @@ angular.module('automationApp.scriptor')
                 values: [
                     {
                         "actVal": "abc",
-                        "actKey": "elementName"
+                        "actKey": "elementName",
+                        "displayXpath" : true,
+                        "dataType": "string"
                     }
                 ]
             },
@@ -77,26 +71,26 @@ angular.module('automationApp.scriptor')
                 values: [
                     {
                         "actVal": "ALT",
-                        "actKey": "keyName"
+                        "actKey": "keyName",
+                        "dataType": "string"
                     }
                 ]
             },
             {
                 name:"clickMultipleTimes()",
                 id:"7",
-                syntax: "clickMultipleTimes(String elementName , String numOfTimes, String extra)",
+                syntax: "clickMultipleTimes(String elementName , String numOfTimes)",
                 values: [
                     {
                         "actVal": "Customize_Quick_Access_Toolbar",
-                        "actKey": "elementName"
+                        "actKey": "elementName",
+                        "displayXpath" : true,
+                        "dataType": "string"
                     },
                     {
                         "actVal": "4",
-                        "actKey": "numOfTimes"
-                    },
-                    {
-                        "actVal": "test",
-                        "actKey": "extra"
+                        "actKey": "numOfTimes",
+                        "dataType": "string"
                     }
                 ]
             },
@@ -741,18 +735,6 @@ angular.module('automationApp.scriptor')
             }
         ];
 
-        var methodtypelist = [
-                            "Ribbon",
-                            "Keyboard",
-                            "Toolbar",
-                            "Mouse",
-                            "Shortcut Menu",
-                            "Other",
-                            "Menu",
-                            "Right Click"
-                        ];
-
-
         var keyboardActions =
             ["ALT","ARROW_DOWN","ARROW_LEFT","ARROW_RIGHT","ARROW_UP","BACK_SPACE","CONTROL","DECIMAL","DELETE","END","ENTER","ESCAPE","F1","F10","F11","F12","F2","F3","F4","F5","F6","F7","F8","F9","HOME","PAGE_DOWN","SHIFT","SPACEBAR","TAB","CTRL","ESC","PAGE_UP"];
 
@@ -769,26 +751,13 @@ angular.module('automationApp.scriptor')
             "Ribbon_Minimize" : "//*[@class='title-bar']//*[contains(@class,'titlebar-control')][descendant::*[text()='Minimize']]",
             "Ribbon_ClosePreview_ClosePrintPreview" : "//*[@id='ribbon-tab-Print Preview']/li[descendant::*[text()='C']]"
         }
-        /**************** Private functions ********/
-
-
-
-
-
-
-
-
 
 
         /***************** APIs ********************/
 
 
-        var getApplications = function() {
-            return applications;
-        }
-
-        var getScenarios = function() {
-            return scenarios;
+        var getNewScriptContext = function() {
+            return $http.get('data/new_script.json');
         }
 
         var getTriggers = function() {
@@ -804,10 +773,6 @@ angular.module('automationApp.scriptor')
 
         var getTaskJson = function() {
             return taskJson;
-        }
-
-        var getMethodTypeList = function() {
-            return methodtypelist;
         }
 
         var getKeyNameSuggestions = function() {
@@ -826,12 +791,10 @@ angular.module('automationApp.scriptor')
 
         return {
         "uiElements" : {},
-        "getApplications": getApplications,
-        "getScenarios": getScenarios,
+        "getNewScriptContext": getNewScriptContext,
         "getTriggers":  getTriggers,
         "getTriggerForID": getTriggerForID,
         "getTaskJson": getTaskJson,
-        "getMethodTypeList": getMethodTypeList,
         "getKeyNameSuggestions":getKeyNameSuggestions,
         "getElementNameSuggestions":getElementNameSuggestions,
         "getXPathForElement" : getXPathForElement

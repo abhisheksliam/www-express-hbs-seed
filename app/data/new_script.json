@@ -1,0 +1,22 @@
+{
+	"applications": [
+		"Word",
+		"Access",
+		"PPT",
+		"Excel"
+    ],
+    "scenarios": [
+		"T1",
+		"A1"
+    ],
+    "methodtype": [
+		"Ribbon",
+		"Keyboard",
+		"Toolbar",
+		"Mouse",
+		"Shortcut Menu",
+		"Other",
+		"Menu",
+		"Right Click"
+    ]
+}

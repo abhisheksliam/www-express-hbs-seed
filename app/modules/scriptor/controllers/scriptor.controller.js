@@ -5,13 +5,29 @@ angular.module('automationApp.scriptor')
 		function($scope, pluginsService, applicationService, $location, $state, scriptorService, $interval) {
 	
 			$scope.scriptor = scriptorService.uiElements;
-			$scope.applications =  scriptorService.getApplications();
-			$scope.scenarios =  scriptorService.getScenarios();
 			$scope.taskJson =  scriptorService.getTaskJson();
 			$scope.triggers =	scriptorService.getTriggers();
-			$scope.methodtypelist =	scriptorService.getMethodTypeList();
 
-			/* Template Code to be kept in first route to be loaded */
+            scriptorService.getNewScriptContext().then(function(res) {
+                $scope.applications =  res.data.applications;
+                $scope.scenarios =  res.data.scenarios;
+                $scope.methodtypelist =	res.data.methodtype;
+
+                $scope.scenarioType = $scope.scenarios[0];
+                $scope.applicationName = $scope.applications[0];
+            });
+
+            if($scope.scriptor.scenarioType){
+                $scope.scenarioType = $scope.scriptor.scenarioType;
+            }
+            if($scope.scriptor.applicationName){
+                $scope.applicationName = $scope.scriptor.applicationName;
+            }
+            if($scope.scriptor.taskId){
+                $scope.taskId = $scope.scriptor.taskId;
+            }
+
+            /* Template Code to be kept in first route to be loaded */
 			$scope.$on('$viewContentLoaded', function () {
 				pluginsService.init();
 				applicationService.customScroll();
@@ -32,21 +48,6 @@ angular.module('automationApp.scriptor')
 				}
 
 			});
-
-			if($scope.scriptor.taskId){
-				$scope.taskId = $scope.scriptor.taskId;
-			}
-			if($scope.scriptor.scenarioType){
-				$scope.scenarioType = $scope.scriptor.scenarioType;
-			}else{
-				$scope.scenarioType = $scope.scenarios[0];
-			};
-
-			if($scope.scriptor.applicationName){
-				$scope.applicationName = $scope.scriptor.applicationName;
-			}else{
-				$scope.applicationName = $scope.applications[0];
-			}
 
 			// todo: move to appropriate file
 			function validateTaskId(input){
@@ -98,10 +99,5 @@ angular.module('automationApp.scriptor')
 					$state.go('displayscript');
 				}
 			};
-
-
-          /*  $interval(function(){
-                console.log($scope.taskJson);
-            }, 30000, 10);*/
 
 		}]);
