@@ -15,17 +15,13 @@ angular.module('automationApp.scriptor')
 
                 $scope.scenarioType = $scope.scenarios[0];
                 $scope.applicationName = $scope.applications[0];
-            });
 
-            if($scope.scriptor.scenarioType){
-                $scope.scenarioType = $scope.scriptor.scenarioType;
-            }
-            if($scope.scriptor.applicationName){
-                $scope.applicationName = $scope.scriptor.applicationName;
-            }
-            if($scope.scriptor.taskId){
-                $scope.taskId = $scope.scriptor.taskId;
-            }
+                if($scope.scriptor.taskId){
+                    $scope.taskId = $scope.scriptor.taskId;
+                    $scope.scenarioType = $scope.scriptor.scenarioType;
+                    $scope.applicationName = $scope.scriptor.applicationName;
+                }
+            });
 
             /* Template Code to be kept in first route to be loaded */
 			$scope.$on('$viewContentLoaded', function () {
