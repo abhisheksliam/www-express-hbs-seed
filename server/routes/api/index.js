@@ -17,6 +17,7 @@ apirouter.get('/', function(req, res) {
 });
 
 apirouter.use('/', require('../../controllers/scriptor.server.controller'));
+apirouter.use('/', require('../../controllers/user.server.controller'));
 
 module.exports = apirouter;
 
