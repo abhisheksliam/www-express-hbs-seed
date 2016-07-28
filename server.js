@@ -7,6 +7,7 @@ const expressValidator = require('express-validator');
 const compress = require('compression');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 
 // Error Handler
 const appError = require('./server/error/apperror.server.service.js');
@@ -21,12 +22,16 @@ const logger = bunyan.createLogger({name: 'SIM5Automation', stream: formatOut, l
 const config = require("./server/config");
 var routes   = require('./server/routes/index');
 
-/* Database connect
- * */
+//session config
+const session  = require('express-session');
+const passport = require('passport');
+/* Database connect */
 var mongoose = require("mongoose");
 
 //Express
 let app = express();
+/// passport config
+require('./server/config/passport')(passport);
 
 //-----------Express Middlewares-------------------
 // 1. HTTP CACHE HEADERS
@@ -79,6 +84,18 @@ app.engine('.hbs', exphbs({
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+// CookieParser should be above session
+app.use(cookieParser());
+
+// required for passport
+app.use(session({
+    secret: 'runner-v2',
+    resave: true,
+    key: 'runner.sid',
+    saveUninitialized: true
+} )); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 // Define a prefix for all routes
 app.use('/', routes.webrouter);
