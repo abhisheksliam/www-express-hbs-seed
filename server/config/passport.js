@@ -10,8 +10,8 @@ var hashPassword = function(password, saltValue) {
 
 var users = {
 "id" : 1,
-"username" : "testuser",
-"password" : "pass"
+"username" : "comproqa",
+"password" : "password"
 };
 
 module.exports = function(passport) {
@@ -37,6 +37,8 @@ module.exports = function(passport) {
                 passReqToCallback : true
             },
             function(req, username, password, done) {
+                console.log('Authenticating user using passport local strategy' ,  username);
+
                 if (username === null) {
                     console.log('credentials not provided');
                     return done(null, false)

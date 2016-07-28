@@ -1,6 +1,8 @@
 'use strict';
 
 var express = require('express');
+const passport = require('passport');
+
 // Get the router
 var webrouter = express.Router();
 
@@ -14,5 +16,15 @@ webrouter.get('/', function(req, res) {
         }
     });
 });
+
+webrouter.get('/login', function(req, res) {
+    res.status(401).send({
+        message: 'User is not logged in'
+    });
+});
+
+webrouter.post('/login',
+    passport.authenticate('local', { successRedirect: '/',
+        failureRedirect: '/login' }));
 
 module.exports = webrouter;
