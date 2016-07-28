@@ -7,14 +7,7 @@ const passport = require('passport');
 var webrouter = express.Router();
 
 webrouter.get('/', function(req, res) {
-    res.render('index', {
-        user: req.user || null,
-        helpers: {
-            json: function(context) {
-                return JSON.stringify(context);
-            }
-        }
-    });
+    res.render('index');
 });
 
 webrouter.get('/login', function(req, res) {
