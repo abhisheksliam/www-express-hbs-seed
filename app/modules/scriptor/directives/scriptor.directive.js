@@ -8,7 +8,7 @@ angular.module('automationApp.scriptor')
 
         return {
             restrict: 'E',
-            templateUrl: 'modules/scriptor/directives/scriptor.tpl.html',
+            templateUrl: 'modules/scriptor/directives/views/scriptor.tpl.html',
             scope: {
                 'items': '=',
                 'triggers': '=',

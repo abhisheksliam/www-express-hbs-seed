@@ -9,7 +9,7 @@ angular.module('automationApp.scriptor')
 
         return {
             restrict: 'A',
-            templateUrl: 'modules/scriptor/directives/actionList.tpl.html',
+            templateUrl: 'modules/scriptor/directives/views/actionList.tpl.html',
             scope: {
                 'triggers': '='
             },

@@ -7,7 +7,7 @@ angular.module('automationApp.scriptor')
     .directive('itemPanel', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
-            templateUrl: 'modules/scriptor/directives/itemPanel.tpl.html',
+            templateUrl: 'modules/scriptor/directives/views/itemPanel.tpl.html',
             scope: {
                 'items': '=',
                 'methodtypelist': '=',

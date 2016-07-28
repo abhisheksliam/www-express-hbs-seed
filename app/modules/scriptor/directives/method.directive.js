@@ -9,7 +9,7 @@ angular.module('automationApp.scriptor')
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: 'modules/scriptor/directives/method.tpl.html',
+            templateUrl: 'modules/scriptor/directives/views/method.tpl.html',
             scope: {
                 'item': '=',
                 'method': '=',
