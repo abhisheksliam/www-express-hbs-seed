@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-.factory('scriptorService', ['$filter' , '$http', '$q', function($filter, $http, $q) {
+.factory('scriptorService', ['$rootScope', '$filter' , '$http', '$q', function($rootScope, $filter, $http, $q) {
 
         /**************** Constants ****************/
         var globalContext;
@@ -151,9 +151,7 @@ angular.module('automationApp.scriptor')
         }
 
         var getKeyNameSuggestions = function() {
-            globalContext.then(function(res) {
-                return res.data.keyboardActions;
-            });
+            return $rootScope.keyboardActions;
         }
 
         var getElementNameSuggestions = function() {
