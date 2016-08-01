@@ -7,7 +7,7 @@ angular.module('automationApp.scriptor')
 			$scope.scriptor = scriptorService.uiElements;
 			$scope.triggers =	scriptorService.getTriggers();
 
-            scriptorService.getNewScriptContext().then(function(res) {
+            scriptorService.getGlobalContext().then(function(res) {
                 $scope.applications =  res.data.applications;
                 $scope.scenarios =  res.data.scenarios;
                 $scope.methodtypelist =	res.data.methodtype;
