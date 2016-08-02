@@ -15,7 +15,7 @@
 								<div class="form-group">
 									<label class="col-sm-5 control-label m-t-5">Application</label>
 									<div class="col-sm-7">
-										<select class="col-sm-3 form-control use-select2"
+										<select class="col-sm-3 form-control use-select2 form-white" data-style="white"
 												ng-model="applicationName"
 												ng-options="application for application in applications" required>
 										</select>
@@ -26,7 +26,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label m-t-5">Scenario</label>
 									<div class="col-sm-5">
-										<select class="col-sm-3 form-control use-select2"
+										<select class="col-sm-3 form-control use-select2 form-white" data-style="white"
 												ng-model="scenarioType"
 												ng-options="scenario for scenario in scenarios" required>
 										</select>
@@ -53,7 +53,10 @@
 				<button id="save-task-topband" type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10" ng-click="displayScript()">Update / Save</button>
 			</div>
 		</form>
+
+
 	</div>
+
 </div>
 
 
