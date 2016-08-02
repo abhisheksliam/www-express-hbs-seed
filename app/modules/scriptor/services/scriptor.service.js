@@ -128,7 +128,7 @@ angular.module('automationApp.scriptor')
 
 
         var getGlobalContext = function() {
-            globalContext = $http.get('data/global.json');
+            globalContext = $http.get('data/global_constants.json');
 
             var deferred = $q.defer();
             deferred.resolve(globalContext);

@@ -1,9 +1,21 @@
 {
-	"applications": [
-		"Word",
-		"Access",
-		"PPT",
-		"Excel"
+  "applications": [
+     {
+        "label": "Word",
+        "key": "word"
+      },
+      {
+        "label": "Access",
+        "key": "access"
+      },
+      {
+        "label": "PPT",
+        "key": "ppt"
+      },
+      {
+        "label": "Excel",
+        "key": "excel"
+      }
     ],
     "scenarios": [
 		"T1",
