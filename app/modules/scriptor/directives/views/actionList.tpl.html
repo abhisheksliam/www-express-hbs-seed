@@ -1,12 +1,13 @@
-<div class="panel action-list-panel m-t-10">
+<div class="panel action-list-panel m-t-5">
     <div class="panel-content" id="triggerlist">
         <form action="search-result.html" method="post" class="searchform" id="search-results">
             <h3 class="m-t-0"><span class="action-list-title"><strong>Action list</strong></span></h3>
-            <input ng-model="searchActionText" type="text" class="form-control m-b-5" name="keyword" placeholder="Search...">
+            <input search-input ng-model="searchActionText" type="text" class="form-control m-b-5" name="keyword" placeholder="Search...">
+            <i ng-show="enabled" ng-mousedown="reset()" class="fa fa-times-circle"></i>
         </form>
         <div class="dd nestable">
             <ul class="dd-list">
-                <li ng-repeat="trigger in triggers | filter:searchActionText" class="dd-item">
+                <li ng-repeat="trigger in triggers | filter:searchActionText || undefined" class="dd-item">
                     <div class="dd-handle" data-id="{{trigger.id}}"><span class="trigger-text">{{trigger.syntax}}</span><span class="pull-right trigger-dragger"><i class="fa fa-bars"></i></span></div>
                 </li>
             </ul>
