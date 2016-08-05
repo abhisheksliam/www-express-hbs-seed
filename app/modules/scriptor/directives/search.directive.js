@@ -11,7 +11,7 @@ angular.module('automationApp.scriptor')
             scope: {},
             link: function(scope, el, attrs, ctrl) {
 
-                el.addClass('am-reset-field');
+                el.addClass('reset-field');
 
                 var template = $compile('<i ng-show="enabled" ng-mousedown="reset()" class="fa fa-close"></i>')(scope);
                 el.after(template);

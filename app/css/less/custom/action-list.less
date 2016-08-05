@@ -3,46 +3,8 @@
 
 #triggerlist {
 
-  /* prevent text from appearing underneath the icon */
-  input.am-reset-field {
-    padding-right: 19px;
-  }
-
-  /* hide the built-in IE10+ clear field icon */
-  input.am-reset-field::-ms-clear {
-    display: none;
-  }
-  /* hide cancel icon for search type */
-  input.am-reset-field::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-  }
-
-  /* icon styles */
-  input.am-reset-field + .fa {
-    position: absolute;
-    right: 19px;
-    color: #8a8d92;
-    cursor: default;
-    font-size: 20px;
-    line-height: 34px;
-  }
-
-  /* animations for ngAnimate */
-  input.am-reset-field + .fa.ng-hide-add {
-    display:inline!important;
-    -webkit-animation: 0.3s fadeOut;
-    -moz-animation: 0.3s fadeOut;
-    -ms-animation: 0.3s fadeOut;
-    animation: 0.3s fadeOut;
-  }
-  input.am-reset-field + .fa.ng-hide-remove {
-    -webkit-animation: 0.5s fadeIn;
-    -moz-animation: 0.5s fadeIn;
-    -ms-animation: 0.5s fadeIn;
-    animation: 0.5s fadeIn;
-  }
-
-  min-height: 500px;
+    min-height: 600px;
+    border: 1px solid #d1cfcf;
 
   .dd-handle {
     background-color: rgba(240, 240, 240, 0.45);
@@ -69,24 +31,55 @@
     vertical-align: middle;
   }
 
-  .searchform > input {
+  .dd-item {
+    padding-top: 0;
+  }
+
+  .title {
+    font-size: 16px;
+    padding: 3px 0;
+    display: inline-block;
+  }
+
+  input {
     background: white;
     border: 1px solid #d8d9da;
     font-size: 14px;
   }
 
-  .dd-item {
-    padding-top: 0;
+  input.reset-field {
+    padding-right: 19px;
   }
-}
 
-.action-list-panel {
-  min-height: 600px;
-  border: 1px solid #d1cfcf;
-}
+  input.reset-field::-ms-clear {
+    display: none;
+  }
 
-.action-list-title {
-  font-size: 16px;
-  padding: 3px 0;
-  display: inline-block;
+  input.reset-field::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+  }
+
+  input.reset-field + .fa {
+    position: absolute;
+    right: 19px;
+    color: #8a8d92;
+    cursor: default;
+    font-size: 20px;
+    line-height: 34px;
+  }
+
+  input.reset-field + .fa.ng-hide-add {
+    display:inline!important;
+    -webkit-animation: 0.3s fadeOut;
+    -moz-animation: 0.3s fadeOut;
+    -ms-animation: 0.3s fadeOut;
+    animation: 0.3s fadeOut;
+  }
+
+  input.reset-field + .fa.ng-hide-remove {
+    -webkit-animation: 0.5s fadeIn;
+    -moz-animation: 0.5s fadeIn;
+    -ms-animation: 0.5s fadeIn;
+    animation: 0.5s fadeIn;
+  }
 }

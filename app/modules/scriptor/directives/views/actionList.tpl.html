@@ -1,7 +1,7 @@
-<div class="panel action-list-panel m-t-5">
-    <div class="panel-content" id="triggerlist">
-        <form action="search-result.html" method="post" class="searchform" id="search-results">
-            <h3 class="m-t-0"><span class="action-list-title"><strong>Action list</strong></span></h3>
+<div class="panel" id="triggerlist">
+    <div class="panel-content">
+        <form id="search-results">
+            <h3 class="title m-t-0"><strong>Action list</strong></h3>
             <input search-input ng-model="searchActionText" type="text" class="form-control m-b-5" name="keyword" placeholder="Search...">
             <i ng-show="enabled" ng-mousedown="reset()" class="fa fa-times-circle"></i>
         </form>
