@@ -14,7 +14,7 @@ angular.module('automationApp.scriptor')
                 $scope.methodtypelist =	res.data.methodtype;
 
                 $scope.scenarioType = $scope.scenarios[0];
-                $scope.applicationName = $scope.applications[0];
+                $scope.applicationName = $scope.applications[0].label;
 
                 if($scope.scriptor.taskId){
                     $scope.taskId = $scope.scriptor.taskId;

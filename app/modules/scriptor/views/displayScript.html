@@ -11,7 +11,7 @@
 			<span id="custom" class="col-sm-6 pull-right p-r-0">
 				<span class="col-sm-12 p-r-0">
 				<a href="#" class="panel-toggle edit-icon pull-right m-l-5"><span class="pipe"></span><i class="fa fa-pencil"></i></a>
-				<h5 class="appname-collapsed pull-right"><span class="application-label">Application</span> > <span class="application-value">{{scriptor.applicationName.label}}</span></h5>
+				<h5 class="appname-collapsed pull-right"><span class="application-label">Application</span> > <span class="application-value">{{scriptor.applicationName}}</span></h5>
 				</span>
 			</span>
 		</div>
@@ -27,7 +27,7 @@
 										<span class="application-value-dd p-l-20">
 										<select class="form-control use-select2 form-white" data-style="white"
 												ng-model="applicationName"
-												ng-options="application.label for application in applications" value="{{application.key}}" required>
+												ng-options="application.label as application.label for application in applications" value="{{application.key}}" required>
 										</select>
 										</span>
 								</div>
