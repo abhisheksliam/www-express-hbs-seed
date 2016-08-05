@@ -30,12 +30,12 @@ angular.module('automationApp.scriptor')
                         scope.$apply();
                     }
                 })
-/*                    .bind('blur', function() {
+                    .bind('blur', function() {
                         scope.enabled = false;
                         if(!scope.$$phase) {
                             scope.$apply();
                         }
-                    });*/
+                    });
             }
         };
     }]);
