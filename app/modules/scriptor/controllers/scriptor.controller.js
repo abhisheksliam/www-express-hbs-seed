@@ -70,7 +70,7 @@ angular.module('automationApp.scriptor')
 						theme       : 'made',
 						maxVisible  : 1,
 						animation   : {
-							open  : 'animated fadeInUp',
+							open  : 'animated fadeInRight',
 							close : 'animated fadeOut'
 						},
 						timeout: 3000
@@ -78,17 +78,17 @@ angular.module('automationApp.scriptor')
 				}
 
 				if ($scope.taskId == undefined || $scope.taskId.length === 0) {
-					showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>');
+					showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>');
 					return false;
 				}
 				else if (validateTaskId($scope.taskId)){
 					$scope.scriptor.scenarioType = $scope.scenarioType;
 					$scope.scriptor.applicationName = $scope.applicationName;
 					$scope.scriptor.taskId = $scope.taskId;
-					showNotify('<div class="alert alert-success"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
+					showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
 					return true;
 				} else{
-					showNotify('<div class="alert alert-danger"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
+					showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
 					return false;
 				}
 			};
