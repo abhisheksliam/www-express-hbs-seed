@@ -905,7 +905,7 @@
 				sliderIOS();
 				rangeSlider();
 				buttonLoader();
-				//inputSelect();
+				inputSelect();
 				inputTags();
 				tableResponsive();
 				tableDynamic();
