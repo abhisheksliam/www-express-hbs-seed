@@ -1,19 +1,20 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('NewScriptController', ['$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService', '$interval',
-		function($scope, pluginsService, applicationService, $location, $state, scriptorService, $interval) {
+	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService', '$interval',
+		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService, $interval) {
 	
 			$scope.scriptor = scriptorService.uiElements;
 			$scope.triggers =	scriptorService.getTriggers();
 
-            scriptorService.getNewScriptContext().then(function(res) {
+            scriptorService.getGlobalContext().then(function(res) {
+                $rootScope.keyboardActions = res.data.keyboardActions;
                 $scope.applications =  res.data.applications;
                 $scope.scenarios =  res.data.scenarios;
                 $scope.methodtypelist =	res.data.methodtype;
 
                 $scope.scenarioType = $scope.scenarios[0];
-                $scope.applicationName = $scope.applications[0];
+                $scope.applicationName = $scope.applications[0].label;
 
                 if($scope.scriptor.taskId){
                     $scope.taskId = $scope.scriptor.taskId;
@@ -69,7 +70,7 @@ angular.module('automationApp.scriptor')
 						theme       : 'made',
 						maxVisible  : 1,
 						animation   : {
-							open  : 'animated fadeInUp',
+							open  : 'animated fadeInRight',
 							close : 'animated fadeOut'
 						},
 						timeout: 3000
@@ -77,17 +78,17 @@ angular.module('automationApp.scriptor')
 				}
 
 				if ($scope.taskId == undefined || $scope.taskId.length === 0) {
-					showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>');
+					showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>');
 					return false;
 				}
 				else if (validateTaskId($scope.taskId)){
 					$scope.scriptor.scenarioType = $scope.scenarioType;
 					$scope.scriptor.applicationName = $scope.applicationName;
 					$scope.scriptor.taskId = $scope.taskId;
-					showNotify('<div class="alert alert-success"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
+					showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
 					return true;
 				} else{
-					showNotify('<div class="alert alert-danger"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
+					showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
 					return false;
 				}
 			};
