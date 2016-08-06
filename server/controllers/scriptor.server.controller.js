@@ -6,10 +6,9 @@
 const router = require('express').Router();
 var TaskJson     = require('./../models/app.server.models.script');
 
-
 exports.getJSON = function (req, res) {
-    console.log("get json");
     TaskJson.find(function(err, taskjson) {
+        console.log("get json" , taskjson);
         if (err)
             res.send(err);
         res.json(taskjson);
@@ -31,12 +30,12 @@ exports.postJSON = function (req, res) {
     });
 };
 
-exports.getJSONById = function (req, res) {
-    console.log("get json");
-    TaskJson.find({taskid: req.params.task_id}, function(err, taskdata) {
+exports.getTaskScript = function (req, res) {
+    TaskJson.find({taskid: req.params.task_id}, function(err, taskjson) {
+        console.log("get json" , taskjson);
         if (err)
             res.send(err);
-        res.json(taskdata);
+        res.json(taskjson);
     });
 };
 

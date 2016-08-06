@@ -23,10 +23,6 @@ angular.module('automationApp.scriptor')
                 }
             });
 
-            scriptorService.getTaskJson().then(function(res) {
-                $scope.taskJson =  res.data;
-            });
-
             /* Template Code to be kept in first route to be loaded */
 			$scope.$on('$viewContentLoaded', function () {
 				pluginsService.init();
@@ -96,7 +92,7 @@ angular.module('automationApp.scriptor')
 			$scope.displayScript = function(){
 				var dataUpdated = $scope.updateData();
 				if(dataUpdated){
-					$state.go('displayscript');
+					$state.go('script-editor');
 				}
 			};
 

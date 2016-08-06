@@ -1,5 +1,6 @@
 // Get the router
 var apirouter = require('express').Router();
+var scriptorController = require('../../controllers/scriptor.server.controller');
 
 // Middleware for all this apirouters requests
 apirouter.use(function timeLog(req, res, next) {
@@ -16,8 +17,15 @@ apirouter.get('/', function(req, res) {
     res.end();
 });
 
-apirouter.use('/', require('../../controllers/scriptor.server.controller'));
-apirouter.use('/', require('../../controllers/user.server.controller'));
+apirouter.get('/taskjson', scriptorController.getJSON);
+
+apirouter.post('/taskjson', scriptorController.postJSON);
+
+apirouter.get('/taskjson/:task_id', scriptorController.getTaskScript);
+
+apirouter.put('/taskjson/:task_id', scriptorController.putJSONById);
+
+apirouter.delete('/taskjson/:task_id', scriptorController.deleteJSONById);
 
 module.exports = apirouter;
 
