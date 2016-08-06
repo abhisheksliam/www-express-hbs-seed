@@ -20,7 +20,7 @@ const logger = bunyan.createLogger({name: 'SIM5Automation', stream: formatOut, l
 
 //config
 const config = require("./server/config");
-var routes   = require('./server/routes/index');
+//var routes   = require('./server/routes/index');
 
 //session config
 const session  = require('express-session');
@@ -98,14 +98,18 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 // Define a prefix for all routes
-app.use('/', routes.webrouter);
-app.use('/api', routes.apirouter);
+/*app.use('/', routes.webrouter);
+app.use('/api', routes.apirouter);*/
+
+require('./server/routes/app.server.routes')(app);
 
 
 //-----------Connecting Mongo ------------------- // todo: synchronize mongo connection with app listen
 try{
-    mongoose.connect(config.mongoconnect);
-    var conn = mongoose.connection;
+    let mongoURL = config.mongo.prefix  + config.mongo.username + ":" + config.mongo.password + "@" + config.mongo.dbURL;
+    mongoose.connect(mongoURL);
+
+    let conn = mongoose.connection;
     conn.on('error', console.error.bind(console, 'Mongo connection error:'));
 
     conn.once('open', function() {
