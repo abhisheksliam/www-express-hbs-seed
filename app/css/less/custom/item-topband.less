@@ -56,15 +56,34 @@
 
   .application-dd-combo {
     max-width: 345px;
+    font-size: 16px;
+  }
+
+  .scenario-dd-combo {
+    font-size: 16px;
   }
 
   .application-value-dd {
     display: inline-block;
     width: 200px;
+    .select2-choice > span {
+      padding-top: 2px;
+    }
+    .select2-choice .select2-arrow b:before {
+      top: 2px;
+      position: inherit;
+    }
   }
 
   .scenario-value-dd {
     display: inline-block;
     width: 120px;
+    .select2-choice > span {
+      padding-top: 2px;
+    }
+    .select2-choice .select2-arrow b:before {
+      top: 2px;
+      position: inherit;
+    }
   }
 }
