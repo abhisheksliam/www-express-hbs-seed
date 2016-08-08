@@ -38,19 +38,12 @@ exports.getTaskScript = function (req, res) {
 };
 
 exports.updateTaskScript = function (req, res) {
-    TaskJson.find({taskid: req.params.task_id}, function(err, taskdata) {
+    TaskJson.findOneAndUpdate({taskid: req.params.task_id}, {$set: {"json" : req.body.task_json}}, function(err, doc){
         if (err)
             res.send(err);
-        // Update the message text
-        taskdata.json = req.body.json;
-        taskdata.save(function(err) {
-            if (err)
-                res.send(err);
-            res.json({ message: 'Message successfully updated!' });
-        });
+        res.json(doc);
     });
 };
-
 
 exports.getAllTasks = function (req, res) {
     TaskJson.find(function(err, taskjson) {

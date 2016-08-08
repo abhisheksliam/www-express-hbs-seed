@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService', '$interval',
-		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService, $interval) {
+	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
+		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 	
 			$scope.scriptor = scriptorService.uiElements;
 			$scope.triggers =	scriptorService.getTriggers();

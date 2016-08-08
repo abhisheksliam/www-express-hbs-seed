@@ -24,8 +24,14 @@ angular.module('automationApp.scriptor')
             });
 
             scriptorService.getTaskJson($stateParams.id).then(function(res) {
-                console.log("json : " ,res.data[0].json);
+                $scope.sleId = $stateParams.id;
                 $scope.taskJson =  res.data[0].json;
             });
+
+            $interval(function(){
+                scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
+                    $scope.originalTaskJson =  res.data.json;
+                });
+            },10000);
 
 		}]);
