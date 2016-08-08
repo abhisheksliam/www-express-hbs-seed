@@ -5,12 +5,26 @@
 	<!--top band-->
 	<div class="panel" id="topband">
 		<div class="panel-header">
-			<span class="col-sm-6 p-l-5 breadcrum-text"><span class="p-r-10">{{scriptor.taskId}}</span> > <span class="p-l-10"> Scenario </span> <span>{{scriptor.scenarioType}}</span></span>
-			<span id="custom" class="col-sm-6 pull-right p-r-0">
-				<span class="col-sm-12 p-r-0">
-				<a href="#" class="panel-toggle edit-icon pull-right m-l-5"><span class="pipe"></span><i class="fa fa-pencil"></i></a>
-				<h5 class="appname-collapsed pull-right"><span class="application-label">Application</span> > <span class="application-value">{{scriptor.applicationName}}</span></h5>
+			<span class="p-l-5 breadcrumb">
+
+				<span class="left-block">
+					<img src="assets/images/Word.png" alt="App">
+
+					<span class="p-l-20">{{scriptor.taskId}}.{{scriptor.scenarioType}}
+						<a class="p-l-20">
+							<span class="pipe"></span>
+							<i class="fa fa-pencil panel-toggle pointer"></i>
+						</a>
+					</span>
 				</span>
+
+				<span class="right-block pull-right">
+					Sync From Baloo
+					<a>
+						<i class="fa fa-refresh p-l-10 pointer"></i>
+					</a>
+				</span>
+
 			</span>
 		</div>
 		<hr class="m-0">
