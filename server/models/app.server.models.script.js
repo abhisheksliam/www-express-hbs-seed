@@ -3,15 +3,21 @@ var Schema       = mongoose.Schema;
 
 var taskJsonSchema   = new Schema({
     taskid: String,
-    json: [
-		{
-			items: [ItemDetailSchema]
-		},
-		[]
-	]
+    json: []
 });
 
+/*
+ var taskJsonSchema   = new Schema({
+ taskid: String,
+ json: [
+ 	{
+ items: [ItemDetailSchema]
+ },
+ []
+]
+});
 
+Should be extend Schema?
 var ItemDetailSchema = new Schema({
     items: {
         text: String,
@@ -38,6 +44,6 @@ var BalooActionSchema = new Schema({
 var TriggerDetailSchema = new Schema({
     actions: { }
 });
-
+*/
 module.exports = mongoose.model('TaskJson', taskJsonSchema);
 

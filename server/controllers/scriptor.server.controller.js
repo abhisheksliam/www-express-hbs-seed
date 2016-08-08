@@ -3,44 +3,41 @@
  */
 'use strict';
 
+const TEMPLATE_BLANK = "blank";
+const TEMPLATE_BALOO = "baloo";
+
 const router = require('express').Router();
 var TaskJson     = require('./../models/app.server.models.script');
 
-exports.getJSON = function (req, res) {
-    TaskJson.find(function(err, taskjson) {
-        console.log("get json" , taskjson);
-        if (err)
-            res.send(err);
-        res.json(taskjson);
-    });
-};
-
-exports.postJSON = function (req, res) {
-    console.log("post json");
+exports.saveTaskScript = function (req, res) {
     var taskjson = new TaskJson();
     // Set text and user values from the request
-    taskjson.taskid = req.body.taskid;
-    taskjson.json = req.body.json;
+    taskjson.taskid = req.body.task_id + "." + req.body.scenario;
+
+    if(req.body.template === TEMPLATE_BLANK) {
+        taskjson.json = generateBlankTemplate(req);
+    } else {
+        taskjson.json = generatePreFilledTemplate();
+    }
 
     // Save message and check for errors
-    taskjson.save(function(err) {
+    taskjson.save(function(err, taskjson) {
         if (err)
             res.send(err);
-        res.json({ message: 'Task Json created successfully!' });
+        console.log(taskjson);
+        res.json(taskjson);
     });
 };
 
 exports.getTaskScript = function (req, res) {
     TaskJson.find({taskid: req.params.task_id}, function(err, taskjson) {
-        console.log("get json" , taskjson);
         if (err)
             res.send(err);
         res.json(taskjson);
     });
 };
 
-exports.putJSONById = function (req, res) {
-    console.log("put json");
+exports.updateTaskScript = function (req, res) {
     TaskJson.find({taskid: req.params.task_id}, function(err, taskdata) {
         if (err)
             res.send(err);
@@ -54,7 +51,17 @@ exports.putJSONById = function (req, res) {
     });
 };
 
-exports.deleteJSONById = function (req, res) {
+
+exports.getAllTasks = function (req, res) {
+    TaskJson.find(function(err, taskjson) {
+        console.log("get json" , taskjson);
+        if (err)
+            res.send(err);
+        res.json(taskjson);
+    });
+};
+
+exports.deleteTaskScript = function (req, res) {
     console.log("delete json");
     TaskJson.remove({
         taskid: req.params.task_id
@@ -66,3 +73,33 @@ exports.deleteJSONById = function (req, res) {
     });
 };
 
+function generateBlankTemplate(req){
+
+    var taskjson = [
+        {
+            "items": [
+                {
+                    "methods": [
+                        {
+                            "type": "Ribbon",
+                            "actions": []
+                        }
+                    ]
+                }
+            ],
+            "appName" : req.body.app_key,
+            "id" : req.body.task_id,
+            "scenario" : req.body.scenario
+        }
+    ];
+
+    return taskjson;
+
+}
+
+
+function generatePreFilledTemplate(){
+
+    return {};
+
+}

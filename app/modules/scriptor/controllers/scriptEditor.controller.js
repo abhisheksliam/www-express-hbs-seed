@@ -25,7 +25,7 @@ angular.module('automationApp.scriptor')
 
             scriptorService.getTaskJson($stateParams.id).then(function(res) {
                 console.log("json : " ,res.data[0].json);
-                $scope.taskJson =  res.data;
+                $scope.taskJson =  res.data[0].json;
             });
 
 		}]);

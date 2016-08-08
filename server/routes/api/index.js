@@ -17,15 +17,17 @@ apirouter.get('/', function(req, res) {
     res.end();
 });
 
-apirouter.get('/taskjson', scriptorController.getJSON);
 
-apirouter.post('/taskjson', scriptorController.postJSON);
 
-apirouter.get('/taskjson/:task_id', scriptorController.getTaskScript);
+apirouter.post('/tasks', scriptorController.saveTaskScript);
 
-apirouter.put('/taskjson/:task_id', scriptorController.putJSONById);
+apirouter.get('/tasks/:task_id', scriptorController.getTaskScript);
 
-apirouter.delete('/taskjson/:task_id', scriptorController.deleteJSONById);
+apirouter.put('/tasks/:task_id', scriptorController.updateTaskScript);
+
+
+apirouter.get('/tasks', scriptorController.getAllTasks);
+apirouter.delete('/tasks/:task_id', scriptorController.deleteTaskScript);
 
 module.exports = apirouter;
 

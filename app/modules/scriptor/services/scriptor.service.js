@@ -126,6 +126,19 @@ angular.module('automationApp.scriptor')
 
         /***************** APIs ********************/
 
+        var saveTaskScript = function(app_key, scenario, task_id, template) {
+            var saveTask = $http.post('/api/tasks/', {
+                "app_key" : app_key,
+                "scenario" : scenario,
+                "task_id" : task_id,
+                "template" : template
+            });
+
+            var deferred = $q.defer();
+            deferred.resolve(saveTask);
+            return deferred.promise;
+        }
+
 
         var getGlobalContext = function() {
             globalContext = $http.get('data/global_constants.json');
@@ -136,7 +149,7 @@ angular.module('automationApp.scriptor')
         }
 
         var getTaskJson = function(friendlyTaskId) {
-            return $http.get('/api/taskjson/' + friendlyTaskId);
+            return $http.get('/api/tasks/' + friendlyTaskId);
         }
 
         var getTriggers = function() {
@@ -167,9 +180,10 @@ angular.module('automationApp.scriptor')
         return {
         "uiElements" : {},
         "getGlobalContext": getGlobalContext,
+        "getTaskJson": getTaskJson,
+        "saveTaskScript": saveTaskScript,
         "getTriggers":  getTriggers,
         "getTriggerForID": getTriggerForID,
-        "getTaskJson": getTaskJson,
         "getKeyNameSuggestions":getKeyNameSuggestions,
         "getElementNameSuggestions":getElementNameSuggestions,
         "getXPathForElement" : getXPathForElement

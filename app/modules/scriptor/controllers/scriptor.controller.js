@@ -6,6 +6,7 @@ angular.module('automationApp.scriptor')
 	
 			$scope.scriptor = scriptorService.uiElements;
 			$scope.triggers =	scriptorService.getTriggers();
+            $scope.template =  "blank";
 
             scriptorService.getGlobalContext().then(function(res) {
                 $rootScope.keyboardActions = res.data.keyboardActions;
@@ -91,8 +92,11 @@ angular.module('automationApp.scriptor')
 
 			$scope.displayScript = function(){
 				var dataUpdated = $scope.updateData();
-				if(dataUpdated){
-					$state.go('script-editor');
+               if(dataUpdated){
+                   scriptorService.saveTaskScript($scope.scriptor.applicationName, $scope.scriptor.scenarioType, $scope.scriptor.taskId, $scope.template).then(function(res) {
+                    $state.go('script-editor',  {id: res.data.taskid});
+                   });
+
 				}
 			};
 
