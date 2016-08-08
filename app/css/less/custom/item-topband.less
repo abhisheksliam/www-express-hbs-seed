@@ -2,16 +2,57 @@
 
 #topband {
 
-  .pipe {
-    font-size: 30px;
-    margin-right: 10px;
-    border-left: solid #d2d2d2;
-    height: 35px;
-  }
-
   .margin-minus-r-l-20 {
     margin-left: -20px;
     margin-right: -20px;
+  }
+
+  .breadcrumb {
+    position: absolute;
+    width: 100%;
+
+    .pointer {
+      color: @link-hover;
+      cursor: pointer;
+      cursor: hand;
+    }
+
+    .left-block {
+      img {
+        margin-top: 2px;
+      }
+      span {
+        line-height: normal;
+        font-size: 16px;
+        vertical-align: middle;
+
+        .pipe {
+          font-size: 30px;
+          margin-right: 10px;
+          border-left: solid #d2d2d2;
+          height: 35px;
+        }
+        i {
+          font-size: 26px;
+          line-height: normal;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .right-block {
+      margin: 8px 35px 0 0;
+      line-height: normal;
+      font-size: 16px;
+      vertical-align: middle;
+
+      i {
+        font-size: 26px;
+        line-height: normal;
+        vertical-align: middle;
+      }
+
+    }
   }
 
   .taskid-input {
@@ -23,22 +64,6 @@
     padding-bottom: 15px;
   }
 
-  .appname-collapsed {
-    //  margin-left: 0%;
-    color: @color-green-blue;
-  }
-
-  .edit-icon {
-    color: @color-light-grey;
-    font-size: 22px;
-    padding-left: 90px;
-    >i {
-      display: inline-block;
-      margin-top: 10px;
-      vertical-align: top;
-    }
-  }
-
   .application-label {
     font-size: 16px;
     font-weight: bold;
@@ -47,11 +72,6 @@
   .application-value {
     font-size: 16px;
     font-weight: normal;
-  }
-
-  .breadcrum-text {
-    margin: 10px 0;
-    font-size: 16px;
   }
 
   .application-dd-combo {
