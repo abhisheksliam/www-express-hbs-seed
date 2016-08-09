@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$interval',
-		function($stateParams, $rootScope, $scope, scriptorService, $interval) {
+	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$timeout',
+		function($stateParams, $rootScope, $scope, scriptorService, $timeout) {
+            var initializing = true;
 
             $scope.scriptor = scriptorService.uiElements;
 			$scope.triggers =	scriptorService.getTriggers();
@@ -28,10 +29,14 @@ angular.module('automationApp.scriptor')
                 $scope.taskJson =  res.data[0].json;
             });
 
-            $interval(function(){
-                scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
-                    $scope.originalTaskJson =  res.data.json;
-                });
-            },10000);
+            $scope.$watch('taskJson', function() {
+                if (initializing) {
+                    $timeout(function() { initializing = false; });
+                } else {
+                    scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
+                        $scope.originalTaskJson =  res.data.json;
+                    });
+                }
+            }, true);
 
 		}]);

@@ -6,44 +6,5 @@ var taskJsonSchema   = new Schema({
     json: []
 });
 
-/*
- var taskJsonSchema   = new Schema({
- taskid: String,
- json: [
- 	{
- items: [ItemDetailSchema]
- },
- []
-]
-});
-
-Should be extend Schema?
-var ItemDetailSchema = new Schema({
-    items: {
-        text: String,
-        skip: Boolean,
-        init: Boolean,
-        methods: [MethodDetailSchema]
-    }
- });
-
-var MethodDetailSchema = new Schema({
-    methods: {
-        balooActions: [BalooActionSchema],
-        actions: [TriggerDetailSchema]
-    }
-
-
-});
-
-var BalooActionSchema = new Schema({
-    balooActions: { }
-});
-
-
-var TriggerDetailSchema = new Schema({
-    actions: { }
-});
-*/
 module.exports = mongoose.model('TaskJson', taskJsonSchema);
 
