@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService', '$interval',
-		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService, $interval) {
+	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
+		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 	
 			$scope.scriptor = scriptorService.uiElements;
 			$scope.triggers =	scriptorService.getTriggers();
+            $scope.template =  "blank";
 
             scriptorService.getGlobalContext().then(function(res) {
                 $rootScope.keyboardActions = res.data.keyboardActions;
@@ -21,10 +22,6 @@ angular.module('automationApp.scriptor')
                     $scope.scenarioType = $scope.scriptor.scenarioType;
                     $scope.applicationName = $scope.scriptor.applicationName;
                 }
-            });
-
-            scriptorService.getTaskJson().then(function(res) {
-                $scope.taskJson =  res.data;
             });
 
             /* Template Code to be kept in first route to be loaded */
@@ -95,8 +92,11 @@ angular.module('automationApp.scriptor')
 
 			$scope.displayScript = function(){
 				var dataUpdated = $scope.updateData();
-				if(dataUpdated){
-					$state.go('displayscript');
+               if(dataUpdated){
+                   scriptorService.saveTaskScript($scope.scriptor.applicationName, $scope.scriptor.scenarioType, $scope.scriptor.taskId, $scope.template).then(function(res) {
+                    $state.go('script-editor',  {id: res.data.taskid});
+                   });
+
 				}
 			};
 

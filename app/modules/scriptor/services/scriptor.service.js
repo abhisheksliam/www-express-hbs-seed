@@ -126,6 +126,30 @@ angular.module('automationApp.scriptor')
 
         /***************** APIs ********************/
 
+        var saveTaskScript = function(app_key, scenario, task_id, template) {
+            var saveTask = $http.post('/api/tasks/', {
+                "app_key" : app_key,
+                "scenario" : scenario,
+                "task_id" : task_id,
+                "template" : template
+            });
+
+            var deferred = $q.defer();
+            deferred.resolve(saveTask);
+            return deferred.promise;
+        }
+
+        var updateTaskJson = function(sle_id, task_json) {
+            var updateTask = $http.put('/api/tasks/' + sle_id, {
+                "task_json" : task_json
+            });
+
+            var deferred = $q.defer();
+            deferred.resolve(updateTask);
+            return deferred.promise;
+        }
+
+
 
         var getGlobalContext = function() {
             globalContext = $http.get('data/global_constants.json');
@@ -135,8 +159,8 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         }
 
-        var getTaskJson = function() {
-            return $http.get('data/ppt_task.json');
+        var getTaskJson = function(friendlyTaskId) {
+            return $http.get('/api/tasks/' + friendlyTaskId);
         }
 
         var getTriggers = function() {
@@ -167,9 +191,11 @@ angular.module('automationApp.scriptor')
         return {
         "uiElements" : {},
         "getGlobalContext": getGlobalContext,
+        "getTaskJson": getTaskJson,
+        "saveTaskScript": saveTaskScript,
+        "updateTaskJson": updateTaskJson,
         "getTriggers":  getTriggers,
         "getTriggerForID": getTriggerForID,
-        "getTaskJson": getTaskJson,
         "getKeyNameSuggestions":getKeyNameSuggestions,
         "getElementNameSuggestions":getElementNameSuggestions,
         "getXPathForElement" : getXPathForElement
