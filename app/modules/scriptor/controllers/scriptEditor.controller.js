@@ -39,4 +39,21 @@ angular.module('automationApp.scriptor')
                 }
             }, true);
 
+
+            $scope.editableiteminput = {
+                editorenabled : false,
+
+                enableEditor : function() {
+                    $scope.editableiteminput.editorenabled = true;
+                },
+
+                disableEditor : function() {
+                    $scope.editableiteminput.editorenabled = false;
+                },
+
+                save : function() {
+                this.disableEditor();
+                }
+            }
+
 		}]);
