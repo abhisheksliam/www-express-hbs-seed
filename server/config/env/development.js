@@ -1,5 +1,10 @@
 var config= {
-    mongoconnect: 'mongodb://abhishekcompro1:runnerv21@ds023674.mlab.com:23674/runnerv2/test1'
+    mongo:{
+        "prefix": "mongodb://",
+        "dbURL": "ds023674.mlab.com:23674/runnerv2",
+        "username": "root",
+        "password": "admin"
+    }
 };
 
 module.exports = exports = config;
