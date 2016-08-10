@@ -1,28 +1,22 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('NewScriptController', ['$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
-		function($scope, pluginsService, applicationService, $location, $state, scriptorService) {
-	
+	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
+		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
+
 			$scope.scriptor = scriptorService.uiElements;
+
             $scope.template =  "blank";
 
             scriptorService.getGlobalContext().then(function(res) {
-                $scope.applications =  res.data.applications;
-                $scope.scenarios =  res.data.scenarios;
-                $scope.methodtypelist =	res.data.methodtype;
+                $rootScope.globalConstants = res.data;
 
-                $scope.scenarioType = $scope.scenarios[0];
-                $scope.applicationName = $scope.applications[0].label;
-
-                if($scope.scriptor.taskId){
-                    $scope.taskId = $scope.scriptor.taskId;
-                    $scope.scenarioType = $scope.scriptor.scenarioType;
-                    $scope.applicationName = $scope.scriptor.applicationName;
-                }
+                //$scope.taskId = "";
+                $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
+                $scope.applicationName = $rootScope.globalConstants.applications[0].label;
             });
 
-            /* Template Code to be kept in first route to be loaded */
+            /* Template Code to be kept in first route to be loaded *//*
 			$scope.$on('$viewContentLoaded', function () {
 				pluginsService.init();
 				applicationService.customScroll();
@@ -42,7 +36,7 @@ angular.module('automationApp.scriptor')
 					$('body').removeClass('dashboard');
 				}
 
-			});
+			});*/
 
 			// todo: move to appropriate file
 			function validateTaskId(input){
@@ -92,6 +86,7 @@ angular.module('automationApp.scriptor')
 				var dataUpdated = $scope.updateData();
                if(dataUpdated){
                    scriptorService.saveTaskScript($scope.scriptor.applicationName, $scope.scriptor.scenarioType, $scope.scriptor.taskId, $scope.template).then(function(res) {
+                    scriptorService.taskContent = res.data.json;
                     $state.go('script-editor',  {id: res.data.taskid});
                    });
 

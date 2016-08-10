@@ -21,7 +21,7 @@
 		"T1",
 		"A1"
     ],
-    "methodtype": [
+    "methodtypelist": [
 		"Ribbon",
 		"Keyboard",
 		"Toolbar",

@@ -82,6 +82,7 @@ angular.module('automationApp.scriptor')
 
         return {
         "uiElements" : {},
+        "taskContent" : {},
         "getGlobalContext": getGlobalContext,
         "getTaskJson": getTaskJson,
         "saveTaskScript": saveTaskScript,
