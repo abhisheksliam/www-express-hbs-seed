@@ -5,18 +5,19 @@
             <i class="fa fa-caret-down" aria-hidden="true"></i>
             <!--<h4>Item {{$index+1}}(<span class="item-text">{{item.text}}</span>)</h4>-->
 
-            <h4>Item {{$index+1}}(<span class="item-text" ng-hide="editableiteminput.editorenabled">
-                        {{item.text}}
+            <h4>Item {{$index+1}}
+                    <span class="item-text" ng-hide="editableiteminput.editorenabled">
+                        ({{item.text}})
                         <a href="" ng-click="editableiteminput.enableEditor()">
                             <i class="fa fa-pencil"></i>
                         </a>
                     </span>
                     <span class="item-text" ng-show="editableiteminput.editorenabled">
-                        <input ng-model="item.text" ng-show="editableiteminput.editorenabled">
+                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled"> </textarea>
                         <a href="" ng-click="editableiteminput.disableEditor()">
                             <i class="fa fa-check"></i>
                         </a>
-                    </span>)
+                    </span>
             </h4>
 
             <!---->
