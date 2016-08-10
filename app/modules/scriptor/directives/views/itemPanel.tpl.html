@@ -3,8 +3,8 @@
         <div class="item-level-0 dd3-content border-left">
             <i class="fa fa-caret-right" aria-hidden="true"></i>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <!--<h4>Item {{$index+1}}(<span class="item-text">{{item.text}}</span>)</h4>-->
 
+            <!--Editable item-->
             <h4>Item {{$index+1}}
                     <span class="item-text" ng-hide="editableiteminput.editorenabled">
                         ({{item.text}})
@@ -19,8 +19,8 @@
                         </a>
                     </span>
             </h4>
-
             <!---->
+
             <div class="control-btn">
                 <a class="panel-close"><i class="icon-trash"></i></a>
             </div>
