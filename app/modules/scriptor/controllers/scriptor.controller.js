@@ -1,15 +1,13 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
-		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
+	.controller('NewScriptController', ['$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
+		function($scope, pluginsService, applicationService, $location, $state, scriptorService) {
 	
 			$scope.scriptor = scriptorService.uiElements;
-			$scope.triggers =	scriptorService.getTriggers();
             $scope.template =  "blank";
 
             scriptorService.getGlobalContext().then(function(res) {
-                $rootScope.keyboardActions = res.data.keyboardActions;
                 $scope.applications =  res.data.applications;
                 $scope.scenarios =  res.data.scenarios;
                 $scope.methodtypelist =	res.data.methodtype;

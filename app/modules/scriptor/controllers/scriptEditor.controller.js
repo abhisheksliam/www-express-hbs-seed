@@ -6,22 +6,13 @@ angular.module('automationApp.scriptor')
             var initializing = true;
 
             $scope.scriptor = scriptorService.uiElements;
-			$scope.triggers =	scriptorService.getTriggers();
 
-            scriptorService.getGlobalContext().then(function(res) {
-                $rootScope.keyboardActions = res.data.keyboardActions;
-                $scope.applications =  res.data.applications;
-                $scope.scenarios =  res.data.scenarios;
-                $scope.methodtypelist =	res.data.methodtype;
+            scriptorService.getTriggers().then(function(res) {
+                $rootScope.triggers = res.data;
+            });
 
-                $scope.scenarioType = $scope.scenarios[0];
-                $scope.applicationName = $scope.applications[0].label;
-
-                if($scope.scriptor.taskId){
-                    $scope.taskId = $scope.scriptor.taskId;
-                    $scope.scenarioType = $scope.scriptor.scenarioType;
-                    $scope.applicationName = $scope.scriptor.applicationName;
-                }
+            scriptorService.getTriggerSuggestions().then(function(res) {
+                $rootScope.TriggerSuggestions = res.data;
             });
 
             scriptorService.getTaskJson($stateParams.id).then(function(res) {
