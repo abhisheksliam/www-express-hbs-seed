@@ -5,29 +5,36 @@ angular.module('automationApp.scriptor')
 		function($stateParams, $rootScope, $scope, scriptorService, $timeout) {
             var initializing = true;
 
-            $scope.scriptor = scriptorService.uiElements;
-			$scope.triggers =	scriptorService.getTriggers();
+            // to-do: $rootScope.globalConstants appkey --> applabel pick set in applicationName
+            if($rootScope.globalConstants === undefined) {
+                scriptorService.getTaskJson($stateParams.id).then(function(res) {
+                    $scope.sleId = $stateParams.id;
+                    $scope.taskJson =  res.data[0].json;
+                    $scope.taskId = $scope.taskJson[0].id;
+                    $scope.scenarioType = $scope.taskJson[0].scenario;
+                    $scope.applicationName = $scope.taskJson[0].appName;
+                });
 
-            scriptorService.getGlobalContext().then(function(res) {
-                $rootScope.keyboardActions = res.data.keyboardActions;
-                $scope.applications =  res.data.applications;
-                $scope.scenarios =  res.data.scenarios;
-                $scope.methodtypelist =	res.data.methodtype;
+                scriptorService.getGlobalContext().then(function(res) {
+                    $rootScope.globalConstants = res.data;
+                });
 
-                $scope.scenarioType = $scope.scenarios[0];
-                $scope.applicationName = $scope.applications[0].label;
+            } else {
+                $scope.taskJson = scriptorService.taskContent;
+                $scope.taskId = $scope.taskJson[0].id;
+                $scope.scenarioType = $scope.taskJson[0].scenario;
+                $scope.applicationName = $scope.taskJson[0].appName;
+            }
 
-                if($scope.scriptor.taskId){
-                    $scope.taskId = $scope.scriptor.taskId;
-                    $scope.scenarioType = $scope.scriptor.scenarioType;
-                    $scope.applicationName = $scope.scriptor.applicationName;
-                }
+            scriptorService.getTriggers().then(function(res) {
+                $rootScope.triggers = res.data;
             });
 
-            scriptorService.getTaskJson($stateParams.id).then(function(res) {
-                $scope.sleId = $stateParams.id;
-                $scope.taskJson =  res.data[0].json;
+            scriptorService.getTriggerSuggestions().then(function(res) {
+                $rootScope.TriggerSuggestions = res.data;
             });
+
+
 
             $scope.$watch('taskJson', function() {
                 if (initializing) {
