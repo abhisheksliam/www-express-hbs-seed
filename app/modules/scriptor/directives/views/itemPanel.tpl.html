@@ -6,15 +6,15 @@
 
             <!--Editable item-->
             <h4>Item {{$index+1}}
-                    <span class="item-text" ng-hide="editableiteminput.editorenabled">
+                    <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
                         ({{item.text}})
-                        <a href="" ng-click="editableiteminput.enableEditor()">
+                        <a href="" ng-click="editableiteminput.enableEditor($index)">
                             <i class="fa fa-pencil"></i>
                         </a>
                     </span>
-                    <span class="item-text" ng-show="editableiteminput.editorenabled">
-                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled"> </textarea>
-                        <a href="" ng-click="editableiteminput.disableEditor()">
+                    <span class="item-text" ng-show="editableiteminput.editorenabled == $index">
+                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled == $index"> </textarea>
+                        <a href="" ng-click="editableiteminput.disableEditor(-1)">
                             <i class="fa fa-check"></i>
                         </a>
                     </span>

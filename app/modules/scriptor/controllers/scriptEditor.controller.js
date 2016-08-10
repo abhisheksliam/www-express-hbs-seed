@@ -41,14 +41,14 @@ angular.module('automationApp.scriptor')
 
 
             $scope.editableiteminput = {
-                editorenabled : false,
+                editorenabled : -1,
 
-                enableEditor : function() {
-                    $scope.editableiteminput.editorenabled = true;
+                enableEditor : function(index) {
+                    $scope.editableiteminput.editorenabled = index;
                 },
 
-                disableEditor : function() {
-                    $scope.editableiteminput.editorenabled = false;
+                disableEditor : function(index) {
+                    $scope.editableiteminput.editorenabled = index;
                 },
 
                 save : function() {
