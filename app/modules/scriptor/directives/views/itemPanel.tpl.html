@@ -8,14 +8,14 @@
             <h4>Item {{$index+1}}
                     <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
                         ({{item.text}})
-                        <a href="" ng-click="editableiteminput.enableEditor($index)">
-                            <i class="fa fa-pencil"></i>
+                        <a href="" ng-click="editableiteminput.enableEditor($index,$event)">
+                            <i class="fa fa-pencil p-l-10"></i>
                         </a>
                     </span>
                     <span class="item-text" ng-show="editableiteminput.editorenabled == $index">
-                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled == $index"> </textarea>
-                        <a href="" ng-click="editableiteminput.disableEditor(-1)">
-                            <i class="fa fa-check"></i>
+                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled == $index" ng-click="editableiteminput.stopEvent($event)"> </textarea>
+                        <a href="" ng-click="editableiteminput.disableEditor(-1,$event)">
+                            <i class="fa fa-check p-l-10"></i>
                         </a>
                     </span>
             </h4>
