@@ -4,14 +4,12 @@ angular.module('automationApp.scriptor')
 	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
-			$scope.scriptor = scriptorService.uiElements;
-
+            $scope.taskId = "";
             $scope.template =  "blank";
 
             scriptorService.getGlobalContext().then(function(res) {
                 $rootScope.globalConstants = res.data;
 
-                //$scope.taskId = "";
                 $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
                 $scope.applicationName = $rootScope.globalConstants.applications[0].label;
             });
@@ -71,9 +69,6 @@ angular.module('automationApp.scriptor')
 					return false;
 				}
 				else if (validateTaskId($scope.taskId)){
-					$scope.scriptor.scenarioType = $scope.scenarioType;
-					$scope.scriptor.applicationName = $scope.applicationName;
-					$scope.scriptor.taskId = $scope.taskId;
 					showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
 					return true;
 				} else{
@@ -85,7 +80,7 @@ angular.module('automationApp.scriptor')
 			$scope.displayScript = function(){
 				var dataUpdated = $scope.updateData();
                if(dataUpdated){
-                   scriptorService.saveTaskScript($scope.scriptor.applicationName, $scope.scriptor.scenarioType, $scope.scriptor.taskId, $scope.template).then(function(res) {
+                   scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
                     scriptorService.taskContent = res.data.json;
                     $state.go('script-editor',  {id: res.data.taskid});
                    });

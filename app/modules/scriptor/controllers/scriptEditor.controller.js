@@ -5,6 +5,7 @@ angular.module('automationApp.scriptor')
 		function($stateParams, $rootScope, $scope, scriptorService, $timeout) {
             var initializing = true;
 
+            // to-do: $rootScope.globalConstants appkey --> applabel pick set in applicationName
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
                     $scope.sleId = $stateParams.id;
