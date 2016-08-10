@@ -11,7 +11,7 @@ angular.module('automationApp.scriptor')
                 $rootScope.globalConstants = res.data;
 
                 $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
-                $scope.applicationName = $rootScope.globalConstants.applications[0].label;
+                $scope.applicationName = $rootScope.globalConstants.applications[0].key;
             });
 
             /* Template Code to be kept in first route to be loaded *//*
