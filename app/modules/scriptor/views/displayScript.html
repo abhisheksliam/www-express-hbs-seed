@@ -10,15 +10,15 @@
 					<span class="p-l-20">{{scriptor.taskId}}.{{scriptor.scenarioType}}
 						<a class="p-l-20">
 							<span class="pipe"></span>
-							<i class="fa fa-refresh p-l-10 pointer"></i>
-							Sync From Baloo
+							<i class="fa fa-pencil pointer" data-toggle="modal" data-target="#modal-topfull"></i>
 						</a>
 					</span>
 				</span>
 
 				<span class="right-block pull-right">
+					Sync From Baloo
 					<a>
-						<i class="fa fa-copy pointer" data-toggle="modal" data-target="#modal-topfull"></i>
+						<i class="fa fa-refresh p-l-10 pointer"></i>
 					</a>
 				</span>
 
@@ -31,7 +31,7 @@
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
-							Copy Script
+							Edit Script
 							<!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icons-office-52"></i></button>-->
 						</div>
 						<hr  class="m-0">
@@ -56,5 +56,5 @@
 		<!---->
 	</div>
 	<!--end top band-->
-    <scriptor items="taskJson" triggers="triggers" methodtypelist="methodtypelist" editableiteminput="editableiteminput"></scriptor>
+	<scriptor items="taskJson" triggers="triggers" methodtypelist="methodtypelist" editableiteminput="editableiteminput"></scriptor>
 </div>

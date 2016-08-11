@@ -96,7 +96,6 @@ angular.module('automationApp.scriptor')
                    scriptorService.saveTaskScript($scope.scriptor.applicationName, $scope.scriptor.scenarioType, $scope.scriptor.taskId, $scope.template).then(function(res) {
                     $state.go('script-editor',  {id: res.data.taskid});
                    });
-
 				}
 			};
 
