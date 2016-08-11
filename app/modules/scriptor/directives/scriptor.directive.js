@@ -12,7 +12,8 @@ angular.module('automationApp.scriptor')
             scope: {
                 'items': '=',
                 'triggers': '=',
-                'methodtypelist': '='
+                'methodtypelist': '=',
+                'editableiteminput': '='
             },
             link: function (scope, element, attributes) {
 

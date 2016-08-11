@@ -84,7 +84,6 @@ angular.module('automationApp.scriptor')
                     scriptorService.taskContent = res.data.json;
                     $state.go('script-editor',  {id: res.data.taskid});
                    });
-
 				}
 			};
 
