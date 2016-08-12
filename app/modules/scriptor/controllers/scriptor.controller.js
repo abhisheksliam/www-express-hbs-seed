@@ -17,7 +17,7 @@ angular.module('automationApp.scriptor')
 				$scope.template = $scope.templateOptions[0].key;
             });
 
-            /* Template Code to be kept in first route to be loaded *//*
+             //Template Code to be kept in first route to be loaded
 			$scope.$on('$viewContentLoaded', function () {
 				pluginsService.init();
 				applicationService.customScroll();
@@ -37,7 +37,7 @@ angular.module('automationApp.scriptor')
 					$('body').removeClass('dashboard');
 				}
 
-			});*/
+			});
 
 			// todo: move to appropriate file
 			function validateTaskId(input){
