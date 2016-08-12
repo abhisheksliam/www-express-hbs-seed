@@ -13,11 +13,14 @@ exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
 
     TaskJson.findOne({taskid: sle_id}, function(err, result) {
-        if (err)
-           res.json({ "errors": {
+        if (err) {
+            res.json({
+            "errors": {
                 "errorMessage": err,
                 "errorCode": "PROCESSING_ERROR"
-           } });
+            }
+            });
+        }
         if(result) {
             res.json({ "errors": {
                 "errorMessage": "Task script already exists in database",
@@ -38,36 +41,58 @@ exports.updateTask = function (req, res) {
 
 exports.getTaskScript = function (req, res) {
     TaskJson.find({taskid: req.params.task_id}, function(err, taskjson) {
-        if (err)
-            res.send(err);
+        if (err) {
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
         res.json(taskjson);
     });
 };
 
 exports.updateTaskScript = function (req, res) {
     TaskJson.findOneAndUpdate({taskid: req.params.task_id}, {$set: {"json" : req.body.task_json}}, function(err, doc){
-        if (err)
-            res.send(err);
+        if (err) {
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
         res.json(doc);
     });
 };
 
 exports.getAllTasks = function (req, res) {
     TaskJson.find(function(err, taskjson) {
-        console.log("get json" , taskjson);
-        if (err)
-            res.send(err);
+        if (err) {
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
         res.json(taskjson);
     });
 };
 
 exports.deleteTaskScript = function (req, res) {
-    console.log("delete json");
     TaskJson.remove({
         taskid: req.params.task_id
     }, function(err, taskdata) {
-        if (err)
-            res.send(err);
+        if (err) {
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
 
         res.json({ message: 'Successfully deleted task json!' });
     });
@@ -87,14 +112,26 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
     // Save message and check for errors
     if(bSaveUpdate) {
         taskjson.save(function (err, taskjson) {
-            if (err)
-                res.send(err);
+            if (err) {
+                res.json({
+                    "errors": {
+                        "errorMessage": err,
+                        "errorCode": "PROCESSING_ERROR"
+                    }
+                });
+            }
             res.json(taskjson);
         });
     } else {
         TaskJson.findOneAndUpdate({taskid: sle_id}, {$set: {"json" : taskjson.json}}, function(err, doc){
-            if (err)
-                res.send(err);
+            if (err) {
+                res.json({
+                    "errors": {
+                        "errorMessage": err,
+                        "errorCode": "PROCESSING_ERROR"
+                    }
+                });
+            }
             res.json(doc);
         });
     }
