@@ -13,7 +13,7 @@ angular.module('automationApp.scriptor')
 					$scope.scenarioType = $rootScope.globalConstants.scenarios[0];
 					$scope.applicationName = $rootScope.globalConstants.applications[0].key;
 
-					$scope.templateOptions = res.data.templateOptions;
+					$scope.templateOptions = $rootScope.globalConstants.templateOptions;
 					$scope.template = $scope.templateOptions[0].key;
 				});
 			}
@@ -21,7 +21,7 @@ angular.module('automationApp.scriptor')
 				$scope.scenarioType = $rootScope.globalConstants.scenarios[0];
 				$scope.applicationName = $rootScope.globalConstants.applications[0].key;
 
-				$scope.templateOptions = res.data.templateOptions;
+				$scope.templateOptions = $rootScope.globalConstants.templateOptions;
 				$scope.template = $scope.templateOptions[0].key;
 			}
 
