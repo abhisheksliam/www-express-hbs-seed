@@ -5,7 +5,6 @@ angular.module('automationApp.scriptor')
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
             $scope.taskId = "";
-            $scope.template =  "blank";
 
             scriptorService.getGlobalContext().then(function(res) {
                 $rootScope.globalConstants = res.data;
