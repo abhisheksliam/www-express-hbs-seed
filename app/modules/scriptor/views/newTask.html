@@ -8,6 +8,16 @@
 			<div class="panel-content">
 				<edit-task></edit-task>
 			</div>
+			<div class="template-choice">
+				<p><strong>Template</strong></p>
+				<div class="icheck-list">
+					<label ng-repeat="templ in templateOptions">
+						<input type="radio" name="template-radio" data-radio="iradio_flat-blue"
+							   ng-model="$parent.template" ng-value="templ.key">
+						{{templ.label}}
+					</label>
+				</div>
+			</div>
 			<div class="bg-light text-right">
 				<button id="save-task-topband" type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10" ng-click="displayScript()">Save</button>
 			</div>

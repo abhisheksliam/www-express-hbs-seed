@@ -13,7 +13,9 @@ angular.module('automationApp.scriptor')
                         dropdownCssClass: 'form-white',
                         minimumResultsForSearch: -1
                     });
+
                 },200);
+
             }
         }
     }]);

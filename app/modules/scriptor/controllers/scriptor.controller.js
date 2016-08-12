@@ -5,16 +5,18 @@ angular.module('automationApp.scriptor')
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
             $scope.taskId = "";
-            $scope.template =  "blank";
 
             scriptorService.getGlobalContext().then(function(res) {
                 $rootScope.globalConstants = res.data;
 
                 $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
                 $scope.applicationName = $rootScope.globalConstants.applications[0].key;
+
+				$scope.templateOptions	= res.data.templateOptions;
+				$scope.template = $scope.templateOptions[0].key;
             });
 
-            /* Template Code to be kept in first route to be loaded *//*
+             //Template Code to be kept in first route to be loaded
 			$scope.$on('$viewContentLoaded', function () {
 				pluginsService.init();
 				applicationService.customScroll();
@@ -34,7 +36,7 @@ angular.module('automationApp.scriptor')
 					$('body').removeClass('dashboard');
 				}
 
-			});*/
+			});
 
 			// todo: move to appropriate file
 			function validateTaskId(input){
