@@ -7,12 +7,12 @@ const TEMPLATE_BLANK = "blank";
 const TEMPLATE_BALOO = "baloo";
 
 const router = require('express').Router();
-var TaskJson     = require('./../models/app.server.models.script');
+var AutomationScripts     = require('./../models/app.server.models.script');
 
 exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
 
-    TaskJson.findOne({taskid: sle_id}, function(err, result) {
+    AutomationScripts.findOne({sle_id: sle_id}, function(err, scriptData) {
         if (err) {
             res.json({
             "errors": {
@@ -21,7 +21,7 @@ exports.saveTask = function (req, res) {
             }
             });
         }
-        if(result) {
+        if(scriptData) {
             res.json({ "errors": {
                 "errorMessage": "Task script already exists in database",
                 "errorCode": "EXISTS_IN_DB"
@@ -40,7 +40,7 @@ exports.updateTask = function (req, res) {
 };
 
 exports.getTaskScript = function (req, res) {
-    TaskJson.find({taskid: req.params.task_id}, function(err, taskjson) {
+    AutomationScripts.find({sle_id: req.params.task_id}, function(err, scriptData) {
         if (err) {
             res.json({
                 "errors": {
@@ -49,12 +49,12 @@ exports.getTaskScript = function (req, res) {
                 }
             });
         }
-        res.json(taskjson);
+        res.json(scriptData);
     });
 };
 
 exports.updateTaskScript = function (req, res) {
-    TaskJson.findOneAndUpdate({taskid: req.params.task_id}, {$set: {"json" : req.body.task_json}}, function(err, doc){
+    AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json}}, function(err, doc){
         if (err) {
             res.json({
                 "errors": {
@@ -68,7 +68,7 @@ exports.updateTaskScript = function (req, res) {
 };
 
 exports.getAllTasks = function (req, res) {
-    TaskJson.find(function(err, taskjson) {
+    AutomationScripts.find(function(err, scriptData) {
         if (err) {
             res.json({
                 "errors": {
@@ -77,14 +77,14 @@ exports.getAllTasks = function (req, res) {
                 }
             });
         }
-        res.json(taskjson);
+        res.json(scriptData);
     });
 };
 
 exports.deleteTaskScript = function (req, res) {
-    TaskJson.remove({
-        taskid: req.params.task_id
-    }, function(err, taskdata) {
+    AutomationScripts.remove({
+        sle_id: req.params.task_id
+    }, function(err, scriptData) {
         if (err) {
             res.json({
                 "errors": {
@@ -99,19 +99,19 @@ exports.deleteTaskScript = function (req, res) {
 };
 
 function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
-    var taskjson = new TaskJson();
+    var automationScript = new AutomationScripts();
     // Set text and user values from the request
-    taskjson.taskid = sle_id;
+    automationScript.sle_id = sle_id;
 
     if(req.body.template === TEMPLATE_BLANK) {
-        taskjson.json = generateBlankTemplate(req);
+        automationScript.task_json = generateBlankTemplate(req);
     } else {
-        taskjson.json = generatePreFilledTemplate();
+        automationScript.task_json = generatePreFilledTemplate();
     }
 
     // Save message and check for errors
     if(bSaveUpdate) {
-        taskjson.save(function (err, taskjson) {
+        automationScript.save(function (err, scriptData) {
             if (err) {
                 res.json({
                     "errors": {
@@ -120,10 +120,10 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
                     }
                 });
             }
-            res.json(taskjson);
+            res.json(scriptData);
         });
     } else {
-        TaskJson.findOneAndUpdate({taskid: sle_id}, {$set: {"json" : taskjson.json}}, function(err, doc){
+        AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json}}, function(err, doc){
             if (err) {
                 res.json({
                     "errors": {

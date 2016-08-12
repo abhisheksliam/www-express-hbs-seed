@@ -78,15 +78,15 @@ angular.module('automationApp.scriptor')
                             bootbox.confirm("Do you want to override?", function (result) {
                                if(result) {
                                    scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
-                                       scriptorService.taskContent = res.data.json;
-                                       $state.go('script-editor',  {id: res.data.taskid});
+                                       scriptorService.taskContent = res.data.task_json;
+                                       $state.go('script-editor',  {id: res.data.sle_id});
                                        showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                                    });
                                }
                             });
                         } else{
-                            scriptorService.taskContent = res.data.json;
-                            $state.go('script-editor',  {id: res.data.taskid});
+                            scriptorService.taskContent = res.data.task_json;
+                            $state.go('script-editor',  {id: res.data.sle_id});
                             showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                         }
                     });
