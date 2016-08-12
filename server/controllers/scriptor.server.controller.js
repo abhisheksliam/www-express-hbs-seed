@@ -9,7 +9,7 @@ const TEMPLATE_BALOO = "baloo";
 const router = require('express').Router();
 var TaskJson     = require('./../models/app.server.models.script');
 
-exports.saveTaskScript = function (req, res) {
+exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
 
     TaskJson.findOne({taskid: sle_id}, function(err, result) {
@@ -24,10 +24,16 @@ exports.saveTaskScript = function (req, res) {
                 "errorCode": "EXISTS_IN_DB"
             } });
         } else {
-             checkForTemplateAndSave(sle_id, req, res);
+             checkForTemplateAndSave(sle_id, req, res, true);
         }
     });
 
+};
+
+exports.updateTask = function (req, res) {
+    var sle_id = req.body.task_id + "." + req.body.scenario;
+
+    checkForTemplateAndSave(sle_id, req, res, false);
 };
 
 exports.getTaskScript = function (req, res) {
@@ -67,7 +73,7 @@ exports.deleteTaskScript = function (req, res) {
     });
 };
 
-function checkForTemplateAndSave(sle_id, req, res){
+function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
     var taskjson = new TaskJson();
     // Set text and user values from the request
     taskjson.taskid = sle_id;
@@ -79,12 +85,19 @@ function checkForTemplateAndSave(sle_id, req, res){
     }
 
     // Save message and check for errors
-    taskjson.save(function(err, taskjson) {
-        if (err)
-            res.send(err);
-        console.log(taskjson);
-        res.json(taskjson);
-    });
+    if(bSaveUpdate) {
+        taskjson.save(function (err, taskjson) {
+            if (err)
+                res.send(err);
+            res.json(taskjson);
+        });
+    } else {
+        TaskJson.findOneAndUpdate({taskid: sle_id}, {$set: {"json" : taskjson.json}}, function(err, doc){
+            if (err)
+                res.send(err);
+            res.json(doc);
+        });
+    }
 }
 
 function generateBlankTemplate(req){

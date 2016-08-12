@@ -19,10 +19,10 @@ apirouter.get('/', function(req, res) {
 
 
 
-apirouter.post('/tasks', scriptorController.saveTaskScript);
+apirouter.post('/tasks', scriptorController.saveTask);
+apirouter.put('/tasks', scriptorController.updateTask);
 
 apirouter.get('/tasks/:task_id', scriptorController.getTaskScript);
-
 apirouter.put('/tasks/:task_id', scriptorController.updateTaskScript);
 
 

@@ -4,10 +4,10 @@ angular.module('automationApp.scriptor')
 	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$timeout',
 		function($stateParams, $rootScope, $scope, scriptorService, $timeout) {
             var initializing = true;
+            $scope.sleId = $stateParams.id;
 
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
-                    $scope.sleId = $stateParams.id;
                     $scope.taskJson =  res.data[0].json;
                     $scope.taskId = $scope.taskJson[0].id;
                     $scope.scenarioType = $scope.taskJson[0].scenario;
