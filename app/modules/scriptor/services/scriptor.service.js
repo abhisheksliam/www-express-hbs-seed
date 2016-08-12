@@ -69,6 +69,19 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         }
 
+        var updateTaskScript = function(app_key, scenario, task_id, template) {
+            var updateTask = $http.put('/api/tasks/', {
+                "app_key" : app_key,
+                "scenario" : scenario,
+                "task_id" : task_id,
+                "template" : template
+            });
+
+            var deferred = $q.defer();
+            deferred.resolve(updateTask);
+            return deferred.promise;
+        }
+
         var updateTaskJson = function(sle_id, task_json) {
             var updateTask = $http.put('/api/tasks/' + sle_id, {
                 "task_json" : task_json
@@ -85,6 +98,7 @@ angular.module('automationApp.scriptor')
         "getGlobalContext": getGlobalContext,
         "getTaskJson": getTaskJson,
         "saveTaskScript": saveTaskScript,
+        "updateTaskScript": updateTaskScript,
         "updateTaskJson": updateTaskJson,
         "getTriggers":  getTriggers,
         "getTriggerForID": getTriggerForID,
