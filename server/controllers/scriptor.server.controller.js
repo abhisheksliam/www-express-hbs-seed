@@ -10,23 +10,24 @@ const router = require('express').Router();
 var TaskJson     = require('./../models/app.server.models.script');
 
 exports.saveTaskScript = function (req, res) {
-    var taskjson = new TaskJson();
-    // Set text and user values from the request
-    taskjson.taskid = req.body.task_id + "." + req.body.scenario;
+    var sle_id = req.body.task_id + "." + req.body.scenario;
 
-    if(req.body.template === TEMPLATE_BLANK) {
-        taskjson.json = generateBlankTemplate(req);
-    } else {
-        taskjson.json = generatePreFilledTemplate();
-    }
-
-    // Save message and check for errors
-    taskjson.save(function(err, taskjson) {
+    TaskJson.findOne({taskid: sle_id}, function(err, result) {
         if (err)
-            res.send(err);
-        console.log(taskjson);
-        res.json(taskjson);
+           res.json({ "errors": {
+                "errorMessage": err,
+                "errorCode": "PROCESSING_ERROR"
+           } });
+        if(result) {
+            res.json({ "errors": {
+                "errorMessage": "Task script already exists in database",
+                "errorCode": "EXISTS_IN_DB"
+            } });
+        } else {
+             checkForTemplateAndSave(sle_id, req, res);
+        }
     });
+
 };
 
 exports.getTaskScript = function (req, res) {
@@ -65,6 +66,26 @@ exports.deleteTaskScript = function (req, res) {
         res.json({ message: 'Successfully deleted task json!' });
     });
 };
+
+function checkForTemplateAndSave(sle_id, req, res){
+    var taskjson = new TaskJson();
+    // Set text and user values from the request
+    taskjson.taskid = sle_id;
+
+    if(req.body.template === TEMPLATE_BLANK) {
+        taskjson.json = generateBlankTemplate(req);
+    } else {
+        taskjson.json = generatePreFilledTemplate();
+    }
+
+    // Save message and check for errors
+    taskjson.save(function(err, taskjson) {
+        if (err)
+            res.send(err);
+        console.log(taskjson);
+        res.json(taskjson);
+    });
+}
 
 function generateBlankTemplate(req){
 
