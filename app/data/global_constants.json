@@ -21,6 +21,16 @@
 		"T1",
 		"A1"
     ],
+    "templateOptions": [
+      {
+        "label": "Blank",
+        "key": "blank"
+      },
+      {
+        "label": "Baloo (Pre-filled)",
+        "key": "baloo"
+      }
+    ],
     "methodtypelist": [
 		"Ribbon",
 		"Keyboard",
