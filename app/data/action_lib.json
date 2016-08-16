@@ -1,0 +1,100 @@
+[
+  {
+    "name": "clickAndWait()",
+    "id": "1",
+    "syntax": "clickAndWait(String elementName)",
+    "values": [
+      {
+        "actVal": "Customize_Quick_Access_Toolbar",
+        "actKey": "elementName",
+        "displayXpath": "true",
+        "dataType": "string"
+      }
+    ]
+  },
+  {
+    "name": "selectCell()",
+    "id": "2",
+    "syntax": "selectCell(String cellName)",
+    "values": [
+      {
+        "actVal": "abc",
+        "actKey": "cellName",
+        "dataType": "string"
+      }
+    ]
+  },
+  {
+    "name": "rightClickOnCell()",
+    "id": "3",
+    "syntax": "rightClickOnCell(String cellName)",
+    "values": [
+      {
+        "actVal": "abc",
+        "actKey": "cellName",
+        "dataType": "string"
+      }
+    ]
+  },
+  {
+    "name": "doubleClick()",
+    "id": "4",
+    "syntax": "doubleClick(String elementName)",
+    "values": [
+      {
+        "actVal": "abc",
+        "actKey": "elementName",
+        "displayXpath": "true",
+        "dataType": "string"
+      }
+    ]
+  },
+  {
+    "name": "clickAtCurrentPos()",
+    "id": "5",
+    "syntax": "clickAtCurrentPos()",
+    "values": []
+  },
+  {
+    "name": "pressKey()",
+    "id": "6",
+    "syntax": "pressKey(MyKeys keyName)",
+    "values": [
+      {
+        "actVal": "ALT",
+        "actKey": "keyName",
+        "dataType": "string"
+      }
+    ]
+  },
+  {
+    "name": "clickMultipleTimes()",
+    "id": "7",
+    "syntax": "clickMultipleTimes(String elementName , String numOfTimes)",
+    "values": [
+      {
+        "actVal": "Customize_Quick_Access_Toolbar",
+        "actKey": "elementName",
+        "displayXpath": "true",
+        "dataType": "string"
+      },
+      {
+        "actVal": "4",
+        "actKey": "numOfTimes",
+        "dataType": "string"
+      }
+    ]
+  },
+  {
+    "name": "doubleClickAndWait()",
+    "id": "8",
+    "syntax": "doubleClickAndWait()",
+    "values": []
+  },
+  {
+    "name": "rightClickCurrentPos()",
+    "id": "9",
+    "syntax": "rightClickCurrentPos()",
+    "values": []
+  }
+]

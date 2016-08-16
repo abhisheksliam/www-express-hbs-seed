@@ -1,11 +1,28 @@
-<ol class="dd-list" ng-repeat="item in items[0].items">
+<ol id="item-panel" class="dd-list" ng-repeat="item in items[0].items">
     <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
         <div class="item-level-0 dd3-content border-left">
             <i class="fa fa-caret-right" aria-hidden="true"></i>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <h4>Item {{$index+1}}(<span class="item-text">{{item.text}}</span>)</h4>
+
+            <!--Editable item-->
+            <h4>Item {{$index+1}}
+                    <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
+                        ({{item.text}})
+                        <a href="" ng-click="editableiteminput.enableEditor($index,$event)">
+                            <i class="fa fa-pencil p-l-10"></i>
+                        </a>
+                    </span>
+                    <span class="item-text" ng-show="editableiteminput.editorenabled == $index">
+                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled == $index" ng-click="editableiteminput.stopEvent($event)"> </textarea>
+                        <a href="" ng-click="editableiteminput.disableEditor(-1,$event)">
+                            <i class="fa fa-check p-l-10"></i>
+                        </a>
+                    </span>
+            </h4>
+            <!---->
+
             <div class="control-btn">
-                <a href="#" class="panel-close"><i class="icon-trash"></i></a>
+                <a class="panel-close"><i class="icon-trash"></i></a>
             </div>
         </div>
         <div class="data-items" style="display: none">
@@ -20,6 +37,7 @@
         </div>
     </li>
 </ol>
+
 <ol class="dd-list ui-sort-disabled">
     <li class="dd-item m-b-10">
         <div id="add-item-link" class="item-level-0 dd3-content border-left"><a href="#">+   Add Item</a></div>

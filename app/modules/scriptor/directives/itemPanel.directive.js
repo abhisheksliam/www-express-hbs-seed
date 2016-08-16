@@ -11,9 +11,11 @@ angular.module('automationApp.scriptor')
             scope: {
                 'items': '=',
                 'methodtypelist': '=',
-                'index': '='
+                'index': '=',
+                'editableiteminput': '='
                 },
             link: function (scope, element) {
+
                 $timeout(function(){
 
                     element.on('click',"#add-item-link a",function(event) {
