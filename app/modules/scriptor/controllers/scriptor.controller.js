@@ -141,8 +141,8 @@ angular.module('automationApp.scriptor')
 						if (res.data.length == 0) {
 							showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
 						} else{
-							scriptorService.taskContent = res.data[0].json;
-							$state.go('script-editor',  {id: res.data[0].taskid});
+							scriptorService.taskContent = res.data[0].task_json;
+							$state.go('script-editor',  {id: res.data[0].sle_id});
 							showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
 						}
 					});
