@@ -3,6 +3,7 @@
 angular.module('automationApp.scriptor')
     .directive('iCheck', ['$timeout', '$parse', function($timeout, $parse) {
         return {
+            restrict: 'A',
             require: 'ngModel',
             link: function($scope, element, $attrs, ngModel) {
                 return $timeout(function() {
@@ -15,7 +16,7 @@ angular.module('automationApp.scriptor')
 
                     return $(element).iCheck({
                         checkboxClass: 'icheckbox_flat-aero',
-                        radioClass: 'iradio_flat-aero'
+                        radioClass: 'iradio_flat-blue'
 
                     }).on('ifChanged', function(event) {
                         if ($(element).attr('type') === 'checkbox' && $attrs['ngModel']) {
