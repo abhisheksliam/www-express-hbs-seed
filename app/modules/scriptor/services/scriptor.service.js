@@ -17,7 +17,10 @@ angular.module('automationApp.scriptor')
         }
 
         var getTaskJson = function(friendlyTaskId) {
-            return $http.get('/api/tasks/' + friendlyTaskId);
+            var taskData = $http.get('/api/tasks/' + friendlyTaskId);
+            var deferred = $q.defer();
+            deferred.resolve(taskData);
+            return deferred.promise;
         }
 
         var getTriggers = function() {
