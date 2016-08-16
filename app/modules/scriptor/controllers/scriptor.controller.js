@@ -82,21 +82,24 @@ angular.module('automationApp.scriptor')
                     scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
 
                         if(res.data.errors) {
-                            bootbox.confirm({
-                                title: 'Task already exists',
-                                message: 'Do you want to override task with new selections ?',
-                                className: 'error-modal',
-                                callback: function(result) {
-                                    if(result) {
-                                        scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
-                                            scriptorService.taskContent = res.data.task_json;
-                                            $state.go('script-editor',  {id: res.data.sle_id});
-                                            showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
-                                        });
+                            if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
+                                bootbox.confirm({
+                                    title: 'Task already exists',
+                                    message: 'Do you want to override task with new selections ?',
+                                    className: 'error-modal',
+                                    callback: function(result) {
+                                        if(result) {
+                                            scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
+                                                scriptorService.taskContent = res.data.task_json;
+                                                $state.go('script-editor',  {id: res.data.sle_id});
+                                                showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
+                                            });
+                                        }
                                     }
-                                }
-                            });
-
+                                });
+                            } else {
+                                showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage.message + '</p></div>');
+                            }
                         } else{
                             scriptorService.taskContent = res.data.task_json;
                             $state.go('script-editor',  {id: res.data.sle_id});
