@@ -8,7 +8,7 @@ angular.module('automationApp.scriptor')
 
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
-                    $scope.taskJson =  res.data[0].json;
+                    $scope.taskJson =  res.data[0].task_json;
                     $scope.taskId = $scope.taskJson[0].id;
                     $scope.scenarioType = $scope.taskJson[0].scenario;
                     $scope.applicationName = $scope.taskJson[0].appName;
