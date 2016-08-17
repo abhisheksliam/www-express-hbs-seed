@@ -5,7 +5,6 @@ angular.module('automationApp.scriptor')
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
             $scope.taskId = "";
-			$scope.loadTaskId = "";
 
 			if($rootScope.globalConstants === undefined) {
 				scriptorService.getGlobalContext().then(function (res) {
@@ -48,53 +47,13 @@ angular.module('automationApp.scriptor')
 
 			});
 
-			function validateTaskId(input){
-				var regex = /[^a-z0-9.]/i; // not a valid task id string - contains other characters from a-z0-9.
-
-				if (regex.test(input)) {
-					return false;
-				} else {
-					return true;
-				}
-			}
-
-
-			function showNotify(customText, panelSelector){
-
-				if ( panelSelector === undefined ) {
-						noty({
-							text        : customText,
-							layout      : 'topRight',
-							theme       : 'made',
-							maxVisible  : 1,
-							animation   : {
-								open  : 'animated fadeInRight',
-								close : 'animated fadeOut'
-							},
-							timeout: 3000
-						})
-				 } else {
-						 $(panelSelector).noty({
-							 text        : customText,
-							 layout      : 'TopCenter',
-							 theme       : 'made',
-							 maxVisible  : 1,
-							 animation   : {
-								 open  : 'animated fadeIn',
-								 close : 'animated fadeOut'
-							 },
-							 timeout: 3000
-						 });
-				 }
-			};
-
 			$scope.displayScript = function(){
 
                 if ($scope.taskId == undefined || $scope.taskId.length === 0) {
-                    showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>');
+					$scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>');
 
                 }
-                else if (validateTaskId($scope.taskId)){
+                else if ($scope.validateTaskId($scope.taskId)){
 
                     scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
 
@@ -109,47 +68,25 @@ angular.module('automationApp.scriptor')
                                             scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
                                                 scriptorService.taskContent = res.data.task_json;
                                                 $state.go('script-editor',  {id: res.data.sle_id});
-                                                showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
+												$scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                                             });
                                         }
                                     }
                                 });
                             } else {
-                                showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage.message + '</p></div>');
+								$scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage.message + '</p></div>');
                             }
                         } else{
                             scriptorService.taskContent = res.data.task_json;
                             $state.go('script-editor',  {id: res.data.sle_id});
-                            showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
+							$scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                         }
                     });
 
                 } else{
-                    showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
+					$scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
                 }
 
-			};
-
-			$scope.loadScript = function(){
-
-				if ($scope.loadTaskId == undefined || $scope.loadTaskId.length === 0) {
-					showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>','.modal-body');
-				}
-				else if (validateTaskId($scope.loadTaskId)){	// client side validation
-					// api call
-					scriptorService.getTaskJson($scope.loadTaskId).then(function(res) {
-						if (res.data.length == 0) {
-							showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
-						} else{
-							scriptorService.taskContent = res.data[0].task_json;
-							$state.go('script-editor',  {id: res.data[0].sle_id});
-							showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
-						}
-					});
-					//
-				} else{
-					showNotify('<div class="alert alert-danger"><p><strong>' + 'Invalid Task Id !' + '</p></div>','.modal-body');
-				}
 			};
 
 		}]);
