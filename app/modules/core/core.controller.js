@@ -12,9 +12,7 @@
 	  $(document).ready(function () {
 			applicationService.init();
 			quickViewService.init();
-		    builderService.init();
-			pluginsService.init();
-			Dropzone.autoDiscover = false;
+		    Dropzone.autoDiscover = false;
 		});
 
 		$scope.isActive = function (viewLocation) {
