@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('automationApp')
+angular.module('automationApp.runner')
     .directive('runnerLauncher', function() {
         return {
             restrict: 'A',
