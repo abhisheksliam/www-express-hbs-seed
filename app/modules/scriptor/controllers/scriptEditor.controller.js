@@ -9,7 +9,7 @@ angular.module('automationApp.scriptor')
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
                     $scope.taskJson =  res.data[0].task_json;
-                    $scope.runnerTaskJSON = res.data[0].task_json;
+                    $scope.$parent.runnerTaskJSON = res.data[0].task_json;
                     $scope.taskId = $scope.taskJson[0].id;
                     $scope.scenarioType = $scope.taskJson[0].scenario;
                     $scope.applicationName = $scope.taskJson[0].appName;
@@ -21,7 +21,7 @@ angular.module('automationApp.scriptor')
 
             } else {
                 $scope.taskJson = scriptorService.taskContent;
-                $scope.runnerTaskJSON = scriptorService.taskContent;
+                $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
                 $scope.taskId = $scope.taskJson[0].id;
                 $scope.scenarioType = $scope.taskJson[0].scenario;
                 $scope.applicationName = $scope.taskJson[0].appName;
@@ -39,12 +39,8 @@ angular.module('automationApp.scriptor')
 
             $scope.$watch('taskJson', function() {
                 if (initializing) {
-                    $timeout(function() {
-                        initializing = false;
-                        $scope.runnerTaskJSON = $scope.taskJson;
-                    });
+                    $timeout(function() { initializing = false; });
                 } else {
-                    $scope.runnerTaskJSON = $scope.taskJson;
                     scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
                         $scope.originalTaskJson =  res.data.json;
                     });
