@@ -26,9 +26,12 @@
                         </li>
                     </ol>
                 </div>
-
+                <hr/>
 
                 <div class="title">Pathway Groups </div>
+                <div ng-repeat="methodtype in $root.globalConstants.methodtypelist">
+                    <span>{{methodtype}}</span>
+                </div>
                 <div class="m-t-30" style="width:100%">
                     <canvas id="setting-chart" height="300"></canvas>
                 </div>
