@@ -4,7 +4,8 @@ angular.module('automationApp.scriptor')
 	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
-
+            $scope.taskId = "";
+            $scope.$parent.runnerTaskJSON = scriptorService.taskContent = {};
 
 			/* Template Code to be kept in first route to be loaded */
 			$scope.$on('$viewContentLoaded', function () {
@@ -28,8 +29,6 @@ angular.module('automationApp.scriptor')
 				}
 
 			});
-
-            $scope.taskId = "";
 
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getGlobalContext().then(function (res) {
