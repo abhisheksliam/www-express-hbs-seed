@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('automationApp.scriptor')
+angular.module('automationApp')
     .directive('iCheck', ['$timeout', '$parse', function($timeout, $parse) {
         return {
             restrict: 'A',
