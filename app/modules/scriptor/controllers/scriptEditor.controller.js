@@ -9,6 +9,7 @@ angular.module('automationApp.scriptor')
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
                     $scope.taskJson =  res.data[0].task_json;
+                    $scope.$parent.runnerTaskJSON = res.data[0].task_json;
                     $scope.taskId = $scope.taskJson[0].id;
                     $scope.scenarioType = $scope.taskJson[0].scenario;
                     $scope.applicationName = $scope.taskJson[0].appName;
@@ -20,6 +21,7 @@ angular.module('automationApp.scriptor')
 
             } else {
                 $scope.taskJson = scriptorService.taskContent;
+                $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
                 $scope.taskId = $scope.taskJson[0].id;
                 $scope.scenarioType = $scope.taskJson[0].scenario;
                 $scope.applicationName = $scope.taskJson[0].appName;

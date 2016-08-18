@@ -8,13 +8,12 @@
   function AppController($scope, applicationService, quickViewService, builderService, pluginsService, $location, scriptorService, $state ) {
 
 	  $scope.loadTaskId = "";
+      $scope.runnerTaskJSON = {};
 
 	  $(document).ready(function () {
 			applicationService.init();
 			quickViewService.init();
-		    builderService.init();
-			pluginsService.init();
-			Dropzone.autoDiscover = false;
+		    Dropzone.autoDiscover = false;
 		});
 
 		$scope.isActive = function (viewLocation) {
@@ -74,7 +73,8 @@
 				  } else{
 					  $('#modal-loadtask').modal('hide');
 					  scriptorService.taskContent = res.data[0].task_json;
-					  $state.go('script-editor',  {id: res.data[0].sle_id});
+                      $scope.runnerTaskJSON = res.data[0].task_json;
+					  $state.go('app.script-editor',  {id: res.data[0].sle_id});
 					  $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
 				  }
 			  });

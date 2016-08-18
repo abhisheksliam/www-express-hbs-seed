@@ -41,7 +41,7 @@
 			setTimeout(function () {
 				$('.loader-overlay').addClass('loaded');
 				$('body > section').animate({
-					opacity: 1,
+					opacity: 1
 				}, 400);
 			}, 500);
     	});
@@ -1080,16 +1080,16 @@
 			});
 
 			
-			createSideScroll();
-			toggleSidebarMenu();
-			customScroll();
+			//createSideScroll();
+            toggleSidebarMenu();
+            //customScroll();
 			handleSidebarSortable();
 			sidebarWidgets();
 			reposition_topnav();
 			handleSidebarRemove();
 			handleSidebarHide();
 			changeUserStatut();
-			handlePanelAction();
+			//handlePanelAction();
 			scrollTop();
 			sidebarBehaviour();
 			detectIE();
@@ -1122,6 +1122,7 @@
 		applicationService.handleSidebarSortable = handleSidebarSortable;
 		applicationService.handleSidebarHide = handleSidebarHide;
 		applicationService.handleSidebarRemove = handleSidebarRemove;
+        applicationService.createSideScroll = createSideScroll;
 		applicationService.customScroll = customScroll;
 		applicationService.handleSidebarFixed = handleSidebarFixed;
 		applicationService.handleTopbarFixed = handleTopbarFixed;
