@@ -7,7 +7,28 @@
     <div class="tab-content">
         <div class="tab-pane fade active in" id="settings">
             <div class="settings">
-                <div class="title">Pathway Groups</div>
+                <div class="dd nestable">
+                    <ol id="item-panel" class="dd-list" ng-repeat="item in runnerTaskJSON[0].items">
+                        <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
+                            <div class="item-level-0 dd3-content border-left">
+                                <h4>Item {{$index+1}}</h4>
+                            </div>
+                            <div class="data-items" style="display: none">
+                                <ol class="dd-list" ng-repeat="method in item.methods">
+                                    <li class="li-level-1 dd-item">
+                                        <div class="item-level-1 dd3-content p-b-10">
+                                             <h5>M{{index}}  <span class="method-type-value">{{method.type}}</span>
+                                            </h5>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+
+                <div class="title">Pathway Groups </div>
                 <div class="m-t-30" style="width:100%">
                     <canvas id="setting-chart" height="300"></canvas>
                 </div>

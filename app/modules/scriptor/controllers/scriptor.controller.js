@@ -70,6 +70,7 @@ angular.module('automationApp.scriptor')
                                         if(result) {
                                             scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
                                                 scriptorService.taskContent = res.data.task_json;
+                                                $scope.runnerTaskJSON = scriptorService.taskContent;
                                                 $state.go('app.script-editor',  {id: res.data.sle_id});
 												$scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                                             });
@@ -81,6 +82,7 @@ angular.module('automationApp.scriptor')
                             }
                         } else{
                             scriptorService.taskContent = res.data.task_json;
+                            $scope.runnerTaskJSON = scriptorService.taskContent;
                             $state.go('app.script-editor',  {id: res.data.sle_id});
 							$scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                         }
