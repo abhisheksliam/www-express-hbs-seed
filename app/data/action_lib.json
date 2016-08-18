@@ -1,5 +1,24 @@
 [
   {
+    "name": "click2()",
+    "id": "1",
+    "syntax": "click2(String elementName,String elementName)",
+    "values": [
+      {
+        "actVal": "Customize_Quick_Access_Toolbar",
+        "actKey": "elementName",
+        "displayXpath": "true",
+        "dataType": "string"
+      },
+      {
+        "actVal": "Customize_Quick_Access_Toolbar",
+        "actKey": "elementName",
+        "displayXpath": "true",
+        "dataType": "string"
+      }
+    ]
+  },
+  {
     "name": "clickAndWait()",
     "id": "1",
     "syntax": "clickAndWait(String elementName)",

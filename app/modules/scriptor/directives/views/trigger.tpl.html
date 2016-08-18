@@ -18,10 +18,15 @@
     </div>
     <div class="panel-content">
         <div class="m-l-30 p-l-30" ng-repeat="attribute in action.values" >
-            <span class="label">{{attribute.actKey}}</span>
-            <span class="input input--hoshi">
-                <span class="xpath-text"></span>
-                <input class="input__field input__field--hoshi" type="text" id="input-41" ng-model="attribute.actVal" placeholder="{{attribute.actKey}}"/>
+            <span class="label" style="display: table">{{attribute.actKey}}</span>
+            <span class="input input--hoshi" style="display: inline-block; width: 49%">
+                <input class="input__field input__field--hoshi {{attribute.actKey}}" type="text" id="input-41" ng-model="attribute.actVal" placeholder="{{attribute.actKey}}"/>
+                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
+                    <span class="input__label-content input__label-content--hoshi"></span>
+                </label>
+            </span>
+            <span class="input input--hoshi" style="display: inline-block; width: 49%" ng-show="attribute.actKey == 'elementName'">
+                <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementName="{{attribute.actVal}}"/>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
                     <span class="input__label-content input__label-content--hoshi"></span>
                 </label>

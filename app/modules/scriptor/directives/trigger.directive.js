@@ -104,7 +104,7 @@ angular.module('automationApp.scriptor')
                 });
 
                 // If suggestions needs to be shown
-                var isElementName = scope.action.syntax.toLowerCase().indexOf("elementname") >= 0;
+/*                var isElementName = scope.action.syntax.toLowerCase().indexOf("elementname") >= 0;
                 var isKeyName = scope.action.syntax.toLowerCase().indexOf("keyname") >= 0;
                 var suggestions;
                 if(isElementName) {
@@ -123,10 +123,10 @@ angular.module('automationApp.scriptor')
                         if(val) {
                             var xPath = scriptorService.getXPathForElement(val);
                             if(xPath) {
-                                element.find( ".input--hoshi:first .xpath-text" ).html(xPath);
+                                element.find( ".input--hoshi:first .xpath-text" ).val(xPath);
                             }
                             else {
-                                element.find( ".input--hoshi:first .xpath-text" ).html("");
+                                element.find( ".input--hoshi:first .xpath-text" ).val("");
                             }
                         }
                     }
@@ -135,7 +135,7 @@ angular.module('automationApp.scriptor')
 
                 var setAutoComplete =  function() {
                     setXPathValue();
-                    element.find( ".input__field:first" ).autocomplete({
+                    element.find( ".input__field" ).autocomplete({
                         source: suggestions,
                         select: function( event, ui ) {
                             scope.action.values[0].actVal = ui.item.value;
@@ -143,7 +143,7 @@ angular.module('automationApp.scriptor')
                             if(isElementName) {
                                 var xPath = scriptorService.getXPathForElement(ui.item.value);
                                 if(xPath) {
-                                    $(this).siblings('.xpath-text').html(xPath);
+                                    $(this).siblings('.xpath-text').val(xPath);
                                 }
                             }
 
@@ -159,11 +159,54 @@ angular.module('automationApp.scriptor')
                     $timeout(function(){
                         setAutoComplete();
                     },200);
-                }
+                }*/
 
 
-                element.find( ".input__field:first" ).live( "blur", function( event ) {
+/*                element.find( ".input__field" ).live( "blur", function( event ) {
                     setXPathValue();
+                });*/
+
+/*                element.find( ".input__field.xpath" ).each(function( event ) {
+                    console.log('in each' + $(this));
+                    var currentEnementName = $(this).attr("data-elementName");
+                    var xpath = scriptorService.getXPathForElement(currentEnementName);
+                    $(this).val(xpath);
+
+                });*/
+
+                $timeout(function(){
+
+                    angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
+                        var a = angular.element(value);
+                        var currentEnementName = a.attr("data-elementName");
+                        var xpath = scriptorService.getXPathForElement(currentEnementName);
+                        a.val(xpath);
+                    });
+
+                    var suggestions = scriptorService.getElementNameSuggestions();
+                    element.find( ".input__field.elementName" ).autocomplete({
+                        source: suggestions,
+                        select: function( event, ui ) {
+                            scope.action.values[0].actVal = ui.item.value;
+
+                            //if(isElementName) {
+                                var xPath = scriptorService.getXPathForElement(ui.item.value);
+                                if(xPath) {
+                                    $(this).siblings('.xpath-text').val(xPath);
+                                }
+                            //}
+
+                            scope.$apply();
+
+                            return true;
+                        }
+                    });
+
+                },200);
+
+                // todo: fix for - refresh xpath value on element name change & set name dynamically
+                scope.$watch(scope.action.values.actKey, function (newValue, oldValue, scope) {
+
                 });
 
             }

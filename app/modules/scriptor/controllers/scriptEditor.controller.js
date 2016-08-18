@@ -33,8 +33,6 @@ angular.module('automationApp.scriptor')
                 $rootScope.TriggerSuggestions = res.data;
             });
 
-
-
             $scope.$watch('taskJson', function() {
                 if (initializing) {
                     $timeout(function() { initializing = false; });
@@ -66,6 +64,6 @@ angular.module('automationApp.scriptor')
                 stopEvent : function(event) {
                     event.stopPropagation();
                 }
-            }
+            };
 
 		}]);
