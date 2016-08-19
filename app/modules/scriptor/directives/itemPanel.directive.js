@@ -173,6 +173,7 @@ angular.module('automationApp.scriptor')
                         },
                         stop:  function(event, ui) {
                             var newItemIndex = ui.item.index();
+
                             if (initialItemIndex !== newItemIndex) {
                                 var itemArr = scope.items[0].items;
                                 itemArr.splice(newItemIndex, 0, itemArr.splice(initialItemIndex, 1)[0]);
@@ -190,9 +191,9 @@ angular.module('automationApp.scriptor')
                         },
                         stop:  function(event, ui) {
                             var newMethodIndex = ui.item.index();
+
                             if (initialMethodIndex !== newMethodIndex) {
-                                var itemNumber = $(this).closest('.li-level-0').data('id');
-                                var methodArr = scope.items[0].items[itemNumber].methods;
+                                var methodArr = ui.item.scope().item.methods;
                                 methodArr.splice(newMethodIndex, 0, methodArr.splice(initialMethodIndex, 1)[0]);
                                 scope.$apply();
                             }
@@ -209,8 +210,11 @@ angular.module('automationApp.scriptor')
                         },
                         stop:  function(event, ui) {
                             var newTriggerIndex = ui.item.index();
+
                             if (initialTriggerIndex !== newTriggerIndex) {
-                                console.log("Trigger Re-ordered");
+                                var triggerArr = ui.item.scope().method.actions;
+                                triggerArr.splice(newTriggerIndex, 0, triggerArr.splice(initialTriggerIndex, 1)[0]);
+                                scope.$apply();
                             }
                         }
                     });
