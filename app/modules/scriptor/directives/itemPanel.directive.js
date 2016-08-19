@@ -122,13 +122,15 @@ angular.module('automationApp.scriptor')
 
                     element.on('click',".item-level-0 .panel-close",function (event) {
                         event.preventDefault();
+                        var itemNumber = $(this).closest('.li-level-0').data('id');
                         var $item = $(this).parents(".dd-item:first");
 
                         bootbox.confirm("Are you sure to delete this item?", function (result) {
                             if (result === true) {
                                 $item.addClass("animated bounceOutRight");
                                 window.setTimeout(function () {
-                                    $item.remove();
+                                    scope.items[0].items.splice(itemNumber, 1);
+                                    scope.$apply();
                                 }, 300);
                             }
                         });
