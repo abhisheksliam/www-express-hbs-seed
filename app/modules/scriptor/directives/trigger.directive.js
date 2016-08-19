@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('triggerItem', ['$timeout', 'scriptorService', function($timeout, scriptorService) {
+    .directive('triggerItem', ['$timeout', 'scriptorService' ,'$rootScope', function($timeout, scriptorService, $rootScope) {
 
         return {
             restrict: 'A',
@@ -43,8 +43,21 @@ angular.module('automationApp.scriptor')
                     //todo
                     scope.oldAction = angular.copy(scope.action);
 
-                    element.find(".panel-toggle").toggleClass("closed");
-                    element.find(".panel-content").slideToggle();
+                    var key = $(this).closest('.panel-content').find('input.xpath').attr('data-elementname');
+                    var value = $(this).closest('.panel-content').find('input.xpath').val();
+                    var taskid = 'global';
+                    var app_type = 'global';
+
+                    saveXpathToDatabase(key, value, taskid, app_type,
+                    function(success){
+                        alert(success);
+                        element.find(".panel-toggle").toggleClass("closed");
+                        element.find(".panel-content").slideToggle();
+                    },
+                    function(error){
+                        alert(error);
+                    });
+
                     event.stopPropagation();
                 });
 
@@ -59,6 +72,7 @@ angular.module('automationApp.scriptor')
                     element.find(".panel-toggle").toggleClass("closed");
                     element.find(".panel-content").slideToggle();
 
+                    // todo
                     setAutoComplete();
 
                     event.stopPropagation();
@@ -183,31 +197,40 @@ angular.module('automationApp.scriptor')
                         a.val(xpath);
                     });
 
+                    // todo: add autocomplete for mykeys - regression
                     var suggestions = scriptorService.getElementNameSuggestions();
                     element.find( ".input__field.elementName" ).autocomplete({
                         source: suggestions,
                         select: function( event, ui ) {
                             scope.action.values[0].actVal = ui.item.value;
 
-                            //if(isElementName) {
                                 var xPath = scriptorService.getXPathForElement(ui.item.value);
                                 if(xPath) {
-                                    $(this).siblings('.xpath-text').val(xPath);
+                                    $(this).closest('.trigger-input-parent').find('input.xpath').val(xPath);
+                                } else {
+                                    $(this).closest('.trigger-input-parent').find('input.xpath').val('');
                                 }
-                            //}
 
                             scope.$apply();
-
                             return true;
                         }
                     });
 
                 },200);
 
-                // todo: fix for - refresh xpath value on element name change & set name dynamically
-                scope.$watch(scope.action.values.actKey, function (newValue, oldValue, scope) {
-
-                });
+                function saveXpathToDatabase (key,value,taskid,app_type,done,err){
+                    scriptorService.saveXpath(key, value, taskid, app_type).then(function(res) {
+                        if(res.data.errors) {
+                            if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
+                                err('EXISTS_IN_DB');
+                            } else {
+                                err('SERVER_ERROR');
+                            }
+                        } else{
+                            done('xpath saved successfully');
+                        }
+                    });
+                };
 
             }
         }

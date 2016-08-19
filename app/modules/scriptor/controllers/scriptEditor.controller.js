@@ -6,6 +6,10 @@ angular.module('automationApp.scriptor')
             var initializing = true;
             $scope.sleId = $stateParams.id;
 
+            scriptorService.getXpathArrayList('global').then(function(res) {
+                 $rootScope.xpathArrayList = res;
+            });   // todo: where to put this line?
+
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
                     $scope.taskJson =  res.data[0].task_json;

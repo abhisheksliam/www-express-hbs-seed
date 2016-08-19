@@ -1,10 +1,10 @@
 {
-  "xPathForElement": {
-    "DialogFormIcon" : "//*[@id='12_frameicon']",
-    "Access_TaskBar_StartButton" : "//*[@id='win10tb-start-btn']",
-    "Ribbon_Minimize" : "//*[@class='title-bar']//*[contains(@class,'titlebar-control')][descendant::*[text()='Minimize']]",
-    "Ribbon_ClosePreview_ClosePrintPreview" : "//*[@id='ribbon-tab-Print Preview']/li[descendant::*[text()='C']]"
-  },
+"xPathForElement": {
+"DialogFormIcon" : "//*[@id='12_frameicon']",
+"Access_TaskBar_StartButton" : "//*[@id='win10tb-start-btn']",
+"Ribbon_Minimize" : "//*[@class='title-bar']//*[contains(@class,'titlebar-control')][descendant::*[text()='Minimize']]",
+"Ribbon_ClosePreview_ClosePrintPreview" : "//*[@id='ribbon-tab-Print Preview']/li[descendant::*[text()='C']]"
+},
   "elementNameSuggestion": [
     "DialogFormIcon",
     "Access_TaskBar_StartButton",
