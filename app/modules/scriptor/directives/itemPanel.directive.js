@@ -160,23 +160,48 @@ angular.module('automationApp.scriptor')
 
                 //to fix this, implement template cache, then there is no need of timeout
                 $timeout(function(){
+                    var initialItemIndex;
+                    var initialMethodIndex;
+                    var initialTriggerIndex;
+
                     element.sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
-                        handle: ".item-level-0"
+                        handle: ".item-level-0",
+                        start:  function(event, ui) {
+                            initialItemIndex = ui.item.index();
+                        },
+                        stop:  function(event, ui) {
+                            console.log("Item Re-ordered");
+                        }
                     });
 
                     element.find( ".li-level-0 .data-items" ).sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
-                        handle: ".item-level-1"
+                        handle: ".item-level-1",
+                        start:  function(event, ui) {
+                            initialMethodIndex = ui.item.index();
+                        },
+                        stop:  function(event, ui) {
+                            var itemNumber = $(this).closest('.li-level-0').data('id');
+                            var methodArr = scope.items[0].items[itemNumber].methods;
+                            methodArr.splice(ui.item.index(), 0, methodArr.splice(initialMethodIndex, 1)[0]);
+                            scope.$apply();
+                        }
                     });
 
                     element.find( ".li-level-1 .data-items" ).sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
                         handle: ".item-level-2",
-                        helper : 'clone'
+                        helper : 'clone',
+                        start:  function(event, ui) {
+                            initialTriggerIndex = ui.item.index();
+                        },
+                        stop:  function(event, ui) {
+                            console.log("Trigger Re-ordered");
+                        }
                     });
                 },2000);
             }
