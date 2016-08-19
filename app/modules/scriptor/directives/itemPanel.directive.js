@@ -122,13 +122,15 @@ angular.module('automationApp.scriptor')
 
                     element.on('click',".item-level-0 .panel-close",function (event) {
                         event.preventDefault();
+                        var itemNumber = $(this).closest('.li-level-0').data('id');
                         var $item = $(this).parents(".dd-item:first");
 
                         bootbox.confirm("Are you sure to delete this item?", function (result) {
                             if (result === true) {
                                 $item.addClass("animated bounceOutRight");
                                 window.setTimeout(function () {
-                                    $item.remove();
+                                    scope.items[0].items.splice(itemNumber, 1);
+                                    scope.$apply();
                                 }, 300);
                             }
                         });
@@ -158,23 +160,63 @@ angular.module('automationApp.scriptor')
 
                 //to fix this, implement template cache, then there is no need of timeout
                 $timeout(function(){
+                    var initialItemIndex;
+                    var initialMethodIndex;
+                    var initialTriggerIndex;
+
                     element.sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
-                        handle: ".item-level-0"
+                        handle: ".item-level-0",
+                        start:  function(event, ui) {
+                            initialItemIndex = ui.item.index();
+                        },
+                        stop:  function(event, ui) {
+                            var newItemIndex = ui.item.index();
+
+                            if (initialItemIndex !== newItemIndex) {
+                                var itemArr = scope.items[0].items;
+                                itemArr.splice(newItemIndex, 0, itemArr.splice(initialItemIndex, 1)[0]);
+                                scope.$apply();
+                            }
+                        }
                     });
 
                     element.find( ".li-level-0 .data-items" ).sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
-                        handle: ".item-level-1"
+                        handle: ".item-level-1",
+                        start:  function(event, ui) {
+                            initialMethodIndex = ui.item.index();
+                        },
+                        stop:  function(event, ui) {
+                            var newMethodIndex = ui.item.index();
+
+                            if (initialMethodIndex !== newMethodIndex) {
+                                var methodArr = ui.item.scope().item.methods;
+                                methodArr.splice(newMethodIndex, 0, methodArr.splice(initialMethodIndex, 1)[0]);
+                                scope.$apply();
+                            }
+                        }
                     });
 
                     element.find( ".li-level-1 .data-items" ).sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
                         handle: ".item-level-2",
-                        helper : 'clone'
+                        helper : 'clone',
+                        start:  function(event, ui) {
+                            initialTriggerIndex = ui.item.index();
+                        },
+                        stop:  function(event, ui) {
+                            var newTriggerIndex = ui.item.index();
+
+                            if (initialTriggerIndex !== newTriggerIndex) {
+                                var triggerArr = ui.item.scope().method.actions;
+                                triggerArr.splice(newTriggerIndex, 0, triggerArr.splice(initialTriggerIndex, 1)[0]);
+                                scope.$apply();
+                            }
+                        }
                     });
                 },2000);
             }
