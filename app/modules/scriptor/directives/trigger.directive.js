@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('triggerItem', ['$timeout', 'scriptorService', function($timeout, scriptorService) {
+    .directive('triggerItem', ['$timeout', 'scriptorService' ,'$rootScope', function($timeout, scriptorService, $rootScope) {
 
         return {
             restrict: 'A',
@@ -43,8 +43,21 @@ angular.module('automationApp.scriptor')
                     //todo
                     scope.oldAction = angular.copy(scope.action);
 
-                    element.find(".panel-toggle").toggleClass("closed");
-                    element.find(".panel-content").slideToggle();
+                    var key = $(this).closest('.panel-content').find('input.xpath').attr('data-elementname');
+                    var value = $(this).closest('.panel-content').find('input.xpath').val();
+                    var taskid = 'global';
+                    var app_type = 'global';
+
+                    saveXpathToDatabase(key, value, taskid, app_type,
+                    function(success){
+                        console.log(success);
+                        element.find(".panel-toggle").toggleClass("closed");
+                        element.find(".panel-content").slideToggle();
+                    },
+                    function(error){
+                        console.log(error);
+                    });
+
                     event.stopPropagation();
                 });
 
@@ -59,6 +72,7 @@ angular.module('automationApp.scriptor')
                     element.find(".panel-toggle").toggleClass("closed");
                     element.find(".panel-content").slideToggle();
 
+                    // todo
                     setAutoComplete();
 
                     event.stopPropagation();
@@ -103,68 +117,51 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                // If suggestions needs to be shown
-                var isElementName = scope.action.syntax.toLowerCase().indexOf("elementname") >= 0;
-                var isKeyName = scope.action.syntax.toLowerCase().indexOf("keyname") >= 0;
-                var suggestions;
-                if(isElementName) {
-                    suggestions = scriptorService.getElementNameSuggestions();
-                }
-                else if(isKeyName) {
-                    suggestions = scriptorService.getKeyNameSuggestions();
-                }
+                $timeout(function(){
 
+                    angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
+                        var a = angular.element(value);
+                        var currentEnementName = a.attr("data-elementName");
+                        var xpath = scriptorService.getXPathForElement(currentEnementName);
+                        a.val(xpath);
+                    });
 
-
-                var setXPathValue = function() {
-                    if(isElementName) {
-                        var val = element.find( ".input__field:first").val();
-
-                        if(val) {
-                            var xPath = scriptorService.getXPathForElement(val);
-                            if(xPath) {
-                                element.find( ".input--hoshi:first .xpath-text" ).html(xPath);
-                            }
-                            else {
-                                element.find( ".input--hoshi:first .xpath-text" ).html("");
-                            }
-                        }
-                    }
-                };
-
-
-                var setAutoComplete =  function() {
-                    setXPathValue();
-                    element.find( ".input__field:first" ).autocomplete({
+                    // todo: add autocomplete for mykeys - regression
+                    var suggestions = scriptorService.getElementNameSuggestions();
+                    element.find( ".input__field.elementName" ).autocomplete({
                         source: suggestions,
                         select: function( event, ui ) {
-                            scope.action.values[0].actVal = ui.item.value;
+                            //scope.action.values[0].actVal = ui.item.value;
+                            var _index = $(this).attr('data-index');
+                            scope.action.values[_index].actVal = ui.item.value;
 
-                            if(isElementName) {
                                 var xPath = scriptorService.getXPathForElement(ui.item.value);
                                 if(xPath) {
-                                    $(this).siblings('.xpath-text').html(xPath);
+                                    $(this).closest('.trigger-input-parent').find('input.xpath').val(xPath);
+                                } else {
+                                    $(this).closest('.trigger-input-parent').find('input.xpath').val('');
                                 }
-                            }
 
                             scope.$apply();
-
                             return true;
                         }
                     });
-                }
 
-                if(isElementName || isKeyName)
-                {
-                    $timeout(function(){
-                        setAutoComplete();
-                    },200);
-                }
+                },200);
 
-
-                element.find( ".input__field:first" ).live( "blur", function( event ) {
-                    setXPathValue();
-                });
+                function saveXpathToDatabase (key,value,taskid,app_type,done,err){
+                    scriptorService.saveXpath(key, value, taskid, app_type).then(function(res) {
+                        if(res.data.errors) {
+                            if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
+                                err('EXISTS_IN_DB');
+                            } else {
+                                err('SERVER_ERROR');
+                            }
+                        } else{
+                            done('xpath saved successfully');
+                        }
+                    });
+                };
 
             }
         }

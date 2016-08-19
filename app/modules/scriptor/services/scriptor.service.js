@@ -51,12 +51,19 @@ angular.module('automationApp.scriptor')
         }
 
         var getElementNameSuggestions = function() {
-            return $rootScope.TriggerSuggestions.elementNameSuggestion;
+            return $rootScope.xpathArrayList;
         }
 
 
         var getXPathForElement = function(elementName) {
-            return $rootScope.TriggerSuggestions.xPathForElement[elementName];
+            var xpath = '';
+
+            $rootScope.xpathList.data.forEach(function (item) {
+                if(item.xpath.key === elementName) {
+                    xpath = item.xpath.value;
+                }
+            });
+            return xpath;
         }
 
         var saveTaskScript = function(app_key, scenario, task_id, template) {
@@ -93,7 +100,45 @@ angular.module('automationApp.scriptor')
             var deferred = $q.defer();
             deferred.resolve(updateTask);
             return deferred.promise;
-        }
+        };
+
+        var saveXpath = function(key, value, taskid, app_type) {
+            var saveTask = $http.post('/api/xpath/', {
+                app_type: app_type,
+                tags: [taskid],
+                xpath: {
+                    key: key,
+                    value: value
+                }
+            });
+
+            var deferred = $q.defer();
+            deferred.resolve(saveTask);
+            return deferred.promise;
+        };
+
+        var getApplicationXpathList = function(appType) {
+            var xpathList = $http.get('/api/xpath/'+appType);
+
+            var deferred = $q.defer();
+            deferred.resolve(xpathList);
+            return deferred.promise;
+        };
+
+        var getXpathArrayList = function(appType) {
+                var xpathArrayList = [];
+
+                getApplicationXpathList(appType).then(function(xpathList) {
+                    $rootScope.xpathList = xpathList;
+                    xpathList.data.forEach(function (item) {
+                        xpathArrayList.push(item.xpath.key);
+                    });
+                deferred.resolve(xpathArrayList);
+            });
+
+            var deferred = $q.defer();
+            return deferred.promise;
+        };
 
 
         return {
@@ -108,6 +153,9 @@ angular.module('automationApp.scriptor')
         "getTriggerSuggestions": getTriggerSuggestions,
         "getKeyNameSuggestions":getKeyNameSuggestions,
         "getElementNameSuggestions":getElementNameSuggestions,
-        "getXPathForElement" : getXPathForElement
+        "getXPathForElement" : getXPathForElement,
+        "saveXpath": saveXpath,
+        "getApplicationXpathList": getApplicationXpathList,
+        "getXpathArrayList": getXpathArrayList
     };
 }]);

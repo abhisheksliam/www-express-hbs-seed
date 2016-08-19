@@ -6,6 +6,10 @@ angular.module('automationApp.scriptor')
             var initializing = true;
             $scope.sleId = $stateParams.id;
 
+            scriptorService.getXpathArrayList('global').then(function(res) {
+                 $rootScope.xpathArrayList = res;
+            });
+
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
                     $scope.taskJson =  res.data[0].task_json;
@@ -34,8 +38,6 @@ angular.module('automationApp.scriptor')
             scriptorService.getTriggerSuggestions().then(function(res) {
                 $rootScope.TriggerSuggestions = res.data;
             });
-
-
 
             $scope.$watch('taskJson', function() {
                 if (initializing) {
@@ -68,6 +70,6 @@ angular.module('automationApp.scriptor')
                 stopEvent : function(event) {
                     event.stopPropagation();
                 }
-            }
+            };
 
 		}]);
