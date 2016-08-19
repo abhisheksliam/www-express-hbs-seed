@@ -8,7 +8,7 @@ angular.module('automationApp.scriptor')
 
             scriptorService.getXpathArrayList('global').then(function(res) {
                  $rootScope.xpathArrayList = res;
-            });   // todo: where to put this line?
+            });
 
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {

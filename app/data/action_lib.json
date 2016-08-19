@@ -11,8 +11,8 @@
         "dataType": "string"
       },
       {
-        "actVal": "Customize_Quick_Access_Toolbar",
-        "actKey": "elementName",
+        "actVal": "source",
+        "actKey": "source",
         "displayXpath": "true",
         "dataType": "string"
       }

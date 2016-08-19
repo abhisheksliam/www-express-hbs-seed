@@ -50,12 +50,12 @@ angular.module('automationApp.scriptor')
 
                     saveXpathToDatabase(key, value, taskid, app_type,
                     function(success){
-                        alert(success);
+                        console.log(success);
                         element.find(".panel-toggle").toggleClass("closed");
                         element.find(".panel-content").slideToggle();
                     },
                     function(error){
-                        alert(error);
+                        console.log(error);
                     });
 
                     event.stopPropagation();
@@ -202,7 +202,9 @@ angular.module('automationApp.scriptor')
                     element.find( ".input__field.elementName" ).autocomplete({
                         source: suggestions,
                         select: function( event, ui ) {
-                            scope.action.values[0].actVal = ui.item.value;
+                            //scope.action.values[0].actVal = ui.item.value;
+                            var _index = $(this).attr('data-index');
+                            scope.action.values[_index].actVal = ui.item.value;
 
                                 var xPath = scriptorService.getXPathForElement(ui.item.value);
                                 if(xPath) {

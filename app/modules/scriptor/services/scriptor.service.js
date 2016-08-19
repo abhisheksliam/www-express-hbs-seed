@@ -51,7 +51,6 @@ angular.module('automationApp.scriptor')
         }
 
         var getElementNameSuggestions = function() {
-            console.log($rootScope.xpathArrayList);
             return $rootScope.xpathArrayList;
         }
 
@@ -64,7 +63,6 @@ angular.module('automationApp.scriptor')
                     xpath = item.xpath.value;
                 }
             });
-            console.log('returning path ' + xpath);
             return xpath;
         }
 
