@@ -4,8 +4,8 @@
   angular.module('automationApp.core')
     .controller('AppController', AppController);
 	
-  AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'builderService', 'pluginsService', '$location','scriptorService', '$state'];
-  function AppController($scope, applicationService, quickViewService, builderService, pluginsService, $location, scriptorService, $state ) {
+  AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'builderService', 'pluginsService', '$location','scriptorService', '$state', '$rootScope'];
+  function AppController($scope, applicationService, quickViewService, builderService, pluginsService, $location, scriptorService, $state, $rootScope ) {
 
 	  $scope.loadTaskId = "";
       $scope.runnerTaskJSON = {};
@@ -59,6 +59,8 @@
 		  }
 		  $('.noty_inline_layout_container').delay(3000).fadeOut(1600);
 	  };
+
+	  $rootScope.showNotify = $scope.showNotify;
 
 	  $scope.loadScript = function(){
 

@@ -17,9 +17,9 @@ angular.module('automationApp.scriptor')
                     $scope.originalTaskJson = angular.copy(taskData);
 
                     $scope.$parent.runnerTaskJSON = taskData;
-                    $scope.taskId = taskData[0].id;
+                    $rootScope.taskId = $scope.taskId = taskData[0].id;
                     $scope.scenarioType = taskData[0].scenario;
-                    $scope.applicationName = taskData[0].appName;
+                    $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
                 });
 
                 scriptorService.getGlobalContext().then(function(res) {
@@ -32,9 +32,9 @@ angular.module('automationApp.scriptor')
                 $scope.originalTaskJson = angular.copy(taskData);
 
                 $scope.$parent.runnerTaskJSON = taskData;
-                $scope.taskId = taskData[0].id;
+                $rootScope.taskId = $scope.taskId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
-                $scope.applicationName = taskData[0].appName;
+                $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
             }
 
             scriptorService.getTriggers().then(function(res) {
