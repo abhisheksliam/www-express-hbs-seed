@@ -42,20 +42,38 @@ angular.module('automationApp.scriptor')
 
                     //todo
                     scope.oldAction = angular.copy(scope.action);
+                    var len = 0;
+                    if($(this).closest('.panel-content').find('input.xpath.elementName')){
+                        len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
+                    }
 
-                    var key = $(this).closest('.panel-content').find('input.xpath').attr('data-elementname');
-                    var value = $(this).closest('.panel-content').find('input.xpath').val();
-                    var taskid = 'global';
-                    var app_type = 'global';
+                    var counter = 0;
+                    $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
+                        var $el = $(this);
+                        var key = $(this).attr('data-elementname');
+                        var value = $(this).val();
+                        var taskid = $rootScope.taskId;
+                        var app_type = $rootScope.applicationName;
 
-                    saveXpathToDatabase(key, value, taskid, app_type,
-                    function(success){
-                        console.log(success);
-                        element.find(".panel-toggle").toggleClass("closed");
-                        element.find(".panel-content").slideToggle();
-                    },
-                    function(error){
-                        console.log(error);
+                        if (key && taskid && app_type){
+                            saveXpathToDatabase(key, value, taskid, app_type,
+                                function(success){
+                                    counter++;
+                                    if(counter === len) {
+                                        element.find(".panel-toggle").toggleClass("closed");
+                                        element.find(".panel-content").slideToggle();
+                                        $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
+                                    }
+                                    console.log(key + ' : ' + success);
+                                },
+                                function(error){
+                                    var xPath = scriptorService.getXPathForElement(key);
+                                    $el.val(xPath);
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
+                                });
+                        } else {
+                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
+                        }
                     });
 
                     event.stopPropagation();
@@ -72,8 +90,13 @@ angular.module('automationApp.scriptor')
                     element.find(".panel-toggle").toggleClass("closed");
                     element.find(".panel-content").slideToggle();
 
-                    // todo
-                    setAutoComplete();
+                    $(this).closest('.panel-content').find('input.xpath').each (function () {
+                        var $el = $(this);
+                        var key = $(this).attr('data-elementname');
+                        var xPath = scriptorService.getXPathForElement(key);
+                        $el.val(xPath);
+
+                    });
 
                     event.stopPropagation();
                 });

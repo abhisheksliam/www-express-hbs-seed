@@ -6,10 +6,6 @@ angular.module('automationApp.scriptor')
             var taskData;
             $scope.sleId = $stateParams.id;
 
-            scriptorService.getXpathArrayList('global').then(function(res) {
-                 $rootScope.xpathArrayList = res;
-            });
-
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
                     taskData = res.data[0].task_json;
@@ -17,24 +13,31 @@ angular.module('automationApp.scriptor')
                     $scope.originalTaskJson = angular.copy(taskData);
 
                     $scope.$parent.runnerTaskJSON = taskData;
-                    $scope.taskId = taskData[0].id;
+                    $rootScope.taskId = $scope.taskId = taskData[0].id;
                     $scope.scenarioType = taskData[0].scenario;
-                    $scope.applicationName = taskData[0].appName;
+                    $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
+
+                    scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
+                        $rootScope.xpathArrayList = res;
+                    });
                 });
 
                 scriptorService.getGlobalContext().then(function(res) {
                     $rootScope.globalConstants = res.data;
                 });
-
             } else {
                 taskData = scriptorService.taskContent;
                 $scope.taskJson = taskData;
                 $scope.originalTaskJson = angular.copy(taskData);
 
                 $scope.$parent.runnerTaskJSON = taskData;
-                $scope.taskId = taskData[0].id;
+                $rootScope.taskId = $scope.taskId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
-                $scope.applicationName = taskData[0].appName;
+                $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
+
+                scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
+                    $rootScope.xpathArrayList = res;
+                });
             }
 
             scriptorService.getTriggers().then(function(res) {

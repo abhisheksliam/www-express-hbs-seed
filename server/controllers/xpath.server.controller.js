@@ -55,19 +55,21 @@ exports.addXpath = function (req, res) {
             if (data[0].xpath.value === req.body.xpath.value) {   // only add tag
 
                 req.body.tags = arrayUnique(data[0].tags.concat(req.body.tags));
-                var xpath = new Xpath(req.body);
-
-                xpath.save(function(err, xpathData) {
-                    if (err) {
-                        res.json({
-                            "errors": {
-                                "errorMessage": err,
-                                "errorCode": "PROCESSING_ERROR"
-                            }
-                        });
-                    }
-                    res.json(xpathData);
-                });
+                Xpath.findOneAndUpdate({$and: [
+                        {'app_type': req.body.app_type},
+                        {'xpath.key': req.body.xpath.key}
+                    ]}
+                    , {$set: {"tags" : req.body.tags}}, function(err, doc){
+                        if (err) {
+                            res.json({
+                                "errors": {
+                                    "errorMessage": err,
+                                    "errorCode": "PROCESSING_ERROR"
+                                }
+                            });
+                        }
+                        res.json(doc);
+                    });
 
             } else {    // if new xpath value for existing key - return error
                 res.json({ "errors": {

@@ -19,14 +19,14 @@
     <div class="panel-content">
         <div class="m-l-30 p-l-30 trigger-input-parent" ng-repeat="attribute in action.values" ng-init="innerIndex=$index">
             <span class="label" style="display: table">{{attribute.actKey}}</span>
-            <span class="input input--hoshi inlineBlock" ng-class="{largeWidth: TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)==-1, smallWidth: TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}">
-                <input class="input__field input__field--hoshi" type="text" id="input-41" data-index="{{innerIndex}}" ng-model="attribute.actVal" placeholder="{{attribute.actKey}}" ng-class="{elementName: TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}"/>
+            <span class="input input--hoshi inlineBlock" ng-class="{largeWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)==-1, smallWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}">
+                <input class="input__field input__field--hoshi" type="text" id="input-41" data-index="{{innerIndex}}" ng-model="attribute.actVal" placeholder="{{attribute.actKey}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}"/>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
                     <span class="input__label-content input__label-content--hoshi"></span>
                 </label>
             </span>
-            <span class="input input--hoshi m-l-10 inlineBlock smallWidth" ng-show="TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
-                <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementname="{{attribute.actVal}}"/>
+            <span class="input input--hoshi m-l-10 inlineBlock smallWidth" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
+                <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementname="{{attribute.actVal}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}"/>
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
                     <span class="input__label-content input__label-content--hoshi"></span>
                 </label>
@@ -34,7 +34,7 @@
         </div>
         <div class="bg-light text-right">
             <button type="reset" class="cancel btn btn-embossed btn-white m-r-0 trigger-cancel">Cancel</button>
-            <button type="submit" class="btn btn-embossed btn-primary m-r-20 trigger-save" ng-click="saveTrigger()">Update / Save</button>
+            <button type="submit" class="btn btn-embossed btn-primary m-r-20 trigger-save">Update / Save</button>
         </div>
     </div>
 </div>

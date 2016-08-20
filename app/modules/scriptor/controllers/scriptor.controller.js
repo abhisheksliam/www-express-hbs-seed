@@ -27,7 +27,6 @@ angular.module('automationApp.scriptor')
 				} else {
 					$('body').removeClass('dashboard');
 				}
-
 			});
 
             if($rootScope.globalConstants === undefined) {
@@ -35,7 +34,7 @@ angular.module('automationApp.scriptor')
                     $rootScope.globalConstants = res.data;
 
                     $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
-                    $scope.applicationName = $rootScope.globalConstants.applications[0].key;
+                    $rootScope.applicationName = $scope.applicationName = $rootScope.globalConstants.applications[0].key;
 
                     $scope.templateOptions = $rootScope.globalConstants.templateOptions;
                     $scope.template = $scope.templateOptions[0].key;
@@ -43,7 +42,7 @@ angular.module('automationApp.scriptor')
             }
             else {
                 $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
-                $scope.applicationName = $rootScope.globalConstants.applications[0].key;
+                $rootScope.applicationName = $scope.applicationName = $rootScope.globalConstants.applications[0].key;
 
                 $scope.templateOptions = $rootScope.globalConstants.templateOptions;
                 $scope.template = $scope.templateOptions[0].key;
