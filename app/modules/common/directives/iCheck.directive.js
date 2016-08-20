@@ -15,7 +15,7 @@ angular.module('automationApp')
                     })
 
                     return $(element).iCheck({
-                        checkboxClass: 'icheckbox_flat-aero',
+                        checkboxClass: 'icheckbox_square-blue',
                         radioClass: 'iradio_flat-blue'
 
                     }).on('ifChanged', function(event) {

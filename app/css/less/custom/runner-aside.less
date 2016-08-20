@@ -19,8 +19,19 @@
     margin-top: 10px;
   }
 
+  #item-panel {
+    margin: 10px 0 0 0;
+  }
+
   .item-level-0 {
     cursor: pointer;
+    .fa.fa-chevron-down {
+      color: #a19cab;
+      position: absolute;
+      top:21px;
+      right: 30px;
+      z-index: 2;
+    }
   }
 
   .item-level-0:hover {
@@ -54,7 +65,7 @@
   }
 
   .border-left {
-    border-left: 1px solid @tm-primary !important;
+    border-left: 3px solid @tm-primary !important;
   }
 
   .dd-list .dd-list {
@@ -68,6 +79,15 @@
     }
   }
 
+  .runtaskbtnd {
+
+    margin: 10px 0 0 0 ;
+    width: 50%
+
+    //    .disabled{
+    //      color: cyan;
+    //    }
+  }
 }
 
 

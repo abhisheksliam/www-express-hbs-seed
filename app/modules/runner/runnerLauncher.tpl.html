@@ -11,7 +11,7 @@
                     <ol id="item-panel" class="dd-list" ng-repeat="item in runnerTaskJSON[0].items">
                         <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
                             <div class="item-level-0 dd3-content border-left">
-                                <h4>Item {{$index+1}}</h4>
+                                <h4><input i-check ng-model="itemSelection" type="checkbox" name="Item" value="" class="item-check"> Item {{$index+1}}<i class="fa fa-chevron-down" aria-hidden="true"></i></h4>
                             </div>
                             <div class="data-items" style="display: none">
                                 <ol class="dd-list">
@@ -20,7 +20,7 @@
                                             <div class="icheck-list">
                                                 <label ng-repeat="method in item.methods">
                                                     <input i-check type="radio" name="method-radio" data-radio="iradio_flat-blue"
-                                                           ng-model="$parent.template" ng-value="method">
+                                                           ng-model="methodSelection" ng-value="method">
                                                     M{{$index+1}}  <span class="method-type-value">{{method.type}}</span>
                                                 </label>
                                             </div>
@@ -37,6 +37,7 @@
                 <div ng-repeat="methodtype in $root.globalConstants.methodtypelist">
                     <span>{{methodtype}}</span>
                 </div>
+                <button class="runtaskbtn" name="runpathway" value="runpathwayvalue"><i class="fa fa-play" aria-hidden="true"></i>Run Task</button>
                 <div class="m-t-30" style="width:100%">
                     <canvas id="setting-chart" height="300"></canvas>
                 </div>
