@@ -14,11 +14,16 @@
                                 <h4>Item {{$index+1}}</h4>
                             </div>
                             <div class="data-items" style="display: none">
-                                <ol class="dd-list" ng-repeat="method in item.methods">
+                                <ol class="dd-list">
                                     <li class="li-level-1 dd-item">
                                         <div class="item-level-1 dd3-content p-b-10">
-                                             <h5>M{{index}}  <span class="method-type-value">{{method.type}}</span>
-                                            </h5>
+                                            <div class="icheck-list">
+                                                <label ng-repeat="method in item.methods">
+                                                    <input i-check type="radio" name="method-radio" data-radio="iradio_flat-blue"
+                                                           ng-model="$parent.template" ng-value="method">
+                                                    M{{$index+1}}  <span class="method-type-value">{{method.type}}</span>
+                                                </label>
+                                            </div>
                                         </div>
                                     </li>
                                 </ol>

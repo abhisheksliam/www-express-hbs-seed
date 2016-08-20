@@ -16,12 +16,6 @@ angular.module('automationApp.runner')
                             $(this).removeClass('bg-primary');
                         }
                         else {
-                            var activeElement = element.find('.bg-primary');
-                            if(activeElement.length != 0) {
-                                activeElement.siblings(".data-items").hide();
-                                activeElement.removeClass('bg-primary');
-                            }
-
                             $(this).siblings(".data-items").show();
                             $(this).addClass('bg-primary');
                         }
