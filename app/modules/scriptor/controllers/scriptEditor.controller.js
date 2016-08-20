@@ -6,10 +6,6 @@ angular.module('automationApp.scriptor')
             var taskData;
             $scope.sleId = $stateParams.id;
 
-            scriptorService.getXpathArrayList('global').then(function(res) {
-                 $rootScope.xpathArrayList = res;
-            });
-
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
                     taskData = res.data[0].task_json;
@@ -20,12 +16,15 @@ angular.module('automationApp.scriptor')
                     $rootScope.taskId = $scope.taskId = taskData[0].id;
                     $scope.scenarioType = taskData[0].scenario;
                     $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
+
+                    scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
+                        $rootScope.xpathArrayList = res;
+                    });
                 });
 
                 scriptorService.getGlobalContext().then(function(res) {
                     $rootScope.globalConstants = res.data;
                 });
-
             } else {
                 taskData = scriptorService.taskContent;
                 $scope.taskJson = taskData;
@@ -35,6 +34,10 @@ angular.module('automationApp.scriptor')
                 $rootScope.taskId = $scope.taskId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
                 $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
+
+                scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
+                    $rootScope.xpathArrayList = res;
+                });
             }
 
             scriptorService.getTriggers().then(function(res) {

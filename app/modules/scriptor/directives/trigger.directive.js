@@ -62,6 +62,7 @@ angular.module('automationApp.scriptor')
                                     if(counter === len) {
                                         element.find(".panel-toggle").toggleClass("closed");
                                         element.find(".panel-content").slideToggle();
+                                        $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
                                     }
                                     console.log(key + ' : ' + success);
                                 },
