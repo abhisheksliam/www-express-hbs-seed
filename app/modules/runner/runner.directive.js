@@ -28,7 +28,7 @@ angular.module('automationApp.runner')
 
                     // checkbox button update
                     element.on('click',".item-level-0.dd3-content .item-check",function(event) {
-                        $(".runtaskbtnd").removeClass("runtaskbtnd").addClass("");
+                        $(".runtaskbtn").addClass("disabled");
                         event.stopPropagation();
                     });
 
