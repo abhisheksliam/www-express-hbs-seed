@@ -5,7 +5,10 @@ angular.module('automationApp.runner')
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
-			link: function (scope, element, attributes) {
+            link: function (scope, element, attributes) {
+                scope.itemSelection;
+                scope.methodSelection;
+
                 $timeout(function(){
                     element.on('click',".item-level-0.dd3-content",function(event) {
 
@@ -23,6 +26,18 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
+                    // checkbox button update
+                    element.on('click',".item-level-0.dd3-content .item-check",function(event) {
+                        $(".runtaskbtnd").removeClass("runtaskbtnd").addClass("");
+                        event.stopPropagation();
+                    });
+
+                    // run task button
+                    element.on('click',".runtaskbtn",function(event) {
+                        console.log('clicking run task button');
+
+                        event.stopPropagation();
+                    });
                 });
             }
         }
