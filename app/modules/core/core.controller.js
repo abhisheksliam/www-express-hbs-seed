@@ -4,8 +4,8 @@
   angular.module('automationApp.core')
     .controller('AppController', AppController);
 	
-  AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'builderService', 'pluginsService', '$location','scriptorService', '$state'];
-  function AppController($scope, applicationService, quickViewService, builderService, pluginsService, $location, scriptorService, $state ) {
+  AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'builderService', '$location','scriptorService', '$state'];
+  function AppController($scope, applicationService, quickViewService, builderService, $location, scriptorService, $state ) {
 
 	  $scope.loadTaskId = "";
       $scope.runnerTaskJSON = {};
