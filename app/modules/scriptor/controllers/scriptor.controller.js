@@ -29,7 +29,6 @@ angular.module('automationApp.scriptor')
 				}
 			});
 
-            if($rootScope.globalConstants === undefined) {
                 scriptorService.getGlobalContext().then(function (res) {
                     $rootScope.globalConstants = res.data;
 
@@ -39,14 +38,6 @@ angular.module('automationApp.scriptor')
                     $scope.templateOptions = $rootScope.globalConstants.templateOptions;
                     $scope.template = $scope.templateOptions[0].key;
                 });
-            }
-            else {
-                $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
-                $rootScope.applicationName = $scope.applicationName = $rootScope.globalConstants.applications[0].key;
-
-                $scope.templateOptions = $rootScope.globalConstants.templateOptions;
-                $scope.template = $scope.templateOptions[0].key;
-            }
 
 			$scope.displayScript = function(){
 
