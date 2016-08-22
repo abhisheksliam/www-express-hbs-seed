@@ -124,6 +124,7 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
         });
     } else {
         AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json}}, function(err, doc){
+
             if (err) {
                 res.json({
                     "errors": {
@@ -132,6 +133,7 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
                     }
                 });
             }
+            doc.task_json = automationScript.task_json; // findOneAndUpdate return found value in response, not updated
             res.json(doc);
         });
     }
