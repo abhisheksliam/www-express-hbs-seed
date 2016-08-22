@@ -38,9 +38,8 @@ angular.module('automationApp.scriptor')
 
                 //Save button clicked
                 element.on('click',".trigger-save",function (event) {
-                    event.preventDefault();
+                    //event.preventDefault();
 
-                    //todo
                     scope.oldAction = angular.copy(scope.action);
                     var len = 0;
                     if($(this).closest('.panel-content').find('input.xpath.elementName')){
