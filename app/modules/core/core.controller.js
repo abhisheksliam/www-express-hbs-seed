@@ -4,17 +4,16 @@
   angular.module('automationApp.core')
     .controller('AppController', AppController);
 	
-  AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'builderService', 'pluginsService', '$location','scriptorService', '$state'];
-  function AppController($scope, applicationService, quickViewService, builderService, pluginsService, $location, scriptorService, $state ) {
+AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'builderService', '$location','scriptorService', '$state', '$rootScope'];
+  function AppController($scope, applicationService, quickViewService, builderService, $location, scriptorService, $state, $rootScope ) {
 
 	  $scope.loadTaskId = "";
+      $scope.runnerTaskJSON = {};
 
 	  $(document).ready(function () {
 			applicationService.init();
 			quickViewService.init();
-		    builderService.init();
-			pluginsService.init();
-			Dropzone.autoDiscover = false;
+		    Dropzone.autoDiscover = false;
 		});
 
 		$scope.isActive = function (viewLocation) {
@@ -61,6 +60,8 @@
 		  $('.noty_inline_layout_container').delay(3000).fadeOut(1600);
 	  };
 
+	  $rootScope.showNotify = $scope.showNotify;
+
 	  $scope.loadScript = function(){
 
 		  if ($scope.loadTaskId == undefined || $scope.loadTaskId.length === 0) {
@@ -74,7 +75,8 @@
 				  } else{
 					  $('#modal-loadtask').modal('hide');
 					  scriptorService.taskContent = res.data[0].task_json;
-					  $state.go('script-editor',  {id: res.data[0].sle_id});
+                      $scope.runnerTaskJSON = res.data[0].task_json;
+					  $state.go('app.script-editor',  {id: res.data[0].sle_id});
 					  $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
 				  }
 			  });

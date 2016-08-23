@@ -18,13 +18,15 @@
   function appConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('app', {
-        url: '/',
-        controller: 'AppController'
+        url: '',
+        abstract: true,
+        controller: 'AppController',
+        templateUrl: 'modules/core/app.html'
       });
 	  
 	  $urlRouterProvider.otherwise(function ($injector) {
           var $state = $injector.get('$state');
-          $state.go('task-new');
+          $state.go('app.task-new');
       });
   }
 })();

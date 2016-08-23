@@ -20,12 +20,12 @@
 
   function appConfig($stateProvider) {
     $stateProvider
-      .state('task-new', {
+      .state('app.task-new', {
         url: '/task/new',
         templateUrl: 'modules/scriptor/views/newTask.html',
         controller: 'NewScriptController'
       })
-      .state('script-editor', {
+      .state('app.script-editor', {
           url: '/task/:id',
           templateUrl: 'modules/scriptor/views/displayScript.html',
           controller: 'ScriptEditorController'

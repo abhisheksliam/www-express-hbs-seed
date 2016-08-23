@@ -40,13 +40,15 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-close",function (event) {
                     event.preventDefault();
+                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
                     var $item = $(this).parents(".dd-item:first");
 
                     bootbox.confirm("Are you sure to delete this method?", function (result) {
                         if (result === true) {
                             $item.addClass("animated bounceOutRight");
                             window.setTimeout(function () {
-                                $item.remove();
+                                scope.item.methods.splice(methodNumber, 1);
+                                scope.$apply();
                             }, 300);
                         }
                     });

@@ -3,26 +3,41 @@
 angular.module('automationApp.scriptor')
 	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$timeout',
 		function($stateParams, $rootScope, $scope, scriptorService, $timeout) {
-            var initializing = true;
+            var taskData;
             $scope.sleId = $stateParams.id;
 
             if($rootScope.globalConstants === undefined) {
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
-                    $scope.taskJson =  res.data[0].task_json;
-                    $scope.taskId = $scope.taskJson[0].id;
-                    $scope.scenarioType = $scope.taskJson[0].scenario;
-                    $scope.applicationName = $scope.taskJson[0].appName;
+                    taskData = res.data[0].task_json;
+                    $scope.taskJson =  taskData;
+                    $scope.originalTaskJson = angular.copy(taskData);
+
+                    $scope.$parent.runnerTaskJSON = taskData;
+                    $rootScope.taskId = $scope.taskId = taskData[0].id;
+                    $scope.scenarioType = taskData[0].scenario;
+                    $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
+
+                    scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
+                        $rootScope.xpathArrayList = res;
+                    });
                 });
 
                 scriptorService.getGlobalContext().then(function(res) {
                     $rootScope.globalConstants = res.data;
                 });
-
             } else {
-                $scope.taskJson = scriptorService.taskContent;
-                $scope.taskId = $scope.taskJson[0].id;
-                $scope.scenarioType = $scope.taskJson[0].scenario;
-                $scope.applicationName = $scope.taskJson[0].appName;
+                taskData = scriptorService.taskContent;
+                $scope.taskJson = taskData;
+                $scope.originalTaskJson = angular.copy(taskData);
+
+                $scope.$parent.runnerTaskJSON = taskData;
+                $rootScope.taskId = $scope.taskId = taskData[0].id;
+                $scope.scenarioType = taskData[0].scenario;
+                $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
+
+                scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
+                    $rootScope.xpathArrayList = res;
+                });
             }
 
             scriptorService.getTriggers().then(function(res) {
@@ -33,18 +48,15 @@ angular.module('automationApp.scriptor')
                 $rootScope.TriggerSuggestions = res.data;
             });
 
-
-
-            $scope.$watch('taskJson', function() {
-                if (initializing) {
-                    $timeout(function() { initializing = false; });
-                } else {
-                    scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
-                        $scope.originalTaskJson =  res.data.json;
-                    });
+            $scope.$watch('taskJson',function(newValue, oldValue) {
+                if(newValue != oldValue) {
+                    if(!angular.equals($scope.taskJson,$scope.originalTaskJson)) {
+                        scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
+                            $scope.originalTaskJson =  res.data.task_json;
+                        });
+                    }
                 }
-            }, true);
-
+            },true);
 
             $scope.editableiteminput = {
                 editorenabled : -1,
@@ -66,6 +78,6 @@ angular.module('automationApp.scriptor')
                 stopEvent : function(event) {
                     event.stopPropagation();
                 }
-            }
+            };
 
 		}]);
