@@ -21,9 +21,9 @@
                                         <div class="item-level-1 dd3-content p-b-10">
                                             <div class="icheck-list">
                                                 <label ng-repeat="method in item.methods">
-                                                    <input i-check type="radio" name="method-radio {{$parent.$index}}" data-radio="iradio_flat-blue"
+                                                    <input i-check class="methitm" type="radio" name="method-radio {{$parent.$index}}" data-radio="iradio_flat-blue"
                                                            ng-model="methodSelection" ng-value="method">
-                                                    M{{$index+1}}  <span class="method-type-value">{{method.type}}</span>
+                                                    M{{$index+1}}  <span class="method-type-value">({{method.type}})</span>
                                                 </label>
                                             </div>
                                         </div>
@@ -35,11 +35,19 @@
                 </div>
                 <hr/>
 
-                <div class="title">Pathway Groups </div>
-                <div ng-repeat="methodtype in $root.globalConstants.methodtypelist">
-                    <span>{{methodtype}}</span>
+                <button class="btn btn-default runtaskbtn disablebtn" name="runpathway" value="runpathwayvalue" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
+
+                <div class="title ptwy">Pathway Groups </div>
+                <div>
+                <select multiple class="form-control use-select2"><option ng-repeat="methodtype in $root.globalConstants.methodtypelist" value="option4" class="methtype"><span>{{methodtype}}</span></option></select>
+
+                <button class="btn btn-default addpw" name="addpw" value="runpathwayvalue" disabled="true"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add Pathways</button>
+
+                <div class="pwlist"><span>M1 M5 : "Mouse"<i class="fa fa-trash" aria-hidden="true"></i></span>
                 </div>
-                <button class="runtaskbtn" name="runpathway" value="runpathwayvalue"><i class="fa fa-play" aria-hidden="true"></i>Run Task</button>
+
+                <button class="btn btn-default xportpw" name="xportpw" value="runpathwayvalue" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i></i>Export Files to Server</button>
+
                 <div class="m-t-30" style="width:100%">
                     <canvas id="setting-chart" height="300"></canvas>
                 </div>
