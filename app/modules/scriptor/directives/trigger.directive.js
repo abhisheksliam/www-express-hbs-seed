@@ -46,34 +46,39 @@ angular.module('automationApp.scriptor')
                         len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
                     }
 
-                    var counter = 0;
-                    $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
-                        var $el = $(this);
-                        var key = $(this).attr('data-elementname');
-                        var value = $(this).val();
-                        var taskid = $rootScope.taskId;
-                        var app_type = $rootScope.applicationName;
+                    if(len !==0) {
+                        var counter = 0;
+                        $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
+                            var $el = $(this);
+                            var key = $(this).attr('data-elementname');
+                            var value = $(this).val();
+                            var taskid = $rootScope.taskId;
+                            var app_type = $rootScope.applicationName;
 
-                        if (key && taskid && app_type){
-                            saveXpathToDatabase(key, value, taskid, app_type,
-                                function(success){
-                                    counter++;
-                                    if(counter === len) {
-                                        element.find(".panel-toggle").toggleClass("closed");
-                                        element.find(".panel-content").slideToggle();
-                                        $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
-                                    }
-                                    console.log(key + ' : ' + success);
-                                },
-                                function(error){
-                                    var xPath = scriptorService.getXPathForElement(key);
-                                    $el.val(xPath);
-                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
-                                });
-                        } else {
-                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
-                        }
-                    });
+                            if (key && taskid && app_type){
+                                saveXpathToDatabase(key, value, taskid, app_type,
+                                    function(success){
+                                        counter++;
+                                        if(counter === len) {
+                                            element.find(".panel-toggle").toggleClass("closed");
+                                            element.find(".panel-content").slideToggle();
+                                            $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
+                                        }
+                                        console.log(key + ' : ' + success);
+                                    },
+                                    function(error){
+                                        var xPath = scriptorService.getXPathForElement(key);
+                                        $el.val(xPath);
+                                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
+                                    });
+                            } else {
+                                $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
+                            }
+                        });
+                    } else {
+                        element.find(".panel-toggle").toggleClass("closed");
+                        element.find(".panel-content").slideToggle();
+                    }
 
                     event.stopPropagation();
                 });
@@ -150,10 +155,9 @@ angular.module('automationApp.scriptor')
                         a.val(xpath);
                     });
 
-                    // todo: add autocomplete for mykeys - regression
-                    var suggestions = scriptorService.getElementNameSuggestions();
+                    var elementNameSuggestions = scriptorService.getElementNameSuggestions();
                     element.find( ".input__field.elementName" ).autocomplete({
-                        source: suggestions,
+                        source: elementNameSuggestions,
                         select: function( event, ui ) {
                             //scope.action.values[0].actVal = ui.item.value;
                             var _index = $(this).attr('data-index');
@@ -165,6 +169,18 @@ angular.module('automationApp.scriptor')
                                 } else {
                                     $(this).closest('.trigger-input-parent').find('input.xpath').val('');
                                 }
+
+                            scope.$apply();
+                            return true;
+                        }
+                    });
+
+                    var myKeysSuggestions = scriptorService.getKeyNameSuggestions();
+                    element.find( ".input__field.keyName" ).autocomplete({
+                        source: myKeysSuggestions,
+                        select: function( event, ui ) {
+                            var _index = $(this).attr('data-index');
+                            scope.action.values[_index].actVal = ui.item.value;
 
                             scope.$apply();
                             return true;
