@@ -47,9 +47,10 @@
 
   .dd3-content {
     margin: 0;
-    padding-left: 0;
+    padding-left: 10px;
     padding-right: 0;
     padding-bottom: 0;
+    padding-top: 10px;
     -webkit-border-radius: 0;
     border-radius: 0;
     -moz-border-radius: 0;
@@ -74,19 +75,97 @@
 
   .dd-list .dd-list {
     padding-left: 0;
+
     button {
-      margin-left: 10px;
+      width: 50%;
     }
 
-    .dd3-content {
-      border: none;
-    }
   }
 
   .runtaskbtn {
-    margin: 10px 0 0 0 ;
-    width: 50%
+    margin: auto;
+    padding-left: 5%;
+    padding-right: 5%;
   }
+
+  .disablebtn {
+    background-color: darkgrey;
+    color:white;
+    border: 1px solid darkgrey;
+  }
+
+  .enablebtn {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+  }
+
+  .addpw {
+    margin-bottom: 30px;
+    padding-left: 5%;
+    background-color: white;
+    color: black;
+    border: 1px solid lightgrey;
+  }
+
+  .xportpw {
+    margin-bottom: 10px;
+    padding-left: 5%;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+  }
+
+  .use-select2 {
+    background-color: white;
+    overflow: visible;
+    height: 250px;
+    border: none;
+    padding: 0px;
+    margin-bottom: 10px;
+
+    :first-child {
+      border-top: 2px dotted lightgray;
+    }
+  }
+
+  .methtype {
+    background-color: white;
+    border-bottom: 2px dotted lightgray;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 12px;
+    border-collapse: collapse;
+  }
+
+  .title{
+    .pgrp {
+      border-top: 2px dotted lightgrey;
+      padding-top: 15px;
+    }
+  }
+
+  .inline-icon {
+    margin-right: 6%;
+  }
+
+  .pwlist {
+    background: lightgrey;
+    color:black;
+    border-bottom: 2px dotted darkgrey;
+    margin-bottom: 30px;
+    padding:9px;
+    font-size:13px;
+
+    .fa-trash {
+      color: black;
+      float:right;
+      font-size:18px;
+    }
+  }
+
 
 
 
