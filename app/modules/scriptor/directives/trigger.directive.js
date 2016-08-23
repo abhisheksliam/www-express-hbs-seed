@@ -38,7 +38,7 @@ angular.module('automationApp.scriptor')
 
                 //Save button clicked
                 element.on('click',".trigger-save",function (event) {
-                    //event.preventDefault();
+                    event.preventDefault();
 
                     scope.oldAction = angular.copy(scope.action);
                     var len = 0;
