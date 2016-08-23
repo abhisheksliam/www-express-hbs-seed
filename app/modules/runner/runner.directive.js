@@ -28,20 +28,15 @@ angular.module('automationApp.runner')
 
                     // checkbox button update
                     element.on('click',".item-level-0.dd3-content .item-check",function(event) {
-                        if(
-                            $(".item-level-0.dd3-content .item-check").each(function(index) {
-                                if($(this).attr("checked")) {
-                                    return false;
-                                }
-                            })
-                        ) {
-                            $(".runtaskbtn").prop('disabled', false);
+
+                        if ($("input[type='checkbox']").is(":checked")) {
+                            $(".runtaskbtn").attr("disabled", false);
                             $(".runtaskbtn").removeClass("disablebtn").addClass("enablebtn");
-                        }
-                        else {
-                            $(".runtaskbtn").prop('disabled', true);
+                        } else {
+                            $(".runtaskbtn").attr("disabled", true);
                             $(".runtaskbtn").removeClass("enablebtn").addClass("disablebtn");
                         }
+
                         event.stopPropagation();
                     });
 
