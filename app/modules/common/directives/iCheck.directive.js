@@ -17,8 +17,8 @@ angular.module('automationApp')
                     return $(element).iCheck(scope.iCheckOptions).on('ifChanged', function(event) {
                         if ($(element).attr('type') === 'checkbox' && $attrs['ngModel']) {
 
-                            if(typeof(scope.checkBoxClicked) == "function"){
-                                scope.checkBoxClicked();
+                            if(angular.element(event.target).hasClass('runner-item-check')){
+                                scope.selectRunTaskItems();
                             }
 
                             scope.$apply(function() {

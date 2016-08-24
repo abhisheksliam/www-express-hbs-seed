@@ -11,10 +11,11 @@ angular.module('automationApp.runner')
 
                 scope.iCheckOptions = {
                     checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_minimal'
+                    radioClass: 'iradio_minimal',
+                    inheritClass: true
                 };
 
-                scope.checkBoxClicked = function(){
+                scope.selectRunTaskItems = function(){
 
                     if ($("input[type='checkbox']").is(":checked")) {
                         $(".runtaskbtn").attr("disabled", false);
