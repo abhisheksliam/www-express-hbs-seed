@@ -7,17 +7,26 @@ const passport = require('passport');
 var webrouter = express.Router();
 
 webrouter.get('/', function(req, res) {
-    res.render('index');
-});
-
-webrouter.get('/login', function(req, res) {
-    res.status(401).send({
-        message: 'User is not logged in'
-    });
+    if(req.isAuthenticated()){
+        res.render('index');
+    }else{
+        //next(new Error(401)); // 401 Not Authorized
+        res.writeHead(301,
+            {Location: './login.html' }
+        );
+        res.end();
+    }
 });
 
 webrouter.post('/login',
     passport.authenticate('local', { successRedirect: '/',
-        failureRedirect: '/login' }));
+        failureRedirect: '/' })
+);
+
+webrouter.get('/logout', function(req, res){
+    console.log('logging out');
+    req.logout();
+    res.redirect('/');
+});
 
 module.exports = webrouter;

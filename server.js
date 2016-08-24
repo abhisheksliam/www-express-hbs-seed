@@ -92,13 +92,25 @@ app.use(session({
     secret: 'runner-v2',
     resave: true,
     key: 'runner.sid',
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {maxAge:60000}
 } )); // session secret
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 // Define a prefix for all routes
 app.use('/', routes.webrouter);
+
+/*app.all('*',function(req,res,next){
+    if(req.isAuthenticated()){
+        next();
+    }else{
+        //next(new Error(401)); // 401 Not Authorized
+        res.redirect('/');
+    }
+});*/
+
 app.use('/api', routes.apirouter);
 
 //-----------Connecting Mongo ------------------- // todo: synchronize mongo connection with app listen

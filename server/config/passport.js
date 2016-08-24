@@ -3,15 +3,10 @@
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 var crypto = require('crypto');
+var Users     = require('./../models/app.server.models.user');
 
 var hashPassword = function(password, saltValue) {
     return crypto.pbkdf2Sync(password, saltValue, 10000, 64).toString('base64');
-};
-
-var users = {
-"id" : 1,
-"username" : "comproqa",
-"password" : "password"
 };
 
 module.exports = function(passport) {
@@ -20,16 +15,16 @@ module.exports = function(passport) {
     // required for persistent login sessions
     // passport needs ability to serialize and deserialize users out of session
 
+    // http://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
+
     passport.serializeUser(function(user, done) {
-        console.log('serializing user:',users.username);
-        //return the unique id for the user
-        return done(null, users.id);
+        done(null, user.username);
     });
 
-    //Desieralize user will call with the unique id provided by serializeuser
-    passport.deserializeUser(function(id, done) {
-        // Find user by id
-        return done(null, users);
+    passport.deserializeUser(function(username, done) {
+        Users.findOne({username: username}, function(err, user) {
+            done(err, user);
+        });
     });
 
     passport.use('local',
@@ -37,22 +32,32 @@ module.exports = function(passport) {
                 passReqToCallback : true
             },
             function(req, username, password, done) {
-                console.log('Authenticating user using passport local strategy' ,  username);
 
-                if (username === null) {
-                    console.log('credentials not provided');
-                    return done(null, false)
-                }
+                Users.findOne({username: username}, function(err, user) {
 
-                if(users.username !== username){
-                    console.log('User Not Found with username '+username);
-                    return done(null, false);
-                }
+                    if (err || user === null) {return done(null, false)}
 
-                if(users.username === username){
-                    console.log('Successfully authenticated');
-                    return done(null, users);
-                }
+                    if (username === null) {
+                        console.log('credentials not provided');
+                        return done(null, false)
+                    }
+
+                    if(user.username !== username){
+                        console.log('User Not Found with username '+username);
+                        return done(null, false);
+                    }
+
+                    if(user.username === username && user.password !== password){
+                        console.log('Incorrect password');
+                        return done(null, false);
+                    }
+
+                    if(user.username === username && user.password === password){
+                        console.log('Successfully authenticated');
+                        return done(null, user);
+                    }
+                });
+
 
             }
     ));
