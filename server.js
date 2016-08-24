@@ -93,7 +93,7 @@ app.use(session({
     resave: true,
     key: 'runner.sid',
     saveUninitialized: true,
-    cookie: {maxAge:60000}
+    cookie: {maxAge: (60000 * 60 * 24)}
 } )); // session secret
 
 app.use(passport.initialize());
@@ -102,14 +102,14 @@ app.use(passport.session()); // persistent login sessions
 // Define a prefix for all routes
 app.use('/', routes.webrouter);
 
-/*app.all('*',function(req,res,next){
+app.all('*',function(req,res,next){
     if(req.isAuthenticated()){
         next();
     }else{
         //next(new Error(401)); // 401 Not Authorized
         res.redirect('/');
     }
-});*/
+});
 
 app.use('/api', routes.apirouter);
 

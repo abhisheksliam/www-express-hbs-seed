@@ -18,7 +18,7 @@
   function appConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('app', {
-          url: '/app',
+          url: '',
           abstract: true,
           controller: 'AppController',
           templateUrl: 'modules/core/app.html'

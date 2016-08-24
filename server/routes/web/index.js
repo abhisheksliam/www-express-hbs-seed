@@ -8,7 +8,7 @@ var webrouter = express.Router();
 
 webrouter.get('/', function(req, res) {
     if(req.isAuthenticated()){
-        res.render('index');
+        res.render('index',{ username: req.user.username });
     }else{
         //next(new Error(401)); // 401 Not Authorized
         res.writeHead(301,

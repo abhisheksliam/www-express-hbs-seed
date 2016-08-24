@@ -47,7 +47,7 @@ angular.module('automationApp.scriptor')
                 }
                 else if ($scope.validateTaskId($scope.taskId)){
 
-                    scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
+                    scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template, username).then(function(res) {
 
                         if(res.data.errors) {
                             if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
@@ -57,7 +57,7 @@ angular.module('automationApp.scriptor')
                                     className: 'error-modal',
                                     callback: function(result) {
                                         if(result) {
-                                            scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template).then(function(res) {
+                                            scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template, username).then(function(res) {
                                                 scriptorService.taskContent = res.data.task_json;
                                                 $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
                                                 $state.go('app.script-editor',  {id: res.data.sle_id});
