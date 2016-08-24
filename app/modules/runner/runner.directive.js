@@ -9,6 +9,23 @@ angular.module('automationApp.runner')
                 scope.itemSelection;
                 scope.methodSelection;
 
+                scope.iCheckOptions = {
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_minimal'
+                };
+
+                scope.checkBoxClicked = function(){
+
+                    if ($("input[type='checkbox']").is(":checked")) {
+                        $(".runtaskbtn").attr("disabled", false);
+                        $(".runtaskbtn").removeClass("disablebtn").addClass("enablebtn");
+                    } else {
+                        $(".runtaskbtn").attr("disabled", true);
+                        $(".runtaskbtn").removeClass("enablebtn").addClass("disablebtn");
+                    }
+
+                }
+
                 $timeout(function(){
                     element.on('click',".item-level-0.dd3-content",function(event) {
 
@@ -21,20 +38,6 @@ angular.module('automationApp.runner')
                         else {
                             $(this).siblings(".data-items").show();
                             $(this).addClass('bg-primary');
-                        }
-
-                        event.stopPropagation();
-                    });
-
-                    // checkbox button update
-                    element.on('click',".item-level-0.dd3-content .item-check",function(event) {
-
-                        if ($("input[type='checkbox']").is(":checked")) {
-                            $(".runtaskbtn").attr("disabled", false);
-                            $(".runtaskbtn").removeClass("disablebtn").addClass("enablebtn");
-                        } else {
-                            $(".runtaskbtn").attr("disabled", true);
-                            $(".runtaskbtn").removeClass("enablebtn").addClass("disablebtn");
                         }
 
                         event.stopPropagation();
