@@ -32,10 +32,9 @@ angular.module('automationApp.scriptor')
 
                     if(!scope.editMode) {
                         scope.editMode = true;
-                        scope.$apply();
-
                         $(this).closest('.item-level-2').addClass('edit-mode');
                         $(this).closest('.panel-header').siblings(".panel-content").slideToggle();
+                        scope.$apply();
                     }
                     event.stopPropagation();
                 });

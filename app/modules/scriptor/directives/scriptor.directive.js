@@ -42,6 +42,8 @@ angular.module('automationApp.scriptor')
                         if(!scope.$$phase) {
                             scope.$apply();
                         }
+
+                        $(this).closest('.dd-list.ui-sort-disabled').prev().find('.item-level-2 .panel-edit').trigger('click');
                     }
                 };
 
