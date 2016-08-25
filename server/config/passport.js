@@ -53,11 +53,10 @@ module.exports = function(passport) {
                     }
 
                     if(user.username === username && user.password === password){
-                        console.log('Successfully authenticated');
+                        console.log('Successfully authenticated ' + username);
                         return done(null, user);
                     }
                 });
-
 
             }
     ));
