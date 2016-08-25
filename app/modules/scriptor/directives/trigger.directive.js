@@ -47,7 +47,7 @@ angular.module('automationApp.scriptor')
                     scope.editMode = false;
                     $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
-                    scope.oldAction = angular.copy(scope.action);
+                    scope.action = angular.copy(scope.oldAction);
                     var len = 0;
                     if($(this).closest('.panel-content').find('input.xpath.elementName')){
                         len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
@@ -95,7 +95,7 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     scope.editMode = false;
-                    scope.action = angular.copy(scope.oldAction);
+                    scope.oldAction = angular.copy(scope.action);
                     $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
 
