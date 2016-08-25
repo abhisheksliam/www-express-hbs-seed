@@ -49,8 +49,7 @@ angular.module('automationApp.scriptor')
                     scope.$apply();
 
                     var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
-                    scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
-
+                   
                     var len = 0;
                     if($(this).closest('.panel-content').find('input.xpath.elementName')){
                         len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
@@ -70,11 +69,13 @@ angular.module('automationApp.scriptor')
                                     function(success){
                                         counter++;
                                         if(counter === len) {
+                                            
+                                            scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+                                            
                                             element.find(".panel-toggle").toggleClass("closed");
                                             element.find(".panel-content").slideToggle();
                                             $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
                                         }
-                                        console.log(key + ' : ' + success);
                                     },
                                     function(error){
                                         var xPath = scriptorService.getXPathForElement(key);
