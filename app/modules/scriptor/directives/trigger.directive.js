@@ -47,7 +47,10 @@ angular.module('automationApp.scriptor')
                     scope.editMode = false;
                     $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
-                    scope.action = angular.copy(scope.oldAction);
+
+                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                    scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+
                     var len = 0;
                     if($(this).closest('.panel-content').find('input.xpath.elementName')){
                         len = $(this).closest('.panel-content').find('input.xpath.elementName').length;

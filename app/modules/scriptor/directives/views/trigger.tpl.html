@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="trigger-values" ng-hide="editMode">
-        <div ng-repeat="attribute in action.values|limitTo:2">
+        <div ng-repeat="attribute in action.values">
             <span class="attr-label">{{attribute.actKey}}</span>
             <span class="attr-value">{{attribute.actVal}}</span>
         </div>
