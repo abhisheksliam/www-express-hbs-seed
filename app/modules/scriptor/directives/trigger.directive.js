@@ -19,19 +19,24 @@ angular.module('automationApp.scriptor')
 
                 // Toggle Panel Content
                 scope.oldAction = angular.copy(scope.action);
+                scope.editMode = false;
 
                 element.on('click',".panel-header",function (event) {
                     event.preventDefault();
 
-                    if($(this).find('.panel-toggle.closed').length == 0) {
-                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
-                        if(activeElement.length != 0) {
-                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
-                        }
-                    }
+                    event.stopPropagation();
+                });
 
-                    $(this).find(".panel-toggle").toggleClass("closed");
-                    $(this).siblings(".panel-content").slideToggle();
+                element.on('click',".panel-edit",function (event) {
+                    event.preventDefault();
+
+                    if(!scope.editMode) {
+                        scope.editMode = true;
+                        scope.$apply();
+
+                        $(this).closest('.item-level-2').addClass('edit-mode');
+                        $(this).closest('.panel-header').siblings(".panel-content").slideToggle();
+                    }
                     event.stopPropagation();
                 });
 
@@ -40,6 +45,9 @@ angular.module('automationApp.scriptor')
                 element.on('click',".trigger-save",function (event) {
                     event.preventDefault();
 
+                    scope.editMode = false;
+                    $(this).closest('.item-level-2').removeClass('edit-mode');
+                    scope.$apply();
                     scope.oldAction = angular.copy(scope.action);
                     var len = 0;
                     if($(this).closest('.panel-content').find('input.xpath.elementName')){
@@ -87,8 +95,9 @@ angular.module('automationApp.scriptor')
                 element.on('click',".trigger-cancel",function (event) {
                     event.preventDefault();
 
-                    //todo
+                    scope.editMode = false;
                     scope.action = angular.copy(scope.oldAction);
+                    $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
 
                     element.find(".panel-toggle").toggleClass("closed");
@@ -106,12 +115,12 @@ angular.module('automationApp.scriptor')
                 });
 
 
-                if(scope.close) {
+                /*if(scope.close) {
                     element.find(".panel-content").slideToggle();
                 }
                 else {
                     element.find(".panel-toggle").addClass("closed");
-                }
+                }*/
 
 
                 element.on('click',".panel-header .panel-close",function (event) {
@@ -138,11 +147,15 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".copy-trigger",function (event) {
                     event.preventDefault();
-                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
-                    var triggerToCopy = angular.copy(scope.method.actions[triggerNumber]);
+                    if(!scope.editMode) {
+                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                        var triggerToCopy = angular.copy(scope.method.actions[triggerNumber]);
 
-                    scope.method.actions.splice(triggerNumber, 0, triggerToCopy);
-                    scope.$apply();
+                        scope.method.actions.splice(triggerNumber, 0, triggerToCopy);
+                        scope.editMode = true;
+                        $(this).closest('.item-level-2').addClass('edit-mode');
+                        scope.$apply();
+                    }
                     event.stopPropagation();
                 });
 
