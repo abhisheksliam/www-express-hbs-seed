@@ -45,11 +45,6 @@ angular.module('automationApp.scriptor')
                 element.on('click',".trigger-save",function (event) {
                     event.preventDefault();
 
-                    scope.editMode = false;
-                    scope.droppedTrigger = false;
-                    $(this).closest('.item-level-2').removeClass('edit-mode');
-                    scope.$apply();
-
                     var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
                    
                     var len = 0;
@@ -73,9 +68,9 @@ angular.module('automationApp.scriptor')
                                         if(counter === len) {
                                             
                                             scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
-                                            
-                                            element.find(".panel-toggle").toggleClass("closed");
-                                            element.find(".panel-content").slideToggle();
+                                            scope.editMode = false;
+                                            scope.droppedTrigger = false;
+                                            $(this).closest('.item-level-2').removeClass('edit-mode');
                                             $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
                                         }
                                     },
@@ -89,8 +84,9 @@ angular.module('automationApp.scriptor')
                             }
                         });
                     } else {
-                        element.find(".panel-toggle").toggleClass("closed");
-                        element.find(".panel-content").slideToggle();
+                        scope.editMode = false;
+                        scope.droppedTrigger = false;
+                        $(this).closest('.item-level-2').removeClass('edit-mode');
                     }
 
                     event.stopPropagation();
@@ -104,9 +100,6 @@ angular.module('automationApp.scriptor')
                     scope.oldAction = angular.copy(scope.action);
                     $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
-
-                    element.find(".panel-toggle").toggleClass("closed");
-                    element.find(".panel-content").slideToggle();
 
                     $(this).closest('.panel-content').find('input.xpath').each (function () {
                         var $el = $(this);
