@@ -5,9 +5,9 @@
         </div>
         <div class="control-btn">
             <a href="#" class="panel-close"><i class="icon-trash"></i></a>
-            <a href="#" class="panel-copy copy-trigger"><i class="fa fa-copy"></i></a>
+            <a href="#" ng-disabled="editMode" class="panel-copy copy-trigger"><i class="fa fa-copy"></i></a>
             <a href="#" class="panel-move"><i class="fa fa-bars"></i></a>
-            <a href="#" class="panel-edit"><i class="fa fa-pencil p-l-10"></i></a>
+            <a href="#" ng-disabled="editMode" class="panel-edit"><i class="fa fa-pencil p-l-10"></i></a>
         </div>
     </div>
     <div class="m-l-30 p-l-30 f-12" ng-hide="editMode">
@@ -34,7 +34,7 @@
             </span>
             </div>
             <div class="bg-light text-right">
-                <button type="reset" class="cancel btn btn-embossed btn-white m-r-0 trigger-cancel">Cancel</button>
+                <button type="reset" ng-disabled="droppedTrigger" class="cancel btn btn-embossed btn-white m-r-0 trigger-cancel">Cancel</button>
                 <button type="submit" class="btn btn-embossed btn-primary m-r-20 trigger-save">Update / Save</button>
             </div>
         </form>

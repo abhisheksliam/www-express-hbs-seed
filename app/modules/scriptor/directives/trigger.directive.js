@@ -19,6 +19,7 @@ angular.module('automationApp.scriptor')
                 // Toggle Panel Content
                 scope.oldAction = angular.copy(scope.action);
                 scope.editMode = false;
+                scope.droppedTrigger = false;
 
                 element.on('click',".panel-header",function (event) {
                     event.preventDefault();
@@ -26,14 +27,16 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.on('click',".panel-edit",function (event) {
+                element.on('click',".panel-edit",function (event, bDropped) {
                     event.preventDefault();
 
-                    if(!scope.editMode) {
-                        scope.editMode = true;
-                        $(this).closest('.item-level-2').addClass('edit-mode');
-                        scope.$apply();
+                    scope.editMode = true;
+                    if(bDropped !== undefined && bDropped === "true") {
+                        scope.droppedTrigger = true;
                     }
+                    $(this).closest('.item-level-2').addClass('edit-mode');
+                    scope.$apply();
+
                     event.stopPropagation();
                 });
 
@@ -43,6 +46,7 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     scope.editMode = false;
+                    scope.droppedTrigger = false;
                     $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
 
@@ -139,15 +143,15 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".copy-trigger",function (event) {
                     event.preventDefault();
-                    if(!scope.editMode) {
-                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
-                        var triggerToCopy = angular.copy(scope.method.actions[triggerNumber]);
 
-                        scope.method.actions.splice(triggerNumber, 0, triggerToCopy);
-                        scope.editMode = true;
-                        $(this).closest('.item-level-2').addClass('edit-mode');
-                        scope.$apply();
-                    }
+                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                    var triggerToCopy = angular.copy(scope.method.actions[triggerNumber]);
+
+                    scope.method.actions.splice(triggerNumber, 0, triggerToCopy);
+                    scope.editMode = true;
+                    $(this).closest('.item-level-2').addClass('edit-mode');
+                    scope.$apply();
+
                     event.stopPropagation();
                 });
 
