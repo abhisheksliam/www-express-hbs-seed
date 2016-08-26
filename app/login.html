@@ -1,124 +1,56 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>SAT - SIMS Automation</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta content="" name="description" />
-        <meta content="SAT" name="author" />
-        <meta name="google-signin-client_id" content="191995476294-0qpss5bl9nhgilb2us7t7c3un6p37ndl.apps.googleusercontent.com">
-
-        <link rel="shortcut icon" href="favicon.ico">
-        <link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="css/ui.css">
-        <link rel="stylesheet" href="css/custom.css">
-        <!--<link href="plugins/bootstrap-loading/lada.min.css" rel="stylesheet">-->
-    </head>
-    <body class="account separate-inputs" data-page="login" id="account">
-        <!-- BEGIN LOGIN BOX -->
-        <div class="container" id="login-block">
-            <div class="row">
-                <div class="col-sm-6 col-md-4 col-md-offset-4">
-                    <div class="account-wall">
-                        <i class="user-img icons-faces-users-03"></i>
-                        <!--todo: change post url-->
-                        <form id="password-login" class="form-signin" action="" role="form" method="post">
-                            <div class="append-icon m-b-10">
-                                <input type="text" name="username" id="username" class="form-control form-white username" placeholder="Username" required>
-                                <i class="icon-user"></i>
-                            </div>
-                            <div class="append-icon m-b-20">
-                                <input type="password" name="password" class="form-control form-white password" placeholder="Password" required>
-                                <i class="icon-lock"></i>
-                            </div>
-                            <button type="submit" id="submit-form" class="btn btn-lg btn-success btn-block ladda-button" data-style="expand-left">Sign In</button>
-                            <div class="social-btn">
-                                <button onclick="login()" type="button" class="btn btn-lg btn-block btn-danger"><i class="fa fa-google pull-left"></i>Sign In with Google</button>
-                            </div>
-                            <!--<a style="position: fixed; top: 60px; right: 10px " href="#" onclick="signOut();">Sign out</a>-->
-                        </form>
+<head>
+    <meta charset="utf-8">
+    <title>SAT - SIMS Automation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="" name="description" />
+    <meta content="SAT" name="author" />
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="account separate-inputs" data-page="login" id="account">
+<!-- BEGIN LOGIN BOX -->
+<div class="container" id="login-block">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="account-wall">
+                <i class="user-img icons-faces-users-03"></i>
+                <!--todo: change post url-->
+                <form id="password-login" class="form-signin" action="" role="form" method="post">
+                    <div class="append-icon m-b-10">
+                        <input type="text" name="username" id="username" class="form-control form-white username" placeholder="Username" required>
+                        <i class="icon-user"></i>
                     </div>
-                </div>
+                    <div class="append-icon m-b-20">
+                        <input type="password" name="password" class="form-control form-white password" placeholder="Password" required>
+                        <i class="icon-lock"></i>
+                    </div>
+                    <button type="submit" id="submit-form" class="btn btn-lg btn-success btn-block ladda-button" data-style="expand-left">Sign In</button>
+                    <div class="social-btn">
+                        <button onclick="onLoginClick()" type="button" class="g-signin btn btn-lg btn-block btn-danger"
+                                data-scope="profile"
+                                data-clientid="1046623217274-1k4a85q8ag1slqnaudfacd6imoiruhaa.apps.googleusercontent.com"
+                                data-callback="onSignInCallback"
+                                data-theme="dark"
+                                data-cookiepolicy="single_host_origin"
+                                data-response_type="token id_token"><i class="fa fa-google pull-left"></i>Sign In with Google</button>
+                    </div>
+                </form>
             </div>
-            <p class="account-copyright">
-                <span>Copyright © 2016 - 2017 </span><span> Compro Technologies. </span><span>All rights reserved.</span>
-            </p>
         </div>
-        <script src="plugins/jquery/jquery-1.11.1.min.js"></script>
-        <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
+    </div>
+    <p class="account-copyright">
+        <span>Copyright © 2016 - 2017 </span><span> Compro Technologies. </span><span>All rights reserved.</span>
+    </p>
+</div>
 
-    <script type="text/javascript">
-        var baseUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port : '');
+<script src = "plugins/jquery/jquery-1.11.1.min.js" ></script>
+<script src = "plugins/bootstrap/js/bootstrap.min.js" ></script>
+<script src = "https://plus.google.com/js/client:platform.js" async></script>
+<script src = "login.js" async></script>
 
-        (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
-
-        function post(path, params, method) {
-            method = method || "post"; // Set method to post by default if not specified.
-
-            // The rest of this code assumes you are not using a library.
-            // It can be made less wordy if you use one.
-            var form = document.createElement("form");
-            form.setAttribute("method", method);
-            form.setAttribute("action", path);
-
-            for(var key in params) {
-                if(params.hasOwnProperty(key)) {
-                    var hiddenField = document.createElement("input");
-                    hiddenField.setAttribute("type", "hidden");
-                    hiddenField.setAttribute("name", key);
-                    hiddenField.setAttribute("value", params[key]);
-
-                    form.appendChild(hiddenField);
-                }
-            }
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-
-
-        function loginCallback(res) {
-            console.log('loginCallback')
-            var id_token = res.id_token;
-            $.ajax({
-                url: (baseUrl + '/login'),
-                type: "post",
-                success: function (data) {
-                    console.log('google auth success');
-                    post(baseUrl + '/login/', {}, 'post');
-                },
-                failure: function (err) {
-                    alert('error in google auth');
-                },
-                data: {
-                    'id_token' : id_token
-                }
-            });
-        }
-
-        function login()
-        {
-            var myParams = {
-                'clientid' : '191995476294-0qpss5bl9nhgilb2us7t7c3un6p37ndl.apps.googleusercontent.com',
-                'cookiepolicy' : 'single_host_origin',
-                'callback' : 'loginCallback', //callback function
-                'approvalprompt':'force',
-                'scope' : 'https://www.googleapis.com/auth/plus.me'
-            };
-            gapi.auth.signIn(myParams);
-        };
-
-        $('#password-login').on('submit', function() {
-            $('#password-login').attr('action', baseUrl + '/login');
-            console.log(baseUrl + '/login');
-        });
-    </script>
-
-
-    </body>
+</body>
 </html>
