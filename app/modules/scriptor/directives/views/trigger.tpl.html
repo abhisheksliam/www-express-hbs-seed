@@ -10,10 +10,10 @@
             <a href="#" class="panel-edit"><i class="fa fa-pencil p-l-10"></i></a>
         </div>
     </div>
-    <div class="trigger-values" ng-hide="editMode">
+    <div class="m-l-30 p-l-30 f-12" ng-hide="editMode">
         <div ng-repeat="attribute in action.values">
             <span class="attr-label">{{attribute.actKey}}</span>
-            <span class="attr-value">{{attribute.actVal}}</span>
+            <span class="m-l-15 attr-value">{{attribute.actVal}}</span>
         </div>
     </div>
     <div class="panel-content toggle-animate" ng-show="editMode">
