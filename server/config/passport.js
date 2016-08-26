@@ -35,21 +35,21 @@ module.exports = function(passport) {
 
                 Users.findOne({username: username}, function(err, user) {
 
-                    if (err || user === null) {return done(null, false)}
+                    if (err || user === null) {return done({message:'User not found'}, false)}
 
                     if (username === null) {
-                        console.log('credentials not provided');
-                        return done(null, false)
+                        console.log('Credentials not provided');
+                        return done({message:'Credentials not provided'}, false);
                     }
 
                     if(user.username !== username){
                         console.log('User Not Found with username '+username);
-                        return done(null, false);
+                        return done({message:'User Not Found with username' + username}, false);
                     }
 
                     if(user.username === username && user.password !== password){
                         console.log('Incorrect password');
-                        return done(null, false);
+                        return done({message:'Incorrect password'}, false);
                     }
 
                     if(user.username === username && user.password === password){

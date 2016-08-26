@@ -23,7 +23,7 @@ var googleLogin = function (req,done,er) {
 //    validate google login
     var _v1 = ('/oauth2/v3/tokeninfo?id_token=' + req.body.id_token);
 
-    console.log(_v1);
+    //console.log(_v1);
 
     var options = {
         host: 'www.googleapis.com',
@@ -34,17 +34,18 @@ var googleLogin = function (req,done,er) {
     var callback = function(response) {
         var str = '';
         response.on('data', function (chunk) {
+            console.log('data');
             str += chunk;
             var username = JSON.parse(str).email;
             getUserPassword(username, function(password){
                 console.log(username);
-                done({username:username, password: password});
+                done({username:username, password: password, error: (password === null)});
             });
         });
 
         response.on('error', function(err) {
-            console.error(err.stack);
-            er();
+            console.log('error');
+            er({error: true});
         });
 
         response.on('end', function () {
@@ -61,7 +62,8 @@ exports.userLoginHandler = function(req, res) {
     if(req.isAuthenticated()){
         console.log('request authenticated');
         res.redirect('/');
-    } else if (req.body.id_token !== null && req.body.id_token !== undefined){
+    }
+    else if (req.body.id_token !== null && req.body.id_token !== undefined){
         console.log('request authenticated google');
         req.body.username = 'test';
         req.body.password = 'test';
@@ -69,25 +71,41 @@ exports.userLoginHandler = function(req, res) {
         googleLogin(req,
             function(_res){
                 console.log('authenticating google user from db');
-                req.body.username = _res.username;
-                req.body.password = _res.password;
-                passport.authenticate('local')(req, res, function () {
-                    res.end();
-                });
+                console.log(_res);
+                if (_res.error === true) {
+                    console.log('sending error 403');
+                    return res.send({
+                        status: 403,
+                        message: 'Invalid User!'
+                    });
+                } else {
+                    req.body.username = _res.username;
+                    req.body.password = '';
+                    passport.authenticate('local')(req, res, function (err) {
+                        console.log(err.message);
+                        return res.send({
+                            status: err ? 403 : 200,
+                            message: err.message
+                        });
+                    });
+                }
             },
             function(_error){
                 console.log(_error);
-                req.body.username = null;
-                req.body.password = null;
-                passport.authenticate('local')(req, res, function () {
-                    res.end();
+                return res.send({
+                    status: 403,
+                    message: 'Error in google authentication!'
                 });
             }
         )
-    } else {
+    }
+    else {
         console.log('authenticating username and password from db');
-        passport.authenticate('local')(req, res, function () {
-            res.redirect('/');
+        passport.authenticate('local')(req, res, function (err) {
+            return res.send({
+                status: (err !== undefined && err !== null) ? 403 : 200,
+                message: (err !== undefined && err !== null) ? err.message : 'Login successful'
+            });
         });
     }
-}
+};
