@@ -32,7 +32,7 @@ angular.module('automationApp.scriptor')
                         var method = $(this).closest('.li-level-1');
                         var method_id = method.data('id');
                         scope.method =  scope.items[0].items[item_id].methods[method_id];
-                        var newDataID = method.find('.dd-list').length-1;
+                        var newDataID = method.find('.dd-list').length;
 
                         scope.action[index] = action;
 

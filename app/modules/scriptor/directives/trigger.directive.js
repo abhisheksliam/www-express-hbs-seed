@@ -46,7 +46,9 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
-                   
+
+                    var triggerRefrence = $(this).closest('.dd-list');
+
                     var len = 0;
                     if($(this).closest('.panel-content').find('input.xpath.elementName')){
                         len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
@@ -68,8 +70,9 @@ angular.module('automationApp.scriptor')
                                         if(counter === len) {
 
                                             if(scope.droppedTrigger) {
-                                                scope.droppedTrigger = false;
+                                                $(triggerRefrence).remove();
                                                 scope.method.actions.splice(scope.index, 0, scope.action);
+                                                scope.$apply();
                                             } else {
                                                 scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
                                             }
@@ -91,6 +94,7 @@ angular.module('automationApp.scriptor')
                     } else {
 
                         if(scope.droppedTrigger) {
+                            $(triggerRefrence).remove();
                             scope.method.actions.splice(scope.index, 0, scope.action);
                         }
                         scope.editMode = false;
