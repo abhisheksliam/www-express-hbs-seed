@@ -54,7 +54,6 @@
     "merge-stream": "~0.1.7",
     "passport": "0.3.2",
     "passport-local": "1.0.0",
-    "passport-google": "^0.0.0",
     "wiredep": "~2.2.0",
     "wrench": "~1.5.8",
     "jshint-stylish": "~1.0.0"
