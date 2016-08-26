@@ -28,13 +28,15 @@ angular.module('automationApp.scriptor')
 
                         var id =  ui.draggable.data("id");
                         var action = scriptorService.getTriggerForID(id) ;
+                        var item_id = $(this).closest('.li-level-0').data('id');
                         var method = $(this).closest('.li-level-1');
                         var method_id = method.data('id');
+                        scope.method =  scope.items[0].items[item_id].methods[method_id];
                         var newDataID = method.find('.dd-list').length-1;
 
                         scope.action[index] = action;
 
-                        var templateString = "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item method='items[0].items[item_id].methods[method_id]' action='action["+ index +"]' index='"+ newDataID +"'></div></li></ol>";
+                        var templateString = "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item method='method' action='action["+ index +"]' index='"+ newDataID +"'></div></li></ol>";
                         index++;
                         var el = $compile( templateString )( scope );
                         $(this).closest('.dd-list.ui-sort-disabled').before( el );

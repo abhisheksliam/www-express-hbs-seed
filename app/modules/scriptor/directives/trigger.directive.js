@@ -66,11 +66,16 @@ angular.module('automationApp.scriptor')
                                     function(success){
                                         counter++;
                                         if(counter === len) {
-                                            
-                                            scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+
+                                            if(scope.droppedTrigger) {
+                                                scope.droppedTrigger = false;
+                                                scope.method.actions.splice(scope.index, 0, scope.action);
+                                            } else {
+                                                scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+                                            }
                                             scope.editMode = false;
-                                            scope.droppedTrigger = false;
                                             $(this).closest('.item-level-2').removeClass('edit-mode');
+
                                             $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
                                         }
                                     },
@@ -84,9 +89,14 @@ angular.module('automationApp.scriptor')
                             }
                         });
                     } else {
+
+                        if(scope.droppedTrigger) {
+                            scope.method.actions.splice(scope.index, 0, scope.action);
+                        }
                         scope.editMode = false;
                         scope.droppedTrigger = false;
                         $(this).closest('.item-level-2').removeClass('edit-mode');
+                        scope.$apply();
                     }
 
                     event.stopPropagation();
