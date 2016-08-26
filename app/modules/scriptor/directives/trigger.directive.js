@@ -128,17 +128,36 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".panel-header .panel-close",function (event) {
                     event.preventDefault();
-                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+
                     var $item = $(this).parents(".dd-item:first");
-                    bootbox.confirm("Are you sure to remove this trigger?", function (result) {
-                        if (result === true) {
-                            $item.addClass("animated bounceOutRight");
-                            window.setTimeout(function () {
-                                scope.method.actions.splice(triggerNumber, 1);
-                                scope.$apply();
-                            }, 300);
-                        }
-                    });
+
+                    if(scope.droppedTrigger) {
+                        var triggerReference = $(this).closest('.dd-list');
+                        
+                        bootbox.confirm("Are you sure to remove this trigger?", function (result) {
+                            if (result === true) {
+                                $item.addClass("animated bounceOutRight");
+                                window.setTimeout(function () {
+                                    $(triggerReference).remove();
+                                    scope.$apply();
+                                }, 300);
+                            }
+                        });
+                        scope.$apply();
+                    } else {
+                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+
+                        bootbox.confirm("Are you sure to remove this trigger?", function (result) {
+                            if (result === true) {
+                                $item.addClass("animated bounceOutRight");
+                                window.setTimeout(function () {
+                                    scope.method.actions.splice(triggerNumber, 1);
+                                    scope.$apply();
+                                }, 300);
+                            }
+                        });
+                    }
+
                     event.stopPropagation();
                 });
 
