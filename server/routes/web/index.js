@@ -23,8 +23,9 @@ webrouter.post('/login', loginController.userLoginHandler);
 
 webrouter.get('/logout', function(req, res){
     console.log('logging out');
-    req.logout();
-    res.redirect('/');
+    req.session.destroy(function (err) {
+        res.redirect('/');
+    });
 });
 
 module.exports = webrouter;
