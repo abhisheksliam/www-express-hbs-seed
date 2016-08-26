@@ -17,14 +17,15 @@ angular.module('automationApp.runner')
 
                 scope.selectRunTaskItems = function(){
 
-                    if ($("input[type='checkbox']").is(":checked")) {
-                        $(".runtaskbtn").attr("disabled", false);
-                        $(".runtaskbtn").removeClass("disablebtn").addClass("enablebtn");
+                    if ( $("input.runner-item-check").is(":checked")) {
+                           $(".run-task-btn").attr("disabled", false);
+                           $(".run-task-btn").removeClass("disablebtn");
+                          event.stopPropagation();
                     } else {
-                        $(".runtaskbtn").attr("disabled", true);
-                        $(".runtaskbtn").removeClass("enablebtn").addClass("disablebtn");
+                           $(".run-task-btn").attr("disabled", true);
+                           $(".run-task-btn").addClass("disablebtn");
+                          event.stopPropagation();
                     }
-
                 }
 
                 $timeout(function(){
@@ -44,13 +45,9 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    // run task button
-                    element.on('click',".runtaskbtn",function(event) {
-                        event.stopPropagation();
-                    });
-
-                    // run task button
-                    element.on('hover',".runtaskbtn",function(event) {
+                    element.on('click',".run-task-btn",function(event) {
+						event.preventDefault();
+						
                         event.stopPropagation();
                     });
                 });
