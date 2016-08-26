@@ -12,8 +12,7 @@ angular.module('automationApp.scriptor')
             scope: {
                 'method' : '=',
                 'action': '=',
-                'index' : '=',
-                'close' : '='
+                'index' : '='
             },
             link: function (scope, element, attributes) {
 
@@ -33,7 +32,6 @@ angular.module('automationApp.scriptor')
                     if(!scope.editMode) {
                         scope.editMode = true;
                         $(this).closest('.item-level-2').addClass('edit-mode');
-                        $(this).closest('.panel-header').siblings(".panel-content").slideToggle();
                         scope.$apply();
                     }
                     event.stopPropagation();
@@ -116,15 +114,6 @@ angular.module('automationApp.scriptor')
 
                     event.stopPropagation();
                 });
-
-
-                /*if(scope.close) {
-                    element.find(".panel-content").slideToggle();
-                }
-                else {
-                    element.find(".panel-toggle").addClass("closed");
-                }*/
-
 
                 element.on('click',".panel-header .panel-close",function (event) {
                     event.preventDefault();
