@@ -22,7 +22,7 @@
         abstract: true,
         controller: 'AppController',
         templateUrl: 'modules/core/app.html'
-        });
+      });
 	  
 	  $urlRouterProvider.otherwise(function ($injector) {
           var $state = $injector.get('$state');
