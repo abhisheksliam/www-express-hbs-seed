@@ -1,25 +1,24 @@
 <div class="panel action-content">
     <div class="panel-header">
         <div class="m-l-30">
-            <h6>Trigger {{index}}: {{action.syntax}}</h6>
-        </div>
-        <div class="trigger-values">
-            <div ng-repeat="attribute in action.values|limitTo:2">
-                <span class="attr-label">{{attribute.actKey}}</span>
-                <span class="attr-value">{{attribute.actVal}}</span>
-            </div>
+            <h6>Trigger <span ng-hide="droppedTrigger">{{index}}</span>: {{action.syntax}}</h6>
         </div>
         <div class="control-btn">
             <a href="#" class="panel-close"><i class="icon-trash"></i></a>
-            <a href="#" class="panel-copy copy-trigger"><i class="fa fa-copy"></i></a>
+            <a href="#" ng-disabled="editMode" class="panel-copy copy-trigger"><i class="fa fa-copy"></i></a>
             <a href="#" class="panel-move"><i class="fa fa-bars"></i></a>
-            <a href="#" class="panel-toggle"><i class="fa fa-angle-down"></i></a>
+            <a href="#" ng-disabled="editMode" class="panel-edit"><i class="fa fa-pencil p-l-10"></i></a>
         </div>
     </div>
-    <div class="panel-content">
-
+    <div class="m-l-30 p-l-30 f-12" ng-hide="editMode">
+        <div ng-repeat="attribute in action.values">
+            <span class="attr-label">{{attribute.actKey}}</span>
+            <span class="m-l-15 attr-value">{{attribute.actVal}}</span>
+        </div>
+    </div>
+    <div class="panel-content toggle-animate" ng-show="editMode">
         <form name="triggerForm">
-            <div class="m-l-30 p-l-30 trigger-input-parent" ng-repeat="attribute in action.values" ng-init="innerIndex=$index">
+            <div class="m-l-30 p-l-30 trigger-input-parent" ng-repeat="attribute in oldAction.values" ng-init="innerIndex=$index">
                 <span class="label" style="display: table">{{attribute.actKey}}</span>
             <span class="input input--hoshi inlineBlock" ng-class="{largeWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)==-1, smallWidth: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}">
                 <input class="input__field input__field--hoshi {{attribute.actKey}}" type="text" id="input-41" data-index="{{innerIndex}}" ng-model="attribute.actVal" placeholder="{{attribute.actKey}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}"/>
@@ -35,7 +34,7 @@
             </span>
             </div>
             <div class="bg-light text-right">
-                <button type="reset" class="cancel btn btn-embossed btn-white m-r-0 trigger-cancel">Cancel</button>
+                <button type="reset" ng-disabled="droppedTrigger" class="cancel btn btn-embossed btn-white m-r-0 trigger-cancel">Cancel</button>
                 <button type="submit" class="btn btn-embossed btn-primary m-r-20 trigger-save">Update / Save</button>
             </div>
         </form>
