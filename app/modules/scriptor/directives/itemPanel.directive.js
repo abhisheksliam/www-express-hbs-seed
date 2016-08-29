@@ -10,7 +10,6 @@ angular.module('automationApp.scriptor')
             templateUrl: 'modules/scriptor/directives/views/itemPanel.tpl.html',
             scope: {
                 'items': '=',
-                'methodtypelist': '=',
                 'index': '=',
                 'editableiteminput': '='
                 },
