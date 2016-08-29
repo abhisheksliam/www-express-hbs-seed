@@ -15,8 +15,6 @@ module.exports = function(passport) {
     // required for persistent login sessions
     // passport needs ability to serialize and deserialize users out of session
 
-    // http://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
-
     passport.serializeUser(function(user, done) {
         done(null, user.username);
     });

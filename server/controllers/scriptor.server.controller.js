@@ -11,7 +11,6 @@ var AutomationScripts     = require('./../models/app.server.models.script');
 
 exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
-    console.log('Modified By: ' + req.body.modified_by.name);
 
     AutomationScripts.findOne({sle_id: sle_id}, function(err, scriptData) {
         if (err) {
@@ -35,7 +34,6 @@ exports.saveTask = function (req, res) {
 };
 
 exports.updateTask = function (req, res) {
-    console.log('Modified By: ' + req.body.modified_by.name);
     var sle_id = req.body.task_id + "." + req.body.scenario;
 
     checkForTemplateAndSave(sle_id, req, res, false);
@@ -56,7 +54,6 @@ exports.getTaskScript = function (req, res) {
 };
 
 exports.updateTaskScript = function (req, res) {
-    console.log('Modified By: ' + req.body.modified_by.name);
     AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
         if (err) {
             res.json({
