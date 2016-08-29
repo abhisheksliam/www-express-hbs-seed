@@ -20,6 +20,11 @@ angular.module('automationApp.scriptor')
                 scope.oldAction = angular.copy(scope.action);
                 scope.editMode = false;
                 scope.droppedTrigger = false;
+                scope.emptyActionForm = false;
+
+                if (scope.action.values.length === 0) {
+                    scope.emptyActionForm = true;
+                }
 
                 element.on('click',".panel-header",function (event) {
                     event.preventDefault();
@@ -71,7 +76,7 @@ angular.module('automationApp.scriptor')
 
                                             if(scope.droppedTrigger) {
                                                 $(triggerRefrence).remove();
-                                                scope.method.actions.splice(scope.index, 0, scope.action);
+                                                scope.method.actions.splice(scope.index, 0, scope.oldAction);
                                                 scope.$apply();
                                             } else {
                                                 scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
@@ -95,7 +100,9 @@ angular.module('automationApp.scriptor')
 
                         if(scope.droppedTrigger) {
                             $(triggerRefrence).remove();
-                            scope.method.actions.splice(scope.index, 0, scope.action);
+                            scope.method.actions.splice(scope.index, 0, scope.oldAction);
+                        } else {
+                            scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
                         }
                         scope.editMode = false;
                         scope.droppedTrigger = false;
@@ -194,9 +201,8 @@ angular.module('automationApp.scriptor')
                     element.find( ".input__field.elementName" ).autocomplete({
                         source: elementNameSuggestions,
                         select: function( event, ui ) {
-                            //scope.action.values[0].actVal = ui.item.value;
                             var _index = $(this).attr('data-index');
-                            scope.action.values[_index].actVal = ui.item.value;
+                            scope.oldAction.values[_index].actVal = ui.item.value;
 
                                 var xPath = scriptorService.getXPathForElement(ui.item.value);
                                 if(xPath) {
@@ -215,7 +221,7 @@ angular.module('automationApp.scriptor')
                         source: myKeysSuggestions,
                         select: function( event, ui ) {
                             var _index = $(this).attr('data-index');
-                            scope.action.values[_index].actVal = ui.item.value;
+                            scope.oldAction.values[_index].actVal = ui.item.value;
 
                             scope.$apply();
                             return true;
