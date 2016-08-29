@@ -36,7 +36,7 @@ angular.module('automationApp.scriptor')
 
                         scope.action[index] = action;
 
-                        var templateString = "<ol class='dd-list'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item method='method' action='action["+ index +"]' index='"+ newDataID +"'></div></li></ol>";
+                        var templateString = "<ol class='dd-list ui-sort-disabled'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item method='method' action='action["+ index +"]' index='"+ newDataID +"'></div></li></ol>";
                         index++;
                         var el = $compile( templateString )( scope );
                         $(this).closest('.dd-list.ui-sort-disabled').before( el );
