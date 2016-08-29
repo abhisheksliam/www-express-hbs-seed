@@ -11,11 +11,7 @@ webrouter.get('/', function(req, res) {
         res.render('index',{ username: req.user.username });
     }else{
         console.log('request not authenticated');
-        //next(new Error(401)); // 401 Not Authorized
-        res.writeHead(301,
-            {Location: './login.html' }
-        );
-        res.end();
+        res.render('', {layout: 'login.hbs'});
     }
 });
 

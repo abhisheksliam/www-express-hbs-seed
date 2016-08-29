@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="" name="description" />
     <meta content="SAT" name="author" />
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/ui.css">
     <link rel="stylesheet" href="css/custom.css">
+
+    <script type="text/javascript" src = "plugins/jquery/jquery-1.11.1.min.js" async></script>
 </head>
 <body class="account separate-inputs" data-page="login" id="account">
 <!-- BEGIN LOGIN BOX -->
@@ -31,7 +33,7 @@
                     <button type="submit" id="submit-form" class="btn btn-lg btn-success btn-block ladda-button" data-style="expand-left">Sign In</button>
                     <div class="social-btn">
                         <button onclick="onLoginClick()" type="button" class="g-signin btn btn-lg btn-block btn-danger"
-                                data-scope="profile"
+                                data-scope="email https://www.googleapis.com/auth/userinfo.email"
                                 data-clientid="1046623217274-1k4a85q8ag1slqnaudfacd6imoiruhaa.apps.googleusercontent.com"
                                 data-callback="onSignInCallback"
                                 data-theme="dark"
@@ -46,11 +48,9 @@
         <span>Copyright © 2016 - 2017 </span><span> Compro Technologies. </span><span>All rights reserved.</span>
     </p>
 </div>
-
-<script src = "plugins/jquery/jquery-1.11.1.min.js" ></script>
-<script src = "plugins/bootstrap/js/bootstrap.min.js" ></script>
-<script src = "https://plus.google.com/js/client:platform.js" async></script>
-<script src = "login.js" async></script>
+<script type="text/javascript" src = "https://plus.google.com/js/client:platform.js"></script>
+<script type="text/javascript" src = "js/login/login.js"></script>
+<script type="text/javascript" src = "plugins/bootstrap/js/bootstrap.min.js" ></script>
 
 </body>
 </html>

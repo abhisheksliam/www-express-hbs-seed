@@ -36,6 +36,7 @@ var googleLogin = function (req,done,er) {
         response.on('data', function (chunk) {
             console.log('data');
             str += chunk;
+            console.log(str);
             var username = JSON.parse(str).email;
             getUserPassword(username, function(password){
                 console.log(username);
@@ -80,12 +81,11 @@ exports.userLoginHandler = function(req, res) {
                     });
                 } else {
                     req.body.username = _res.username;
-                    req.body.password = '';
+                    req.body.password = _res.password;
                     passport.authenticate('local')(req, res, function (err) {
-                        console.log(err.message);
                         return res.send({
                             status: err ? 403 : 200,
-                            message: err.message
+                            message: (err !== undefined && err !== null) ? err.message : 'Login successful'
                         });
                     });
                 }
