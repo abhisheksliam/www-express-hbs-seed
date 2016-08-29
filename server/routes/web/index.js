@@ -1,23 +1,27 @@
 'use strict';
-
 var express = require('express');
-const passport = require('passport');
+var loginController = require('../../controllers/login.server.controller');
 
 // Get the router
 var webrouter = express.Router();
 
 webrouter.get('/', function(req, res) {
-    res.render('index');
+    if(req.isAuthenticated()){
+        console.log('request authenticated');
+        res.render('index',{ username: req.user.username });
+    }else{
+        console.log('request not authenticated');
+        res.render('', {layout: 'login.hbs'});
+    }
 });
 
-webrouter.get('/login', function(req, res) {
-    res.status(401).send({
-        message: 'User is not logged in'
+webrouter.post('/login', loginController.userLoginHandler);
+
+webrouter.get('/logout', function(req, res){
+    console.log('logging out');
+    req.session.destroy(function (err) {
+        res.redirect('/');
     });
 });
-
-webrouter.post('/login',
-    passport.authenticate('local', { successRedirect: '/',
-        failureRedirect: '/login' }));
 
 module.exports = webrouter;

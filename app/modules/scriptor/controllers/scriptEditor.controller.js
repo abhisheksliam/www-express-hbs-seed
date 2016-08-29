@@ -51,7 +51,7 @@ angular.module('automationApp.scriptor')
             $scope.$watch('taskJson',function(newValue, oldValue) {
                 if(newValue != oldValue) {
                     if(!angular.equals($scope.taskJson,$scope.originalTaskJson)) {
-                        scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
+                        scriptorService.updateTaskJson($scope.sleId, $scope.taskJson, username).then(function(res) {
                             $scope.originalTaskJson =  res.data.task_json;
                         });
                     }

@@ -54,7 +54,7 @@ exports.getTaskScript = function (req, res) {
 };
 
 exports.updateTaskScript = function (req, res) {
-    AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json}}, function(err, doc){
+    AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
         if (err) {
             res.json({
                 "errors": {
@@ -102,6 +102,7 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
     var automationScript = new AutomationScripts();
     // Set text and user values from the request
     automationScript.sle_id = sle_id;
+    automationScript.modified_by.name = req.body.modified_by.name;
 
     if(req.body.template === TEMPLATE_BLANK) {
         automationScript.task_json = generateBlankTemplate(req);
@@ -111,6 +112,7 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
 
     // Save message and check for errors
     if(bSaveUpdate) {
+        automationScript.created_by.name = req.body.modified_by.name;
         automationScript.save(function (err, scriptData) {
             if (err) {
                 res.json({
@@ -123,7 +125,7 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
             res.json(scriptData);
         });
     } else {
-        AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json}}, function(err, doc){
+        AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json, 'modified_by.name' : req.body.modified_by.name }}, function(err, doc){
 
             if (err) {
                 res.json({
@@ -134,6 +136,7 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
                 });
             }
             doc.task_json = automationScript.task_json; // findOneAndUpdate return found value in response, not updated
+            doc.modified_by.name = automationScript.modified_by.name;
             res.json(doc);
         });
     }
