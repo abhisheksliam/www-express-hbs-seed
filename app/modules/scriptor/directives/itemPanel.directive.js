@@ -85,8 +85,15 @@ angular.module('automationApp.scriptor')
                         if($(this).hasClass('bg-primary')) {
                             $(this).siblings(".data-items").hide();
                             $(this).removeClass('bg-primary');
+
+                            $(this).find('.item-text-edit-icon').hide();
+                            scope.editableiteminput.editorenabled = -1;
                         }
                         else {
+                            scope.editableiteminput.editorenabled = -1;
+                            $('.item-text-edit-icon').hide();
+                            $(this).find('.item-text-edit-icon').show();
+
                             var activeElement = element.find('.bg-primary');
                             if(activeElement.length != 0) {
                                 activeElement.siblings(".data-items").hide();
@@ -99,7 +106,39 @@ angular.module('automationApp.scriptor')
 
                         closeLevel1Elements();
                         closeLevel2Elements();
+                        scope.$apply();
                         event.stopPropagation();
+                    });
+
+                    element.on('click',".item-text-correct",function(event) {
+
+                        event.preventDefault();
+                        scope.editableiteminput.editorenabled = -1;
+                        var index = $(this).attr('data-index');
+                        scope.items[0].items[parseInt(index)].text = $(this).siblings('.item-textarea').val();
+
+                        scope.$apply();
+                        event.stopPropagation();
+                    });
+
+                    element.on('click',".item-text-edit-icon",function(event) {
+
+                        event.preventDefault();
+                        var index = $(this).attr('data-index');
+                        scope.editableiteminput.enableEditor(parseInt(index));
+
+                        var text = scope.items[0].items[parseInt(index)].text;
+                        $(this).closest('.item-level-0').find('.item-textarea').val(text);
+
+                        scope.$apply();
+                        event.stopPropagation();
+                    });
+
+                    $(document).on('click', function(e) {
+                        if ( e.target.class != 'item-textarea' ) {
+                            scope.editableiteminput.editorenabled = -1;
+                            scope.$apply();
+                        }
                     });
 
                     var  closeLevel1Elements = function () {

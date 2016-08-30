@@ -61,9 +61,8 @@ angular.module('automationApp.scriptor')
             $scope.editableiteminput = {
                 editorenabled : -1,
 
-                enableEditor : function(index,event) {
+                enableEditor : function(index) {
                     $scope.editableiteminput.editorenabled = index;
-                    event.stopPropagation();
                 },
 
                 disableEditor : function(index,event) {
