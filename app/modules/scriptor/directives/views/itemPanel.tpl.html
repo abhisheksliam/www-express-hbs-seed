@@ -9,13 +9,17 @@
                     <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
                         ({{item.text}})
                         <a href="" ng-click="editableiteminput.enableEditor($index,$event)">
-                            <i class="fa fa-pencil p-l-10"></i>
+                            <i class="fa fa-pencil p-l-10 item-text-edit-icon" style="color: white; display: none"></i>
                         </a>
                     </span>
-                    <span class="item-text" ng-show="editableiteminput.editorenabled == $index">
-                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled == $index" ng-click="editableiteminput.stopEvent($event)"> </textarea>
+                    <span class="item-text-editable" ng-show="editableiteminput.editorenabled == $index">
+                        <textarea class="form-control" ng-model="item.text"
+                                  ng-show="editableiteminput.editorenabled == $index"
+                                  ng-click="editableiteminput.stopEvent($event)"
+                                >
+                        </textarea>
                         <a href="" ng-click="editableiteminput.disableEditor(-1,$event)">
-                            <i class="fa fa-check p-l-10"></i>
+                            <i class="fa fa-check p-l-10 item-text-correct" style="color: white"></i>
                         </a>
                     </span>
             </h4>

@@ -85,8 +85,15 @@ angular.module('automationApp.scriptor')
                         if($(this).hasClass('bg-primary')) {
                             $(this).siblings(".data-items").hide();
                             $(this).removeClass('bg-primary');
+
+                            $(this).find('.item-text-edit-icon').hide();
+                            $(this).find('.item-text-correct').click();
                         }
                         else {
+                            $(this).find('.item-text-correct').click();
+                            $('.item-text-edit-icon').hide();
+                            $(this).find('.item-text-edit-icon').show();
+
                             var activeElement = element.find('.bg-primary');
                             if(activeElement.length != 0) {
                                 activeElement.siblings(".data-items").hide();
