@@ -7,8 +7,8 @@
 
 .highlight-drop {
   div {
-    background-color: #fffefa !important;
-    border: 1px dotted #feeab6 !important;
+    background-color: #ffca34 !important;
+    border: 1px dotted #e3a800 !important;
   }
 }
 
@@ -48,6 +48,11 @@
     .fa-caret-right {
       display: none;
     }
+
+    .icon-trash {
+      color: white;
+    }
+
   }
 
   .item-level-0:hover {
@@ -75,8 +80,8 @@
       right: 0;
       top: 34px;
       z-index: 2;
-      background-color: #fff6dd;
-      font-size: 10px;
+      background-color: #e1e1e1;
+      font-size: 14px;
       padding-left: 5px;
       padding-right: 5px;
       display: none;
@@ -138,7 +143,7 @@
     right: 13px;
     top: 14px;
     z-index: 2;
-    display: none;
+    display: none !important;
     a {
       color: @tm-topbar-dropdown-link !important;
       cursor: pointer;
@@ -154,7 +159,6 @@
     }
   }
 
-
   .item-level-2 {
 
     .panel-header {
@@ -169,6 +173,12 @@
       padding: 0;
     }
 
+  }
+
+  .item-level-2:hover {
+    .control-btn {
+      display: inline-block !important;
+    }
   }
 
   .item-level-2.edit-mode {
@@ -210,7 +220,7 @@
     padding-bottom: 55px;
     right: 0;
     height: 100%;
-    background-color: #fff6dd;
+    background-color: #f8f8f8;
     border-left: 1px dashed @main-color-light;
     border-right: 1px dashed @main-color-light;
 
@@ -279,7 +289,7 @@
     -moz-border-radius: 0;
 
     h4 {
-      font-weight: 500;
+      font-weight: 600; //semi-bold
       padding-left: 20px;
       font-size: 16px;
       padding-bottom: 6px;
@@ -288,6 +298,7 @@
 
     h5 {
       padding-left: 30px;
+      font-size: 16px;
     }
 
 
@@ -332,7 +343,7 @@
 
     .panel-header {
       height: auto;
-      padding: 0px 15px 10px 18px;
+      padding: 0px 15px 10px 20px;
     }
 
     .panel-content {
@@ -430,7 +441,3 @@ ul.ui-autocomplete {
         }
     }
 }
-
-
-
-
