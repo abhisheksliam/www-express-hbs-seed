@@ -19,6 +19,7 @@ angular.module('automationApp.scriptor')
                 scope.reset = function() {
                     ctrl.$setViewValue(null);
                     ctrl.$render();
+                    scope.$emit('ACTION_SEARCH_RESET', "");
                     $timeout(function() {
                         el[0].focus();
                     }, 0, false);
