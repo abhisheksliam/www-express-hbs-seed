@@ -23,8 +23,6 @@ var googleLogin = function (req,done,er) {
 //    validate google login
     var _v1 = ('/oauth2/v3/tokeninfo?id_token=' + req.body.id_token);
 
-    //console.log(_v1);
-
     var options = {
         host: 'www.googleapis.com',
         path: _v1,
@@ -34,9 +32,7 @@ var googleLogin = function (req,done,er) {
     var callback = function(response) {
         var str = '';
         response.on('data', function (chunk) {
-            console.log('data');
             str += chunk;
-            console.log(str);
             var email = JSON.parse(str).email;
             getUserPassword(email, function(username,password){
                 console.log(username);
