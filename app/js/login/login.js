@@ -5,6 +5,7 @@
  */
 
 var baseUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port : '');
+(function(){if(window.location.hash.length) {window.location = baseUrl}})();
 
 /**
  * Dummy post function
