@@ -6,11 +6,11 @@ var Users = require('./../models/app.server.models.user');
 const passport = require('passport');
 var https = require('https');
 
-var getUserPassword = function(username, callback){
+var getUserPassword = function(email, callback){
     console.log('getting google user details from db');
-    Users.findOne({username: username}, function(err, user) {
+    Users.findOne({'profile.email': email}, function(err, user) {
         if(user){
-            callback(user.password);
+            callback(user.username,user.password);
         } else {
             // todo: create user validating compro email domain if does not exist
             callback(null);
@@ -37,10 +37,10 @@ var googleLogin = function (req,done,er) {
             console.log('data');
             str += chunk;
             console.log(str);
-            var username = JSON.parse(str).email;
-            getUserPassword(username, function(password){
+            var email = JSON.parse(str).email;
+            getUserPassword(email, function(username,password){
                 console.log(username);
-                done({username:username, password: password, error: (password === null)});
+                done({username:username, password: password, error: (username === null)});
             });
         });
 
@@ -72,7 +72,6 @@ exports.userLoginHandler = function(req, res) {
         googleLogin(req,
             function(_res){
                 console.log('authenticating google user from db');
-                console.log(_res);
                 if (_res.error === true) {
                     console.log('sending error 403');
                     return res.send({
