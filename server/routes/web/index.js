@@ -6,7 +6,6 @@ var loginController = require('../../controllers/login.server.controller');
 var webrouter = express.Router();
 
 webrouter.get('/', function(req, res) {
-    console.log(req);
     if(req.isAuthenticated()){
         console.log('request authenticated');
         res.setHeader('Cache-control', ['no-cache','no-store','must-revalidate']);
