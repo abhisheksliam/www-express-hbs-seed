@@ -11,6 +11,16 @@ webrouter.get('/', function(req, res) {
         res.render('index',{ username: req.user.username });
     }else{
         console.log('request not authenticated');
+        res.redirect('/login');
+    }
+});
+
+webrouter.get('/login', function(req, res) {
+    if(req.isAuthenticated()){
+        console.log('request authenticated');
+        res.redirect('/');
+    }else{
+        console.log('request not authenticated');
         res.render('', {layout: 'login.hbs'});
     }
 });
@@ -20,7 +30,7 @@ webrouter.post('/login', loginController.userLoginHandler);
 webrouter.get('/logout', function(req, res){
     console.log('logging out');
     req.session.destroy(function (err) {
-        res.redirect('/');
+        res.redirect('/login');
     });
 });
 
