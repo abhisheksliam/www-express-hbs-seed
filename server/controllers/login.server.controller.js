@@ -6,11 +6,11 @@ var Users = require('./../models/app.server.models.user');
 const passport = require('passport');
 var https = require('https');
 
-var getUserPassword = function(username, callback){
+var getUserPassword = function(email, callback){
     console.log('getting google user details from db');
-    Users.findOne({username: username}, function(err, user) {
+    Users.findOne({'profile.email': email}, function(err, user) {
         if(user){
-            callback(user.password);
+            callback(user.username,user.password);
         } else {
             // todo: create user validating compro email domain if does not exist
             callback(null);
@@ -23,8 +23,6 @@ var googleLogin = function (req,done,er) {
 //    validate google login
     var _v1 = ('/oauth2/v3/tokeninfo?id_token=' + req.body.id_token);
 
-    //console.log(_v1);
-
     var options = {
         host: 'www.googleapis.com',
         path: _v1,
@@ -34,13 +32,11 @@ var googleLogin = function (req,done,er) {
     var callback = function(response) {
         var str = '';
         response.on('data', function (chunk) {
-            console.log('data');
             str += chunk;
-            console.log(str);
-            var username = JSON.parse(str).email;
-            getUserPassword(username, function(password){
+            var email = JSON.parse(str).email;
+            getUserPassword(email, function(username,password){
                 console.log(username);
-                done({username:username, password: password, error: (password === null)});
+                done({username:username, password: password, error: (username === null)});
             });
         });
 
@@ -72,7 +68,6 @@ exports.userLoginHandler = function(req, res) {
         googleLogin(req,
             function(_res){
                 console.log('authenticating google user from db');
-                console.log(_res);
                 if (_res.error === true) {
                     console.log('sending error 403');
                     return res.send({

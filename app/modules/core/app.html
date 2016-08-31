@@ -65,6 +65,20 @@
             <span id="application-title">SIM5 Automation Tool</span>
             <div class="header-right">
                 <ul class="header-menu nav navbar-nav">
+                    <li class="dropdown" id="user-header">
+                        <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <i class="icon-user m-r-10"></i>
+                            <span class="username">Hi,&nbsp;&nbsp;{{name}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#"><i class="icon-user"></i><span>Profile</span></a>
+                            </li>
+                            <li>
+                                <a href="/logout"><i class="icon-logout"></i><span>Logout</span></a>
+                            </li>
+                        </ul>
+                    </li>
                     <!-- RUNNER ICON -->
                     <li id="quickview-toggle"><a href="#"><i class="fa fa-indent"></i></a></li>
                 </ul>

@@ -9,6 +9,7 @@ AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'bu
 
 	  $scope.loadTaskId = "";
       $scope.runnerTaskJSON = {};
+	  $scope.name = name;
 
 	  $(document).ready(function () {
 			applicationService.init();
