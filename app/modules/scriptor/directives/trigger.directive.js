@@ -50,64 +50,68 @@ angular.module('automationApp.scriptor')
                 element.on('click',".trigger-save",function (event) {
                     event.preventDefault();
 
-                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                    if(scope.triggerForm.$valid) {
+                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
 
-                    var triggerRefrence = $(this).closest('.dd-list');
+                        var triggerRefrence = $(this).closest('.dd-list');
 
-                    var len = 0;
-                    if($(this).closest('.panel-content').find('input.xpath.elementName')){
-                        len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
-                    }
-
-                    if(len !==0) {
-                        var counter = 0;
-                        $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
-                            var $el = $(this);
-                            var key = $(this).attr('data-elementname');
-                            var value = $(this).val();
-                            var taskid = $rootScope.taskId;
-                            var app_type = $rootScope.applicationName;
-
-                            if (key && taskid && app_type){
-                                saveXpathToDatabase(key, value, taskid, app_type,
-                                    function(success){
-                                        counter++;
-                                        if(counter === len) {
-
-                                            if(scope.droppedTrigger) {
-                                                $(triggerRefrence).remove();
-                                                scope.method.actions.splice(scope.index, 0, scope.oldAction);
-                                                scope.$apply();
-                                            } else {
-                                                scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
-                                            }
-                                            scope.editMode = false;
-                                            $(this).closest('.item-level-2').removeClass('edit-mode');
-
-                                            $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
-                                        }
-                                    },
-                                    function(error){
-                                        var xPath = scriptorService.getXPathForElement(key);
-                                        $el.val(xPath);
-                                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
-                                    });
-                            } else {
-                                $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
-                            }
-                        });
-                    } else {
-
-                        if(scope.droppedTrigger) {
-                            $(triggerRefrence).remove();
-                            scope.method.actions.splice(scope.index, 0, scope.oldAction);
-                        } else {
-                            scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+                        var len = 0;
+                        if($(this).closest('.panel-content').find('input.xpath.elementName')){
+                            len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
                         }
-                        scope.editMode = false;
-                        scope.droppedTrigger = false;
-                        $(this).closest('.item-level-2').removeClass('edit-mode');
-                        scope.$apply();
+
+                        if(len !==0) {
+                            var counter = 0;
+                            $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
+                                var $el = $(this);
+                                var key = $(this).attr('data-elementname');
+                                var value = $(this).val();
+                                var taskid = $rootScope.taskId;
+                                var app_type = $rootScope.applicationName;
+
+                                if (key && taskid && app_type){
+                                    saveXpathToDatabase(key, value, taskid, app_type,
+                                        function(success){
+                                            counter++;
+                                            if(counter === len) {
+
+                                                if(scope.droppedTrigger) {
+                                                    $(triggerRefrence).remove();
+                                                    scope.method.actions.splice(scope.index, 0, scope.oldAction);
+                                                    scope.$apply();
+                                                } else {
+                                                    scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+                                                }
+                                                scope.editMode = false;
+                                                $(this).closest('.item-level-2').removeClass('edit-mode');
+
+                                                $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
+                                            }
+                                        },
+                                        function(error){
+                                            var xPath = scriptorService.getXPathForElement(key);
+                                            $el.val(xPath);
+                                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
+                                        });
+                                } else {
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
+                                }
+                            });
+                        } else {
+
+                            if(scope.droppedTrigger) {
+                                $(triggerRefrence).remove();
+                                scope.method.actions.splice(scope.index, 0, scope.oldAction);
+                            } else {
+                                scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+                            }
+                            scope.editMode = false;
+                            scope.droppedTrigger = false;
+                            $(this).closest('.item-level-2').removeClass('edit-mode');
+                            scope.$apply();
+                        }
+                    } else {
+                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Please fill out mandatory fields.</p></div>');
                     }
 
                     event.stopPropagation();
