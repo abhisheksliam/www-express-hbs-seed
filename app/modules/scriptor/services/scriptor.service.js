@@ -21,7 +21,7 @@ angular.module('automationApp.scriptor')
             var deferred = $q.defer();
             deferred.resolve(taskData);
             return deferred.promise;
-        }
+        };
 
         var getTriggers = function() {
             var triggers = $http.get('data/action_lib.json');
@@ -66,11 +66,12 @@ angular.module('automationApp.scriptor')
             return xpath;
         }
 
-        var saveTaskScript = function(app_key, scenario, task_id, template, username) {
+        var saveTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, username) {
             var saveTask = $http.post('/api/tasks/', {
                 "app_key": app_key,
                 "scenario": scenario,
                 "task_id": task_id,
+                "copy_sle_id": copy_sle_id,
                 "template": template,
                 "modified_by" : {
                                 "name" : username
@@ -82,12 +83,13 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
-        var updateTaskScript = function(app_key, scenario, task_id, template, username) {
+        var updateTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, username) {
             var updateTask = $http.put('/api/tasks/', {
                 "app_key" : app_key,
                 "scenario" : scenario,
                 "task_id" : task_id,
                 "template" : template,
+                "copy_sle_id": copy_sle_id,
                 "modified_by" : {
                     "name" : username
                 }
@@ -148,7 +150,6 @@ angular.module('automationApp.scriptor')
             var deferred = $q.defer();
             return deferred.promise;
         };
-
 
         return {
         "taskContent" : {},

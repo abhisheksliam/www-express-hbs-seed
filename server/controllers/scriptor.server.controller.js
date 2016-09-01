@@ -11,7 +11,6 @@ var AutomationScripts     = require('./../models/app.server.models.script');
 
 exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
-
     AutomationScripts.findOne({sle_id: sle_id}, function(err, scriptData) {
         if (err) {
             res.json({
@@ -21,7 +20,7 @@ exports.saveTask = function (req, res) {
             }
             });
         }
-        if(scriptData) {
+        if(scriptData && (req.body.template !== 'task')) {
             res.json({ "errors": {
                 "errorMessage": "Task script already exists in database",
                 "errorCode": "EXISTS_IN_DB"
@@ -105,14 +104,34 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
     automationScript.modified_by.name = req.body.modified_by.name;
 
     if(req.body.template === TEMPLATE_BLANK) {
-        automationScript.task_json = generateBlankTemplate(req);
-    } else {
-        automationScript.task_json = generatePreFilledTemplate();
-    }
+        generateBlankTemplate(req, function(taskJson){
+            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
+        });
 
-    // Save message and check for errors
-    if(bSaveUpdate) {
+    } else if(req.body.template === TEMPLATE_BALOO){
+        generatePreFilledTemplate(req,function(taskJson){
+            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
+        });
+
+    } else {
+        generateCopyTemplate(req, function(taskJson){
+            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
+        });
+    }
+};
+
+function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id){
+    automationScript.task_json = taskJson;
+
+    if (taskJson.errors){
+        res.json(taskJson);
+    }
+    else if(bSaveUpdate) {
+        // save as a new task - this is already validated that task does not exist.
         automationScript.created_by.name = req.body.modified_by.name;
+        automationScript.task_json.scenario = req.body.scenario;
+        automationScript.task_json.id = req.body.task_id;
+
         automationScript.save(function (err, scriptData) {
             if (err) {
                 res.json({
@@ -125,7 +144,9 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
             res.json(scriptData);
         });
     } else {
-        AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json, 'modified_by.name' : req.body.modified_by.name }}, function(err, doc){
+        // update existing task
+        automationScript.task_json.appName = req.body.app_key;  // todo: validate with requirement
+        AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
 
             if (err) {
                 res.json({
@@ -140,9 +161,9 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
             res.json(doc);
         });
     }
-}
+};
 
-function generateBlankTemplate(req){
+function generateBlankTemplate(req, done){
 
     var taskjson = [
         {
@@ -162,13 +183,38 @@ function generateBlankTemplate(req){
         }
     ];
 
-    return taskjson;
-
+    done(taskjson);
 }
 
 
-function generatePreFilledTemplate(){
+function generatePreFilledTemplate(req,done){
 
-    return {};
+    done({});
 
-}
+};
+
+function generateCopyTemplate(req, done){
+
+    AutomationScripts.findOne({sle_id: req.body.copy_sle_id}, function(err, scriptData) {
+        if (err) {
+            var error = {
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            };
+            done(error);
+        }
+        if(scriptData) {
+            done(scriptData.task_json);
+        } else {
+            var error = {
+                "errors": {
+                    "errorMessage": 'SLE_NOT_FOUND',
+                    "errorCode": 'SLE_NOT_FOUND'
+                }
+            };
+            done(error);
+        }
+    });
+};

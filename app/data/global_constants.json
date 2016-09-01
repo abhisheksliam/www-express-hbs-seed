@@ -29,6 +29,10 @@
       {
         "label": "Baloo (Pre-filled)",
         "key": "baloo"
+      },
+      {
+        "label": "Copy from Existing Task",
+        "key": "task"
       }
     ],
     "methodtypelist": [
