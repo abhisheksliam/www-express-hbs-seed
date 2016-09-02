@@ -21,7 +21,7 @@ exports.saveTask = function (req, res) {
             }
             });
         }
-        if(scriptData/* && (req.body.template !== 'task')*/) {
+        if(scriptData) {
             res.json({ "errors": {
                 "errorMessage": "Task script already exists in database",
                 "errorCode": "EXISTS_IN_DB"
