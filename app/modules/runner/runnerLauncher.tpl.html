@@ -36,12 +36,19 @@
                 <div>
                 <select multiple class="form-control use-select2"><option ng-repeat="methodtype in $root.globalConstants.methodtypelist" value="option4" class="methtype"><span>{{methodtype}}</span></option></select>
 
-                <button class="btn btn-default addpw" name="addpw" value="runpathwayvalue" disabled="true"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add Pathways</button>
+                <button class="btn btn-default add-pathway" name="addpw" value="runpathwayvalue"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add Pathways</button>
 
-                <div class="pwlist"><span>M1 M5 : "Mouse"<i class="fa fa-trash" aria-hidden="true"></i></span>
+                <div class="pathway-list" ng-repeat="pathwayList in runnerTaskJSON[1]  | pathwayFilter track by $index">
+                        <span ng-repeat="pathway in pathwayList.pathway">
+                            <pathway-band></pathway-band>
+                        </span>
+                        <span>
+                            :{{pathwayList.group}} <i class="fa fa-trash delete-pathway" aria-hidden="true"></i>
+                        </span>
                 </div>
 
                 <button class="btn btn-default xportpw" name="xportpw" value="runpathwayvalue" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i></i>Export Files to Server</button>
+
             </div>
         </div>
     </div>
