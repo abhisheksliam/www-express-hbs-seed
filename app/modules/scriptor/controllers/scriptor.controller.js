@@ -5,6 +5,7 @@ angular.module('automationApp.scriptor')
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
             $scope.taskId = "";
+            $scope.copy_sle_id = "";
             $scope.$parent.runnerTaskJSON = scriptorService.taskContent = {};
 
 			/* Template Code to be kept in first route to be loaded */
@@ -47,35 +48,44 @@ angular.module('automationApp.scriptor')
                 }
                 else if ($scope.validateTaskId($scope.taskId)){
 
-                    scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template, username).then(function(res) {
+                    if ((($scope.taskId + '.' + $scope.scenarioType) == $scope.copy_sle_id) && $scope.template === 'task'){
+                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Same task cannot be duplicated !!' + '</p></div>');
+                    } else {
+                        scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, username).then(function(res) {
 
-                        if(res.data.errors) {
-                            if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
-                                bootbox.confirm({
-                                    title: 'Task already exists',
-                                    message: 'Do you want to override task with new selections ?',
-                                    className: 'error-modal',
-                                    callback: function(result) {
-                                        if(result) {
-                                            scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.template, username).then(function(res) {
-                                                scriptorService.taskContent = res.data.task_json;
-                                                $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
-                                                $state.go('app.script-editor',  {id: res.data.sle_id});
-												$scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
-                                            });
+                            if(res.data.errors) {
+                                if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
+                                    bootbox.confirm({
+                                        title: 'Task already exists',
+                                        message: 'Do you want to override task with new selections ?',
+                                        className: 'error-modal',
+                                        callback: function(result) {
+                                            if(result) {
+                                                scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, username).then(function(res) {
+                                                    if(res.data.errors){
+                                                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                                                    }
+                                                    else {
+                                                            scriptorService.taskContent = res.data.task_json;
+                                                            $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
+                                                            $state.go('app.script-editor',  {id: res.data.sle_id});
+                                                            $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
+                                                    }
+                                                });
+                                            }
                                         }
-                                    }
-                                });
-                            } else {
-								$scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage.message + '</p></div>');
+                                    });
+                                } else {
+                                    $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                                }
+                            } else{
+                                scriptorService.taskContent = res.data.task_json;
+                                $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
+                                $state.go('app.script-editor',  {id: res.data.sle_id});
+                                $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                             }
-                        } else{
-                            scriptorService.taskContent = res.data.task_json;
-                            $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
-                            $state.go('app.script-editor',  {id: res.data.sle_id});
-							$scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
-                        }
-                    });
+                        });
+                    }
 
                 } else{
 					$scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
