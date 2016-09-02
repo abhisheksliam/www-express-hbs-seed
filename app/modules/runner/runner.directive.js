@@ -5,6 +5,9 @@ angular.module('automationApp.runner')
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
+            scope:{
+                'items' : '='
+            },
             link: function (scope, element, attributes) {
                 scope.itemSelection;
                 scope.methodSelection;

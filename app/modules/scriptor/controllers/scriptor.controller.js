@@ -6,7 +6,7 @@ angular.module('automationApp.scriptor')
 
             $scope.taskId = "";
             $scope.copy_sle_id = "";
-            $scope.$parent.runnerTaskJSON = scriptorService.taskContent = {};
+            scriptorService.taskContent = {};
 
 			/* Template Code to be kept in first route to be loaded */
 			$scope.$on('$viewContentLoaded', function () {
@@ -67,7 +67,6 @@ angular.module('automationApp.scriptor')
                                                     }
                                                     else {
                                                             scriptorService.taskContent = res.data.task_json;
-                                                            $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
                                                             $state.go('app.script-editor',  {id: res.data.sle_id});
                                                             $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
                                                     }
@@ -80,7 +79,6 @@ angular.module('automationApp.scriptor')
                                 }
                             } else{
                                 scriptorService.taskContent = res.data.task_json;
-                                $scope.$parent.runnerTaskJSON = scriptorService.taskContent;
                                 $state.go('app.script-editor',  {id: res.data.sle_id});
                                 $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                             }
