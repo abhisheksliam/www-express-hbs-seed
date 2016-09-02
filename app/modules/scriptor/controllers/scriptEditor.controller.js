@@ -12,7 +12,7 @@ angular.module('automationApp.scriptor')
                     $scope.taskJson =  taskData;
                     $scope.originalTaskJson = angular.copy(taskData);
 
-                    $scope.$parent.runnerTaskJSON = taskData;
+                    scriptorService.taskContent = taskData;
                     $rootScope.taskId = $scope.taskId = taskData[0].id;
                     $scope.scenarioType = taskData[0].scenario;
                     $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
@@ -30,7 +30,6 @@ angular.module('automationApp.scriptor')
                 $scope.taskJson = taskData;
                 $scope.originalTaskJson = angular.copy(taskData);
 
-                $scope.$parent.runnerTaskJSON = taskData;
                 $rootScope.taskId = $scope.taskId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
                 $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
