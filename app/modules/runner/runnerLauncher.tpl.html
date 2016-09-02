@@ -38,7 +38,7 @@
 
                 <button class="btn btn-default add-pathway" name="addpw" value="runpathwayvalue"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add Pathways</button>
 
-                <div class="pathway-list" ng-repeat="pathwayList in runnerTaskJSON[1]  | pathwayFilter track by $index">
+                <div class="pathway-list" ng-repeat="pathwayList in items[1] track by $index"><!--  | pathwayFilter-->
                         <span ng-repeat="pathway in pathwayList.pathway">
                             <pathway-band></pathway-band>
                         </span>
