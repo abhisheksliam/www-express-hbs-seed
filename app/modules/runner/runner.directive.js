@@ -50,6 +50,20 @@ angular.module('automationApp.runner')
 						
                         event.stopPropagation();
                     });
+
+                    element.on('click',".delete-pathway",function(event) {
+                        event.preventDefault();
+
+                        var delIndex = $(this).closest('.pathway-list').index() - 2;
+
+                       // scope.taskJson[1].splice((delIndex * 2), 2);
+
+                       // console.log('pathway list : ', scope.taskJson[1]);
+
+                       // scope.$apply();
+
+                        event.stopPropagation();
+                    });
                 });
             }
         }
