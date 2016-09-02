@@ -3,8 +3,9 @@
  */
 'use strict';
 
-const TEMPLATE_BLANK = "blank";
-const TEMPLATE_BALOO = "baloo";
+const TEMPLATE_BLANK = "blank",
+      TEMPLATE_BALOO = "baloo",
+      TEMPLATE_TASK = "task";
 
 const router = require('express').Router();
 var AutomationScripts     = require('./../models/app.server.models.script');
@@ -20,7 +21,7 @@ exports.saveTask = function (req, res) {
             }
             });
         }
-        if(scriptData && (req.body.template !== 'task')) {
+        if(scriptData/* && (req.body.template !== 'task')*/) {
             res.json({ "errors": {
                 "errorMessage": "Task script already exists in database",
                 "errorCode": "EXISTS_IN_DB"
@@ -113,7 +114,7 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
             saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
         });
 
-    } else {
+    } else if (req.body.template === TEMPLATE_TASK){
         generateCopyTemplate(req, function(taskJson){
             saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
         });
@@ -129,9 +130,6 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
     else if(bSaveUpdate) {
         // save as a new task - this is already validated that task does not exist.
         automationScript.created_by.name = req.body.modified_by.name;
-        automationScript.task_json.scenario = req.body.scenario;
-        automationScript.task_json.id = req.body.task_id;
-
         automationScript.save(function (err, scriptData) {
             if (err) {
                 res.json({
@@ -206,11 +204,15 @@ function generateCopyTemplate(req, done){
             done(error);
         }
         if(scriptData) {
+            scriptData.task_json[0].appName = req.body.app_key;
+            scriptData.task_json[0].id =req.body.task_id;
+            scriptData.task_json[0].scenario = req.body.scenario;
+
             done(scriptData.task_json);
         } else {
             var error = {
                 "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND',
+                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.copy_sle_id,
                     "errorCode": 'SLE_NOT_FOUND'
                 }
             };
