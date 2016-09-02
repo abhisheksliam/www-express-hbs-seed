@@ -114,7 +114,7 @@ angular.module('automationApp.scriptor')
         };
 
         var saveXpath = function(key, value, taskid, app_type) {
-            var saveTask = $http.post('/api/xpath/', {
+            var saveTask = $http.post('/api/xpaths/', {
                 app_type: app_type,
                 tags: [taskid],
                 xpath: {
@@ -129,7 +129,7 @@ angular.module('automationApp.scriptor')
         };
 
         var getApplicationXpathList = function(appType) {
-            var xpathList = $http.get('/api/xpath/'+appType);
+            var xpathList = $http.get('/api/xpaths/'+appType);
 
             var deferred = $q.defer();
             deferred.resolve(xpathList);
