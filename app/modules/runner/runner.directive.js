@@ -5,9 +5,31 @@ angular.module('automationApp.runner')
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
+            scope:{
+                'items' : '='
+            },
             link: function (scope, element, attributes) {
                 scope.itemSelection;
                 scope.methodSelection;
+
+                scope.iCheckOptions = {
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_minimal',
+                    inheritClass: true
+                };
+
+                scope.selectRunTaskItems = function(){
+
+                    if ( $("input.runner-item-check").is(":checked")) {
+                           $(".run-task-btn").attr("disabled", false);
+                           $(".run-task-btn").removeClass("disablebtn");
+                          event.stopPropagation();
+                    } else {
+                           $(".run-task-btn").attr("disabled", true);
+                           $(".run-task-btn").addClass("disablebtn");
+                          event.stopPropagation();
+                    }
+                }
 
                 $timeout(function(){
                     element.on('click',".item-level-0.dd3-content",function(event) {
@@ -26,27 +48,9 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    // checkbox button update
-                    element.on('click',".item-level-0.dd3-content .item-check",function(event) {
-
-                        if ($("input[type='checkbox']").is(":checked")) {
-                            $(".runtaskbtn").attr("disabled", false);
-                            $(".runtaskbtn").removeClass("disablebtn").addClass("enablebtn");
-                        } else {
-                            $(".runtaskbtn").attr("disabled", true);
-                            $(".runtaskbtn").removeClass("enablebtn").addClass("disablebtn");
-                        }
-
-                        event.stopPropagation();
-                    });
-
-                    // run task button
-                    element.on('click',".runtaskbtn",function(event) {
-                        event.stopPropagation();
-                    });
-
-                    // run task button
-                    element.on('hover',".runtaskbtn",function(event) {
+                    element.on('click',".run-task-btn",function(event) {
+						event.preventDefault();
+						
                         event.stopPropagation();
                     });
                 });

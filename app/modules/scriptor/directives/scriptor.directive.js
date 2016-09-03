@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('scriptor', ['$timeout', 'scriptorService', function($timeout, scriptorService) {
+    .directive('scriptor', ['$compile', '$timeout', 'scriptorService', function($compile, $timeout, scriptorService) {
 
         return {
             restrict: 'E',
@@ -12,7 +12,6 @@ angular.module('automationApp.scriptor')
             scope: {
                 'items': '=',
                 'triggers': '=',
-                'methodtypelist': '=',
                 'editableiteminput': '='
             },
             link: function (scope, element, attributes) {
@@ -31,17 +30,21 @@ angular.module('automationApp.scriptor')
                         var item_id = $(this).closest('.li-level-0').data('id');
                         var method = $(this).closest('.li-level-1');
                         var method_id = method.data('id');
-                        var newDataID = method.find('.dd-list').length-1;
+                        scope.method =  scope.items[0].items[item_id].methods[method_id];
+                        var newDataID = method.find('.dd-list').length;
 
-                        scope.items[0].items[item_id].methods[method_id].actions.splice(newDataID, 0, action);
+                        scope.action[index] = action;
 
-                        // If any other trigger is opened, close it
-                        var level2items = element.find('.item-level-2 .panel-toggle.closed');
-                        level2items.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
+                        var templateString = "<ol class='dd-list ui-sort-disabled'><li class='dd-item'><div class='item-level-2 dd3-content' trigger-item method='method' action='action["+ index +"]' index='"+ newDataID +"'></div></li></ol>";
+                        index++;
+                        var el = $compile( templateString )( scope );
+                        $(this).closest('.dd-list.ui-sort-disabled').before( el );
 
                         if(!scope.$$phase) {
                             scope.$apply();
                         }
+
+                        $(this).closest('.dd-list.ui-sort-disabled').prev().find('.item-level-2 .panel-edit').trigger('click', [ "true" ]);
                     }
                 };
 

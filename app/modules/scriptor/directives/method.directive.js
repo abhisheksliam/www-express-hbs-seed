@@ -13,8 +13,7 @@ angular.module('automationApp.scriptor')
             scope: {
                 'item': '=',
                 'method': '=',
-                'index' : '=',
-                'methodtypelist' : '='
+                'index' : '='
             },
             link: function (scope, element, attributes) {
 

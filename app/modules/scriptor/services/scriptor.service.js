@@ -21,7 +21,7 @@ angular.module('automationApp.scriptor')
             var deferred = $q.defer();
             deferred.resolve(taskData);
             return deferred.promise;
-        }
+        };
 
         var getTriggers = function() {
             var triggers = $http.get('data/action_lib.json');
@@ -66,25 +66,33 @@ angular.module('automationApp.scriptor')
             return xpath;
         }
 
-        var saveTaskScript = function(app_key, scenario, task_id, template) {
+        var saveTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, username) {
             var saveTask = $http.post('/api/tasks/', {
-                "app_key" : app_key,
-                "scenario" : scenario,
-                "task_id" : task_id,
-                "template" : template
+                "app_key": app_key,
+                "scenario": scenario,
+                "task_id": task_id,
+                "copy_sle_id": copy_sle_id,
+                "template": template,
+                "modified_by" : {
+                                "name" : username
+                            }
             });
 
             var deferred = $q.defer();
             deferred.resolve(saveTask);
             return deferred.promise;
-        }
+        };
 
-        var updateTaskScript = function(app_key, scenario, task_id, template) {
+        var updateTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, username) {
             var updateTask = $http.put('/api/tasks/', {
                 "app_key" : app_key,
                 "scenario" : scenario,
                 "task_id" : task_id,
-                "template" : template
+                "template" : template,
+                "copy_sle_id": copy_sle_id,
+                "modified_by" : {
+                    "name" : username
+                }
             });
 
             var deferred = $q.defer();
@@ -92,9 +100,12 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         }
 
-        var updateTaskJson = function(sle_id, task_json) {
+        var updateTaskJson = function(sle_id, task_json , username) {
             var updateTask = $http.put('/api/tasks/' + sle_id, {
-                "task_json" : task_json
+                "task_json" : task_json,
+                "modified_by" : {
+                    "name" : username
+                }
             });
 
             var deferred = $q.defer();
@@ -103,7 +114,7 @@ angular.module('automationApp.scriptor')
         };
 
         var saveXpath = function(key, value, taskid, app_type) {
-            var saveTask = $http.post('/api/xpath/', {
+            var saveTask = $http.post('/api/xpaths/', {
                 app_type: app_type,
                 tags: [taskid],
                 xpath: {
@@ -118,7 +129,7 @@ angular.module('automationApp.scriptor')
         };
 
         var getApplicationXpathList = function(appType) {
-            var xpathList = $http.get('/api/xpath/'+appType);
+            var xpathList = $http.get('/api/xpaths/'+appType);
 
             var deferred = $q.defer();
             deferred.resolve(xpathList);
@@ -139,7 +150,6 @@ angular.module('automationApp.scriptor')
             var deferred = $q.defer();
             return deferred.promise;
         };
-
 
         return {
         "taskContent" : {},

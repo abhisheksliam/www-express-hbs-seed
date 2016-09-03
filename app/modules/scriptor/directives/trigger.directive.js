@@ -12,26 +12,36 @@ angular.module('automationApp.scriptor')
             scope: {
                 'method' : '=',
                 'action': '=',
-                'index' : '=',
-                'close' : '='
+                'index' : '='
             },
             link: function (scope, element, attributes) {
 
                 // Toggle Panel Content
                 scope.oldAction = angular.copy(scope.action);
+                scope.editMode = false;
+                scope.droppedTrigger = false;
+                scope.emptyActionForm = false;
+
+                if (scope.action.values.length === 0) {
+                    scope.emptyActionForm = true;
+                }
 
                 element.on('click',".panel-header",function (event) {
                     event.preventDefault();
 
-                    if($(this).find('.panel-toggle.closed').length == 0) {
-                        var activeElement = $(this).closest('.data-items').find('.panel-toggle.closed');
-                        if(activeElement.length != 0) {
-                            activeElement.toggleClass("closed").parents(".panel:first").find(".panel-content").slideToggle();
-                        }
-                    }
+                    event.stopPropagation();
+                });
 
-                    $(this).find(".panel-toggle").toggleClass("closed");
-                    $(this).siblings(".panel-content").slideToggle();
+                element.on('click',".panel-edit",function (event, bDropped) {
+                    event.preventDefault();
+
+                    scope.editMode = true;
+                    if(bDropped !== undefined && bDropped === "true") {
+                        scope.droppedTrigger = true;
+                    }
+                    $(this).closest('.item-level-2').addClass('edit-mode');
+                    scope.$apply();
+
                     event.stopPropagation();
                 });
 
@@ -40,44 +50,68 @@ angular.module('automationApp.scriptor')
                 element.on('click',".trigger-save",function (event) {
                     event.preventDefault();
 
-                    scope.oldAction = angular.copy(scope.action);
-                    var len = 0;
-                    if($(this).closest('.panel-content').find('input.xpath.elementName')){
-                        len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
-                    }
+                    if(scope.triggerForm.$valid) {
+                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
 
-                    if(len !==0) {
-                        var counter = 0;
-                        $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
-                            var $el = $(this);
-                            var key = $(this).attr('data-elementname');
-                            var value = $(this).val();
-                            var taskid = $rootScope.taskId;
-                            var app_type = $rootScope.applicationName;
+                        var triggerRefrence = $(this).closest('.dd-list');
 
-                            if (key && taskid && app_type){
-                                saveXpathToDatabase(key, value, taskid, app_type,
-                                    function(success){
-                                        counter++;
-                                        if(counter === len) {
-                                            element.find(".panel-toggle").toggleClass("closed");
-                                            element.find(".panel-content").slideToggle();
-                                            $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
-                                        }
-                                        console.log(key + ' : ' + success);
-                                    },
-                                    function(error){
-                                        var xPath = scriptorService.getXPathForElement(key);
-                                        $el.val(xPath);
-                                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
-                                    });
+                        var len = 0;
+                        if($(this).closest('.panel-content').find('input.xpath.elementName')){
+                            len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
+                        }
+
+                        if(len !==0) {
+                            var counter = 0;
+                            $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
+                                var $el = $(this);
+                                var key = $(this).attr('data-elementname');
+                                var value = $(this).val();
+                                var taskid = $rootScope.taskId;
+                                var app_type = $rootScope.applicationName;
+
+                                if (key && taskid && app_type){
+                                    saveXpathToDatabase(key, value, taskid, app_type,
+                                        function(success){
+                                            counter++;
+                                            if(counter === len) {
+
+                                                if(scope.droppedTrigger) {
+                                                    $(triggerRefrence).remove();
+                                                    scope.method.actions.splice(scope.index, 0, scope.oldAction);
+                                                    scope.$apply();
+                                                } else {
+                                                    scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
+                                                }
+                                                scope.editMode = false;
+                                                $(this).closest('.item-level-2').removeClass('edit-mode');
+
+                                                $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
+                                            }
+                                        },
+                                        function(error){
+                                            var xPath = scriptorService.getXPathForElement(key);
+                                            $el.val(xPath);
+                                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
+                                        });
+                                } else {
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
+                                }
+                            });
+                        } else {
+
+                            if(scope.droppedTrigger) {
+                                $(triggerRefrence).remove();
+                                scope.method.actions.splice(scope.index, 0, scope.oldAction);
                             } else {
-                                $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Error in getting xpath values.</p></div>');
+                                scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
                             }
-                        });
+                            scope.editMode = false;
+                            scope.droppedTrigger = false;
+                            $(this).closest('.item-level-2').removeClass('edit-mode');
+                            scope.$apply();
+                        }
                     } else {
-                        element.find(".panel-toggle").toggleClass("closed");
-                        element.find(".panel-content").slideToggle();
+                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Please fill out mandatory fields.</p></div>');
                     }
 
                     event.stopPropagation();
@@ -87,12 +121,10 @@ angular.module('automationApp.scriptor')
                 element.on('click',".trigger-cancel",function (event) {
                     event.preventDefault();
 
-                    //todo
-                    scope.action = angular.copy(scope.oldAction);
+                    scope.editMode = false;
+                    scope.oldAction = angular.copy(scope.action);
+                    $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
-
-                    element.find(".panel-toggle").toggleClass("closed");
-                    element.find(".panel-content").slideToggle();
 
                     $(this).closest('.panel-content').find('input.xpath').each (function () {
                         var $el = $(this);
@@ -105,28 +137,38 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-
-                if(scope.close) {
-                    element.find(".panel-content").slideToggle();
-                }
-                else {
-                    element.find(".panel-toggle").addClass("closed");
-                }
-
-
                 element.on('click',".panel-header .panel-close",function (event) {
                     event.preventDefault();
-                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+
                     var $item = $(this).parents(".dd-item:first");
-                    bootbox.confirm("Are you sure to remove this trigger?", function (result) {
-                        if (result === true) {
-                            $item.addClass("animated bounceOutRight");
-                            window.setTimeout(function () {
-                                scope.method.actions.splice(triggerNumber, 1);
-                                scope.$apply();
-                            }, 300);
-                        }
-                    });
+
+                    if(scope.droppedTrigger) {
+                        var triggerReference = $(this).closest('.dd-list');
+                        
+                        bootbox.confirm("Are you sure to remove this trigger?", function (result) {
+                            if (result === true) {
+                                $item.addClass("animated bounceOutRight");
+                                window.setTimeout(function () {
+                                    $(triggerReference).remove();
+                                    scope.$apply();
+                                }, 300);
+                            }
+                        });
+                        scope.$apply();
+                    } else {
+                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+
+                        bootbox.confirm("Are you sure to remove this trigger?", function (result) {
+                            if (result === true) {
+                                $item.addClass("animated bounceOutRight");
+                                window.setTimeout(function () {
+                                    scope.method.actions.splice(triggerNumber, 1);
+                                    scope.$apply();
+                                }, 300);
+                            }
+                        });
+                    }
+
                     event.stopPropagation();
                 });
 
@@ -138,11 +180,15 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".copy-trigger",function (event) {
                     event.preventDefault();
+
                     var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
                     var triggerToCopy = angular.copy(scope.method.actions[triggerNumber]);
 
                     scope.method.actions.splice(triggerNumber, 0, triggerToCopy);
+                    scope.editMode = true;
+                    $(this).closest('.item-level-2').addClass('edit-mode');
                     scope.$apply();
+
                     event.stopPropagation();
                 });
 
@@ -159,9 +205,8 @@ angular.module('automationApp.scriptor')
                     element.find( ".input__field.elementName" ).autocomplete({
                         source: elementNameSuggestions,
                         select: function( event, ui ) {
-                            //scope.action.values[0].actVal = ui.item.value;
                             var _index = $(this).attr('data-index');
-                            scope.action.values[_index].actVal = ui.item.value;
+                            scope.oldAction.values[_index].actVal = ui.item.value;
 
                                 var xPath = scriptorService.getXPathForElement(ui.item.value);
                                 if(xPath) {
@@ -180,7 +225,7 @@ angular.module('automationApp.scriptor')
                         source: myKeysSuggestions,
                         select: function( event, ui ) {
                             var _index = $(this).attr('data-index');
-                            scope.action.values[_index].actVal = ui.item.value;
+                            scope.oldAction.values[_index].actVal = ui.item.value;
 
                             scope.$apply();
                             return true;

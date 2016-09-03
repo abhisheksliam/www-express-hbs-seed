@@ -8,6 +8,7 @@ var userSchema   = new Schema({
     salt: String,
     profile: {
         name: String,
+        email: String,
         selenium: {},
         svn_credentials: {}
     }

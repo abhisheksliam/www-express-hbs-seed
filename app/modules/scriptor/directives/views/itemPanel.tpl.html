@@ -3,31 +3,30 @@
         <div class="item-level-0 dd3-content border-left">
             <i class="fa fa-caret-right" aria-hidden="true"></i>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
-
-            <!--Editable item-->
             <h4>Item {{$index+1}}
-                    <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
+                <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
                         ({{item.text}})
-                        <a href="" ng-click="editableiteminput.enableEditor($index,$event)">
-                            <i class="fa fa-pencil p-l-10"></i>
-                        </a>
-                    </span>
-                    <span class="item-text" ng-show="editableiteminput.editorenabled == $index">
-                        <textarea class="form-control" ng-model="item.text" ng-show="editableiteminput.editorenabled == $index" ng-click="editableiteminput.stopEvent($event)"> </textarea>
-                        <a href="" ng-click="editableiteminput.disableEditor(-1,$event)">
-                            <i class="fa fa-check p-l-10"></i>
-                        </a>
-                    </span>
+                    <a href="">
+                        <i class="fa fa-pencil p-l-10 item-text-edit-icon" data-index="{{$index}}" style="color: white; display: none"></i>
+                    </a>
+                </span>
+                <span class="item-text-editable" ng-show="editableiteminput.editorenabled == $index">
+                    <textarea class="form-control item-textarea"
+                              ng-show="editableiteminput.editorenabled == $index"
+                              ng-click="editableiteminput.stopEvent($event)"
+                            >{{item.text}}</textarea>
+                    <a href="" class="item-text-correct" data-index="{{$index}}">
+                        <i class="fa fa-check p-l-10" style="color: white"></i>
+                    </a>
+                </span>
             </h4>
-            <!---->
-
             <div class="control-btn">
                 <a class="panel-close"><i class="icon-trash"></i></a>
             </div>
         </div>
         <div class="data-items" style="display: none">
             <ol class="dd-list" ng-repeat="method in item.methods">
-               <method method="method" item="item" index="$index+1" data-id="{{$index}}" methodtypelist="methodtypelist"></method>
+               <method method="method" item="item" index="$index+1" data-id="{{$index}}"></method>
             </ol>
             <ol class="dd-list ui-sort-disabled">
                 <li class="dd-item m-b-10">

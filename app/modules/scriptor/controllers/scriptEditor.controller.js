@@ -12,7 +12,7 @@ angular.module('automationApp.scriptor')
                     $scope.taskJson =  taskData;
                     $scope.originalTaskJson = angular.copy(taskData);
 
-                    $scope.$parent.runnerTaskJSON = taskData;
+                    scriptorService.taskContent = taskData;
                     $rootScope.taskId = $scope.taskId = taskData[0].id;
                     $scope.scenarioType = taskData[0].scenario;
                     $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
@@ -30,7 +30,6 @@ angular.module('automationApp.scriptor')
                 $scope.taskJson = taskData;
                 $scope.originalTaskJson = angular.copy(taskData);
 
-                $scope.$parent.runnerTaskJSON = taskData;
                 $rootScope.taskId = $scope.taskId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
                 $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
@@ -51,7 +50,7 @@ angular.module('automationApp.scriptor')
             $scope.$watch('taskJson',function(newValue, oldValue) {
                 if(newValue != oldValue) {
                     if(!angular.equals($scope.taskJson,$scope.originalTaskJson)) {
-                        scriptorService.updateTaskJson($scope.sleId, $scope.taskJson).then(function(res) {
+                        scriptorService.updateTaskJson($scope.sleId, $scope.taskJson, username).then(function(res) {
                             $scope.originalTaskJson =  res.data.task_json;
                         });
                     }
@@ -61,9 +60,8 @@ angular.module('automationApp.scriptor')
             $scope.editableiteminput = {
                 editorenabled : -1,
 
-                enableEditor : function(index,event) {
+                enableEditor : function(index) {
                     $scope.editableiteminput.editorenabled = index;
-                    event.stopPropagation();
                 },
 
                 disableEditor : function(index,event) {
