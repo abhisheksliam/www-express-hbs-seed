@@ -6,7 +6,7 @@ angular.module('automationApp.runner')
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
             scope:{
-                'items' : '@'
+                'items' : '='
             },
             link: function (scope, element, attributes) {
                 scope.itemSelection;
