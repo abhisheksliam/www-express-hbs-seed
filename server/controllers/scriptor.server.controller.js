@@ -9,6 +9,7 @@ const TEMPLATE_BLANK = "blank",
 
 const router = require('express').Router();
 var AutomationScripts     = require('./../models/app.server.models.script');
+let _ = require('lodash');
 
 exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
@@ -49,6 +50,9 @@ exports.getTaskScript = function (req, res) {
                 }
             });
         }
+
+        var scriptData = checkAndTransoformPathways(scriptData);
+
         res.json(scriptData);
     });
 };
@@ -219,4 +223,17 @@ function generateCopyTemplate(req, done){
             done(error);
         }
     });
+};
+
+function checkAndTransoformPathways(script) {
+
+    var arr = [1, 2, 3];
+
+    var arr2 = _.map(arr, function(n) { return n * 3; });
+
+    console.log('arr: ', arr2);
+
+
+    return script;
+
 };
