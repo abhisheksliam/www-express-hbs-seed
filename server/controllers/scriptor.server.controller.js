@@ -9,7 +9,7 @@ const TEMPLATE_BLANK = "blank",
 
 const router = require('express').Router();
 var AutomationScripts     = require('./../models/app.server.models.script');
-let _ = require('lodash');
+var _ = require('lodash');
 
 exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
