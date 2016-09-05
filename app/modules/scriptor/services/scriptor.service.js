@@ -139,7 +139,7 @@ angular.module('automationApp.scriptor')
         var getXpathArrayList = function(appType) {
                 var xpathArrayList = [];
 
-                getApplicationXpathList(appType).then(function(xpathList) {
+            getApplicationXpathList(appType).then(function(xpathList) {
                     $rootScope.xpathList = xpathList;
                     xpathList.data.forEach(function (item) {
                         xpathArrayList.push(item.xpath.key);

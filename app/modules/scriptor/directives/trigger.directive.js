@@ -69,7 +69,9 @@ angular.module('automationApp.scriptor')
                                 var taskid = $rootScope.taskId;
                                 var app_type = $rootScope.applicationName;
 
-                                if (key && taskid && app_type){
+                                if (!value || !value.length){
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Please fill out mandatory fields.</p></div>');
+                                } else if (key && taskid && app_type){
                                     saveXpathToDatabase(key, value, taskid, app_type,
                                         function(success){
                                             counter++;
