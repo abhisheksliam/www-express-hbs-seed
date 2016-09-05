@@ -59,15 +59,40 @@ angular.module('automationApp.runner')
 
                         var delIndex = $(this).closest('.pathway-list').index() - 2;
 
-                       // scope.taskJson[1].splice((delIndex * 2), 2);
+                        scope.items[1].splice(delIndex, 1);
+                        scope.$apply();
 
-                       // console.log('pathway list : ', scope.taskJson[1]);
+                        event.stopPropagation();
+                    });
 
-                       // scope.$apply();
+                    element.on('click',".add-pathway",function(event) {
+                        event.preventDefault();
+
+                        var pathwayInfo = $.map(scope.items[1], function(value, index) {
+                                return $('input[name=method-radio-'+index +']:checked').val();
+                        });
+
+                        var obj = {
+                            "pathway" : pathwayInfo,
+                            "group" : $(".pathway-group").select2("val").join()
+                        };
+
+                        scope.items[1].splice(scope.items[1].length, 0, obj);
+                        scope.$apply();
 
                         event.stopPropagation();
                     });
                 });
+
+
+                $timeout(function(){
+                    var methodTypeSelect = element.find('select').select2({
+                        dropdownCssClass: 'form-white',
+                        minimumResultsForSearch: -1
+                    });
+
+
+                },200);
             }
         }
     }]);
