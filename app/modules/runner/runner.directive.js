@@ -74,7 +74,7 @@ angular.module('automationApp.runner')
 
                         var obj = {
                             "pathway" : pathwayInfo,
-                            "group" : $(".pathway-group").select2("val").join()
+                            "group" : $(".pathway-group").val().join()
                         };
 
                         scope.items[1].splice(scope.items[1].length, 0, obj);
@@ -83,16 +83,6 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
                 });
-
-
-                $timeout(function(){
-                    var methodTypeSelect = element.find('select').select2({
-                        dropdownCssClass: 'form-white',
-                        minimumResultsForSearch: -1
-                    });
-
-
-                },200);
             }
         }
     }]);
