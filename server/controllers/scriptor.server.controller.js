@@ -51,9 +51,7 @@ exports.getTaskScript = function (req, res) {
             });
         }
 
-        var scriptData = checkAndTransoformPathways(scriptData);
-
-        res.json(scriptData);
+        checkAndTransoformPathways(res, scriptData);
     });
 };
 
@@ -225,15 +223,37 @@ function generateCopyTemplate(req, done){
     });
 };
 
-function checkAndTransoformPathways(script) {
+function checkAndTransoformPathways(res, scriptData) {
 
-    var arr = [1, 2, 3];
+    if(scriptData[0].task_json[1] !== undefined){
+        var array2 = [];
 
-    var arr2 = _.map(arr, function(n) { return n * 3; });
+        var array = _.map(scriptData[0].task_json[1], function(value, index) {
+            if(index%2 == 0) {
 
-    console.log('arr: ', arr2);
+                var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
+                    return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
+                });
 
+                return {"pathway" : pathwayArr}
+            } else {
+                return value;
+            }
+        });
 
-    return script;
+        _.map(array, function(value, index) {
+            if(index%2 == 0) {
+                return value;
+            } else {
+                array[index-1].group = value.replace(/['"]+/g, '');
+                array2.push(array[index-1]);
+                return value;
+            }
+        });
+
+        scriptData[0].task_json[1] = array2;
+    }
+
+    res.json(scriptData);
 
 };
