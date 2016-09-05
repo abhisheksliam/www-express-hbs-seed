@@ -253,11 +253,6 @@ angular.module('automationApp.scriptor')
                         } else{
                             // add newly added xpath to suggestion list
                             $rootScope.xpathList.data.push(res.data);
-                            $timeout(function(){
-                                if(!scope.$$phase) {
-                                    scope.$apply();
-                                };
-                            },200);
                             done('xpath saved successfully');
                         }
                     });
