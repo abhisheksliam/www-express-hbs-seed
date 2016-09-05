@@ -68,7 +68,7 @@ angular.module('automationApp.runner')
                     element.on('click',".add-pathway",function(event) {
                         event.preventDefault();
 
-                        var pathwayInfo = $.map(scope.items[1], function(value, index) {
+                        var pathwayInfo = $.map(scope.items[0].items, function(value, index) {
                                 return $('input[name=method-radio-'+index +']:checked').val();
                         });
 
@@ -77,7 +77,12 @@ angular.module('automationApp.runner')
                             "group" : $(".pathway-group").val().join()
                         };
 
-                        scope.items[1].splice(scope.items[1].length, 0, obj);
+                        if(scope.items[1] === undefined) {
+                            scope.items[1] = [ obj ];
+                        } else {
+                            scope.items[1].splice(scope.items[1].length, 0, obj);
+                        }
+
                         scope.$apply();
 
                         event.stopPropagation();
