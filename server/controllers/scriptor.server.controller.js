@@ -51,7 +51,7 @@ exports.getTaskScript = function (req, res) {
             });
         }
 
-        checkAndTransoformPathways(res, scriptData);
+        transformPathwaysNewFormat(res, scriptData);
     });
 };
 
@@ -223,7 +223,43 @@ function generateCopyTemplate(req, done){
     });
 };
 
-function checkAndTransoformPathways(res, scriptData) {
+function transformPathwaysNewFormat(res, scriptData) {
+
+    if(scriptData[0].task_json[1] !== undefined){
+        var array2 = [];
+
+        var array = _.map(scriptData[0].task_json[1], function(value, index) {
+            if(index%2 == 0) {
+
+                var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
+                    return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
+                });
+
+                return {"pathway" : pathwayArr}
+            } else {
+                return value;
+            }
+        });
+
+        _.map(array, function(value, index) {
+            if(index%2 == 0) {
+                return value;
+            } else {
+                array[index-1].group = value.replace(/['"]+/g, '');
+                array2.push(array[index-1]);
+                return value;
+            }
+        });
+
+        scriptData[0].task_json[1] = array2;
+    }
+
+    res.json(scriptData);
+
+};
+
+
+function transformPathwaysOldFormat(res, scriptData) {
 
     if(scriptData[0].task_json[1] !== undefined){
         var array2 = [];
