@@ -87,6 +87,12 @@ angular.module('automationApp.scriptor')
 
                                                 $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>Update Successful !!</p></div>');
                                             }
+                                            $timeout(function(){
+                                            if(!scope.$$phase) {
+                                                scope.$apply();
+                                            };
+                                            },200);
+
                                         },
                                         function(error){
                                             var xPath = scriptorService.getXPathForElement(key);
@@ -232,7 +238,7 @@ angular.module('automationApp.scriptor')
                         }
                     });
 
-                },200);
+                },2000);
 
                 function saveXpathToDatabase (key,value,taskid,app_type,done,err){
                     scriptorService.saveXpath(key, value, taskid, app_type).then(function(res) {
@@ -243,6 +249,13 @@ angular.module('automationApp.scriptor')
                                 err('SERVER_ERROR');
                             }
                         } else{
+                            // add newly added xpath to suggestion list
+                            $rootScope.xpathList.data.push(res.data);
+                            $timeout(function(){
+                                if(!scope.$$phase) {
+                                    scope.$apply();
+                                };
+                            },200);
                             done('xpath saved successfully');
                         }
                     });
