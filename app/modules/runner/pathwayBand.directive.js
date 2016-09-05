@@ -7,13 +7,10 @@ angular.module('automationApp.runner')
             template: "<span>M-{{modifiedPathway}}</span>",
             replace: true,
             link: function(scope) {
-                var lastIndex = scope.pathway.lastIndexOf(",")
+                var stringDelimiter = "/";
 
-                var s1 = scope.pathway.substring(0, lastIndex);
-                var s2 = scope.pathway.substring(lastIndex + 1);
-
-                scope.modifiedPathway = s2;
-
+                var lastIndex = scope.pathway.lastIndexOf(stringDelimiter);
+                scope.modifiedPathway = scope.pathway.substring(lastIndex + 1);
             }
         });
     });
