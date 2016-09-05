@@ -15,6 +15,18 @@
         "actKey": "source",
         "displayXpath": "true",
         "dataType": "string"
+      },
+      {
+        "actVal": "test1",
+        "actKey": "test1",
+        "displayXpath": "true",
+        "dataType": "string"
+      },
+      {
+        "actVal": "test2",
+        "actKey": "test2",
+        "displayXpath": "true",
+        "dataType": "string"
       }
     ]
   },

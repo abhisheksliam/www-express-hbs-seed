@@ -19,6 +19,7 @@ angular.module('automationApp.scriptor')
 
                     scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
                         $rootScope.xpathArrayList = res;
+                        $rootScope.getXPathForElement = scriptorService.getXPathForElement;
                     });
                 });
 
@@ -36,6 +37,7 @@ angular.module('automationApp.scriptor')
 
                 scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
                     $rootScope.xpathArrayList = res;
+                    $rootScope.getXPathForElement = scriptorService.getXPathForElement;
                 });
             }
 
