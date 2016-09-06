@@ -5,38 +5,46 @@
 </div>
 <div class="quickview">
     <div class="tab-content">
-        <div class="tab-pane fade active in" id="settings">
-            <div class="settings">
-                <div class="dd nestable">
-                    <ol id="item-panel" class="dd-list" ng-repeat="item in items[0].items">
-                        <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
-                            <div class="item-level-0 dd3-content border-left">
-                                <h4><input i-check ng-model="itemSelection" type="checkbox" name="Item" value="" class="runner-item-check"><span>Item {{$index+1}}</span><i class="fa fa-chevron-down" aria-hidden="true"></i></h4>
-                            </div>
-                            <div class="data-items" style="display: none">
-                                <ol class="dd-list">
-                                    <li class="li-level-1 dd-item">
-                                        <div class="item-level-1 dd3-content p-b-10">
-                                            <div class="icheck-list">
-                                                <label ng-repeat="method in item.methods">
-                                                    <input i-check class="methitm" type="radio" name="method-radio {{$parent.$index}}" ng-model="methodSelection" ng-value="method">
-                                                    M{{$index+1}}  <span class="method-type-value">({{method.type}})</span>
-                                                </label>
-                                            </div>
+        <div class="tab-pane fade active in" id="runner-settings">
+            <div class="dd nestable">
+                <ol id="item-panel" class="dd-list" ng-repeat="item in items[0].items">
+                    <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
+                        <div class="item-level-0 dd3-content border-left">
+                            <h4><input i-check ng-model="itemSelection" type="checkbox" name="Item" value="" class="runner-item-check"><span>Item {{$index+1}}</span><i class="fa fa-chevron-down" aria-hidden="true"></i></h4>
+                        </div>
+                        <div class="data-items" style="display: none">
+                            <ol class="dd-list">
+                                <li class="li-level-1 dd-item">
+                                    <div class="item-level-1 dd3-content p-b-10">
+                                        <div class="icheck-list">
+                                            <label ng-repeat="method in item.methods">
+                                                <input i-check class="runner-method-radio" type="radio" name="method-radio-{{$parent.$index}}" ng-model="methodSelection" value="{{$parent.$index+1}}/{{$index+1}}">
+                                                M{{$index+1}}  <span class="method-type-value">({{method.type}})</span>
+                                            </label>
                                         </div>
-                                    </li>
-                                </ol>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-                <button class="btn btn-default run-task-btn disablebtn m-t-10" name="runpathway" value="runpathwayvalue"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
-                <hr/>
-                <div class="title ptwy">Pathway Groups </div>
-                <div>
-                <select multiple class="form-control use-select2"><option ng-repeat="methodtype in $root.globalConstants.methodtypelist" value="option4" class="methtype"><span>{{methodtype}}</span></option></select>
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+            <button class="btn btn-default run-task-btn disablebtn m-t-10"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
 
-                <button class="btn btn-default add-pathway" name="addpw" value="runpathwayvalue"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add Pathways</button>
+            <hr/>
+
+            <div class="title ptwy">Pathway Groups </div>
+
+            <div>
+
+                <select multiple class="form-control use-select2 pathway-group">
+                    <option class="methtype" ng-repeat="methodtype in $root.globalConstants.methodtypelist" value="{{methodtype}}"><span>{{methodtype}}</span></option>
+                </select>
+
+                <div class="btn-group pathway-btn">
+                    <button class="btn btn-default add-pathway"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add</button>
+                    <button class="btn btn-default generate-pathway"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Generate</button>
+                </div>
 
                 <div class="pathway-list" ng-repeat="pathwayList in items[1] track by $index">
                         <span ng-repeat="pathway in pathwayList.pathway">
@@ -47,10 +55,11 @@
                         </span>
                 </div>
 
-                <button class="btn btn-default xportpw" name="xportpw" value="runpathwayvalue" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i></i>Export Files to Server</button>
-
+                <button class="btn btn-default run-pathway disablebtn" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i></i>Run Pathways</button>
             </div>
-        </div>
+
+            <button class="btn btn-default publish-svn disablebtn" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i></i>Publish Files to Server</button>
+
     </div>
 </div>
 </div>

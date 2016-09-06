@@ -9,6 +9,7 @@ const TEMPLATE_BLANK = "blank",
 
 const router = require('express').Router();
 var AutomationScripts     = require('./../models/app.server.models.script');
+var _ = require('lodash');
 
 exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
@@ -49,11 +50,15 @@ exports.getTaskScript = function (req, res) {
                 }
             });
         }
-        res.json(scriptData);
+
+        transformPathwaysNewFormat(res, scriptData);
     });
 };
 
 exports.updateTaskScript = function (req, res) {
+
+    var scriptData = transformPathwaysOldFormat(req.body.task_json);
+
     AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
         if (err) {
             res.json({
@@ -219,4 +224,63 @@ function generateCopyTemplate(req, done){
             done(error);
         }
     });
+};
+
+function transformPathwaysNewFormat(res, scriptData) {
+
+    if(scriptData[0].task_json[1] !== undefined){
+        var array2 = [];
+
+        var array = _.map(scriptData[0].task_json[1], function(value, index) {
+            if(index%2 == 0) {
+
+                var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
+                    return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
+                });
+
+                return {"pathway" : pathwayArr}
+            } else {
+                return value;
+            }
+        });
+
+        _.map(array, function(value, index) {
+            if(index%2 == 0) {
+                return value;
+            } else {
+                array[index-1].group = value.replace(/['"]+/g, '');
+                array2.push(array[index-1]);
+                return value;
+            }
+        });
+
+        scriptData[0].task_json[1] = array2;
+    }
+
+    res.json(scriptData);
+
+};
+
+
+function transformPathwaysOldFormat(scriptData) {
+
+    if(scriptData[1] !== undefined){
+
+        var array2 = [];
+
+        _.map(scriptData[1], function(value, index) {
+                var pathwayArr = _.map(value.pathway, function(innenrValue, innerIndex) {
+                    return innenrValue.replace('/', ',');
+                });
+                array2.push(pathwayArr);
+                array2.push(value.group);
+
+                return value;
+        });
+
+        scriptData[1] = array2;
+    }
+
+    return scriptData;
+
 };

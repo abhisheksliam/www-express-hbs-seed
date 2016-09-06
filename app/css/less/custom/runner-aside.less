@@ -3,6 +3,12 @@
 
 #quickview-sidebar {
 
+  right: -450px;
+
+  #runner-settings {
+    padding: 0 20px;
+  }
+
   .quickview-header {
 
     .nav > li {
@@ -133,27 +139,32 @@
     color: white;
   }
 
-  .disablebtn {
-    background-color: rgb(234,234,234);
-    color: rgb(204,204,204);
-	cursor: default;
-  }
-
-  .addpw {
+  .pathway-btn {
     margin-bottom: 30px;
-	margin-top: 15px;
-    padding-left: 5%;
-    background-color: white;
-    color: black;
-    border: 1px solid lightgrey;
+    margin-top: 15px;
+
+    .add-pathway, .generate-pathway {
+      //padding-left: 5%;
+      background-color: white;
+      color: black;
+      border: 1px solid lightgrey;
+    }
+
   }
 
-  .xportpw {
+  .run-pathway, .publish-svn {
     margin-bottom: 10px;
     padding-left: 5%;
     background-color: rgb(53,57,64);
     color: white;
     border: 1px solid black;
+  }
+
+  .disablebtn {
+    background-color: rgb(234,234,234);
+    color: rgb(204,204,204);
+	cursor: default;
+    border: none;
   }
 
   .use-select2 {
