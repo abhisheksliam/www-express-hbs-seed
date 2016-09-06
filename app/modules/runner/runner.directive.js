@@ -23,12 +23,12 @@ angular.module('automationApp.runner')
                     if ( $("input.runner-item-check").is(":checked")) {
                            $(".run-task-btn").attr("disabled", false);
                            $(".run-task-btn").removeClass("disablebtn");
-                          event.stopPropagation();
                     } else {
                            $(".run-task-btn").attr("disabled", true);
                            $(".run-task-btn").addClass("disablebtn");
-                          event.stopPropagation();
                     }
+
+                    event.stopPropagation();
                 }
 
                 $timeout(function(){
@@ -58,9 +58,13 @@ angular.module('automationApp.runner')
                         event.preventDefault();
 
                         var delIndex = $(this).closest('.pathway-list').index() - 2;
-
                         scope.items[1].splice(delIndex, 1);
                         scope.$apply();
+
+                        if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
+                            $(".run-pathway").attr("disabled", true);
+                            $(".run-pathway").addClass("disablebtn");
+                        }
 
                         event.stopPropagation();
                     });
@@ -84,6 +88,11 @@ angular.module('automationApp.runner')
                         }
 
                         scope.$apply();
+
+                        if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
+                            $(".run-pathway").attr("disabled", false);
+                            $(".run-pathway").removeClass("disablebtn");
+                        }
 
                         event.stopPropagation();
                     });
