@@ -91,4 +91,17 @@ angular.module('automationApp.scriptor')
 
 			};
 
+            var tempAppName = undefined;
+            var updateApplication = function(){
+                if ($scope.template==='baloo') {
+                    tempAppName = $scope.applicationName;
+                    $scope.applicationName = $rootScope.applicationName = '';
+                } else {
+                    if(tempAppName !== undefined) {
+                        $scope.applicationName = $rootScope.applicationName = tempAppName;
+                    }
+                }
+            }
+            $scope.$watch('template',updateApplication);
+
 		}]);
