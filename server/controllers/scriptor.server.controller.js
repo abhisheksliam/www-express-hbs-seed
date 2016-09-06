@@ -148,8 +148,6 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
             res.json(scriptData);
         });
     } else {
-        // update existing task
-        automationScript.task_json.appName = req.body.app_key;  // todo: validate with requirement
         AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
 
             if (err) {

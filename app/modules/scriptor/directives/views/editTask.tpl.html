@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-lg-12 m-l-5">
         <div class="row">
-            <div class="col-md-5 application-dd-combo">
+            <div class="col-md-5 application-dd-combo" ng-hide="template === 'baloo'">
                 <span><strong>Application</strong></span>
                             <span class="p-l-20">
                                 <select class="form-white application-value-dd" data-style="white" ng-model="applicationName">
@@ -9,7 +9,7 @@
                                 </select>
                             </span>
             </div>
-            <div class="col-md-4 scenario-dd-combo p-l-40">
+            <div class="col-md-4 scenario-dd-combo">
                 <span><strong>Scenario</strong></span>
                             <span class="p-l-20">
                                 <select class="form-white scenario-value-dd" data-style="white" ng-model="scenarioType">
