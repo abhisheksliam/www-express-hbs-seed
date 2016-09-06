@@ -103,6 +103,49 @@ angular.module('automationApp.runner')
 
                         event.stopPropagation();
                     });
+
+                    element.on('click',".generate-pathway",function(event) {
+                        event.preventDefault();
+
+                        var itemArr = scope.items[0].items;
+                        var methodMaxCount = itemArr[0].methods.length;
+
+                        for(var i=1; i < itemArr.length; i++) {
+                            if(methodMaxCount < itemArr[i].methods.length)
+                                methodMaxCount = itemArr[i].methods.length;
+                        }
+
+                        var pathwaySet = [];
+                        for(var c=0; c<methodMaxCount; c++)
+                        {
+                            var pathwayObj = {group: '', pathway:[]};
+                            var grpArr = [];
+                            for(var r=0; r<itemArr.length; r++)
+                            {
+                                if(itemArr[r].methods[c] == undefined) {
+                                    grpArr.push(itemArr[r].methods[0].type);
+                                    pathwayObj.pathway[r] = (r+1) + '/' + '1';
+                                }
+                                else {
+                                    grpArr.push(itemArr[r].methods[c].type);
+                                    pathwayObj.pathway.push((r+1) + '/' + (c+1));
+                                }
+                            }
+                            pathwayObj.group = grpArr.join();
+                            pathwaySet.push(pathwayObj);
+                        }
+
+                        scope.items[1] = pathwaySet;
+
+                        scope.$apply();
+
+                        if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
+                            $(".run-pathway").attr("disabled", false);
+                            $(".run-pathway").removeClass("disablebtn");
+                        }
+
+                        event.stopPropagation();
+                    });
                 });
             }
         }
