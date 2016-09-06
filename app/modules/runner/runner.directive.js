@@ -9,8 +9,6 @@ angular.module('automationApp.runner')
                 'items' : '='
             },
             link: function (scope, element, attributes) {
-                scope.itemSelection;
-                scope.methodSelection;
 
                 scope.iCheckOptions = {
                     checkboxClass: 'icheckbox_square-blue',
@@ -30,6 +28,15 @@ angular.module('automationApp.runner')
 
                     event.stopPropagation();
                 }
+
+                scope.$watch('items', function(newValue) {
+                    if (newValue !== undefined) {
+                        if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
+                            $(".run-pathway").attr("disabled", false);
+                            $(".run-pathway").removeClass("disablebtn");
+                        }
+                    }
+                });
 
                 $timeout(function(){
                     element.on('click',".item-level-0.dd3-content",function(event) {
