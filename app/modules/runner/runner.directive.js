@@ -122,12 +122,16 @@ angular.module('automationApp.runner')
                             var grpArr = [];
                             for(var r=0; r<itemArr.length; r++)
                             {
-                                if(itemArr[r].methods[c] == undefined) {
-                                    grpArr.push(itemArr[r].methods[0].type);
+                                if(itemArr[r].methods[c] === undefined) {
+                                    if(grpArr.indexOf(itemArr[r].methods[0].type) === -1 ) {
+                                        grpArr.push(itemArr[r].methods[0].type);
+                                    }
                                     pathwayObj.pathway[r] = (r+1) + '/' + '1';
                                 }
                                 else {
-                                    grpArr.push(itemArr[r].methods[c].type);
+                                    if(grpArr.indexOf(itemArr[r].methods[c].type) === -1 ) {
+                                        grpArr.push(itemArr[r].methods[c].type);
+                                    }
                                     pathwayObj.pathway.push((r+1) + '/' + (c+1));
                                 }
                             }
