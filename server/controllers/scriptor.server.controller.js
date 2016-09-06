@@ -5,9 +5,13 @@
 
 const TEMPLATE_BLANK = "blank",
       TEMPLATE_BALOO = "baloo",
-      TEMPLATE_TASK = "task";
+      TEMPLATE_TASK = "task",
+      BALOO_API_HOST = 'anu',
+      BALOO_API_PORT = '8080',
+      BALOO_API_URL = '/NLPService/api/tasks/';
 
 const router = require('express').Router();
+var http = require('http');
 var AutomationScripts     = require('./../models/app.server.models.script');
 
 exports.saveTask = function (req, res) {
@@ -110,9 +114,10 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
         });
 
     } else if(req.body.template === TEMPLATE_BALOO){
-        generatePreFilledTemplate(req,function(taskJson){
-            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
-        });
+        generatePreFilledBalooTemplate(req,
+            function(taskJson){
+                saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
+            });
 
     } else if (req.body.template === TEMPLATE_TASK){
         generateCopyTemplate(req, function(taskJson){
@@ -125,6 +130,7 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
     automationScript.task_json = taskJson;
 
     if (taskJson.errors){
+        console.log(taskJson);
         res.json(taskJson);
     }
     else if(bSaveUpdate) {
@@ -185,10 +191,58 @@ function generateBlankTemplate(req, done){
 }
 
 
-function generatePreFilledTemplate(req,done){
+function generatePreFilledBalooTemplate(req,done){
 
-    done({});
+    var errObj = {
+                "errors": {
+                    "errorMessage": '',
+                    "errorCode": "PROCESSING_ERROR"
+                }
+                };
 
+    var _v1 = (BALOO_API_URL + (req.body.task_id + '.' + req.body.scenario));
+
+    var options = {
+        host: BALOO_API_HOST,
+        port: BALOO_API_PORT,
+        path: _v1,
+        method: 'get'
+    };
+
+    var callback = function(response) {
+        var str = '';
+        response.on('data', function (chunk) {
+            str += chunk;
+        });
+
+        response.on('error', function(err) {
+            errObj.errors.errorMessage = err;
+            done(errObj);
+        });
+
+        response.on('end', function () {
+            var parsed = {};
+            try{
+                parsed = JSON.parse(str);
+                if(parsed.statusCode == 200){
+                    done([parsed.content]);
+                } else {
+                    errObj.errors.errorMessage = parsed.message;
+                    done(errObj);
+                }
+            } catch(e){
+                errObj.errors.errorMessage = "Error in NLP JSON";
+                done(errObj);
+            }
+        });
+    };
+
+        var b_req = http.request(options, callback);
+        b_req.on('error', function(err) {
+                errObj.errors.errorMessage = 'Error in connecting NLP server';
+                done(errObj);
+            });
+        b_req.end();
 };
 
 function generateCopyTemplate(req, done){
