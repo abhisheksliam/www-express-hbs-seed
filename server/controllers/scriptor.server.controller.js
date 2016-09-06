@@ -56,6 +56,9 @@ exports.getTaskScript = function (req, res) {
 };
 
 exports.updateTaskScript = function (req, res) {
+
+    var scriptData = transformPathwaysOldFormat(req.body.task_json);
+
     AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
         if (err) {
             res.json({
@@ -259,37 +262,25 @@ function transformPathwaysNewFormat(res, scriptData) {
 };
 
 
-function transformPathwaysOldFormat(res, scriptData) {
+function transformPathwaysOldFormat(scriptData) {
 
-    if(scriptData[0].task_json[1] !== undefined){
+    if(scriptData[1] !== undefined){
+
         var array2 = [];
 
-        var array = _.map(scriptData[0].task_json[1], function(value, index) {
-            if(index%2 == 0) {
-
-                var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
-                    return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
+        _.map(scriptData[1], function(value, index) {
+                var pathwayArr = _.map(value.pathway, function(innenrValue, innerIndex) {
+                    return innenrValue.replace('/', ',');
                 });
+                array2.push(pathwayArr);
+                array2.push(value.group);
 
-                return {"pathway" : pathwayArr}
-            } else {
                 return value;
-            }
         });
 
-        _.map(array, function(value, index) {
-            if(index%2 == 0) {
-                return value;
-            } else {
-                array[index-1].group = value.replace(/['"]+/g, '');
-                array2.push(array[index-1]);
-                return value;
-            }
-        });
-
-        scriptData[0].task_json[1] = array2;
+        scriptData[1] = array2;
     }
 
-    res.json(scriptData);
+    return scriptData;
 
 };
