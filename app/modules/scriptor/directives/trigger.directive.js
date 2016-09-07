@@ -212,9 +212,8 @@ angular.module('automationApp.scriptor')
                         a.val(xpath);
                     });
 
-                    var elementNameSuggestions = scriptorService.getElementNameSuggestions();
                     element.find( ".input__field.elementName" ).autocomplete({
-                        source: elementNameSuggestions,
+                        source: $rootScope.xpathArrayList,
                         select: function( event, ui ) {
                             var _index = $(this).attr('data-index');
                             scope.oldAction.values[_index].actVal = ui.item.value;
@@ -256,6 +255,7 @@ angular.module('automationApp.scriptor')
                         } else{
                             // add newly added xpath to suggestion list
                             $rootScope.xpathList.data.push(res.data);
+                            $rootScope.xpathArrayList.push(res.data.xpath.key);
                             done('xpath saved successfully');
                         }
                     });
