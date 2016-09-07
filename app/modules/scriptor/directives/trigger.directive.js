@@ -97,8 +97,11 @@ angular.module('automationApp.scriptor')
 
                                         },
                                         function(error){
-                                            var xPath = scriptorService.getXPathForElement(key);
-                                            $el.val(xPath);
+                                            scriptorService.getXpathArrayList(app_type).then(function(res) {
+                                                $rootScope.xpathArrayList = res;
+                                                var xPath = scriptorService.getXPathForElement(key);
+                                                $el.val(xPath);
+                                            });
                                             $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Element ' + key + ' : ' + error + '</p></div>');
                                         });
                                 } else {
