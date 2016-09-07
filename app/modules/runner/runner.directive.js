@@ -120,13 +120,16 @@ angular.module('automationApp.runner')
                         {
                             var pathwayObj = {group: '', pathway:[]};
                             var grpArr = [];
+                            var isPrimary = '';
+                            grpArr.push('Primary');
                             for(var r=0; r<itemArr.length; r++)
                             {
+                                isPrimary += (r+1) + '/' + '1,';
                                 if(itemArr[r].methods[c] === undefined) {
                                     if(grpArr.indexOf(itemArr[r].methods[0].type) === -1 ) {
                                         grpArr.push(itemArr[r].methods[0].type);
                                     }
-                                    pathwayObj.pathway[r] = (r+1) + '/' + '1';
+                                    pathwayObj.pathway.push((r+1) + '/' + '1');
                                 }
                                 else {
                                     if(grpArr.indexOf(itemArr[r].methods[c].type) === -1 ) {
@@ -135,7 +138,10 @@ angular.module('automationApp.runner')
                                     pathwayObj.pathway.push((r+1) + '/' + (c+1));
                                 }
                             }
-                            pathwayObj.group = grpArr.join();
+                            if(!(isPrimary == (pathwayObj.pathway.join() + ','))) {
+                                grpArr.shift();
+                            }
+                            pathwayObj.group = grpArr.join(', ');
                             pathwaySet.push(pathwayObj);
                         }
 
