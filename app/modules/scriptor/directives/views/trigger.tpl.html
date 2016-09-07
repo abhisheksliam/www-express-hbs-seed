@@ -10,10 +10,12 @@
             <a href="#" ng-disabled="editMode" class="panel-edit"><i class="fa fa-pencil p-l-10"></i></a>
         </div>
     </div>
-    <div class="m-l-30 p-l-30 f-12" ng-hide="editMode">
+    <div class="m-l-30 p-l-30 f-12 p-b-10" ng-hide="editMode">
         <div ng-repeat="attribute in action.values">
-            <span class="attr-label">{{attribute.actKey}}</span>
-            <span class="m-l-15 attr-value">{{attribute.actVal}}</span>
+            <span class="attr-label"><b>{{attribute.actKey}}</b></span>&nbsp;&nbsp;<span class="m-l-15 attr-value"><i>{{attribute.actVal}}</i></span>
+            <span class="p-l-5" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
+                <span class="attr-label"><b>&#9741;&nbsp;&nbsp;</b></span><i><span class="m-l-15 attr-value" ng-bind="$root.getXPathForElement(attribute.actVal)"></span></i>
+            </span>
         </div>
     </div>
     <div class="panel-content toggle-animate" ng-show="editMode">
