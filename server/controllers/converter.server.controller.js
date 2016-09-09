@@ -11,7 +11,6 @@ function getTaskDataFromDatabase(req, res, done){
             done(err);
         } else {
             done(scriptData[0].task_json[0]);
-            console.log(scriptData[0].task_json[0]);
         }
     });
 };
