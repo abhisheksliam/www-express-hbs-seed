@@ -6,6 +6,7 @@
 const TEMPLATE_BLANK = "blank",
       TEMPLATE_BALOO = "baloo",
       TEMPLATE_TASK = "task",
+      TEMPLATE_INGEST = "ingest",
       BALOO_API_HOST = 'anu',
       BALOO_API_PORT = '8080',
       BALOO_API_URL = '/NLPService/api/tasks/';
@@ -128,6 +129,8 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
         generateCopyTemplate(req, function(taskJson){
             saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
         });
+    } else if (req.body.template === TEMPLATE_INGEST){
+        saveUpdateData(bSaveUpdate, req, res, automationScript, req.body.ingest_json, sle_id);
     }
 };
 

@@ -66,13 +66,14 @@ angular.module('automationApp.scriptor')
             return xpath;
         }
 
-        var saveTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, username) {
+        var saveTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, ingest_json, username) {
             var saveTask = $http.post('/api/tasks/', {
                 "app_key": app_key,
                 "scenario": scenario,
                 "task_id": task_id,
                 "copy_sle_id": copy_sle_id,
                 "template": template,
+                "ingest_json": ingest_json,
                 "modified_by" : {
                                 "name" : username
                             }
