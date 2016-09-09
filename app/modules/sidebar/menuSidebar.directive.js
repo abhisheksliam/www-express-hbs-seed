@@ -1,10 +1,10 @@
 "use strict";
 
-angular.module('automationApp.core')
+angular.module('automationApp.sidebar')
     .directive('menuSidebar', function() {
         return {
             restrict: 'A',
-            templateUrl: 'modules/core/sidebar/menuSidebar.tpl.html',
+            templateUrl: 'modules/sidebar/menuSidebar.tpl.html',
             link: function (scope, element, attributes) {
 
 

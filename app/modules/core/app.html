@@ -13,49 +13,7 @@
 
     <!-- modal-->
     <div class="row">
-        <div class="modal fade primary-modal" id="modal-loadtask" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        Load Task
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></button>
-                    </div>
-
-                    <hr  class="m-0">
-                    <div class="modal-body">
-                        <form name="userForm">
-                            <div class="panel-content p-b-0">
-                                <!---->
-                                <div class="col-lg-12 m-l-5">
-                                    <div class="row p-l-0">
-                                        <div class="col-md-6 m-b-20 m-t-12">
-										<span class="input input--hoshi taskid-input m-l-0 f-14">
-											<input class="input__field input__field--hoshi m-t-0 m-b-5" type="text" id="loadTaskId" value="{{loadTaskId}}" ng-model="loadTaskId" placeholder="Task Id">
-											<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="loadTaskId">
-                                                <span class="input__label-content input__label-content--hoshi m-b-15"></span>
-                                            </label>
-										</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!---->
-
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <!--<div class="row margin-minus-r-l-20">-->
-                        <div class="row">
-                            <div class="text-right">
-                                <button type="reset" class="cancel btn btn-embossed btn-white m-r-8 m-t-10" data-dismiss="modal">Cancel</button>
-                                <button id="loadtask-sidebar" type="submit" class="btn btn-embossed btn-primary m-r-20 m-t-10"
-                                        ng-click="loadScript()">Load</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <load-modal></load-modal>
     </div>
     <!---->
     <!-- END SIDEBAR -->
