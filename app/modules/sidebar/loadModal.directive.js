@@ -47,9 +47,9 @@ angular.module('automationApp.sidebar')
                         else if ($rootScope.validateTaskId(scope.loadTaskId)){	// client side validation
                             // api call
                             scriptorService.getTaskJson(scope.loadTaskId).then(function(res) {
-                                if (res.data.length == 0) {
+                                if(res.data.errors) {
                                     $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
-                                } else{
+                                } else {
                                     $('#modal-loadtask').modal('hide');
                                     $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res.data[0]);
                                 }

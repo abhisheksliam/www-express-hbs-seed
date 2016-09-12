@@ -56,7 +56,14 @@ exports.getTaskScript = function (req, res) {
             });
         }
 
-        transformPathwaysNewFormat(res, scriptData);
+        if(scriptData.length !== 0) {
+            transformPathwaysNewFormat(res, scriptData);
+        } else {
+            res.json({ "errors": {
+                "errorMessage": 'SLE_NOT_FOUND : ' + req.params.task_id,
+                "errorCode": "SLE_NOT_FOUND"
+            } });
+        }
     });
 };
 
