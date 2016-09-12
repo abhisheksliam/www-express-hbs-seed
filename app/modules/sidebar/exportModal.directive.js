@@ -22,12 +22,12 @@ angular.module('automationApp.sidebar')
                         else if ($rootScope.validateTaskId(scope.exportTaskId)){	// client side validation
                             // api call
                             scriptorService.getTaskJson(scope.exportTaskId).then(function(res) {
-                                if (res.data.length == 0) {
+                                if(res.data.errors) {
                                     $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
                                 } else{
                                     $('#modal-exportModal').modal('hide');
                                     $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task Id Search SUCCESS !! Now Exporting....!' + '</p></div>');
-                                    if($location.host() == 'localhost' || $location.host() == 'piyush') {
+                                    if($location.host() == 'localhost') {
                                         $window.open($location.protocol() + "://" + $location.host() + ':8080' + '/api/tasks/' + res.data[0].sle_id);
                                     }
                                     else {
