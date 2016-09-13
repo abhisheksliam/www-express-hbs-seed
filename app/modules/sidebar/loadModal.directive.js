@@ -24,20 +24,28 @@ angular.module('automationApp.sidebar')
                             var reader = new FileReader();
                             reader.readAsText(file);
                             reader.onload = function(e) {
-                                ingestJSON = JSON.parse(e.target.result)[0];
+                                try {
+                                    ingestJSON = JSON.parse(e.target.result);
+                                } catch (e) {
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Invalid JSON</p></div>','.modal-body');
+                                }
 
-                                scriptorService.saveTaskScript(ingestJSON.appName, ingestJSON.scenario, ingestJSON.id, '', 'ingest', ingestJSON, username).then(function(res) {
-                                    if(res.data.errors) {
-                                        if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
-                                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Task already exists</p></div>','.modal-body');
-                                        } else {
-                                            $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>','.modal-body');
+                                if(ingestJSON !== undefined && ingestJSON.length !== undefined) {
+                                    scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
+                                        if(res.data.errors) {
+                                            if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
+                                                $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Task already exists</p></div>','.modal-body');
+                                            } else {
+                                                $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>','.modal-body');
+                                            }
+                                        } else{
+                                            $('#modal-loadtask').modal('hide');
+                                            $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
                                         }
-                                    } else{
-                                        $('#modal-loadtask').modal('hide');
-                                        $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
-                                    }
-                                });
+                                    });
+                                } else {
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Ingest JSON format not supported</p></div>','.modal-body');
+                                }
                             };
                         }
                     } else {
