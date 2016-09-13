@@ -28,7 +28,7 @@ angular.module('automationApp.sidebar')
                                     $('#modal-exportModal').modal('hide');
                                     $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task Id Search SUCCESS !! Now Exporting....!' + '</p></div>');
 
-                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data[0].sle_id);
+                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id);
                                 }
                             });
                         } else{
