@@ -27,12 +27,8 @@ angular.module('automationApp.sidebar')
                                 } else{
                                     $('#modal-exportModal').modal('hide');
                                     $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task Id Search SUCCESS !! Now Exporting....!' + '</p></div>');
-                                    if($location.host() == 'localhost') {
-                                        $window.open($location.protocol() + "://" + $location.host() + ':8080' + '/api/tasks/' + res.data[0].sle_id);
-                                    }
-                                    else {
-                                        $window.open($location.protocol() + "://" + $location.host() + '/api/tasks/' + res.data[0].sle_id);
-                                    }
+
+                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data[0].sle_id);
                                 }
                             });
                         } else{
