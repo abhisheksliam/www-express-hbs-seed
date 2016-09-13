@@ -26,8 +26,7 @@ angular.module('automationApp.sidebar')
                                     $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
                                 } else{
                                     $('#modal-exportModal').modal('hide');
-                                    $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task Id Search SUCCESS !! Now Exporting....!' + '</p></div>');
-
+                                    
                                     $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id);
                                 }
                             });
