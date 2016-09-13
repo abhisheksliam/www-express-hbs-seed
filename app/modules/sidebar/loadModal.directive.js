@@ -8,7 +8,7 @@ angular.module('automationApp.sidebar')
             scope:{},
             templateUrl: 'modules/sidebar/loadModal.tpl.html',
             link: function (scope, element, attributes) {
-                scope.loadTaskOption = "";
+                scope.loadTaskOption = "1";
                 scope.loadTaskId ="";
 
                 scope.iCheckOptions = {
