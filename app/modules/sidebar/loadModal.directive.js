@@ -35,7 +35,7 @@ angular.module('automationApp.sidebar')
                                         }
                                     } else{
                                         $('#modal-loadtask').modal('hide');
-                                        $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res.data);
+                                        $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
                                     }
                                 });
                             };
@@ -51,7 +51,7 @@ angular.module('automationApp.sidebar')
                                     $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
                                 } else {
                                     $('#modal-loadtask').modal('hide');
-                                    $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res.data[0]);
+                                    $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
                                 }
                             });
                         } else{

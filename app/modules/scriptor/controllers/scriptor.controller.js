@@ -91,9 +91,9 @@ angular.module('automationApp.scriptor')
 
 			};
 
-            $scope.$on('SCRIPTOR_LOAD_TASK', function(event, data) {
-                scriptorService.taskContent = data.task_json;
-                $state.go('app.script-editor',  {id: data.sle_id});
+            $scope.$on('SCRIPTOR_LOAD_TASK', function(event, res) {
+                scriptorService.taskContent = res.data.task_json;
+                $state.go('app.script-editor',  {id: res.data.sle_id});
                 $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
             });
 
