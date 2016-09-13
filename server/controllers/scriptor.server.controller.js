@@ -169,7 +169,7 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
                 }
             } else {
                 res.json({ "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + req.params.task_id,
+                    "errorMessage": 'SLE_NOT_FOUND : ' + sle_id,
                     "errorCode": "SLE_NOT_FOUND"
                 } });
             }
@@ -197,7 +197,7 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
                 }
             } else {
                 res.json({ "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + req.params.task_id,
+                    "errorMessage": 'SLE_NOT_FOUND : ' + sle_id,
                     "errorCode": "SLE_NOT_FOUND"
                 } });
             }
