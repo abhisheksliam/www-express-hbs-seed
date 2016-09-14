@@ -21,7 +21,7 @@ angular.module('automationApp.sidebar')
                         }
                         else if ($rootScope.validateTaskId(scope.exportTaskId)){	// client side validation
                             // api call
-                            scriptorService.getTaskJson(scope.exportTaskId).then(function(res) {
+                            scriptorService.getTaskJson(scope.exportTaskId, 'export').then(function(res) {
                                 if(res.data.errors) {
                                     $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
                                 } else{
