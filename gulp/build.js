@@ -37,8 +37,15 @@ module.exports = function(options) {
         var injectTemplateFile =  gulp.src(path.join(options.tmp, '/partials/templateCacheHtml.js'),
             {read: false});
 
+        var injectOptions = {
+            starttag:'<!-- inject:partials -->',
+            relative: false,
+            ignorePath: path.join(options.tmp, '/partials'),
+            addRootSlash: false};
+
         return gulp.src(path.join(options.tmp, '/views/partials/foot.hbs'))
-            .pipe($.inject(injectTemplateFile, {starttag:'<!-- inject:partials -->', relative: false, ignorePath: path.join(options.tmp, '/partials'), addRootSlash: false}));
+            .pipe($.inject(injectTemplateFile, injectOptions))
+            .pipe(gulp.dest(path.join(options.tmp, '/views/partials')));
 
 
         // For Production Mode
