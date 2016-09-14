@@ -21,13 +21,15 @@ angular.module('automationApp.sidebar')
                         }
                         else if ($rootScope.validateTaskId(scope.exportTaskId)){	// client side validation
                             // api call
-                            scriptorService.getTaskJson(scope.exportTaskId, 'export').then(function(res) {
+                            scriptorService.getTaskJson(scope.exportTaskId).then(function(res) {
                                 if(res.data.errors) {
                                     $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
                                 } else{
                                     $('#modal-exportModal').modal('hide');
-                                    
-                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id);
+
+                                    var queryParam = '?mode=export';
+
+                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id + queryParam);
                                 }
                             });
                         } else{

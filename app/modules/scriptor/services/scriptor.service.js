@@ -16,13 +16,8 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         }
 
-        var getTaskJson = function(friendlyTaskId, mode) {
-            var queryParam = '';
-            if(mode && mode!=null && mode=='export') {
-                queryParam = '?mode=export';
-            }
-
-            var taskData = $http.get('/api/tasks/' + friendlyTaskId + queryParam);
+        var getTaskJson = function(friendlyTaskId) {
+            var taskData = $http.get('/api/tasks/' + friendlyTaskId);
             var deferred = $q.defer();
             deferred.resolve(taskData);
             return deferred.promise;

@@ -58,10 +58,8 @@ exports.getTaskScript = function (req, res) {
 
         if(scriptData.length !== 0) {
             if(req.query.mode === 'export') {
-                console.log('if ', req.query.mode);
                 res.json(scriptData[0]);
             } else {
-                console.log('else ', req.query.mode);
                 transformPathwaysNewFormat(res, scriptData[0]);
             }
         } else {
