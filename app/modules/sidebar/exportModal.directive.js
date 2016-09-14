@@ -26,8 +26,10 @@ angular.module('automationApp.sidebar')
                                     $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting Task Data</p></div>','.modal-body');
                                 } else{
                                     $('#modal-exportModal').modal('hide');
-                                    
-                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id);
+
+                                    var queryParam = '?mode=export';
+
+                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id + queryParam);
                                 }
                             });
                         } else{

@@ -57,7 +57,11 @@ exports.getTaskScript = function (req, res) {
         }
 
         if(scriptData.length !== 0) {
-            transformPathwaysNewFormat(res, scriptData[0]);
+            if(req.query.mode === 'export') {
+                res.json(scriptData[0]);
+            } else {
+                transformPathwaysNewFormat(res, scriptData[0]);
+            }
         } else {
             res.json({ "errors": {
                 "errorMessage": 'SLE_NOT_FOUND : ' + req.params.task_id,
