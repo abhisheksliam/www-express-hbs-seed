@@ -40,7 +40,7 @@ module.exports = function(options) {
         var injectOptions = {
             starttag:'<!-- inject:partials -->',
             relative: false,
-            ignorePath: path.join(options.tmp, '/partials'),
+            ignorePath: path.join(options.tmp),
             addRootSlash: false};
 
         return gulp.src(path.join(options.tmp, '/views/partials/foot.hbs'))
