@@ -51,7 +51,7 @@ angular.module('automationApp.scriptor')
                     if ((($scope.taskId + '.' + $scope.scenarioType) == $scope.copy_sle_id) && $scope.template === 'task'){
                         $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Same task cannot be duplicated !!' + '</p></div>');
                     } else {
-                        scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, username).then(function(res) {
+                        scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, '', username).then(function(res) {
 
                             if(res.data.errors) {
                                 if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
@@ -90,6 +90,12 @@ angular.module('automationApp.scriptor')
                 }
 
 			};
+
+            $scope.$on('SCRIPTOR_LOAD_TASK', function(event, res) {
+                scriptorService.taskContent = res.data.task_json;
+                $state.go('app.script-editor',  {id: res.data.sle_id});
+                $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
+            });
 
             var tempAppName = undefined;
             var updateApplication = function(){

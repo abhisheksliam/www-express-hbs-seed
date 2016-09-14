@@ -6,6 +6,7 @@
 const TEMPLATE_BLANK = "blank",
       TEMPLATE_BALOO = "baloo",
       TEMPLATE_TASK = "task",
+      TEMPLATE_INGEST = "ingest",
       BALOO_API_HOST = 'anu',
       BALOO_API_PORT = '8080',
       BALOO_API_URL = '/NLPService/api/tasks/';
@@ -55,7 +56,14 @@ exports.getTaskScript = function (req, res) {
             });
         }
 
-        transformPathwaysNewFormat(res, scriptData);
+        if(scriptData.length !== 0) {
+            transformPathwaysNewFormat(res, scriptData[0]);
+        } else {
+            res.json({ "errors": {
+                "errorMessage": 'SLE_NOT_FOUND : ' + req.params.task_id,
+                "errorCode": "SLE_NOT_FOUND"
+            } });
+        }
     });
 };
 
@@ -128,6 +136,8 @@ function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
         generateCopyTemplate(req, function(taskJson){
             saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
         });
+    } else if (req.body.template === TEMPLATE_INGEST){
+        saveUpdateData(bSaveUpdate, req, res, automationScript, req.body.ingest_json, sle_id);
     }
 };
 
@@ -150,7 +160,19 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
                     }
                 });
             }
-            res.json(scriptData);
+
+            if(scriptData) {
+                if (req.body.template === TEMPLATE_TASK || req.body.template === TEMPLATE_INGEST){
+                    transformPathwaysNewFormat(res, scriptData);
+                } else {
+                    res.json(scriptData);
+                }
+            } else {
+                res.json({ "errors": {
+                    "errorMessage": 'SLE_NOT_FOUND : ' + sle_id,
+                    "errorCode": "SLE_NOT_FOUND"
+                } });
+            }
         });
     } else {
         AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
@@ -163,9 +185,22 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
                     }
                 });
             }
-            doc.task_json = automationScript.task_json; // findOneAndUpdate return found value in response, not updated
+
             doc.modified_by.name = automationScript.modified_by.name;
-            res.json(doc);
+            doc.task_json = automationScript.task_json;
+
+            if(doc.task_json.length !== 0) {
+                if(req.body.template === TEMPLATE_TASK) {
+                    transformPathwaysNewFormat(res, doc);
+                } else {
+                    res.json(doc);
+                }
+            } else {
+                res.json({ "errors": {
+                    "errorMessage": 'SLE_NOT_FOUND : ' + sle_id,
+                    "errorCode": "SLE_NOT_FOUND"
+                } });
+            }
         });
     }
 };
@@ -279,11 +314,10 @@ function generateCopyTemplate(req, done){
 };
 
 function transformPathwaysNewFormat(res, scriptData) {
-
-    if(scriptData[0].task_json[1] !== undefined){
+    if(scriptData.task_json[1] !== undefined){
         var array2 = [];
 
-        var array = _.map(scriptData[0].task_json[1], function(value, index) {
+        var array = _.map(scriptData.task_json[1], function(value, index) {
             if(index%2 == 0) {
 
                 var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
@@ -306,7 +340,7 @@ function transformPathwaysNewFormat(res, scriptData) {
             }
         });
 
-        scriptData[0].task_json[1] = array2;
+        scriptData.task_json[1] = array2;
     }
 
     res.json(scriptData);
