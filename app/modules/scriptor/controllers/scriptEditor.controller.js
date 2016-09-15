@@ -21,6 +21,10 @@ angular.module('automationApp.scriptor')
                         $rootScope.xpathArrayList = res;
                         $rootScope.getXPathForElement = scriptorService.getXPathForElement;
                     });
+
+                    scriptorService.getTriggers().then(function(res) {
+                        $rootScope.triggers = res.data[$rootScope.applicationName];
+                    });
                 });
 
                 scriptorService.getGlobalContext().then(function(res) {
@@ -39,11 +43,11 @@ angular.module('automationApp.scriptor')
                     $rootScope.xpathArrayList = res;
                     $rootScope.getXPathForElement = scriptorService.getXPathForElement;
                 });
-            }
 
-            scriptorService.getTriggers().then(function(res) {
-                $rootScope.triggers = res.data;
-            });
+                scriptorService.getTriggers().then(function(res) {
+                    $rootScope.triggers = res.data[$rootScope.applicationName];
+                });
+            }
 
             scriptorService.getTriggerSuggestions().then(function(res) {
                 $rootScope.TriggerSuggestions = res.data;
