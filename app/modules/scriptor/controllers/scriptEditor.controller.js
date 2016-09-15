@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$timeout',
-		function($stateParams, $rootScope, $scope, scriptorService, $timeout) {
+	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$timeout', '$state',
+		function($stateParams, $rootScope, $scope, scriptorService, $timeout, $state) {
             var taskData;
             $scope.sleId = $stateParams.id;
 
@@ -58,6 +58,12 @@ angular.module('automationApp.scriptor')
                     }
                 }
             },true);
+
+            $scope.$on('SCRIPTOR_LOAD_TASK', function(event, res) {
+                scriptorService.taskContent = res.data.task_json;
+                $state.go('app.script-editor',  {id: res.data.sle_id});
+                $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
+            });
 
             $scope.editableiteminput = {
                 editorenabled : -1,
