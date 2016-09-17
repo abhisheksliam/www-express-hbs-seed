@@ -50,13 +50,14 @@ angular.module('automationApp.scriptor')
 
                     var taskMetadata = scriptorService.getApplicationFromScenarioId($scope.taskId, $rootScope.globalConstants);
 
-                    $scope.applicationName = taskMetadata.application.label;
-                    $scope.scenarioType = taskMetadata.scenario;
-                    $scope.taskId = taskMetadata.taskId;
-
-                    if($scope.applicationName === undefined || $scope.scenarioType === undefined) {
+                    if(taskMetadata.application === undefined || taskMetadata.scenario === undefined) {
                         $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Application or Scenario Type not present in SLE ID !' + '</p></div>');
                     } else {
+
+                        $scope.applicationName = taskMetadata.application.label;
+                        $scope.scenarioType = taskMetadata.scenario;
+                        $scope.taskId = taskMetadata.taskId;
+
                         if ((($scope.taskId + '.' + $scope.scenarioType) == $scope.copy_sle_id) && $scope.template === 'task'){
                             $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Same task cannot be duplicated !!' + '</p></div>');
                         } else {
