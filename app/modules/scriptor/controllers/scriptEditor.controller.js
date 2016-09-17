@@ -14,8 +14,6 @@ angular.module('automationApp.scriptor')
 
                     scriptorService.taskContent = taskData;
                     $rootScope.taskId = $scope.taskId = taskData[0].id;
-                    $scope.scenarioType = taskData[0].scenario;
-                    $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
 
                     scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
                         $rootScope.xpathArrayList = res;
@@ -29,6 +27,12 @@ angular.module('automationApp.scriptor')
 
                 scriptorService.getGlobalContext().then(function(res) {
                     $rootScope.globalConstants = res.data;
+
+                    var taskMetadata = scriptorService.getApplicationFromScenarioId($scope.sleId, $rootScope.globalConstants);
+
+                    $rootScope.applicationName = $scope.applicationName = taskMetadata.application.label;
+                    $scope.scenarioType = taskMetadata.scenario;
+                    $scope.taskId = taskMetadata.taskId;
                 });
             } else {
                 taskData = scriptorService.taskContent;

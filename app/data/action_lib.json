@@ -10,6 +10,21 @@
           "actKey": "text"
         }
       ]
+    },
+    {
+      "name": "enterTextInElement()",
+      "id": "2",
+      "syntax": "enterTextInElement(String elementName, String text)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "text"
+        }
+      ]
     }
   ],
   "access": [
