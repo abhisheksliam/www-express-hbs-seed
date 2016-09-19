@@ -93,3 +93,91 @@ exports.jsonToDistXml = function(req, res) {
 
     });
 };
+
+exports.jsonToDistJava = function(req, res) {
+
+    getTaskDataFromDatabase(req, res, function(taskData) {
+
+        if(!taskData || !taskData.items) {
+            res.json({
+                "errors": {
+                    "errorMessage": "Task data not found",
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
+        else {
+            var itemsInitCount = 0;
+            for(var p=0;p<taskData.items.length;p++){
+                if(taskData.items[p].init){
+                    itemsInitCount++;
+                }
+            }
+
+            var preJ = 'package testcase.' +
+                taskData.appName +
+                ';    import org.testng.annotations.Test;    import runner.TestRunner;    public class Test_' +
+                ((taskData.id).replace(/\./gi, "_")).trim()
+
+                +
+                '_' +
+                taskData.scenario.toUpperCase().trim()
+                +
+                ' extends TestRunner {    ';
+
+            var postJout = ' }';
+
+
+            var runJ = '';
+            var testCount = 0;
+
+            var preJin = '' +
+                '@Test (groups = {' +
+                '"Acceptance", "Primary"' + //todo: change this
+                '})        public void ' +
+                ((taskData.id).replace(/\./gi, "_")).trim()
+                +
+                '_' +
+                (taskData.scenario.toUpperCase()).trim() + (++testCount).toString()
+                +
+                '() throws Exception {            System.out.println("START..");            ';
+
+            var postJ = 'Thread.sleep(3000);            ' +
+                'System.out.println("DONE.");        }   ';
+
+            for(var i=0;i<taskData.items.length;i++){
+
+                if(taskData.items[i].init){
+/*
+                    if($('#run-item-'+(i+1)).is(':checked') == true){
+
+                        var methodChecked = $('input[name="item'+(i+1)+'-method"]:checked', '#item'+(i+1)+'-methods').data('method');
+
+                        runJ = runJ + 'executeItem(' +
+                            '"' +
+                            taskData.id.trim() + '.' + taskData.scenario.trim() +
+                            '", ' +
+                            '"' +
+                            taskData.scenario.trim() +
+                            '", ' +
+                            '"' +
+                            (i+1).toString() +
+                            '", ' +
+                            '"' +
+                            (methodChecked).toString() +
+                            '"' +
+                            ');            ';
+
+
+                    }*/
+
+                }
+            };
+
+            var responseJava = (preJ + preJin + runJ + postJ + postJout);
+
+            res.json(responseJava);
+        }
+
+    });
+};

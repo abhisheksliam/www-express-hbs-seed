@@ -169,13 +169,16 @@ angular.module('automationApp.runner')
                         $http.get('/api/xml/' + scenarioId).then(function(res) {
                             xmlContent =  res.data;
 
-                            postDataToRunner(scenarioId, xmlContent, generateJAVA());
+                            $http.get('/api/java/' + scenarioId).then(function(res) {
+                                /*if(bSkipFeature) {
+
+                                 }*/
+
+                                postDataToRunner(scenarioId, xmlContent, js_beautify(res.data));
+
+                            });
 
                         });
-
-                        /*
-                         SKip
-                         */
 
                         event.stopPropagation();
                     });
@@ -194,29 +197,16 @@ angular.module('automationApp.runner')
                         $http.get('/api/xml/' + scenarioId).then(function(res) {
                             xmlContent =  res.data;
 
-                            postDataToRunner(scenarioId, xmlContent, generateJAVA());
+                            $http.get('/api/java/' + scenarioId).then(function(res) {
+
+                                postDataToRunner(scenarioId, xmlContent, js_beautify(res.data));
+
+                            });
 
                         });
 
                         event.stopPropagation();
                     });
-
-                    function generateJAVA(mode){
-                        return 'package testcase.word;' +
-                            'import org.testng.annotations.Test;' +
-                            'import runner.TestRunner;' +
-                            'public class Test_GO16_WD_04_4A_01_T1 extends TestRunner {@Test(groups = {' +
-                            '"Primary"' +
-                            '}) public void GO16_WD_04_4A_01_T1_1() throws Exception {' +
-                            'System.out.println("START..");' +
-                            'executeItem("GO16.WD.04.4A.01.T1", "T1", "1", "1");' +
-                            'executeItem("GO16.WD.04.4A.01.T1", "T1", "2", "1");' +
-                            'executeItem("GO16.WD.04.4A.01.T1", "T1", "3", "1");' +
-                            'Thread.sleep(3000);' +
-                            'System.out.println("DONE.");' +
-                            '}' +
-                            '}';
-                    }
 
                     function postDataToRunner(scenarioId, xmlContent, javaContent){
 
