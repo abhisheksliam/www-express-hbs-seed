@@ -23,6 +23,13 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
+        var getTaskXml = function(friendlyTaskId) {
+            var taskData = $http.get('/api/xml/' + friendlyTaskId);
+            var deferred = $q.defer();
+            deferred.resolve(taskData);
+            return deferred.promise;
+        };
+
         var getApplicationFromScenarioId = function(scenarioId, globalConstants) {
             var scenario;
             var taskId;
@@ -189,6 +196,7 @@ angular.module('automationApp.scriptor')
         "taskContent" : {},
         "getGlobalContext": getGlobalContext,
         "getTaskJson": getTaskJson,
+        "getTaskXml": getTaskXml,
         "getApplicationFromScenarioId": getApplicationFromScenarioId,
         "saveTaskScript": saveTaskScript,
         "updateTaskScript": updateTaskScript,
