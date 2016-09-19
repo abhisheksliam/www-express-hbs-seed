@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('automationApp.runner')
-    .directive('runnerLauncher', ['$timeout', function($timeout) {
+    .directive('runnerLauncher', ['$timeout', '$http', function($timeout, $http) {
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
@@ -9,6 +9,12 @@ angular.module('automationApp.runner')
                 'items' : '='
             },
             link: function (scope, element, attributes) {
+
+                $http.get('data/runner_configuration.json').then(function(res) {
+                    scope.runnerConfig =  res.data;
+                });
+
+
 
                 scope.iCheckOptions = {
                     checkboxClass: 'icheckbox_square-blue',
@@ -52,12 +58,6 @@ angular.module('automationApp.runner')
                             $(this).addClass('bg-primary');
                         }
 
-                        event.stopPropagation();
-                    });
-
-                    element.on('click',".run-task-btn",function(event) {
-						event.preventDefault();
-						
                         event.stopPropagation();
                     });
 
@@ -156,6 +156,127 @@ angular.module('automationApp.runner')
 
                         event.stopPropagation();
                     });
+
+                    element.on('click',".run-task-btn",function(event) {
+                        event.preventDefault();
+
+                        console.log('inside run Task', scope.runnerConfig)
+                       /* var prettyRunXML = updateRunXml();
+
+                        var prettyRunJava = getRunJava();  //todo: change this
+
+                        var distXML = '';
+                        var distJava = '';
+
+                        var taskData =   JSON.parse(localStorage.getItem('taskData'));
+
+                        var javaFilename =    'Test_.java';
+                        var xmlFilename =    '_.xml';
+
+                        try{
+                            javaFilename =    'Test_' +   (taskData.id +'_'+ taskData.scenario).replace(/\./gi, "_") + '.java';
+                            xmlFilename =    (taskData.id +'_'+ taskData.scenario).replace(/\./gi, "_") + '.xml';
+                        }catch(er){
+
+                        }
+
+                        console.log('prettyRunJava: ' + prettyRunJava);
+
+
+                        $("#xmlFilename").val(xmlFilename);
+                        $("#xmldata").val(prettyRunXML);
+                        $("#javaFilename").val(javaFilename);
+                        $("#javadata").val(prettyRunJava);
+                        $("#distXML").val(distXML);
+                        $("#distJava").val(distJava);
+                        $("#appName").val(taskData.appName);
+
+                        window.open('', 'nodeSingleTestWindow',"menubar=1,resizable=1,width=1200,height=800");
+                        document.getElementById('nodeSingleTestForm').submit();*/
+
+                        event.stopPropagation();
+                    });
+
+                    element.on('click',".run-pathway",function(event) {
+                        event.preventDefault();
+
+                        var baseUrl = scope.runnerConfig.runner.url;
+                        var runnerAPI = scope.runnerConfig.runner.api;
+                        var appName = scope.items[0].appName;
+                        var taskId = scope.items[0].id;
+                        var scenarioId = taskId + '.' + scope.items[0].scenario;
+                        var selectedBrowser = scope.runnerConfig.browser[0];
+                        var filename = 'Test_' +   (scenarioId).replace(/\./gi, "_");
+                        var xmlContent;
+
+                        window.open (baseUrl,",","menubar=1,resizable=1,width=1200,height=800");
+
+                        $http.get('/api/xml/' + scenarioId).then(function(res) {
+                            xmlContent =  res.data;
+
+                            var javaContent = 'package testcase.word;' +
+                                'import org.testng.annotations.Test;' +
+                                'import runner.TestRunner;' +
+                                'public class Test_GO16_WD_04_4A_01_T1 extends TestRunner {@Test(groups = {' +
+                                '"Primary"' +
+                                '}) public void GO16_WD_04_4A_01_T1_1() throws Exception {' +
+                                'System.out.println("START..");' +
+                                'executeItem("GO16.WD.04.4A.01.T1", "T1", "1", "1");' +
+                                'executeItem("GO16.WD.04.4A.01.T1", "T1", "2", "1");' +
+                                'executeItem("GO16.WD.04.4A.01.T1", "T1", "3", "1");' +
+                                'Thread.sleep(3000);' +
+                                'System.out.println("DONE.");' +
+                                '}' +
+                            '}';
+
+                            var formData =   {
+                                "command": scope.runnerConfig.testCommand,
+                                "params": [
+                                    "-DappURL=" + scope.runnerConfig.user.ApplicationURL,
+                                    "-DtestName=" + appName + "." + filename,
+                                    "-DbrName=" + selectedBrowser,
+                                    "-Dnode=" + scope.runnerConfig.user.nodeName,
+                                    "-DhubIp=" + scope.runnerConfig.params.HubIp,
+                                    "-DhubPort=" + scope.runnerConfig.params.HubPort
+                                ],
+                                "task": {
+                                    "filename": filename,
+                                    "appName": appName,
+                                    "xml": xmlContent,
+                                    "java": javaContent
+                                },
+                                "clientIp" : scope.runnerConfig.user.clientIp
+                            };
+
+                            // process the form
+                            $.ajax({
+                                    type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                    url         : baseUrl + runnerAPI, // the url where we want to POST
+                                    data        : formData, // our data object
+                                    dataType    : 'json' // what type of data do we expect back from the server
+                                })
+                                // using the done promise callback
+                                .done(function(data) {
+
+                                    if(data.status === 200){
+                                        console.log('success');
+                                        post(baseUrl + runnerAPI, {}, 'post');
+                                    } else {
+                                        console.log('fail');
+                                        alert(data);
+                                    }
+                                });
+                        });
+
+                      /*
+                      SKip
+                      Java API
+                      Beautify Java
+                      */
+
+                        event.stopPropagation();
+                    });
+
                 });
             }
         }

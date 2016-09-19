@@ -1,0 +1,33 @@
+{
+  "runner" : {
+    "url": "http://abhishekk:8080",
+    "api": "/sims/runtask"
+  },
+  "testCommand" : "mvn test",
+  "testEnv" : [
+    "Local",
+    "SauceLabs"
+  ],
+  "browser" : [
+    "Chrome",
+    "Firefox"
+  ],
+  "params": {
+    "HubIp" : "192.168.1.200",
+    "HubPort" : "4444",
+    "OS" : "Windows",
+    "browserVersion" : "",
+    "buildName" : "Sim5Runner",
+    "tagName" :  "SIM5 Build Number",
+    "screenResolution" : "",
+    "testName" : "Task Name",
+    "isAppUrlPublic" : "",
+    "userName" : "",
+    "accessKey" : ""
+  },
+  "user" : {
+    "nodeName" : "shipra",
+    "clientIp" : "192.168.1.94",
+    "ApplicationURL" : "http://grader13/qatrunk/SIM5Frame.aspx"
+  }
+}
