@@ -88,7 +88,8 @@ exports.jsonToDistXml = function(req, res) {
 
             var updatedRunXml = xmlPre + taskDataPre + taskDataPost + xmlPost;
 
-            res.json(updatedRunXml);
+            res.set('Content-Type', 'text/xml');
+            res.send(updatedRunXml);
         }
 
     });
