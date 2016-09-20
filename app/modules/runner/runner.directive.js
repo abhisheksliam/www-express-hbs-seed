@@ -214,7 +214,7 @@ angular.module('automationApp.runner')
                         var baseUrl = scope.runnerConfig.runner.url;
                         var runnerAPI = scope.runnerConfig.runner.api;
                         var selectedBrowser = scope.runnerConfig.browser[0];
-                        var filename = 'Test_' +   (scenarioId).replace(/\./gi, "_");
+                        var filename = (scenarioId).replace(/\./gi, "_");
 
                         var formData =   {
                             "command": scope.runnerConfig.testCommand,
