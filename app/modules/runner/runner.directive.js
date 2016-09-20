@@ -166,19 +166,10 @@ angular.module('automationApp.runner')
 
                         window.open (baseUrl,",","menubar=1,resizable=1,width=1200,height=800");
 
-                        $http.get('/api/xml/' + scenarioId).then(function(res) {
-                            xmlContent =  res.data;
+                        var xmlContent = getXmlContent();
+                        var javaContent = getJavaContent();
 
-                            $http.get('/api/java/' + scenarioId).then(function(res) {
-                                /*if(bSkipFeature) {
-
-                                 }*/
-
-                                postDataToRunner(scenarioId, xmlContent, js_beautify(res.data));
-
-                            });
-
-                        });
+                        postDataToRunner(scenarioId, xmlContent, js_beautify(javaContent));
 
                         event.stopPropagation();
                     });
@@ -245,6 +236,116 @@ angular.module('automationApp.runner')
                     }
 
                 });
+
+                var getXmlContent = function() {
+                   var taskData = scope.items[0];
+
+                   var xmlPre = '<?xml version="1.0" encoding="UTF-8"  standalone="no"?><Task TemplateVersion="V1" id="'+ taskData.id +'" name="'+ taskData.name +'">  <description>'+ taskData.description +'</description>  <friendlyTaskID>'+ taskData.id + '.'+taskData.scenario +'</friendlyTaskID>  <scenario name="'+ taskData.scenario +'">';
+
+                    var xmlPost =   '</scenario>    </Task>';
+
+                    var taskDataPre = '<Items count="'+taskData.items.length+'">';
+                    var taskDataPost = '</Items>';
+
+                    for(var i=0;i<taskData.items.length;i++){
+
+                       // if(taskData.items[i].init){
+                            taskDataPre = taskDataPre + '<Item sno="'+(i+1)+'">';
+
+                            for(var j=0;j<taskData.items[i].methods.length;j++){
+
+                                var jin=0;
+
+                                //if(taskData.items[i].methods[j].init){
+                                    taskDataPre = taskDataPre + '<Method group="'+taskData.items[i].methods[j].group+'" name="'+taskData.items[i].methods[j].type+'" sno="'+(j+1)+'"><Actions>';
+
+                                    var methodChecked = $('input[name=method-radio-'+i +']:checked').data('method');
+
+                                    for(var k=0; k<taskData.items[i].methods[j].actions.length; k++){
+                                      //  if(taskData.items[i].methods[j].actions[k].init){
+
+                                            if(i>0 && jin==0){
+                                                if($('#run-item-'+(i-1)).not(':checked').length === 1){
+                                                    if(methodChecked == (j+1)){
+                                                        jin = $("input:checkbox:not(:checked)").length;
+                                                        for(var _jin=0; _jin < jin;_jin++){
+                                                            taskDataPre = taskDataPre + '<Action sno="'+(_jin+1)+'"><actionType name="skiptonextitem"></actionType></Action>';
+                                                        }
+                                                    }
+                                                };
+                                            }
+                                            taskDataPre = taskDataPre + '<Action sno="'+(k+jin+1)+'"><actionType name="'+(taskData.items[i].methods[j].actions[k].name).toString().trim().replace("()","")+'">';
+
+                                            for(var l=0;l<taskData.items[i].methods[j].actions[k].values.length;l++){
+                                                taskDataPre = taskDataPre + '<'+taskData.items[i].methods[j].actions[k].values[l].actKey+'>'+taskData.items[i].methods[j].actions[k].values[l].actVal+'</'+taskData.items[i].methods[j].actions[k].values[l].actKey+'>';
+                                            }
+                                            taskDataPre = taskDataPre + '</actionType></Action>';
+                                       // }
+                                    }
+                                    taskDataPre = taskDataPre + '</Actions></Method>';
+                             //   }
+                            }
+                            taskDataPre = taskDataPre + '</Item>';
+                     //   }
+                    }
+
+                    return (xmlPre + taskDataPre + taskDataPost + xmlPost);
+                }
+
+                var getJavaContent = function() {
+                    var taskData = scope.items[0];
+
+                    var preJ = 'package testcase.' +
+                        taskData.appName +
+                        ';    import org.testng.annotations.Test;    import runner.TestRunner;    public class Test_' +
+                        ((taskData.id).replace(/\./gi, "_")).trim()
+
+                        +
+                        '_' +
+                        taskData.scenario.toUpperCase().trim()
+                        +
+                        ' extends TestRunner {    ';
+
+                    var postJout = ' }';
+
+
+                    var runJ = '';
+                    var testCount = 0;
+
+                    var preJin = '' +
+                        '@Test (groups = {' +
+                        '"Acceptance", "Primary"' +
+                        '})        public void ' +
+                        ((taskData.id).replace(/\./gi, "_")).trim()
+                        +
+                        '_' +
+                        (taskData.scenario.toUpperCase()).trim() + (++testCount).toString()
+                        +
+                        '() throws Exception {            System.out.println("START..");            ';
+
+                    var postJ = 'Thread.sleep(3000);            ' +
+                        'System.out.println("DONE.");        }   ';
+
+                    for(var i=0;i<taskData.items.length;i++){
+
+                       // if(taskData.items[i].init){
+
+                            if($('#run-item-'+(i)).is(':checked') == true){
+
+                                var methodChecked = $('input[name=method-radio-'+i +']:checked').val();
+
+                                runJ = runJ + 'executeItem(' +
+                                    '"' + taskData.id.trim() + '.' + taskData.scenario.trim() + '", ' +
+                                    '"' + taskData.scenario.trim() + '", ' +
+                                    '"' + methodChecked.toString().split('/').join('","') + '"' +
+                                    ');';
+                            }
+
+                      //  }
+                    };
+
+                    return (preJ + preJin + runJ + postJ + postJout);
+                }
             }
         }
     }]);

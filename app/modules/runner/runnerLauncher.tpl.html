@@ -10,7 +10,7 @@
                 <ol id="item-panel" class="dd-list" ng-repeat="item in items[0].items">
                     <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
                         <div class="item-level-0 dd3-content border-left">
-                            <h4><input i-check ng-model="itemSelection" type="checkbox" name="Item" value="" class="runner-item-check"><span>Item {{$index+1}}</span><i class="fa fa-chevron-down" aria-hidden="true"></i></h4>
+                            <h4><input i-check ng-model="itemSelection" type="checkbox" id="run-item-{{$index}}" name="Item" value="" class="runner-item-check"><span>Item {{$index+1}}</span><i class="fa fa-chevron-down" aria-hidden="true"></i></h4>
                         </div>
                         <div class="data-items" style="display: none">
                             <ol class="dd-list">
@@ -18,7 +18,7 @@
                                     <div class="item-level-1 dd3-content p-b-10">
                                         <div class="icheck-list">
                                             <label ng-repeat="method in item.methods">
-                                                <input i-check class="runner-method-radio" type="radio" name="method-radio-{{$parent.$index}}" ng-model="methodSelection" value="{{$parent.$index+1}}/{{$index+1}}">
+                                                <input i-check class="runner-method-radio" type="radio" name="method-radio-{{$parent.$index}}" ng-model="methodSelection" data-method="{{$index+1}}" value="{{$parent.$index+1}}/{{$index+1}}">
                                                 M{{$index+1}}  <span class="method-type-value">({{method.type}})</span>
                                             </label>
                                         </div>
