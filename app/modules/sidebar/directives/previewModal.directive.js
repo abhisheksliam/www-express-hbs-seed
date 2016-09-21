@@ -6,7 +6,7 @@ angular.module('automationApp.sidebar')
             restrict: 'E',
             replace: true,
             scope:{},
-            templateUrl: 'modules/sidebar/previewModal.tpl.html',
+            templateUrl: 'modules/sidebar/views/previewModal.tpl.html',
             link: function (scope, element, attributes) {
 
                 scope.previewXML = function(){

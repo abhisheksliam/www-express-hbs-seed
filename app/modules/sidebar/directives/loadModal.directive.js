@@ -6,7 +6,7 @@ angular.module('automationApp.sidebar')
             restrict: 'E',
             replace: true,
             scope:{},
-            templateUrl: 'modules/sidebar/loadModal.tpl.html',
+            templateUrl: 'modules/sidebar/views/loadModal.tpl.html',
             link: function (scope, element, attributes) {
                 scope.loadTaskOption = "1";
                 scope.loadTaskId ="";
