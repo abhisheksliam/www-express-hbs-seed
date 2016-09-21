@@ -10,6 +10,8 @@ angular.module('automationApp.runner')
             },
             link: function (scope, element, attributes) {
 
+                scope.methodSelection = {};
+
                 $http.get('data/runner_configuration.json').then(function(res) {
                     scope.runnerConfig =  res.data;
                 });
@@ -35,6 +37,12 @@ angular.module('automationApp.runner')
 
                 scope.$watch('items', function(newValue) {
                     if (newValue !== undefined) {
+                        if( scope.items[0] !== undefined && scope.items[0].items !== 0 ) {
+                            for(var i=0; i <  scope.items[0].items.length; i++) {
+                                scope.methodSelection[i] = i+1 + "/1";
+                            }
+                        }
+
                         if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
                             $(".run-pathway").attr("disabled", false);
                             $(".run-pathway").removeClass("disablebtn");
