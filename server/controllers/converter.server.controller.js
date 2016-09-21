@@ -29,56 +29,75 @@ exports.jsonToDistXml = function(req, res) {
             });
         }
         else {
-
-            var xmlPre = '<?xml version="1.0" encoding="UTF-8"  standalone="no"?><Task TemplateVersion="V1" id="'+ taskData.id +'" name="'+ taskData.name +'">  <description>'+ taskData.description +'</description>  <friendlyTaskID>'+ taskData.id + '.'+taskData.scenario +'</friendlyTaskID>  <scenario name="'+ taskData.scenario +'">';
+            var xmlPre = '<?xml version="1.0" encoding="UTF-8"?><Task id="'+ taskData.id +'" name="'+ taskData.name +'">  <description>'+ taskData.description +'</description>  <friendlyTaskID>'+ taskData.id +'.'+ taskData.scenario +'</friendlyTaskID>  <scenario name="'+ taskData.scenario +'">';
             var xmlPost =   '</scenario>    </Task>';
 
-            var itemsInitCount = 0;
+            /*var itemsInitCount = 0;
             for(var p=0;p<taskData.items.length;p++){
 
                 if(taskData.items[p].init){
                     itemsInitCount++;
                 }
-            }
+            }*/
 
-            var taskDataPre = '<Items count="'+itemsInitCount+'">';
+            var taskDataPre = '<Items count="'+taskData.items.length+'">';
             var taskDataPost = '</Items>';
 
             for(var i=0;i<taskData.items.length;i++){
 
-                if(taskData.items[i].init){
+               // if(taskData.items[i].init){
+                    var suffix='';
+                    var selectedType = '';
+                    var methodCount = 0;
+                    var methodTypeCount = {
+                        "Ribbon" : 0,
+                        "Keyboard" : 0,
+                        "Toolbar" : 0,
+                        "Mouse" : 0,
+                        "Shortcut Menu" : 0,
+                        "Other" : 0,
+                        "Menu" : 0,
+                        "Right - Click" : 0
+                    };
 
                     taskDataPre = taskDataPre + '<Item sno="'+(i+1)+'">';
 
                     for(var j=0;j<taskData.items[i].methods.length;j++){
+                        suffix = '';
 
-                        var jin=0;
+                        selectedType = taskData.items[i].methods[j].type;
+                        methodCount = methodTypeCount[selectedType];
 
-                        if(taskData.items[i].methods[j].init){
-                            taskDataPre = taskDataPre + '<Method group="'+taskData.items[i].methods[j].group+'" name="'+taskData.items[i].methods[j].type+'" sno="'+(j+1)+'"><Actions>';
+                        methodTypeCount[selectedType] = ++methodCount;
 
-                            for(var k=0; k<taskData.items[i].methods[j].actions.length; k++){
-                                if(taskData.items[i].methods[j].actions[k].init){
+                        if (methodCount > 1) {
+                            suffix = "(" + methodCount + ")";
+                        }
 
-                                    taskDataPre = taskDataPre + '<Action sno="'+(k+jin+1)+'"><actionType name="'+(taskData.items[i].methods[j].actions[k].name).toString().trim().replace("()","")+'">';
+                       // if(taskData.items[i].methods[j].init){
+                            taskDataPre = taskDataPre + '<Method group="'+taskData.items[i].methods[j].group+'" name="'+taskData.items[i].methods[j].type+suffix+'" sno="'+(j+1)+'"><Actions>';
+
+                            for(var k=0;k<taskData.items[i].methods[j].actions.length;k++){
+
+                              //  if(taskData.items[i].methods[j].actions[k].init){
+                                    taskDataPre = taskDataPre + '<Action sno="'+(k+1)+'"><actionType name="'+(taskData.items[i].methods[j].actions[k].name).toString().trim().replace("()","")+'">';
 
                                     for(var l=0;l<taskData.items[i].methods[j].actions[k].values.length;l++){
                                         taskDataPre = taskDataPre + '<'+taskData.items[i].methods[j].actions[k].values[l].actKey+'>'+taskData.items[i].methods[j].actions[k].values[l].actVal+'</'+taskData.items[i].methods[j].actions[k].values[l].actKey+'>';
                                     }
+
                                     taskDataPre = taskDataPre + '</actionType></Action>';
-                                }
+                              //  }
                             }
                             taskDataPre = taskDataPre + '</Actions></Method>';
-                        }
+                      //  }
                     }
                     taskDataPre = taskDataPre + '</Item>';
-                }
+              //  }
             }
 
-            var updatedRunXml = xmlPre + taskDataPre + taskDataPost + xmlPost;
-
             res.set('Content-Type', 'text/xml');
-            res.send(updatedRunXml);
+            res.send(xmlPre + taskDataPre + taskDataPost + xmlPost);
         }
 
     });
@@ -100,12 +119,12 @@ exports.jsonToDistJava = function(req, res) {
             });
         }
         else {
-            var itemsInitCount = 0;
+            /*var itemsInitCount = 0;
             for(var p=0;p<taskData.items.length;p++){
                 if(taskData.items[p].init){
                     itemsInitCount++;
                 }
-            }
+            }*/
 
             var preJ = 'package testcase.' +
                 taskData.appName +
