@@ -1,6 +1,6 @@
 {
   "runner" : {
-    "url": "http://abhishekk:8080",
+    "url": "http://abhishekk:9001",
     "api": "/sims/runtask"
   },
   "testCommand" : "mvn test",

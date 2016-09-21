@@ -162,14 +162,14 @@ angular.module('automationApp.runner')
 
                         var scenarioId = scope.items[0].id + '.' + scope.items[0].scenario;
 
-                        var xmlContent;
+                        var filename = (scenarioId).replace(/\./gi, "_").trim();
 
                         window.open (baseUrl,",","menubar=1,resizable=1,width=1200,height=800");
 
                         var xmlContent = getXmlContent();
-                        var javaContent = getJavaContent();
+                        var javaContent = getJavaContent(filename);
 
-                        postDataToRunner(scenarioId, xmlContent, js_beautify(javaContent));
+                        postDataToRunner(scenarioId, filename, xmlContent, js_beautify(javaContent));
 
                         event.stopPropagation();
                     });
@@ -181,6 +181,8 @@ angular.module('automationApp.runner')
 
                         var scenarioId = scope.items[0].id + '.' + scope.items[0].scenario;
 
+                        var filename = (scenarioId).replace(/\./gi, "_").trim();
+
                         var xmlContent;
 
                         window.open (baseUrl,",","menubar=1,resizable=1,width=1200,height=800");
@@ -190,7 +192,7 @@ angular.module('automationApp.runner')
 
                             $http.get('/api/java/' + scenarioId).then(function(res) {
 
-                                postDataToRunner(scenarioId, xmlContent, js_beautify(res.data));
+                                postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data));
 
                             });
 
@@ -199,19 +201,19 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    function postDataToRunner(scenarioId, xmlContent, javaContent){
+                    function postDataToRunner(scenarioId, filename, xmlContent, javaContent){
 
                         var appName = scope.items[0].appName;
                         var baseUrl = scope.runnerConfig.runner.url;
                         var runnerAPI = scope.runnerConfig.runner.api;
                         var selectedBrowser = scope.runnerConfig.browser[0];
-                        var filename = (scenarioId).replace(/\./gi, "_");
+
 
                         var formData =   {
                             "command": scope.runnerConfig.testCommand,
                             "params": [
                                 "-DappURL=" + scope.runnerConfig.user.ApplicationURL,
-                                "-DtestName=" + appName + "." + filename,
+                                "-DtestName=" + appName + ".Test_" + filename,
                                 "-DbrName=" + selectedBrowser,
                                 "-Dnode=" + scope.runnerConfig.user.nodeName,
                                 "-DhubIp=" + scope.runnerConfig.params.HubIp,
@@ -292,22 +294,14 @@ angular.module('automationApp.runner')
                     return (xmlPre + taskDataPre + taskDataPost + xmlPost);
                 }
 
-                var getJavaContent = function() {
+                var getJavaContent = function(filename) {
                     var taskData = scope.items[0];
 
-                    var preJ = 'package testcase.' +
-                        taskData.appName +
-                        ';    import org.testng.annotations.Test;    import runner.TestRunner;    public class Test_' +
-                        ((taskData.id).replace(/\./gi, "_")).trim()
-
-                        +
-                        '_' +
-                        taskData.scenario.toUpperCase().trim()
-                        +
-                        ' extends TestRunner {    ';
+                    var preJ = 'package testcase.' + taskData.appName + ';' +
+                        'import org.testng.annotations.Test;    import runner.TestRunner;' +
+                        'public class Test_' + filename + ' extends TestRunner {    ';
 
                     var postJout = ' }';
-
 
                     var runJ = '';
                     var testCount = 0;
@@ -316,10 +310,7 @@ angular.module('automationApp.runner')
                         '@Test (groups = {' +
                         '"Acceptance", "Primary"' +
                         '})        public void ' +
-                        ((taskData.id).replace(/\./gi, "_")).trim()
-                        +
-                        '_' +
-                        (taskData.scenario.toUpperCase()).trim() + (++testCount).toString()
+                        filename + (++testCount).toString()
                         +
                         '() throws Exception {            System.out.println("START..");            ';
 
