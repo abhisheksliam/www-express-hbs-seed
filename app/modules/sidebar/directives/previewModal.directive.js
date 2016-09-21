@@ -15,13 +15,14 @@ angular.module('automationApp.sidebar')
                     }
                     else if ($rootScope.validateTaskId(scope.previewSleId)){	// client side validation
                         // api call
-                        scriptorService.getTaskXml(scope.previewSleId).then(function(res) {
+                        scriptorService.getTaskJson(scope.previewSleId).then(function(res) {
                             if(res.data.errors) {
-                                $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in creating XML for SLE</p>'+scope.previewSleId+'</div>','.modal-body');
+                                $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + res.data.errors.errorMessage + '</p></div>','.modal-body');
                             } else{
                                 $('#modal-previewModal').modal('hide');
 
-                                $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/xml/' + scope.previewSleId);
+                                var queryParam = '?format=xml';
+                                $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id + queryParam);
                             }
                         });
                     } else{

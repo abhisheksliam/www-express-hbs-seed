@@ -2,7 +2,6 @@
 var apirouter = require('express').Router();
 var scriptorController = require('../../controllers/scriptor.server.controller');
 var xpathController = require('../../controllers/xpath.server.controller');
-var converterController = require('../../controllers/converter.server.controller');
 
 // Middleware for all this apirouters requests
 apirouter.use(function timeLog(req, res, next) {
@@ -52,12 +51,6 @@ apirouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpat
 
 // update xpath: update xpath value + add task_id tag (no duplicates)
 apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationXpath);
-
-/**
- * API for returning xml and Java from json
- */
-apirouter.get('/xml/:task_id', converterController.jsonToDistXml);
-apirouter.get('/java/:task_id', converterController.jsonToDistJava);
 
 module.exports = apirouter;
 
