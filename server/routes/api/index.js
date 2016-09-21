@@ -54,9 +54,10 @@ apirouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpat
 apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationXpath);
 
 /**
- * APi for returning dist xml from json
+ * API for returning xml and Java from json
  */
 apirouter.get('/xml/:task_id', converterController.jsonToDistXml);
+apirouter.get('/java/:task_id', converterController.jsonToDistJava);
 
 module.exports = apirouter;
 

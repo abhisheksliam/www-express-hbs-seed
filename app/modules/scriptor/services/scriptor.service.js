@@ -58,12 +58,7 @@ angular.module('automationApp.scriptor')
             };
         };
 
-
-
-
-
-
-    var getTriggers = function() {
+        var getTriggers = function() {
             var triggers = $http.get('data/action_lib.json');
 
             var deferred = $q.defer();

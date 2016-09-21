@@ -10,14 +10,15 @@ function getTaskDataFromDatabase(req, res, done){
         if (err) {
             done(err);
         } else {
-            done(scriptData[0].task_json[0]);
+            done(scriptData[0]);
         }
     });
 };
 
 exports.jsonToDistXml = function(req, res) {
+    getTaskDataFromDatabase(req, res, function(scriptData) {
 
-    getTaskDataFromDatabase(req, res, function(taskData) {
+        var taskData = scriptData.task_json[0];
 
         if(!taskData || !taskData.items) {
             res.json({
@@ -56,21 +57,9 @@ exports.jsonToDistXml = function(req, res) {
                         if(taskData.items[i].methods[j].init){
                             taskDataPre = taskDataPre + '<Method group="'+taskData.items[i].methods[j].group+'" name="'+taskData.items[i].methods[j].type+'" sno="'+(j+1)+'"><Actions>';
 
-                            //var methodChecked = $('input[name="item'+(i+1)+'-method"]:checked', '#item'+(i+1)+'-methods').data('method');
-
                             for(var k=0; k<taskData.items[i].methods[j].actions.length; k++){
                                 if(taskData.items[i].methods[j].actions[k].init){
 
-                                    /*                                if(i>0 && jin==0){
-                                     if(taskData.items[i-1].skip == true){
-                                     if(methodChecked == (j+1)){
-                                     jin = getNumberOfItemsToSkip(i);
-                                     for(var _jin=0; _jin < jin;_jin++){
-                                     taskDataPre = taskDataPre + '<Action sno="'+(_jin+1)+'"><actionType name="skiptonextitem"></actionType></Action>';
-                                     }
-                                     }
-                                     };
-                                     }*/
                                     taskDataPre = taskDataPre + '<Action sno="'+(k+jin+1)+'"><actionType name="'+(taskData.items[i].methods[j].actions[k].name).toString().trim().replace("()","")+'">';
 
                                     for(var l=0;l<taskData.items[i].methods[j].actions[k].values.length;l++){
@@ -90,6 +79,86 @@ exports.jsonToDistXml = function(req, res) {
 
             res.set('Content-Type', 'text/xml');
             res.send(updatedRunXml);
+        }
+
+    });
+};
+
+exports.jsonToDistJava = function(req, res) {
+
+    getTaskDataFromDatabase(req, res, function(scriptData) {
+
+        var taskData = scriptData.task_json[0];
+        var pathwayListData = scriptData.task_json[1];
+
+        if(!taskData || !taskData.items) {
+            res.json({
+                "errors": {
+                    "errorMessage": "Task data not found",
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
+        else {
+            var itemsInitCount = 0;
+            for(var p=0;p<taskData.items.length;p++){
+                if(taskData.items[p].init){
+                    itemsInitCount++;
+                }
+            }
+
+            var preJ = 'package testcase.' +
+                taskData.appName +
+                ';    import org.testng.annotations.Test;    import runner.TestRunner;    public class Test_' +
+                ((taskData.id).replace(/\./gi, "_")).trim()
+
+                +
+                '_' +
+                taskData.scenario.toUpperCase().trim()
+                +
+                ' extends TestRunner {    ';
+
+            var postJout = ' }';
+
+            var runJFinal = preJ;
+
+            var testCount = 0;
+            if(pathwayListData !== undefined){
+                for (var q = 0; q < pathwayListData.length; q += 2) {
+                    var arrayItem = pathwayListData[q];
+
+                    if(arrayItem.constructor === Array){
+
+                        var runJ = '';
+
+                        var preJin = '\n    ' +
+                            '@Test (groups = {"' + pathwayListData[q+1] + '"})' +
+                            'public void ' +
+                            ((taskData.id).replace(/\./gi, "_")).trim()
+                            +
+                            '_' +
+                            (taskData.scenario.toUpperCase()).trim() + '_' + (++testCount).toString()
+                            +
+                            '() throws Exception {            System.out.println("START..");            ';
+
+                        var postJ = 'Thread.sleep(3000);            ' +
+                            'System.out.println("DONE.");        }   \n';
+
+                        arrayItem.forEach(function (arrayItem2) {
+                            runJ = runJ + 'executeItem(' +
+                                '"' + taskData.id.trim() + '.' + taskData.scenario.trim() + '", ' +
+                                '"' + taskData.scenario.trim() + '", ' +
+                                '"' + arrayItem2.toString().split(',').join('","') + '"' +
+                                ');';
+                        });
+
+                        runJFinal = runJFinal + (preJin + runJ + postJ );
+                    }
+                };
+            }
+            runJFinal = runJFinal + postJout;
+
+            res.json(runJFinal);
         }
 
     });
