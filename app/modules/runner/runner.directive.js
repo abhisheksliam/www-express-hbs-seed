@@ -195,10 +195,13 @@ angular.module('automationApp.runner')
 
                         window.open (baseUrl,",","menubar=1,resizable=1,width=1200,height=800");
 
-                        $http.get('/api/xml/' + scenarioId).then(function(res) {
+                        var xmlQueryParam = '?format=xml';
+                        var javaQueryParam = '?format=java';
+
+                        $http.get('/api/tasks/' + scenarioId + xmlQueryParam).then(function(res) {
                             xmlContent =  res.data;
 
-                            $http.get('/api/java/' + scenarioId).then(function(res) {
+                            $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
 
                                 postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data));
 
