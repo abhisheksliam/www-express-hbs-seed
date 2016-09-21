@@ -27,8 +27,7 @@ angular.module('automationApp.sidebar')
                                 } else{
                                     $('#modal-exportModal').modal('hide');
 
-                                    var queryParam = '?mode=export';
-
+                                    var queryParam = '?format=json';
                                     $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + '/api/tasks/' + res.data.sle_id + queryParam);
                                 }
                             });

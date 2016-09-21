@@ -57,17 +57,26 @@ exports.getTaskScript = function (req, res) {
         }
 
         if(scriptData.length !== 0) {
-            if(req.query.mode === 'export') {
-                res.json(scriptData[0]);
-            } else if(req.query.format === 'xml') {
-                var xmlContent = converterService.jsonToDistXml(scriptData[0]);
-                res.set('Content-Type', 'text/xml');
-                res.send(xmlContent);
-            } else if(req.query.format === 'java') {
-                var javaContent = converterService.jsonToDistJava(scriptData[0]);
-                res.json(javaContent);
+            var scriptData = scriptData[0];
+
+            if(req.query.format === 'json' || req.query.format === 'xml' || req.query.format === 'java') {
+
+                if(req.query.format === 'json') {
+                    res.json(scriptData);
+                } else if(req.query.format === 'xml') {
+                    var xmlContent = converterService.jsonToDistXml(scriptData);
+                    res.set('Content-Type', 'text/xml');
+                    res.send(xmlContent);
+                } else if(req.query.format === 'java') {
+                    var javaContent = converterService.jsonToDistJava(scriptData);
+                    res.json(javaContent);
+                }
+
             } else {
-                var scriptData = converterService.transformPathwaysNewFormat(scriptData[0]);
+                if(scriptData.task_json[1] !== undefined){
+                    scriptData = converterService.transformPathwaysNewFormat(scriptData);
+                }
+
                 res.json(scriptData);
             }
         } else {
