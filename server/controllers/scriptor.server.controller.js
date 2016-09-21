@@ -14,7 +14,7 @@ const TEMPLATE_BLANK = "blank",
 const router = require('express').Router();
 var http = require('http');
 var AutomationScripts     = require('./../models/app.server.models.script');
-var _ = require('lodash');
+const converterService = require("./../services/converter.server.service");
 
 exports.saveTask = function (req, res) {
     var sle_id = req.body.task_id + "." + req.body.scenario;
@@ -59,8 +59,16 @@ exports.getTaskScript = function (req, res) {
         if(scriptData.length !== 0) {
             if(req.query.mode === 'export') {
                 res.json(scriptData[0]);
+            } else if(req.query.format === 'xml') {
+                var xmlContent = converterService.jsonToDistXml(scriptData[0]);
+                res.set('Content-Type', 'text/xml');
+                res.send(xmlContent);
+            } else if(req.query.format === 'java') {
+                var javaContent = converterService.jsonToDistJava(scriptData[0]);
+                res.json(javaContent);
             } else {
-                transformPathwaysNewFormat(res, scriptData[0]);
+                var scriptData = converterService.transformPathwaysNewFormat(scriptData[0]);
+                res.json(scriptData);
             }
         } else {
             res.json({ "errors": {
@@ -73,7 +81,7 @@ exports.getTaskScript = function (req, res) {
 
 exports.updateTaskScript = function (req, res) {
 
-    var scriptData = transformPathwaysOldFormat(req.body.task_json);
+    var scriptData = converterService.transformPathwaysOldFormat(req.body.task_json);
 
     AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
         if (err) {
@@ -167,7 +175,8 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
 
             if(scriptData) {
                 if (req.body.template === TEMPLATE_TASK || req.body.template === TEMPLATE_INGEST){
-                    transformPathwaysNewFormat(res, scriptData);
+                    var scriptData = converterService.transformPathwaysNewFormat(scriptData);
+                    res.json(scriptData);
                 } else {
                     res.json(scriptData);
                 }
@@ -195,7 +204,8 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
 
             if(doc.task_json.length !== 0) {
                 if(req.body.template === TEMPLATE_TASK) {
-                    transformPathwaysNewFormat(res, doc);
+                    var scriptData = converterService.transformPathwaysNewFormat(doc);
+                    res.json(scriptData);
                 } else {
                     res.json(doc);
                 }
@@ -316,62 +326,4 @@ function generateCopyTemplate(req, done){
             done(error);
         }
     });
-};
-
-function transformPathwaysNewFormat(res, scriptData) {
-    if(scriptData.task_json[1] !== undefined){
-        var array2 = [];
-
-        var array = _.map(scriptData.task_json[1], function(value, index) {
-            if(index%2 == 0) {
-
-                var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
-                    return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
-                });
-
-                return {"pathway" : pathwayArr}
-            } else {
-                return value;
-            }
-        });
-
-        _.map(array, function(value, index) {
-            if(index%2 == 0) {
-                return value;
-            } else {
-                array[index-1].group = value.replace(/['"]+/g, '');
-                array2.push(array[index-1]);
-                return value;
-            }
-        });
-
-        scriptData.task_json[1] = array2;
-    }
-
-    res.json(scriptData);
-
-};
-
-
-function transformPathwaysOldFormat(scriptData) {
-
-    if(scriptData[1] !== undefined){
-
-        var array2 = [];
-
-        _.map(scriptData[1], function(value, index) {
-                var pathwayArr = _.map(value.pathway, function(innenrValue, innerIndex) {
-                    return innenrValue.replace('/', ',');
-                });
-                array2.push(pathwayArr);
-                array2.push(value.group);
-
-                return value;
-        });
-
-        scriptData[1] = array2;
-    }
-
-    return scriptData;
-
 };
