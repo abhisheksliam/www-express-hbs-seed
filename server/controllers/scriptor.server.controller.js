@@ -267,6 +267,7 @@ function generatePreFilledBalooTemplate(req,done){
             try{
                 parsed = JSON.parse(str);
                 if(parsed.statusCode == 200){
+                    parsed.content.appName = req.body.app_key;
                     done([parsed.content]);
                 } else {
                     errObj.errors.errorMessage = parsed.message;
