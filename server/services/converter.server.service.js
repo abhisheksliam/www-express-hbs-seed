@@ -3,34 +3,33 @@
 var _ = require('lodash');
 
 exports.transformPathwaysNewFormat=function (scriptData) {
-    if(scriptData.task_json[1] !== undefined){
-        var array2 = [];
+    var array2 = [];
 
-        var array = _.map(scriptData.task_json[1], function(value, index) {
-            if(index%2 == 0) {
+    var array = _.map(scriptData.task_json[1], function(value, index) {
+        if(index%2 == 0) {
 
-                var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
-                    return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
-                });
+            var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
+                return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
+            });
 
-                return {"pathway" : pathwayArr}
-            } else {
-                return value;
-            }
-        });
+            return {"pathway" : pathwayArr}
+        } else {
+            return value;
+        }
+    });
 
-        _.map(array, function(value, index) {
-            if(index%2 == 0) {
-                return value;
-            } else {
-                array[index-1].group = value.replace(/['"]+/g, '');
-                array2.push(array[index-1]);
-                return value;
-            }
-        });
+    _.map(array, function(value, index) {
+        if(index%2 == 0) {
+            return value;
+        } else {
+            array[index-1].group = value.replace(/['"]+/g, '');
+            array2.push(array[index-1]);
+            return value;
+        }
+    });
 
-        scriptData.task_json[1] = array2;
-    }
+    scriptData.task_json[1] = array2;
+
 
     return scriptData;
 
