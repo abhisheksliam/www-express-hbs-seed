@@ -1,20 +1,20 @@
 {
   "applications": [
      {
-        "label": "Word",
-        "key": "word"
+        "label": "word",
+        "key": "WD"
       },
       {
-        "label": "Access",
-        "key": "access"
+        "label": "access",
+        "key": "AC"
       },
       {
-        "label": "PPT",
-        "key": "ppt"
+        "label": "ppt",
+        "key": "PPT"
       },
       {
-        "label": "Excel",
-        "key": "excel"
+        "label": "excel",
+        "key": "XL"
       }
     ],
     "scenarios": [

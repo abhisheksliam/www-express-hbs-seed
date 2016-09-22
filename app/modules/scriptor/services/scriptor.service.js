@@ -23,6 +23,41 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
+        var getTaskXml = function(friendlyTaskId) {
+            var taskData = $http.get('/api/xml/' + friendlyTaskId);
+            var deferred = $q.defer();
+            deferred.resolve(taskData);
+            return deferred.promise;
+        };
+
+        var getApplicationFromScenarioId = function(scenarioId, globalConstants) {
+            var scenario;
+            var taskId;
+
+            var application = globalConstants.applications.find(function(el){
+                return scenarioId.indexOf(el.key) !== -1;
+            });
+
+            var taskArr = scenarioId.split(".");
+            var bScenario = taskArr.pop();
+
+            bScenario = globalConstants.scenarios.find(function(el){
+                return el === bScenario;
+            });
+
+            if(bScenario !== undefined) {
+                scenario = bScenario;
+                taskId = taskArr.join(".");
+            }
+
+            return {
+                "scenarioId": scenarioId,
+                "application" : application,
+                "scenario": scenario,
+                "taskId": taskId
+            };
+        };
+
         var getTriggers = function() {
             var triggers = $http.get('data/action_lib.json');
 
@@ -156,6 +191,8 @@ angular.module('automationApp.scriptor')
         "taskContent" : {},
         "getGlobalContext": getGlobalContext,
         "getTaskJson": getTaskJson,
+        "getTaskXml": getTaskXml,
+        "getApplicationFromScenarioId": getApplicationFromScenarioId,
         "saveTaskScript": saveTaskScript,
         "updateTaskScript": updateTaskScript,
         "updateTaskJson": updateTaskJson,

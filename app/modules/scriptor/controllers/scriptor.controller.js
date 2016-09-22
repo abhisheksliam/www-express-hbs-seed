@@ -7,6 +7,9 @@ angular.module('automationApp.scriptor')
             $scope.taskId = "";
             $scope.copy_sle_id = "";
             scriptorService.taskContent = {};
+            $scope.iCheckOptions = {
+                radioClass: 'iradio_flat-blue'
+            };
 
 			/* Template Code to be kept in first route to be loaded */
 			$scope.$on('$viewContentLoaded', function () {
@@ -33,9 +36,6 @@ angular.module('automationApp.scriptor')
                 scriptorService.getGlobalContext().then(function (res) {
                     $rootScope.globalConstants = res.data;
 
-                    $scope.scenarioType = $rootScope.globalConstants.scenarios[0];
-                    $rootScope.applicationName = $scope.applicationName = $rootScope.globalConstants.applications[0].key;
-
                     $scope.templateOptions = $rootScope.globalConstants.templateOptions;
                     $scope.template = $scope.templateOptions[0].key;
                 });
@@ -48,43 +48,53 @@ angular.module('automationApp.scriptor')
                 }
                 else if ($scope.validateTaskId($scope.taskId)){
 
-                    if ((($scope.taskId + '.' + $scope.scenarioType) == $scope.copy_sle_id) && $scope.template === 'task'){
-                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Same task cannot be duplicated !!' + '</p></div>');
-                    } else {
-                        scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, '', username).then(function(res) {
+                    var taskMetadata = scriptorService.getApplicationFromScenarioId($scope.taskId, $rootScope.globalConstants);
 
-                            if(res.data.errors) {
-                                if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
-                                    bootbox.confirm({
-                                        title: 'Task already exists',
-                                        message: 'Do you want to override task with new selections ?',
-                                        className: 'error-modal',
-                                        callback: function(result) {
-                                            if(result) {
-                                                scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, username).then(function(res) {
-                                                    if(res.data.errors){
-                                                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
-                                                    }
-                                                    else {
+                    if(taskMetadata.application === undefined || taskMetadata.scenario === undefined) {
+                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Application or Scenario Type not present in SLE ID !' + '</p></div>');
+                    } else {
+
+                        $scope.applicationName = taskMetadata.application.label;
+                        $scope.scenarioType = taskMetadata.scenario;
+                        $scope.taskId = taskMetadata.taskId;
+
+                        if ((($scope.taskId + '.' + $scope.scenarioType) == $scope.copy_sle_id) && $scope.template === 'task'){
+                            $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Same task cannot be duplicated !!' + '</p></div>');
+                        } else {
+                            scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, '', username).then(function(res) {
+
+                                if(res.data.errors) {
+                                    if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
+                                        bootbox.confirm({
+                                            title: 'Task already exists',
+                                            message: 'Do you want to override task with new selections ?',
+                                            className: 'error-modal',
+                                            callback: function(result) {
+                                                if(result) {
+                                                    scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.copy_sle_id, $scope.template, username).then(function(res) {
+                                                        if(res.data.errors){
+                                                            $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                                                        }
+                                                        else {
                                                             scriptorService.taskContent = res.data.task_json;
                                                             $state.go('app.script-editor',  {id: res.data.sle_id});
                                                             $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
-                                                    }
-                                                });
+                                                        }
+                                                    });
+                                                }
                                             }
-                                        }
-                                    });
-                                } else {
-                                    $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                                        });
+                                    } else {
+                                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                                    }
+                                } else{
+                                    scriptorService.taskContent = res.data.task_json;
+                                    $state.go('app.script-editor',  {id: res.data.sle_id});
+                                    $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
                                 }
-                            } else{
-                                scriptorService.taskContent = res.data.task_json;
-                                $state.go('app.script-editor',  {id: res.data.sle_id});
-                                $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
-                            }
-                        });
+                            });
+                        }
                     }
-
                 } else{
 					$scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Invalid Task Id !' + '</p></div>');
                 }
@@ -96,18 +106,5 @@ angular.module('automationApp.scriptor')
                 $state.go('app.script-editor',  {id: res.data.sle_id});
                 $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
             });
-
-            var tempAppName = undefined;
-            var updateApplication = function(){
-                if ($scope.template==='baloo') {
-                    tempAppName = $scope.applicationName;
-                    $scope.applicationName = $rootScope.applicationName = '';
-                } else {
-                    if(tempAppName !== undefined) {
-                        $scope.applicationName = $rootScope.applicationName = tempAppName;
-                    }
-                }
-            }
-            $scope.$watch('template',updateApplication);
 
 		}]);
