@@ -7,7 +7,7 @@ const TEMPLATE_BLANK = "blank",
       TEMPLATE_BALOO = "baloo",
       TEMPLATE_TASK = "task",
       TEMPLATE_INGEST = "ingest",
-      BALOO_API_HOST = 'anu',
+      BALOO_API_HOST = 'loadrunner1',
       BALOO_API_PORT = '8080',
       BALOO_API_URL = '/NLPService/api/tasks/';
 
