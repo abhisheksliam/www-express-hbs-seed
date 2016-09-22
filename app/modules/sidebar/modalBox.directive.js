@@ -29,12 +29,13 @@ angular.module('automationApp.sidebar')
                         modalData.headerText = 'Export Script';
                         modalData.confirmText = 'Export';
                         modalData.route = '/api/tasks/';
-                        modalData.queryParam = '?mode=export';
+                        modalData.queryParam = '?format=json';
                     }
                     else if(listItem.data('context') == 'preview') {
                         modalData.headerText = 'Preview XML';
                         modalData.confirmText = 'Preview';
                         modalData.route = '/api/xml/';
+                        modalData.queryParam = '?format=xml';
                     }
                     else {
                         modalData.headerText = '';
