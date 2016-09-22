@@ -72,7 +72,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 //-----------Express WWW Server-------------------
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 3000;
 // Serve Bower Components based JS & CSS & Image assets
 app.use("/bower_components", express.static(__dirname + '/bower_components'));
 
