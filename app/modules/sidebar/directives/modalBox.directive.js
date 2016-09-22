@@ -34,7 +34,7 @@ angular.module('automationApp.sidebar')
                     else if(listItem.data('context') == 'preview') {
                         modalData.headerText = 'Preview XML';
                         modalData.confirmText = 'Preview';
-                        modalData.route = '/api/xml/';
+                        modalData.route = '/api/tasks/';
                         modalData.queryParam = '?format=xml';
                     }
                     else {
