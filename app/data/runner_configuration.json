@@ -13,7 +13,7 @@
     "Firefox"
   ],
   "params": {
-    "HubIp" : "192.168.1.200",
+    "HubIp" : "192.168.1.164",
     "HubPort" : "4444",
     "OS" : "Windows",
     "browserVersion" : "",
