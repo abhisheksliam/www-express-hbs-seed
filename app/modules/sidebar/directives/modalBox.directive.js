@@ -11,7 +11,7 @@ angular.module('automationApp.sidebar')
             replace: true,
             scope:{
             },
-            templateUrl: 'modules/sidebar/modalBox.tpl.html',
+            templateUrl: 'modules/sidebar/views/modalBox.tpl.html',
             link: function($scope, element, attrs) {
 
                 var modalData = {
