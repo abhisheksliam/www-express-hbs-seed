@@ -223,10 +223,10 @@ angular.module('automationApp.runner')
                         var formData =   {
                             "command": scope.runnerConfig.testCommand,
                             "params": [
-                                "-DappURL=" + scope.runnerConfig.user.ApplicationURL,
+                                "-DappURL=" + scope.runnerConfig.user[name].ApplicationURL,
                                 "-DtestName=" + appName + ".Test_" + filename,
                                 "-DbrName=" + selectedBrowser,
-                                "-Dnode=" + scope.runnerConfig.user.nodeName,
+                                "-Dnode=" + scope.runnerConfig.user[name].nodeName,
                                 "-DhubIp=" + scope.runnerConfig.params.HubIp,
                                 "-DhubPort=" + scope.runnerConfig.params.HubPort
                             ],
@@ -236,7 +236,7 @@ angular.module('automationApp.runner')
                                 "xml": xmlContent,
                                 "java": javaContent
                             },
-                            "clientIp" : scope.runnerConfig.user.clientIp
+                            "clientIp" : scope.runnerConfig.user[name].clientIp
                         };
 
                         // process the form
