@@ -55,10 +55,10 @@ angular.module('automationApp.sidebar')
                         else if ($rootScope.validateTaskId(taskID)){	// client side validation
                             // api call
                             scriptorService.getTaskJson(taskID).then(function(res) {
+                                thisModal.find("[id='taskid']").val('');  // reset input field
                                 if(res.data.errors) {
-                                    $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting data for SLE - </p>'+taskID+'</div>','.modal-body');
+                                    $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting data for SLE - ' + taskID + '</p>'+'</div>','.modal-body');
                                 } else{
-                                    thisModal.find("[id='taskid']").val('');  // reset input field
                                     $('#modal-modalbox').modal('hide');  // hide modal
                                     $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + modalData.route + taskID + modalData.queryParam);
                                 }
