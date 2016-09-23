@@ -35,6 +35,21 @@
       "nodeName" : "abhishek",
       "clientIp" : "192.168.1.200",
       "ApplicationURL" : "http://grader13/qatrunk/SIM5Frame.aspx"
+    },
+    "Akhil" :{
+      "nodeName" : "akhil",
+      "clientIp" : "192.168.1.96",
+      "ApplicationURL" : "http://dev2.comprotechnologies.com/qatrunk"
+    },
+    "Mohit" :{
+      "nodeName" : "mohit",
+      "clientIp" : "192.168.1.212",
+      "ApplicationURL" : "http://dev2.comprotechnologies.com/qatrunk"
+    },
+    "Harsh" :{
+      "nodeName" : "harsh",
+      "clientIp" : "192.168.1.108",
+      "ApplicationURL" : "http://dev2.comprotechnologies.com/qatrunk"
     }
   }
 }
