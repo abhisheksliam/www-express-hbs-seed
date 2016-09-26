@@ -26,7 +26,11 @@ angular.module('automationApp.scriptor')
             function loadTaskJSON() {
 
                 scriptorService.getTaskJson($stateParams.id).then(function(res) {
-                    setDataFromTaskJSON(res.data.task_json);
+                    if(res.data.errors) {
+                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                    } else {
+                        setDataFromTaskJSON(res.data.task_json);
+                    }
                 });
             }
 
