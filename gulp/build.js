@@ -82,8 +82,8 @@ module.exports = function(options) {
 
     gulp.task('serve',['start'], function(){
         browserSync.init({
-            proxy: "localhost:8080",
-            port: 8081,
+            proxy: "localhost:3000",
+            port: 3001,
             files: [options.src+'/**/*.*'],
             notify: true
         });
