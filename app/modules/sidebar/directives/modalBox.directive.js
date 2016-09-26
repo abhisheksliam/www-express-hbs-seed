@@ -50,8 +50,8 @@ angular.module('automationApp.sidebar')
                                     scope.taskId = '';
                                 } else{
                                     $('#modal-modalbox').modal('hide');  // hide modal
-                                    scope.taskId = '';
                                     $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + route + scope.taskId + queryParam);
+                                    scope.taskId = '';
                                 }
                             });
                         } else{
