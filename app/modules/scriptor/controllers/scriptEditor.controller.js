@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$timeout', '$state',
-		function($stateParams, $rootScope, $scope, scriptorService, $timeout, $state) {
+	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$state',
+		function($stateParams, $rootScope, $scope, scriptorService, $state) {
 
             $scope.sleId = $stateParams.id;
 
