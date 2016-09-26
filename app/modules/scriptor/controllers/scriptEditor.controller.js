@@ -26,7 +26,10 @@ angular.module('automationApp.scriptor')
                     $scope.taskId = taskMetadata.taskId;
 
                     scriptorService.getTriggers().then(function(res) {
-                        $rootScope.triggers = res.data[$rootScope.applicationName];
+                        var commonActions = res.data["common"];
+                        var appSpecificActions = res.data[$rootScope.applicationName];
+
+                        $rootScope.triggers = commonActions.concat(appSpecificActions);
                     });
 
                     scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
@@ -44,7 +47,10 @@ angular.module('automationApp.scriptor')
                 $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
 
                 scriptorService.getTriggers().then(function(res) {
-                    $rootScope.triggers = res.data[$rootScope.applicationName];
+                    var commonActions = res.data["common"];
+                    var appSpecificActions = res.data[$rootScope.applicationName];
+
+                    $rootScope.triggers = commonActions.concat(appSpecificActions);
                 });
 
                 scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
