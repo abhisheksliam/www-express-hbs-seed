@@ -3,48 +3,60 @@
 angular.module('automationApp.scriptor')
 	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$timeout', '$state',
 		function($stateParams, $rootScope, $scope, scriptorService, $timeout, $state) {
-            var taskData;
+
             $scope.sleId = $stateParams.id;
 
-            if($rootScope.globalConstants === undefined) {
-                scriptorService.getTaskJson($stateParams.id).then(function(res) {
-                    taskData = res.data.task_json;
-                    $scope.taskJson =  taskData;
-                    $scope.originalTaskJson = angular.copy(taskData);
+            if ($.isEmptyObject(scriptorService.taskContent) || $rootScope.globalConstants === undefined) {
+                loadTaskJSON();
 
-                    scriptorService.taskContent = taskData;
-                    $rootScope.taskId = $scope.taskId = taskData[0].id;
+                loadConfigurations();
+
+            } else {
+                if (scriptorService.taskContent[0] !== undefined && scriptorService.taskContent[0].id !== $stateParams.id) {
+                    loadTaskJSON();
+
+                } else {
+                    setDataFromTaskJSON(scriptorService.taskContent);
+
+                }
+
+                loadApplicationSpecificData();
+            }
+
+            function loadTaskJSON() {
+
+                scriptorService.getTaskJson($stateParams.id).then(function(res) {
+                    if(res.data.errors) {
+                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                    } else {
+                        setDataFromTaskJSON(res.data.task_json);
+                    }
                 });
+            }
+
+            function loadConfigurations(){
 
                 scriptorService.getGlobalContext().then(function(res) {
                     $rootScope.globalConstants = res.data;
 
-                    var taskMetadata = scriptorService.getApplicationFromScenarioId($scope.sleId, $rootScope.globalConstants);
+                    loadApplicationSpecificData();
 
-                    $rootScope.applicationName = $scope.applicationName = taskMetadata.application.label;
-                    $scope.scenarioType = taskMetadata.scenario;
-                    $scope.taskId = taskMetadata.taskId;
-
-                    scriptorService.getTriggers().then(function(res) {
-                        var commonActions = res.data["common"];
-                        var appSpecificActions = res.data[$rootScope.applicationName];
-
-                        $rootScope.triggers = commonActions.concat(appSpecificActions);
-                    });
-
-                    scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
-                        $rootScope.xpathArrayList = res;
-                        $rootScope.getXPathForElement = scriptorService.getXPathForElement;
-                    });
                 });
-            } else {
-                taskData = scriptorService.taskContent;
+
+            }
+
+            function setDataFromTaskJSON(taskData) {
+
                 $scope.taskJson = taskData;
                 $scope.originalTaskJson = angular.copy(taskData);
 
                 $rootScope.taskId = $scope.taskId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
                 $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
+
+            }
+
+            function loadApplicationSpecificData() {
 
                 scriptorService.getTriggers().then(function(res) {
                     var commonActions = res.data["common"];
@@ -57,11 +69,12 @@ angular.module('automationApp.scriptor')
                     $rootScope.xpathArrayList = res;
                     $rootScope.getXPathForElement = scriptorService.getXPathForElement;
                 });
-            }
 
-            scriptorService.getTriggerSuggestions().then(function(res) {
-                $rootScope.TriggerSuggestions = res.data;
-            });
+                scriptorService.getTriggerSuggestions().then(function(res) {
+                    $rootScope.TriggerSuggestions = res.data;
+                });
+
+            }
 
             $scope.$watch('taskJson',function(newValue, oldValue) {
                 if(newValue != oldValue) {
