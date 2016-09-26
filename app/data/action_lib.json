@@ -1,46 +1,5 @@
 {
-  "word": [
-    {
-      "name": "enterText()",
-      "id": "1",
-      "syntax": "enterText(String text)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "text"
-        }
-      ]
-    },
-    {
-      "name": "enterTextInElement()",
-      "id": "2",
-      "syntax": "enterTextInElement(String elementName, String text)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "elementName"
-        },
-        {
-          "actVal": "",
-          "actKey": "text"
-        }
-      ]
-    }
-  ],
-  "access": [
-    {
-      "name": "enterText()",
-      "id": "1",
-      "syntax": "enterText(String text)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "text"
-        }
-      ]
-    }
-  ],
-  "ppt": [
+  "common": [
     {
       "name": "enterText()",
       "id": "1",
@@ -127,138 +86,86 @@
       ]
     },
     {
-      "name": "selectSlideFromSlidePane()",
-      "id": "8",
-      "syntax": "selectSlideFromSlidePane(String slideNumber)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "slideNumber"
-        }
-      ]
-    },
-    {
-      "name": "rightClickSlideInSlidePane()",
-      "id": "9",
-      "syntax": "rightClickSlideInSlidePane(String slideNumber)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "slideNumber"
-        }
-      ]
-    },
-    {
       "name": "clickTwiceAtCurrentPos()",
-      "id": "10",
+      "id": "8",
       "syntax": "clickTwiceAtCurrentPos()",
       "values": []
     },
     {
       "name": "clickAtCurrentPos()",
-      "id": "11",
+      "id": "9",
       "syntax": "clickAtCurrentPos()",
       "values": []
     },
     {
       "name": "doubleClickAndWait()",
-      "id": "12",
+      "id": "10",
       "syntax": "doubleClickAndWait()",
       "values": []
     },
     {
       "name": "rightClickCurrentPos()",
-      "id": "13",
+      "id": "11",
       "syntax": "rightClickCurrentPos()",
       "values": []
     },
     {
       "name": "rightClickCurrentPos()",
-      "id": "14",
+      "id": "12",
       "syntax": "rightClickCurrentPos()",
       "values": []
     },
     {
       "name": "clickAndHoldCurrentPos()",
-      "id": "15",
+      "id": "13",
       "syntax": "clickAndHoldCurrentPos()",
       "values": []
     },
     {
       "name": "release()",
-      "id": "16",
+      "id": "14",
       "syntax": "release()",
       "values": []
     },
     {
       "name": "pressControlA()",
-      "id": "17",
+      "id": "15",
       "syntax": "pressControlA()",
       "values": []
     },
     {
       "name": "pressControlEND()",
-      "id": "18",
+      "id": "16",
       "syntax": "pressControlEND()",
       "values": []
     },
     {
       "name": "pressControlENTER()",
-      "id": "19",
+      "id": "17",
       "syntax": "pressControlENTER()",
       "values": []
     },
     {
       "name": "pressControlHOME()",
-      "id": "20",
+      "id": "18",
       "syntax": "pressControlHOME()",
       "values": []
     },
     {
       "name": "waitFor()",
-      "id": "21",
+      "id": "19",
       "syntax": "waitFor()",
       "values": []
     },
     {
       "name": "skipToNextItem()",
-      "id": "22",
+      "id": "20",
       "syntax": "skipToNextItem()",
       "values": []
     },
     {
-      "name": "dragAndDropSlideInSlidePane()",
-      "id": "23",
-      "syntax": "dragAndDropSlideInSlidePane(String firstSlide, String secondSlide)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "firstSlide"
-        },
-        {
-          "actVal": "",
-          "actKey": "secondSlide"
-        }
-      ]
-    },
-    {
-      "name": "clickAt()",
-      "id": "24",
-      "syntax": "clickAt(String elementName, int pos)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "elementName"
-        },
-        {
-          "actVal": "",
-          "actKey": "pos"
-        }
-      ]
-    },
-    {
       "name": "clickAtPercent()",
-      "id": "25",
+      "id": "21",
       "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)",
       "values": [
         {
@@ -277,7 +184,7 @@
     },
     {
       "name": "selectFromDropdown()",
-      "id": "26",
+      "id": "22",
       "syntax": "selectFromDropdown(String elementName, String option)",
       "values": [
         {
@@ -292,7 +199,7 @@
     },
     {
       "name": "selectInputText()",
-      "id": "27",
+      "id": "23",
       "syntax": "selectInputText(String elementName)",
       "values": [
         {
@@ -302,31 +209,8 @@
       ]
     },
     {
-      "name": "selectText()",
-      "id": "28",
-      "syntax": "selectText(String elementName, int start, int end, Method methodType)",
-      "values": [
-        {
-          "actVal": "",
-          "actKey": "elementName"
-        },
-        {
-          "actVal": "",
-          "actKey": "start"
-        },
-        {
-          "actVal": "",
-          "actKey": "end"
-        },
-        {
-          "actVal": "",
-          "actKey": "methodType"
-        }
-      ]
-    },
-    {
       "name": "selectMultiParaText()",
-      "id": "29",
+      "id": "24",
       "syntax": "selectMultiParaText(String elementNameStart, String elementNameEnd, int Start, int End, Method methodType)",
       "values": [
         {
@@ -353,7 +237,7 @@
     },
     {
       "name": "doubleClick()",
-      "id": "30",
+      "id": "25",
       "syntax": "doubleClick(String elementName)",
       "values": [
         {
@@ -364,7 +248,7 @@
     },
     {
       "name": "clickTwice()",
-      "id": "31",
+      "id": "26",
       "syntax": "clickTwice(String elementName)",
       "values": [
         {
@@ -375,7 +259,7 @@
     },
     {
       "name": "tripleClick()",
-      "id": "32",
+      "id": "27",
       "syntax": "tripleClick(String elementName)",
       "values": [
         {
@@ -386,7 +270,7 @@
     },
     {
       "name": "rightClick()",
-      "id": "33",
+      "id": "28",
       "syntax": "rightClick(String elementName)",
       "values": [
         {
@@ -397,7 +281,7 @@
     },
     {
       "name": "clickAndHold()",
-      "id": "34",
+      "id": "29",
       "syntax": "clickAndHold(String elementName)",
       "values": [
         {
@@ -408,7 +292,7 @@
     },
     {
       "name": "clickAndWait()",
-      "id": "35",
+      "id": "30",
       "syntax": "clickAndWait(String elementName)",
       "values": [
         {
@@ -419,7 +303,7 @@
     },
     {
       "name": "moveToElementCenter()",
-      "id": "36",
+      "id": "31",
       "syntax": "moveToElementCenter(String elementName)",
       "values": [
         {
@@ -430,7 +314,7 @@
     },
     {
       "name": "releaseElement()",
-      "id": "37",
+      "id": "32",
       "syntax": "releaseElement(String elementName)",
       "values": [
         {
@@ -441,7 +325,7 @@
     },
     {
       "name": "clearText()",
-      "id": "38",
+      "id": "33",
       "syntax": "clearText(String elementName)",
       "values": [
         {
@@ -452,7 +336,7 @@
     },
     {
       "name": "scroll()",
-      "id": "39",
+      "id": "34",
       "syntax": "scroll(String elementName)",
       "values": [
         {
@@ -463,7 +347,7 @@
     },
     {
       "name": "waitForSec()",
-      "id": "40",
+      "id": "35",
       "syntax": "waitForSec(int time)",
       "values": [
         {
@@ -474,7 +358,7 @@
     },
     {
       "name": "pressKeyFromVirtualKeyboard()",
-      "id": "41",
+      "id": "36",
       "syntax": "pressKeyFromVirtualKeyboard(String keyName)",
       "values": [
         {
@@ -485,7 +369,7 @@
     },
     {
       "name": "clickMultipleTimes()",
-      "id": "42",
+      "id": "37",
       "syntax": "clickMultipleTimes(String elementName , String numOfTimes)",
       "values": [
         {
@@ -500,7 +384,7 @@
     },
     {
       "name": "dragAndDropBy()",
-      "id": "43",
+      "id": "38",
       "syntax": "dragAndDropBy(String source, String target)",
       "values": [
         {
@@ -515,7 +399,7 @@
     },
     {
       "name": "moveByOffset()",
-      "id": "44",
+      "id": "39",
       "syntax": "moveByOffset(int xOffset, int yOffset)",
       "values": [
         {
@@ -530,7 +414,7 @@
     },
     {
       "name": "dragAndDropByOffset()",
-      "id": "45",
+      "id": "40",
       "syntax": "dragAndDropByOffset(String elementName, int xOffset, int yOffset)",
       "values": [
         {
@@ -549,7 +433,7 @@
     },
     {
       "name": "moveToElement()",
-      "id": "46",
+      "id": "41",
       "syntax": "moveToElement(String moveToElement, int xOffset, int yOffset)",
       "values": [
         {
@@ -568,7 +452,7 @@
     },
     {
       "name": "moveToElementPercent()",
-      "id": "47",
+      "id": "42",
       "syntax": "moveToElementPercent(String elementName, double xOffsetPercent, double yOffsetPercent)",
       "values": [
         {
@@ -586,15 +470,444 @@
       ]
     }
   ],
-  "excel": [
+
+  "access": [
     {
-      "name": "enterText()",
-      "id": "1",
-      "syntax": "enterText(String text)",
+      "name": "selectText()",
+      "id": "ac1",
+      "syntax": "selectText(String elementName, int start, int end, Method methodType)",
       "values": [
         {
           "actVal": "",
-          "actKey": "text"
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "start"
+        },
+        {
+          "actVal": "",
+          "actKey": "end"
+        },
+        {
+          "actVal": "",
+          "actKey": "methodType"
+        }
+      ]
+    },
+    {
+      "name": "clickAt()",
+      "id": "ac2",
+      "syntax": "clickAt(String elementName, int pos)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "pos"
+        }
+      ]
+    },
+    {
+      "name": "pressKey()",
+      "id": "ac3",
+      "syntax": "pressKey(MyKeys keyName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "keyName"
+        }
+      ]
+    },
+    {
+      "name": "selectCell()",
+      "id": "ac4",
+      "syntax": "selectCell(String cellName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "cellName"
+        }
+      ]
+    },
+    {
+      "name": "clickAtPercent()",
+      "id": "ac5",
+      "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "xposPercent"
+        },
+        {
+          "actVal": "",
+          "actKey": "yposPercent"
+        }
+      ]
+    },
+    {
+      "name": "selectCellRange()",
+      "id": "ac6",
+      "syntax": "selectCellRange(String cellRange, Method methodType)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "cellRange"
+        },
+        {
+          "actVal": "",
+          "actKey": "methodType"
+        }
+      ]
+    },
+    {
+      "name": "rightClickOnCell()",
+      "id": "ac7",
+      "syntax": "rightClickOnCell(String cellName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "cellName"
+        }
+      ]
+    },
+    {
+      "name": "selectColumn()",
+      "id": "ac8",
+      "syntax": "selectColumn(String columnName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "columnName"
+        }
+      ]
+    },
+    {
+      "name": "selectRow()",
+      "id": "ac9",
+      "syntax": "selectRow(int rowNumber)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "rowNumber"
+        }
+      ]
+    },
+    {
+      "name": "doubleClickFillHandle()",
+      "id": "ac10",
+      "syntax": "doubleClickFillHandle(String elementName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        }
+      ]
+    }
+  ],
+
+  "excel": [
+    {
+      "name": "selectCell()",
+      "id": "xl1",
+      "syntax": "selectCell(String cellName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "cellName"
+        }
+      ]
+    },
+    {
+      "name": "selectCellRange()",
+      "id": "xl2",
+      "syntax": "selectCellRange(String cellRange, Method methodType)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "cellRange"
+        },
+        {
+          "actVal": "",
+          "actKey": "methodType"
+        }
+      ]
+    },
+    {
+      "name": "rightClickOnCell()",
+      "id": "xl3",
+      "syntax": "rightClickOnCell(String cellName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "cellName"
+        }
+      ]
+    },
+    {
+      "name": "selectRow()",
+      "id": "xl4",
+      "syntax": "selectRow(int rowNumber)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "rowNumber"
+        }
+      ]
+    },
+    {
+      "name": "selectColumn()",
+      "id": "xl5",
+      "syntax": "selectColumn(String columnName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "columnName"
+        }
+      ]
+    },
+    {
+      "name": "selectText()",
+      "id": "xl6",
+      "syntax": "selectText(String elementName, int start, int end, Method methodType)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "start"
+        },
+        {
+          "actVal": "",
+          "actKey": "end"
+        },
+        {
+          "actVal": "",
+          "actKey": "methodType"
+        }
+      ]
+    },
+    {
+      "name": "clickAt()",
+      "id": "xl7",
+      "syntax": "clickAt(String elementName, int pos)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "pos"
+        }
+      ]
+    },
+    {
+      "name": "clickAtPercent()",
+      "id": "xl8",
+      "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "xposPercent"
+        },
+        {
+          "actVal": "",
+          "actKey": "yposPercent"
+        }
+      ]
+    },
+    {
+      "name": "pressKey()",
+      "id": "xl9",
+      "syntax": "pressKey(MyKeys keyName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "keyName"
+        }
+      ]
+    },
+    {
+      "name": "doubleClickFillHandle()",
+      "id": "xl10",
+      "syntax": "doubleClickFillHandle(String elementName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        }
+      ]
+    }
+  ],
+
+  "ppt":[
+    {
+      "name": "selectText()",
+      "id": "ppt1",
+      "syntax": "selectText(String elementName, int start, int end, Method methodType)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "start"
+        },
+        {
+          "actVal": "",
+          "actKey": "end"
+        },
+        {
+          "actVal": "",
+          "actKey": "methodType"
+        }
+      ]
+    },
+    {
+      "name": "clickAt()",
+      "id": "ppt2",
+      "syntax": "clickAt(String elementName, int pos)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "pos"
+        }
+      ]
+    },
+    {
+      "name": "selectSlideFromSlidePane()",
+      "id": "ppt3",
+      "syntax": "selectSlideFromSlidePane(String slideNumber)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "slideNumber"
+        }
+      ]
+    },
+    {
+      "name": "rightClickSlideInSlidePane()",
+      "id": "ppt4",
+      "syntax": "rightClickSlideInSlidePane(String slideNumber)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "slideNumber"
+        }
+      ]
+    },
+    {
+      "name": "dragAndDropSlideInSlidePane()",
+      "id": "ppt5",
+      "syntax": "dragAndDropSlideInSlidePane(String firstSlide, String secondSlide)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "firstSlide"
+        },
+        {
+          "actVal": "",
+          "actKey": "secondSlide"
+        }
+      ]
+    },
+    {
+      "name": "pressKey()",
+      "id": "ppt6",
+      "syntax": "pressKey(MyKeys keyName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "keyName"
+        }
+      ]
+    }
+  ],
+
+  "word":[
+    {
+      "name": "selectText()",
+      "id": "wd1",
+      "syntax": "selectText(String elementName, int start, int end, Method methodType)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "start"
+        },
+        {
+          "actVal": "",
+          "actKey": "end"
+        },
+        {
+          "actVal": "",
+          "actKey": "methodType"
+        }
+      ]
+    },
+    {
+      "name": "clickAt()",
+      "id": "wd2",
+      "syntax": "clickAt(String elementName, int pos)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "pos"
+        }
+      ]
+    },
+    {
+      "name": "clickAtPercent()",
+      "id": "wd3",
+      "syntax": "clickAtPercent(String elementName, int xposPercent, int yposPercent)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "elementName"
+        },
+        {
+          "actVal": "",
+          "actKey": "xposPercent"
+        },
+        {
+          "actVal": "",
+          "actKey": "yposPercent"
+        }
+      ]
+    },
+    {
+      "name": "pressKey()",
+      "id": "wd4",
+      "syntax": "pressKey(MyKeys keyName)",
+      "values": [
+        {
+          "actVal": "",
+          "actKey": "keyName"
         }
       ]
     }

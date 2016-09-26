@@ -12,61 +12,54 @@ angular.module('automationApp.sidebar')
             scope:{
             },
             templateUrl: 'modules/sidebar/views/modalBox.tpl.html',
-            link: function($scope, element, attrs) {
+            link: function(scope) {
+                scope.headerText = '';
+                scope.confirmText = 'Continue';
 
-                var modalData = {
-                    headerText:'',
-                    confirmText:'',
-                    route:'',
-                    queryParam:''
-                };
+                var route, queryParam;
 
                 $('#modal-modalbox').on('show.bs.modal', function (event) {
                     var thisModal = $(this);
                     var listItem = $(event.relatedTarget) // Button that triggered the modal
 
                     if(listItem.data('context') == 'export') {
-                        modalData.headerText = 'Export Script';
-                        modalData.confirmText = 'Export';
-                        modalData.route = '/api/tasks/';
-                        modalData.queryParam = '?format=json';
+                        scope.headerText = 'Export Script';
+                        scope.confirmText = 'Export';
+                        route = '/api/tasks/';
+                        queryParam = '?format=json';
                     }
                     else if(listItem.data('context') == 'preview') {
-                        modalData.headerText = 'Preview XML';
-                        modalData.confirmText = 'Preview';
-                        modalData.route = '/api/tasks/';
-                        modalData.queryParam = '?format=xml';
-                    }
-                    else {
-                        modalData.headerText = '';
-                        modalData.confirmText = 'Continue';
+                        scope.headerText = 'Preview XML';
+                        scope.confirmText = 'Preview';
+                        route = '/api/tasks/';
+                        queryParam = '?format=xml';
                     }
 
-                    thisModal.find('#headerText span').text(modalData.headerText);
-                    thisModal.find('#confirmText').text(modalData.confirmText);
 
-                    $scope.clickAction = function(){
 
-                        var taskID = thisModal.find("[id='taskid']").val();
+                    scope.clickAction = function(){
 
-                        if (taskID == undefined || taskID.length === 0) {
+                        if (scope.taskId == undefined || scope.taskId.length === 0) {
                             $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'SLE Id cannot be blank !' + '</p></div>','.modal-body');
                         }
-                        else if ($rootScope.validateTaskId(taskID)){	// client side validation
+                        else if ($rootScope.validateTaskId(scope.taskId)){	// client side validation
                             // api call
-                            scriptorService.getTaskJson(taskID).then(function(res) {
-                                thisModal.find("[id='taskid']").val('');  // reset input field
+                            scriptorService.getTaskJson(scope.taskId).then(function(res) {
                                 if(res.data.errors) {
-                                    $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting data for SLE - ' + taskID + '</p>'+'</div>','.modal-body');
+                                    $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting data for SLE - ' + scope.taskId + '</p>'+'</div>','.modal-body');
+                                    scope.taskId = '';
                                 } else{
                                     $('#modal-modalbox').modal('hide');  // hide modal
-                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + modalData.route + taskID + modalData.queryParam);
+                                    scope.taskId = '';
+                                    $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + route + scope.taskId + queryParam);
                                 }
                             });
                         } else{
                             $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'Invalid Task Id !' + '</p></div>','.modal-body');
                         }
                     }
+
+                    scope.$apply();
                 })
             }
         };
