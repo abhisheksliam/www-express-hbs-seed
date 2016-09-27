@@ -4,7 +4,7 @@ angular.module('automationApp.scriptor')
 	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$state',
 		function($stateParams, $rootScope, $scope, scriptorService, $state) {
 
-            $scope.sleId = $stateParams.id;
+            $rootScope.taskId = $scope.taskId = $stateParams.id;
 
             if ($.isEmptyObject(scriptorService.taskContent) || $rootScope.globalConstants === undefined) {
                 loadTaskJSON();
@@ -46,14 +46,12 @@ angular.module('automationApp.scriptor')
             }
 
             function setDataFromTaskJSON(taskData) {
-
                 $scope.taskJson = taskData;
                 $scope.originalTaskJson = angular.copy(taskData);
 
-                $rootScope.taskId = $scope.taskId = taskData[0].id;
+                $scope.sleId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
                 $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
-
             }
 
             function loadApplicationSpecificData() {
@@ -79,7 +77,7 @@ angular.module('automationApp.scriptor')
             $scope.$watch('taskJson',function(newValue, oldValue) {
                 if(newValue != oldValue) {
                     if(!angular.equals($scope.taskJson,$scope.originalTaskJson)) {
-                        scriptorService.updateTaskJson($scope.sleId, $scope.taskJson, username).then(function(res) {
+                        scriptorService.updateTaskJson($scope.taskId, $scope.taskJson, username).then(function(res) {
                             $scope.originalTaskJson =  res.data.task_json;
                         });
                     }
@@ -88,7 +86,7 @@ angular.module('automationApp.scriptor')
 
             $scope.$on('SCRIPTOR_LOAD_TASK', function(event, res) {
                 scriptorService.taskContent = res.data.task_json;
-                $state.go('app.script-editor',  {id: res.data.sle_id});
+                $state.go('app.script-editor',  {id: res.data.task_id});
                 $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
             });
 

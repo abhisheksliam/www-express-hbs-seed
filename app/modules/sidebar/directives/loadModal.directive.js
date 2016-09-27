@@ -30,8 +30,10 @@ angular.module('automationApp.sidebar')
                                     $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Invalid JSON</p></div>','.modal-body');
                                 }
 
+                                var taskId = ingestJSON[0].id+ '.' + ingestJSON[0].scenario;
+
                                 if(ingestJSON !== undefined && ingestJSON.length !== undefined) {
-                                    scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
+                                    scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
                                         if(res.data.errors) {
                                             if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
                                                 $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Task already exists</p></div>','.modal-body');

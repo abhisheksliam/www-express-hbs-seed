@@ -32,7 +32,7 @@ angular.module('automationApp.scriptor')
 
         var getApplicationFromScenarioId = function(scenarioId, globalConstants) {
             var scenario;
-            var taskId;
+            var sleId;
 
             var application = globalConstants.applications.find(function(el){
                 return scenarioId.indexOf(el.key) !== -1;
@@ -47,14 +47,14 @@ angular.module('automationApp.scriptor')
 
             if(bScenario !== undefined) {
                 scenario = bScenario;
-                taskId = taskArr.join(".");
+                sleId = taskArr.join(".");
             }
 
             return {
                 "scenarioId": scenarioId,
                 "application" : application,
                 "scenario": scenario,
-                "taskId": taskId
+                "sleId": sleId
             };
         };
 
@@ -101,12 +101,13 @@ angular.module('automationApp.scriptor')
             return xpath;
         }
 
-        var saveTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, ingest_json, username) {
+        var saveTaskScript = function(app_key, scenario, task_id, sle_id, copy_task_id, template, ingest_json, username) {
             var saveTask = $http.post('/api/tasks/', {
                 "app_key": app_key,
                 "scenario": scenario,
                 "task_id": task_id,
-                "copy_sle_id": copy_sle_id,
+                "sle_id": sle_id,
+                "copy_task_id": copy_task_id,
                 "template": template,
                 "ingest_json": ingest_json,
                 "modified_by" : {
@@ -119,13 +120,14 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
-        var updateTaskScript = function(app_key, scenario, task_id, copy_sle_id, template, username) {
+        var updateTaskScript = function(app_key, scenario, task_id, sle_id, copy_task_id, template, username) {
             var updateTask = $http.put('/api/tasks/', {
                 "app_key" : app_key,
                 "scenario" : scenario,
                 "task_id" : task_id,
+                "sle_id": sle_id,
                 "template" : template,
-                "copy_sle_id": copy_sle_id,
+                "copy_task_id": copy_task_id,
                 "modified_by" : {
                     "name" : username
                 }
@@ -136,8 +138,8 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         }
 
-        var updateTaskJson = function(sle_id, task_json , username) {
-            var updateTask = $http.put('/api/tasks/' + sle_id, {
+        var updateTaskJson = function(task_id, task_json , username) {
+            var updateTask = $http.put('/api/tasks/' + task_id, {
                 "task_json" : task_json,
                 "modified_by" : {
                     "name" : username
