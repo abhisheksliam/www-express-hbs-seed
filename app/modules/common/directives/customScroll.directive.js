@@ -1,19 +1,23 @@
 "use strict";
 
 angular.module('automationApp')
-    .directive('customScroll', ['$log', function($log) {
+    .directive('customScroll', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             scope: {
             },
-            link: function postLink(scope, iElement, iAttrs, controller, transcludeFn) {
+            link: function(scope, element, attrs) {
+                $timeout(function(){
 
-                iElement.mCustomScrollbar({
-                    theme: 'dark',
-                    axis: "y",
-                    scrollButtons: {
-                        enable: true
-                    }
+                    element.mCustomScrollbar({
+                        theme: "minimal-dark",
+                        axis: "y",
+                        autoHideScrollbar: true,
+                        scrollButtons: {
+                            enable: true
+                        }
+                    });
+
                 });
 
             }
