@@ -10,12 +10,20 @@
 					<div class="col-lg-12 m-l-5">
 						<div class="row p-l-0">
 							<div class="col-md-6 m-b-20 m-t-5">
-                <span class="input input--hoshi taskid-input m-l-0 f-14">
-                    <input class="input__field input__field--hoshi m-t-0" type="text" id="taskid" value="{{taskId}}" ng-model="taskId" placeholder="SKL16.PPT.01.01.01.T1">
-                    <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
-						<span class="input__label-content input__label-content--hoshi m-b-15"></span>
+
+								<span class="input input--hoshi m-l-0 f-14" ng-class="{'input--filled': taskId !== ''}">
+					<input class="input__field input__field--hoshi" type="text" id="taskid" value="{{taskId}}" ng-model="taskId">
+					<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
+						<span class="input__label-content input__label-content--hoshi">Task Id</span>
 					</label>
-                </span>
+				</span>
+
+                <!--<span class="input input&#45;&#45;hoshi taskid-input m-l-0 f-14">
+                    <input class="input__field input__field&#45;&#45;hoshi m-t-0" type="text" id="taskid" value="{{taskId}}" ng-model="taskId" placeholder="SKL16.PPT.01.01.01.T1">
+                    <label class="input__label input__label&#45;&#45;hoshi input__label&#45;&#45;hoshi-color-1" for="taskid">
+						<span class="input__label-content input__label-content&#45;&#45;hoshi m-b-15"></span>
+					</label>
+                </span>-->
 							</div>
 						</div>
 					</div>
