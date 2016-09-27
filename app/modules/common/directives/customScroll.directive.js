@@ -11,15 +11,12 @@ angular.module('automationApp')
 
                     element.mCustomScrollbar({
                         theme: "dark",
-                        axis: "y",
                         autoHideScrollbar: true,
-                        scrollButtons: {
-                            enable: true
-                        }
+                        advanced:{ updateOnContentResize: true,
+                            updateOnBrowserResize:true},
+                        autoExpandScrollbar: true
                     });
-
                 });
-
             }
         };
     }]);
