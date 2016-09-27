@@ -10,7 +10,7 @@ angular.module('automationApp')
                 $timeout(function(){
 
                     element.mCustomScrollbar({
-                        theme: "minimal-dark",
+                        theme: "dark",
                         axis: "y",
                         autoHideScrollbar: true,
                         scrollButtons: {
