@@ -14,7 +14,9 @@ angular.module('automationApp')
                         autoHideScrollbar: true,
                         advanced:{ updateOnContentResize: true,
                             updateOnBrowserResize:true},
-                        autoExpandScrollbar: true
+                        autoExpandScrollbar: true,
+                        scrollInertia:350,
+                        autoDraggerLength:true
                     });
                 });
             }
