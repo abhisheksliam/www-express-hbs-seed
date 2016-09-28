@@ -7,9 +7,12 @@ angular.module('automationApp.scriptor')
             $rootScope.taskId = $scope.taskId = $stateParams.id;
 
             if ($.isEmptyObject(scriptorService.taskContent) || $rootScope.globalConstants === undefined) {
-                loadTaskJSON();
 
-                loadConfigurations();
+                scriptorService.getGlobalContext().then(function(res) {
+                    $rootScope.globalConstants = res.data;
+                });
+
+                loadTaskJSON();
 
             } else {
                 if (scriptorService.taskContent[0] !== undefined && scriptorService.taskContent[0].id !== $stateParams.id) {
@@ -19,8 +22,6 @@ angular.module('automationApp.scriptor')
                     setDataFromTaskJSON(scriptorService.taskContent);
 
                 }
-
-                loadApplicationSpecificData();
             }
 
             function loadTaskJSON() {
@@ -34,17 +35,6 @@ angular.module('automationApp.scriptor')
                 });
             }
 
-            function loadConfigurations(){
-
-                scriptorService.getGlobalContext().then(function(res) {
-                    $rootScope.globalConstants = res.data;
-
-                    loadApplicationSpecificData();
-
-                });
-
-            }
-
             function setDataFromTaskJSON(taskData) {
                 $scope.taskJson = taskData;
                 $scope.originalTaskJson = angular.copy(taskData);
@@ -52,9 +42,6 @@ angular.module('automationApp.scriptor')
                 $scope.sleId = taskData[0].id;
                 $scope.scenarioType = taskData[0].scenario;
                 $rootScope.applicationName = $scope.applicationName = taskData[0].appName;
-            }
-
-            function loadApplicationSpecificData() {
 
                 scriptorService.getTriggers().then(function(res) {
                     var commonActions = res.data["common"];
@@ -71,7 +58,6 @@ angular.module('automationApp.scriptor')
                 scriptorService.getTriggerSuggestions().then(function(res) {
                     $rootScope.TriggerSuggestions = res.data;
                 });
-
             }
 
             $scope.$watch('taskJson',function(newValue, oldValue) {
