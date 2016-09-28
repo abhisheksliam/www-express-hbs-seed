@@ -2,7 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var automationScriptsSchema   = new Schema({
-    sle_id: String,
+    task_id: String,
     created_by: {
         _id: {
             type: mongoose.Schema.ObjectId    /*,

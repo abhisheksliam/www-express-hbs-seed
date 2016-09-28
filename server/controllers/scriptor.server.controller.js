@@ -17,8 +17,7 @@ var AutomationScripts     = require('./../models/app.server.models.script');
 const converterService = require("./../services/converter.server.service");
 
 exports.saveTask = function (req, res) {
-    var sle_id = req.body.task_id + "." + req.body.scenario;
-    AutomationScripts.findOne({sle_id: sle_id}, function(err, scriptData) {
+    AutomationScripts.findOne({task_id: req.body.task_id}, function(err, scriptData) {
         if (err) {
             res.json({
             "errors": {
@@ -33,20 +32,18 @@ exports.saveTask = function (req, res) {
                 "errorCode": "EXISTS_IN_DB"
             } });
         } else {
-             checkForTemplateAndSave(sle_id, req, res, true);
+             checkForTemplateAndSave(req, res, true);
         }
     });
 
 };
 
 exports.updateTask = function (req, res) {
-    var sle_id = req.body.task_id + "." + req.body.scenario;
-
-    checkForTemplateAndSave(sle_id, req, res, false);
+    checkForTemplateAndSave(req, res, false);
 };
 
 exports.getTaskScript = function (req, res) {
-    AutomationScripts.find({sle_id: req.params.task_id}, function(err, scriptData) {
+    AutomationScripts.find({task_id: req.params.task_id}, function(err, scriptData) {
         if (err) {
             res.json({
                 "errors": {
@@ -92,7 +89,7 @@ exports.updateTaskScript = function (req, res) {
 
     var scriptData = converterService.transformPathwaysOldFormat(req.body.task_json);
 
-    AutomationScripts.findOneAndUpdate({sle_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
+    AutomationScripts.findOneAndUpdate({task_id: req.params.task_id}, {$set: {"task_json" : req.body.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
         if (err) {
             res.json({
                 "errors": {
@@ -121,7 +118,7 @@ exports.getAllTasks = function (req, res) {
 
 exports.deleteTaskScript = function (req, res) {
     AutomationScripts.remove({
-        sle_id: req.params.task_id
+        task_id: req.params.task_id
     }, function(err, scriptData) {
         if (err) {
             res.json({
@@ -136,33 +133,33 @@ exports.deleteTaskScript = function (req, res) {
     });
 };
 
-function checkForTemplateAndSave(sle_id, req, res, bSaveUpdate){
+function checkForTemplateAndSave(req, res, bSaveUpdate){
     var automationScript = new AutomationScripts();
     // Set text and user values from the request
-    automationScript.sle_id = sle_id;
+    automationScript.task_id = req.body.task_id;
     automationScript.modified_by.name = req.body.modified_by.name;
 
     if(req.body.template === TEMPLATE_BLANK) {
         generateBlankTemplate(req, function(taskJson){
-            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
+            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson);
         });
 
     } else if(req.body.template === TEMPLATE_BALOO){
         generatePreFilledBalooTemplate(req,
             function(taskJson){
-                saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
+                saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson);
             });
 
     } else if (req.body.template === TEMPLATE_TASK){
         generateCopyTemplate(req, function(taskJson){
-            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id);
+            saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson);
         });
     } else if (req.body.template === TEMPLATE_INGEST){
-        saveUpdateData(bSaveUpdate, req, res, automationScript, req.body.ingest_json, sle_id);
+        saveUpdateData(bSaveUpdate, req, res, automationScript, req.body.ingest_json);
     }
 };
 
-function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_id){
+function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson){
     automationScript.task_json = taskJson;
 
     if (taskJson.errors){
@@ -191,13 +188,13 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
                 }
             } else {
                 res.json({ "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + sle_id,
+                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.task_id,
                     "errorCode": "SLE_NOT_FOUND"
                 } });
             }
         });
     } else {
-        AutomationScripts.findOneAndUpdate({sle_id: sle_id}, {$set: {"task_json" : automationScript.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
+        AutomationScripts.findOneAndUpdate({task_id: req.body.task_id}, {$set: {"task_json" : automationScript.task_json, 'modified_by.name' : req.body.modified_by.name}}, function(err, doc){
 
             if (err) {
                 res.json({
@@ -220,7 +217,7 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson, sle_i
                 }
             } else {
                 res.json({ "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + sle_id,
+                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.task_id,
                     "errorCode": "SLE_NOT_FOUND"
                 } });
             }
@@ -243,7 +240,7 @@ function generateBlankTemplate(req, done){
                 }
             ],
             "appName" : req.body.app_key,
-            "id" : req.body.task_id,
+            "id" : req.body.sle_id,
             "scenario" : req.body.scenario
         }
     ];
@@ -261,7 +258,7 @@ function generatePreFilledBalooTemplate(req,done){
                 }
                 };
 
-    var _v1 = (BALOO_API_URL + (req.body.task_id + '.' + req.body.scenario));
+    var _v1 = (BALOO_API_URL + req.body.task_id);
 
     var options = {
         host: BALOO_API_HOST,
@@ -309,7 +306,7 @@ function generatePreFilledBalooTemplate(req,done){
 
 function generateCopyTemplate(req, done){
 
-    AutomationScripts.findOne({sle_id: req.body.copy_sle_id}, function(err, scriptData) {
+    AutomationScripts.findOne({task_id: req.body.copy_task_id}, function(err, scriptData) {
         if (err) {
             var error = {
                 "errors": {
@@ -321,14 +318,14 @@ function generateCopyTemplate(req, done){
         }
         if(scriptData) {
             scriptData.task_json[0].appName = req.body.app_key;
-            scriptData.task_json[0].id =req.body.task_id;
+            scriptData.task_json[0].id =req.body.sle_id;
             scriptData.task_json[0].scenario = req.body.scenario;
 
             done(scriptData.task_json);
         } else {
             var error = {
                 "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.copy_sle_id,
+                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.copy_task_id,
                     "errorCode": 'SLE_NOT_FOUND'
                 }
             };
