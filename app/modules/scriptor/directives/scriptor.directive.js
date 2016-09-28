@@ -51,8 +51,8 @@ angular.module('automationApp.scriptor')
                 $timeout(function(){
                     element.find( ".dd-handle" ).draggable({
                         helper: "clone",
-                        //appendTo: 'body',
-                        containment: 'window',
+                        appendTo: '#triggerlist',
+                        containment: 'document',
                         revert: "invalid",
                         cursor: "move",
                         scroll: false,
