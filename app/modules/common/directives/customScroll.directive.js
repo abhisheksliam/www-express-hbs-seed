@@ -18,7 +18,7 @@ angular.module('automationApp')
                         scrollInertia:350,
                         autoDraggerLength:true
                     });
-                });
+                },2000);
             }
         };
     }]);
