@@ -14,6 +14,15 @@ angular.module('automationApp.runner')
 
                 $http.get('data/runner_configuration.json').then(function(res) {
                     scope.runnerConfig =  res.data;
+                    scope.host = scope.runnerConfig.run.defaults.host;
+                    scope.os = scope.runnerConfig.run.defaults.os;
+                    scope.browser = scope.runnerConfig.run.defaults.browser;
+                    scope.brversion = scope.runnerConfig.run.defaults.brversion;
+                    scope.appurl = scope.runnerConfig.run.defaults.appurl;
+                    scope.appurlpublic = scope.runnerConfig.run.defaults.appurlpublic;
+                    scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
+                    scope.brnode = username;
+                    scope.simsbuild = "";
                 });
 
                 scope.iCheckOptions = {
@@ -217,26 +226,35 @@ angular.module('automationApp.runner')
                         var appName = scope.items[0].appName;
                         var baseUrl = scope.runnerConfig.runner.url;
                         var runnerAPI = scope.runnerConfig.runner.api;
-                        var selectedBrowser = scope.runnerConfig.browser[0];
 
 
                         var formData =   {
-                            "command": scope.runnerConfig.testCommand,
-                            "params": [
-                                "-DappURL=" + scope.runnerConfig.user[name].ApplicationURL,
-                                "-DtestName=" + appName + ".Test_" + filename,
-                                "-DbrName=" + selectedBrowser,
-                                "-Dnode=" + scope.runnerConfig.user[name].nodeName,
-                                "-DhubIp=" + scope.runnerConfig.params.HubIp,
-                                "-DhubPort=" + scope.runnerConfig.params.HubPort
-                            ],
+                            "user" : {
+                                "name" : username,
+                                "ip" : clientIp,
+                                "userdata" : {}
+                            },
+                            "run" : {
+                                "env" : scope.host,
+                                "os" : scope.os,
+                                "resolution": scope.screenresolution,
+                                "app" : {
+                                    "url" : scope.appurl,
+                                    "public" : scope.appurlpublic,
+                                    "build" : scope.simsbuild
+                                },
+                                "browser" : {
+                                    "node" : scope.brnode,
+                                    "name" : scope.browser,
+                                    "version" : scope.brversion
+                                }
+                            },
                             "task": {
                                 "filename": filename,
-                                "appName": appName,
+                                "appName" : appName,
                                 "xml": xmlContent,
                                 "java": javaContent
-                            },
-                            "clientIp" : scope.runnerConfig.user[name].clientIp
+                            }
                         };
 
                         // process the form
@@ -247,8 +265,6 @@ angular.module('automationApp.runner')
                             dataType    : 'json' // what type of data do we expect back from the server
                         });
                     }
-
-                });
 
                 var getXmlContent = function() {
                    var taskData = scope.items[0];
@@ -348,6 +364,40 @@ angular.module('automationApp.runner')
 
                     return (preJ + preJin + runJ + postJ + postJout);
                 }
+
+                $timeout(function(){
+                    //    for dd
+                    var runnerConfigDD = element.find('select').select2({
+                        dropdownCssClass: 'form-white',
+                        minimumResultsForSearch: -1
+                    });
+                    element.find('.hostselect').select2('val', scope.host);
+                    element.find('.osselect').select2('val', scope.os);
+                    element.find('.brselect').select2('val', scope.browser);
+                });
+                },200);
+
+                element.on('click',".config-tab",function(event) {
+                    event.preventDefault();
+                    $('#runner-settings').removeClass('active in');
+                    $('#runner-config').addClass('active in');
+
+                    $('.settings-tab').parent().removeClass('active');
+                    $('.config-tab').parent().addClass('active');
+
+                    event.stopPropagation();
+                });
+
+                element.on('click',".settings-tab",function(event) {
+                    event.preventDefault();
+                    $('#runner-settings').addClass('active in');
+                    $('#runner-config').removeClass('active in');
+
+                    $('.settings-tab').parent().addClass('active');
+                    $('.config-tab').parent().removeClass('active');
+
+                    event.stopPropagation();
+                });
             }
         }
     }]);
