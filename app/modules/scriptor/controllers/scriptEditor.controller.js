@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('automationApp.scriptor')
-	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$state',
-		function($stateParams, $rootScope, $scope, scriptorService, $state) {
+	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$state', '$filter',
+		function($stateParams, $rootScope, $scope, scriptorService, $state, $filter) {
 
-            $rootScope.taskId = $scope.taskId = $stateParams.id;
+            $rootScope.taskId = $scope.taskId = $filter('uppercase')($stateParams.id);
 
             if ($.isEmptyObject(scriptorService.taskContent) || $rootScope.globalConstants === undefined) {
 
@@ -15,7 +15,7 @@ angular.module('automationApp.scriptor')
                 loadTaskJSON();
 
             } else {
-                if (scriptorService.taskContent[0] !== undefined && scriptorService.taskContent[0].id !== $stateParams.id) {
+                if (scriptorService.taskContent[0] !== undefined && scriptorService.taskContent[0].id !== $scope.taskId) {
                     loadTaskJSON();
 
                 } else {
@@ -26,7 +26,7 @@ angular.module('automationApp.scriptor')
 
             function loadTaskJSON() {
 
-                scriptorService.getTaskJson($stateParams.id).then(function(res) {
+                scriptorService.getTaskJson($scope.taskId).then(function(res) {
                     if(res.data.errors) {
                         $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
                     } else {

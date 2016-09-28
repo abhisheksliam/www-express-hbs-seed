@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('automationApp.sidebar')
-    .directive('loadModal', ['scriptorService','$rootScope', function(scriptorService, $rootScope) {
+    .directive('loadModal', ['scriptorService','$rootScope', '$filter', function(scriptorService, $rootScope, $filter) {
         return {
             restrict: 'E',
             replace: true,
@@ -14,6 +14,10 @@ angular.module('automationApp.sidebar')
                 scope.iCheckOptions = {
                     radioClass: 'iradio_flat-blue'
                 };
+
+                scope.$watch('loadTaskId', function() {
+                    scope.loadTaskId = scope.loadTaskId.toUpperCase().replace(/\s+/g,'');
+                });
 
                 scope.loadScript = function(){
                     if ($('input[name=load-task-options]:checked').val() === "2") {
@@ -30,9 +34,10 @@ angular.module('automationApp.sidebar')
                                     $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Invalid JSON</p></div>','.modal-body');
                                 }
 
-                                var taskId = ingestJSON[0].id+ '.' + ingestJSON[0].scenario;
-
                                 if(ingestJSON !== undefined && ingestJSON.length !== undefined) {
+
+                                    var taskId = $filter('uppercase')(ingestJSON[0].id+ '.' + ingestJSON[0].scenario);
+
                                     scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
                                         if(res.data.errors) {
                                             if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
@@ -51,7 +56,7 @@ angular.module('automationApp.sidebar')
                             };
                         }
                     } else {
-                        if (scope.loadTaskId == undefined || scope.loadTaskId.length === 0) {
+                        if (scope.loadTaskId == '' || scope.loadTaskId.length === 0) {
                             $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>','.modal-body');
                         }
                         else if ($rootScope.validateTaskId(scope.loadTaskId)){	// client side validation

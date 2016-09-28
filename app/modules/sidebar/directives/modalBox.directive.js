@@ -5,7 +5,7 @@
 "use strict";
 
 angular.module('automationApp.sidebar')
-    .directive('modalBox', ['scriptorService','$location','$rootScope', '$window',function(scriptorService,$location,$rootScope, $window) {
+    .directive('modalBox', ['scriptorService','$location','$rootScope', '$window', function(scriptorService,$location,$rootScope, $window) {
         return {
             restrict: 'AE',
             replace: true,
@@ -15,6 +15,7 @@ angular.module('automationApp.sidebar')
             link: function(scope) {
                 scope.headerText = '';
                 scope.confirmText = 'Continue';
+                scope.taskId = '';
 
                 var route, queryParam;
 
@@ -35,11 +36,13 @@ angular.module('automationApp.sidebar')
                         queryParam = '?format=xml';
                     }
 
-
+                    scope.$watch('taskId', function() {
+                        scope.taskId = scope.taskId.toUpperCase().replace(/\s+/g,'');
+                    });
 
                     scope.clickAction = function(){
 
-                        if (scope.taskId == undefined || scope.taskId.length === 0) {
+                        if (scope.taskId == '' || scope.taskId.length === 0) {
                             $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>','.modal-body');
                         }
                         else if ($rootScope.validateTaskId(scope.taskId)){	// client side validation
