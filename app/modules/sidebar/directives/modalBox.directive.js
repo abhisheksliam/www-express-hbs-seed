@@ -40,13 +40,13 @@ angular.module('automationApp.sidebar')
                     scope.clickAction = function(){
 
                         if (scope.taskId == undefined || scope.taskId.length === 0) {
-                            $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'SLE Id cannot be blank !' + '</p></div>','.modal-body');
+                            $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>','.modal-body');
                         }
                         else if ($rootScope.validateTaskId(scope.taskId)){	// client side validation
                             // api call
                             scriptorService.getTaskJson(scope.taskId).then(function(res) {
                                 if(res.data.errors) {
-                                    $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting data for SLE - ' + scope.taskId + '</p>'+'</div>','.modal-body');
+                                    $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting data for Task - ' + scope.taskId + '</p>'+'</div>','.modal-body');
                                     scope.taskId = '';
                                 } else{
                                     $('#modal-modalbox').modal('hide');  // hide modal

@@ -78,8 +78,8 @@ exports.getTaskScript = function (req, res) {
             }
         } else {
             res.json({ "errors": {
-                "errorMessage": 'SLE_NOT_FOUND : ' + req.params.task_id,
-                "errorCode": "SLE_NOT_FOUND"
+                "errorMessage": 'TASK_NOT_FOUND : ' + req.params.task_id,
+                "errorCode": "TASK_NOT_FOUND"
             } });
         }
     });
@@ -188,8 +188,8 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson){
                 }
             } else {
                 res.json({ "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.task_id,
-                    "errorCode": "SLE_NOT_FOUND"
+                    "errorMessage": 'TASK_NOT_FOUND : ' + req.body.task_id,
+                    "errorCode": "TASK_NOT_FOUND"
                 } });
             }
         });
@@ -217,8 +217,8 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson){
                 }
             } else {
                 res.json({ "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.task_id,
-                    "errorCode": "SLE_NOT_FOUND"
+                    "errorMessage": 'TASK_NOT_FOUND : ' + req.body.task_id,
+                    "errorCode": "TASK_NOT_FOUND"
                 } });
             }
         });
@@ -325,8 +325,8 @@ function generateCopyTemplate(req, done){
         } else {
             var error = {
                 "errors": {
-                    "errorMessage": 'SLE_NOT_FOUND : ' + req.body.copy_task_id,
-                    "errorCode": 'SLE_NOT_FOUND'
+                    "errorMessage": 'TASK_NOT_FOUND : ' + req.body.copy_task_id,
+                    "errorCode": 'TASK_NOT_FOUND'
                 }
             };
             done(error);
