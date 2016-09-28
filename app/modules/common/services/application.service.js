@@ -561,7 +561,7 @@
 		/****  Custom Scrollbar  ****/
 		/* Create Custom Scroll for elements like Portlets or Dropdown menu */
 		function customScroll() {
-			if ($.fn.mCustomScrollbar) {
+			/*if ($.fn.mCustomScrollbar) {
 				$('.withScroll').each(function () {
 					$(this).mCustomScrollbar("destroy");
 					var scroll_height = $(this).data('height') ? $(this).data('height') : 'auto';
@@ -585,7 +585,7 @@
 						}
 					});
 				});
-			}
+			}*/
 		}
 
 		/* ==========================================================*/
@@ -709,7 +709,7 @@
 
 		/* Create custom scroll for sidebar used for fixed sidebar */
 		function createSideScroll() {
-			if ($.fn.mCustomScrollbar) {
+/*			if ($.fn.mCustomScrollbar) {
 				destroySideScroll();
 				if (!$('body').hasClass('sidebar-collapsed') && !$('body').hasClass('sidebar-collapsed') && !$('body').hasClass('submenu-hover') && $('body').hasClass('fixed-sidebar')) {
 					$('.sidebar-inner').mCustomScrollbar({
@@ -727,7 +727,7 @@
 				if ($('body').hasClass('sidebar-top')) {
 					destroySideScroll();
 				}
-			}
+			}*/
 		}
 
 		/* Destroy sidebar custom scroll */
