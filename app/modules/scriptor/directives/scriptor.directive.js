@@ -24,12 +24,11 @@ angular.module('automationApp.scriptor')
                 var dropHandler = {
                     accept: ".dd-handle",
                     drop: function( event, ui ) {
-
                         var id =  ui.draggable.data("id");
                         var action = scriptorService.getTriggerForID(id) ;
-                        var item_id = $(this).closest('.li-level-0').data('id');
+                        var item_id = $(this).closest('.li-level-0').parent().index();
                         var method = $(this).closest('.li-level-1');
-                        var method_id = method.data('id');
+                        var method_id = method.parent().index();
                         scope.method =  scope.items[0].items[item_id].methods[method_id];
                         var newDataID = method.find('.dd-list').length;
 

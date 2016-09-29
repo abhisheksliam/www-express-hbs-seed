@@ -61,6 +61,8 @@ angular.module('automationApp.scriptor')
 
                     scope.item.methods.splice(methodNumber, 0, methodToCopy);
                     scope.$apply();
+
+                    scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     event.stopPropagation();
                 });
 

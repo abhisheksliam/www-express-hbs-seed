@@ -68,7 +68,7 @@ angular.module('automationApp.scriptor')
                         };
 
 
-                        var itemNumber = $(this).closest('.li-level-0').data('id');
+                        var itemNumber = $(this).closest('.li-level-0').parent().index();
                         scope.items[0].items[itemNumber].methods.push(newMethodTemplate);
 
                         if(!scope.$$phase) {
@@ -163,7 +163,7 @@ angular.module('automationApp.scriptor')
 
                     element.on('click',".item-level-0 .panel-close",function (event) {
                         event.preventDefault();
-                        var itemNumber = $(this).closest('.li-level-0').data('id');
+                        var itemNumber = $(this).closest('.li-level-0').parent().index();
                         var $item = $(this).parents(".dd-item:first");
 
                         bootbox.confirm("Are you sure to delete this item?", function (result) {
