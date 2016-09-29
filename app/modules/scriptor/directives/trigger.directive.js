@@ -42,6 +42,16 @@ angular.module('automationApp.scriptor')
                     $(this).closest('.item-level-2').addClass('edit-mode');
                     scope.$apply();
 
+                    // fill each xpaths of form
+                    angular.forEach($(this).closest('.action-content').find( ".input__field.xpath" ), function(value, key){
+                        var a = angular.element(value);
+                        var currentElementName = a.attr("data-elementName");
+
+                        // check if $rootScope.xpathList is not undefined then populate
+                        var xpath = scriptorService.getXPathForElement(currentElementName);
+                        a.val(xpath);
+                    });
+
                     event.stopPropagation();
                 });
 
@@ -78,7 +88,9 @@ angular.module('automationApp.scriptor')
                                                 if(scope.droppedTrigger) {
                                                     $(triggerRefrence).remove();
                                                     scope.method.actions.splice(scope.index, 0, scope.oldAction);
-                                                    scope.$apply();
+                                                    if(!scope.$$phase) {
+                                                        scope.$apply();
+                                                    };
                                                 } else {
                                                     scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
                                                 }
