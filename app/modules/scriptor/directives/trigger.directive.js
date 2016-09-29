@@ -56,13 +56,13 @@ angular.module('automationApp.scriptor')
                         var triggerRefrence = $(this).closest('.dd-list');
 
                         var len = 0;
-                        if($(this).closest('.panel-content').find('input.xpath.elementName')){
-                            len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
+                        if($(this).closest('.panel-content').find('input.xpath')){
+                            len = $(this).closest('.panel-content').find('input.xpath').length;
                         }
 
                         if(len !==0) {
                             var counter = 0;
-                            $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
+                            $(this).closest('.panel-content').find('input.xpath').each (function () {
                                 var $el = $(this);
                                 var key = $(this).attr('data-elementname');
                                 var value = $(this).val();
@@ -200,40 +200,40 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                $timeout(function(){
+                var initXpath = setInterval(function(){
 
-                    var initXpath = setInterval(function(){
+                    if($rootScope.xpathList){
+                        angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
+                            var a = angular.element(value);
+                            var currentElementName = a.attr("data-elementName");
 
-                        if($rootScope.xpathList){
-                            angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
-                                var a = angular.element(value);
-                                var currentElementName = a.attr("data-elementName");
+                            // check if $rootScope.xpathList is not undefined then populate
+                            var xpath = scriptorService.getXPathForElement(currentElementName);
+                            a.val(xpath);
+                        });
 
-                                // check if $rootScope.xpathList is not undefined then populate
-                                var xpath = scriptorService.getXPathForElement(currentElementName);
-                                a.val(xpath);
-                            });
+                        element.find( ".input__field.elementName" ).autocomplete({
+                            source: $rootScope.xpathArrayList,
+                            select: function( event, ui ) {
+                                var _index = $(this).attr('data-index');
+                                scope.oldAction.values[_index].actVal = ui.item.value;
 
-                            element.find( ".input__field.elementName" ).autocomplete({
-                                source: $rootScope.xpathArrayList,
-                                select: function( event, ui ) {
-                                    var _index = $(this).attr('data-index');
-                                    scope.oldAction.values[_index].actVal = ui.item.value;
-
-                                    var xPath = scriptorService.getXPathForElement(ui.item.value);
-                                    if(xPath) {
-                                        $(this).closest('.trigger-input-parent').find('input.xpath').val(xPath);
-                                    } else {
-                                        $(this).closest('.trigger-input-parent').find('input.xpath').val('');
-                                    }
-
-                                    scope.$apply();
-                                    return true;
+                                var xPath = scriptorService.getXPathForElement(ui.item.value);
+                                if(xPath) {
+                                    $(this).closest('.trigger-input-parent').find('input.xpath').val(xPath);
+                                } else {
+                                    $(this).closest('.trigger-input-parent').find('input.xpath').val('');
                                 }
-                            });
+
+                                scope.$apply();
+                                return true;
+                            }
+                        });
                             clearInterval(initXpath);
-                        }
-                    }, 1000);
+                    }
+                }, 500);
+
+                $timeout(function(){
 
                     var myKeysSuggestions = scriptorService.getKeyNameSuggestions();
                     element.find( ".input__field.keyName" ).autocomplete({

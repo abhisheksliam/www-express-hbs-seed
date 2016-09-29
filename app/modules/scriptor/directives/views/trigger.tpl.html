@@ -13,9 +13,9 @@
     <div class="m-l-30 p-l-30 f-12 p-b-10" ng-hide="editMode">
         <div ng-repeat="attribute in action.values">
             <span class="attr-label"><b>{{attribute.actKey}}</b></span>&nbsp;&nbsp;<span class="m-l-15 attr-value"><i>{{attribute.actVal}}</i></span>
-            <span class="p-l-5" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
+<!--            <span class="p-l-5" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
                 <span class="attr-label"><b>&#9741;&nbsp;&nbsp;</b></span><i><span class="m-l-15 attr-value" ng-bind="$root.getXPathForElement(attribute.actVal)"></span></i>
-            </span>
+            </span>-->
         </div>
     </div>
     <div class="panel-content toggle-animate" ng-show="editMode">
@@ -29,7 +29,7 @@
                 </label>
             </span>
             <span class="input input--hoshi m-l-10 inlineBlock smallWidth" ng-show="$root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1">
-                <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementname="{{attribute.actVal}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}" required />
+                <input class="input__field input__field--hoshi xpath" type="text" id="input-42" placeholder="xpath" data-elementname="{{attribute.actKey}}" ng-class="{elementName: $root.TriggerSuggestions.elementNameVariants.indexOf(attribute.actKey)!=-1}" required />
                 <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-41">
                     <span class="input__label-content input__label-content--hoshi"></span>
                 </label>
