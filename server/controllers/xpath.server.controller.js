@@ -52,14 +52,12 @@ exports.addXpath = function (req, res) {
         }
         if(data.length) {   // if xpath exist
 
-            if (data[0].xpath.value === req.body.xpath.value) {   // only add tag
-
-                req.body.tags = arrayUnique(data[0].tags.concat(req.body.tags));
+                req.body.tags = arrayUnique(data[0].tags.concat(req.body.tags));    // todo: remove tags whenever applicable
                 Xpath.findOneAndUpdate({$and: [
                         {'app_type': req.body.app_type},
                         {'xpath.key': req.body.xpath.key}
                     ]}
-                    , {$set: {"tags" : req.body.tags}}, function(err, doc){
+                    , {$set: {"tags" : req.body.tags, "xpath.value":req.body.xpath.value}}, function(err, doc){
                         if (err) {
                             res.json({
                                 "errors": {
@@ -68,15 +66,12 @@ exports.addXpath = function (req, res) {
                                 }
                             });
                         }
+
+                        doc.tags = req.body.tags;
+                        doc.xpath.value = req.body.xpath.value;
                         res.json(doc);
                     });
 
-            } else {    // if new xpath value for existing key - return error
-                res.json({ "errors": {
-                    "errorMessage": "Xpath already exists in database",
-                    "errorCode": "EXISTS_IN_DB"
-                } });
-            }
         } else {    // create new xpath
             var xpath = new Xpath(req.body);
             xpath.save(function(err, xpathData) {

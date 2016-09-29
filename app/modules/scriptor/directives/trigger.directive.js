@@ -42,6 +42,16 @@ angular.module('automationApp.scriptor')
                     $(this).closest('.item-level-2').addClass('edit-mode');
                     scope.$apply();
 
+                    // fill each xpaths of form
+                    angular.forEach($(this).closest('.action-content').find( ".input__field.xpath" ), function(value, key){
+                        var a = angular.element(value);
+                        var currentElementName = a.attr("data-elementName");
+
+                        // check if $rootScope.xpathList is not undefined then populate
+                        var xpath = scriptorService.getXPathForElement(currentElementName);
+                        a.val(xpath);
+                    });
+
                     event.stopPropagation();
                 });
 
@@ -56,13 +66,13 @@ angular.module('automationApp.scriptor')
                         var triggerRefrence = $(this).closest('.dd-list');
 
                         var len = 0;
-                        if($(this).closest('.panel-content').find('input.xpath.elementName')){
-                            len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
+                        if($(this).closest('.panel-content').find('input.xpath')){
+                            len = $(this).closest('.panel-content').find('input.xpath').length;
                         }
 
                         if(len !==0) {
                             var counter = 0;
-                            $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
+                            $(this).closest('.panel-content').find('input.xpath').each (function () {
                                 var $el = $(this);
                                 var key = $(this).attr('data-elementname');
                                 var value = $(this).val();
@@ -78,7 +88,9 @@ angular.module('automationApp.scriptor')
                                                 if(scope.droppedTrigger) {
                                                     $(triggerRefrence).remove();
                                                     scope.method.actions.splice(scope.index, 0, scope.oldAction);
-                                                    scope.$apply();
+                                                    if(!scope.$$phase) {
+                                                        scope.$apply();
+                                                    };
                                                 } else {
                                                     scope.method.actions[triggerNumber] = angular.copy(scope.oldAction);
                                                 }
@@ -140,7 +152,6 @@ angular.module('automationApp.scriptor')
                         var key = $(this).attr('data-elementname');
                         var xPath = scriptorService.getXPathForElement(key);
                         $el.val(xPath);
-
                     });
 
                     event.stopPropagation();
@@ -201,20 +212,23 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                $timeout(function(){
+                var initXpath = setInterval(function(){
 
-                    angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
-                        var a = angular.element(value);
-                        var currentEnementName = a.attr("data-elementName");
-                        var xpath = scriptorService.getXPathForElement(currentEnementName);
-                        a.val(xpath);
-                    });
+                    if($rootScope.xpathList){
+                        angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
+                            var a = angular.element(value);
+                            var currentElementName = a.attr("data-elementName");
 
-                    element.find( ".input__field.elementName" ).autocomplete({
-                        source: $rootScope.xpathArrayList,
-                        select: function( event, ui ) {
-                            var _index = $(this).attr('data-index');
-                            scope.oldAction.values[_index].actVal = ui.item.value;
+                            // check if $rootScope.xpathList is not undefined then populate
+                            var xpath = scriptorService.getXPathForElement(currentElementName);
+                            a.val(xpath);
+                        });
+
+                        element.find( ".input__field.elementName" ).autocomplete({
+                            source: $rootScope.xpathArrayList,
+                            select: function( event, ui ) {
+                                var _index = $(this).attr('data-index');
+                                scope.oldAction.values[_index].actVal = ui.item.value;
 
                                 var xPath = scriptorService.getXPathForElement(ui.item.value);
                                 if(xPath) {
@@ -223,10 +237,15 @@ angular.module('automationApp.scriptor')
                                     $(this).closest('.trigger-input-parent').find('input.xpath').val('');
                                 }
 
-                            scope.$apply();
-                            return true;
-                        }
-                    });
+                                scope.$apply();
+                                return true;
+                            }
+                        });
+                            clearInterval(initXpath);
+                    }
+                }, 500);
+
+                $timeout(function(){
 
                     var myKeysSuggestions = scriptorService.getKeyNameSuggestions();
                     element.find( ".input__field.keyName" ).autocomplete({
@@ -245,15 +264,31 @@ angular.module('automationApp.scriptor')
                 function saveXpathToDatabase (key,value,taskid,app_type,done,err){
                     scriptorService.saveXpath(key, value, taskid, app_type).then(function(res) {
                         if(res.data.errors) {
-                            if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
-                                err('EXISTS_IN_DB');
-                            } else {
                                 err('SERVER_ERROR');
-                            }
                         } else{
-                            // add newly added xpath to suggestion list
-                            $rootScope.xpathList.data.push(res.data);
-                            $rootScope.xpathArrayList.push(res.data.xpath.key);
+                            // update if exist, push new if not
+                            var isOldPath = false;
+                            for (var x in $rootScope.xpathList.data) {
+                                if($rootScope.xpathList.data[x].xpath.key === res.data.xpath.key) {
+                                    $rootScope.xpathList.data[x].xpath.value = res.data.xpath.value;
+                                    isOldPath=true;
+                                }
+                            }
+                            if(!isOldPath) {
+                                $rootScope.xpathList.data.push(res.data);
+                            }
+
+                            // do nothing if exist, push new if do not exist
+                            var isOldKey = false;
+                            for (var y in $rootScope.xpathArrayList) {
+                                if($rootScope.xpathArrayList[y] === res.data.xpath.key) {
+                                    isOldKey=true;
+                                }
+                            }
+                            if(!isOldKey) {
+                                $rootScope.xpathArrayList.push(res.data.xpath.key);
+                            }
+
                             done('xpath saved successfully');
                         }
                     });
