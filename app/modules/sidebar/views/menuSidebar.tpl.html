@@ -9,7 +9,7 @@
             </div>
             <ul class="nav nav-sidebar">
                 <li><a ui-sref="app.task-new"><i class="fa fa-undo"></i><span>New Script</span></a></li>
-                <li><a data-toggle="modal" data-target="#modal-loadtask"><i class="fa fa-book"></i><span>Load Existing Script</span></a></li>
+                <li><a data-toggle="modal" data-context="load" data-target="#modal-modalbox"><i class="fa fa-book"></i><span>Load Existing Script</span></a></li>
                 <li><a data-toggle="modal" data-context="export" data-target="#modal-modalbox"><i class="fa fa-download"></i><span>Export Script</span></a></li>
                 <li><a data-toggle="modal" data-context="preview" data-target="#modal-modalbox"><i class="fa fa-code"></i><span>Preview XML</span></a></li>
             </ul>
@@ -17,6 +17,5 @@
 
 <!-- modal-->
 <div class="row">
-    <load-modal></load-modal>
     <modal-box></modal-box>
 </div>
