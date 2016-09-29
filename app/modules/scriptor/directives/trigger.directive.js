@@ -140,7 +140,6 @@ angular.module('automationApp.scriptor')
                         var key = $(this).attr('data-elementname');
                         var xPath = scriptorService.getXPathForElement(key);
                         $el.val(xPath);
-
                     });
 
                     event.stopPropagation();
@@ -203,30 +202,38 @@ angular.module('automationApp.scriptor')
 
                 $timeout(function(){
 
-                    angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
-                        var a = angular.element(value);
-                        var currentEnementName = a.attr("data-elementName");
-                        var xpath = scriptorService.getXPathForElement(currentEnementName);
-                        a.val(xpath);
-                    });
+                    var initXpath = setInterval(function(){
 
-                    element.find( ".input__field.elementName" ).autocomplete({
-                        source: $rootScope.xpathArrayList,
-                        select: function( event, ui ) {
-                            var _index = $(this).attr('data-index');
-                            scope.oldAction.values[_index].actVal = ui.item.value;
+                        if($rootScope.xpathList){
+                            angular.forEach(element.find( ".input__field.xpath" ), function(value, key){
+                                var a = angular.element(value);
+                                var currentElementName = a.attr("data-elementName");
 
-                                var xPath = scriptorService.getXPathForElement(ui.item.value);
-                                if(xPath) {
-                                    $(this).closest('.trigger-input-parent').find('input.xpath').val(xPath);
-                                } else {
-                                    $(this).closest('.trigger-input-parent').find('input.xpath').val('');
+                                // check if $rootScope.xpathList is not undefined then populate
+                                var xpath = scriptorService.getXPathForElement(currentElementName);
+                                a.val(xpath);
+                            });
+
+                            element.find( ".input__field.elementName" ).autocomplete({
+                                source: $rootScope.xpathArrayList,
+                                select: function( event, ui ) {
+                                    var _index = $(this).attr('data-index');
+                                    scope.oldAction.values[_index].actVal = ui.item.value;
+
+                                    var xPath = scriptorService.getXPathForElement(ui.item.value);
+                                    if(xPath) {
+                                        $(this).closest('.trigger-input-parent').find('input.xpath').val(xPath);
+                                    } else {
+                                        $(this).closest('.trigger-input-parent').find('input.xpath').val('');
+                                    }
+
+                                    scope.$apply();
+                                    return true;
                                 }
-
-                            scope.$apply();
-                            return true;
+                            });
+                            clearInterval(initXpath);
                         }
-                    });
+                    }, 1000);
 
                     var myKeysSuggestions = scriptorService.getKeyNameSuggestions();
                     element.find( ".input__field.keyName" ).autocomplete({
@@ -245,15 +252,31 @@ angular.module('automationApp.scriptor')
                 function saveXpathToDatabase (key,value,taskid,app_type,done,err){
                     scriptorService.saveXpath(key, value, taskid, app_type).then(function(res) {
                         if(res.data.errors) {
-                            if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
-                                err('EXISTS_IN_DB');
-                            } else {
                                 err('SERVER_ERROR');
-                            }
                         } else{
-                            // add newly added xpath to suggestion list
-                            $rootScope.xpathList.data.push(res.data);
-                            $rootScope.xpathArrayList.push(res.data.xpath.key);
+                            // update if exist, push new if not
+                            var isOldPath = false;
+                            for (var x in $rootScope.xpathList.data) {
+                                if($rootScope.xpathList.data[x].xpath.key === res.data.xpath.key) {
+                                    $rootScope.xpathList.data[x].xpath.value = res.data.xpath.value;
+                                    isOldPath=true;
+                                }
+                            }
+                            if(!isOldPath) {
+                                $rootScope.xpathList.data.push(res.data);
+                            }
+
+                            // do nothing if exist, push new if do not exist
+                            var isOldKey = false;
+                            for (var y in $rootScope.xpathArrayList) {
+                                if($rootScope.xpathArrayList[y] === res.data.xpath.key) {
+                                    isOldKey=true;
+                                }
+                            }
+                            if(!isOldKey) {
+                                $rootScope.xpathArrayList.push(res.data.xpath.key);
+                            }
+
                             done('xpath saved successfully');
                         }
                     });
