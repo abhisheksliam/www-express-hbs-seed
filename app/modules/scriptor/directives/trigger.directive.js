@@ -61,7 +61,7 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     if(scope.triggerForm.$valid) {
-                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                        var triggerNumber = parseInt($(this).closest('.dd-list').index());
 
                         var triggerRefrence = $(this).closest('.dd-list');
 
@@ -176,7 +176,7 @@ angular.module('automationApp.scriptor')
                         });
                         scope.$apply();
                     } else {
-                        var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                        var triggerNumber = parseInt($(this).closest('.dd-list').index());
 
                         bootbox.confirm("Are you sure to remove this trigger?", function (result) {
                             if (result === true) {
@@ -201,7 +201,7 @@ angular.module('automationApp.scriptor')
                 element.on('click',".copy-trigger",function (event) {
                     event.preventDefault();
 
-                    var triggerNumber = parseInt($(this).closest('.li-level-2').data('id'));
+                    var triggerNumber = parseInt($(this).closest('.dd-list').index());
                     var triggerToCopy = angular.copy(scope.method.actions[triggerNumber]);
 
                     scope.method.actions.splice(triggerNumber, 0, triggerToCopy);
