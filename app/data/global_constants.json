@@ -44,5 +44,22 @@
 		"Other",
 		"Menu",
 		"Right Click"
+    ],
+  "runner": {
+    "host": [
+      "hub",
+      "local",
+      "saucelabs"
+    ],
+    "browser": [
+      "chrome",
+      "firefox",
+      "ie",
+      "safari"
+    ],
+    "os": [
+      "windows",
+      "mac"
     ]
+  }
 }

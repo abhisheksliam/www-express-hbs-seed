@@ -3,53 +3,16 @@
     "url": "http://loadrunner1:9001",
     "api": "/sims/runtask"
   },
-  "testCommand" : "mvn test",
-  "testEnv" : [
-    "Local",
-    "SauceLabs"
-  ],
-  "browser" : [
-    "chrome",
-    "Firefox"
-  ],
-  "params": {
-    "HubIp" : "192.168.1.164",
-    "HubPort" : "4444",
-    "OS" : "WINDOWS",
-    "browserVersion" : "ANY",
-    "buildName" : "Sim5Runner",
-    "tagName" :  "SIM5 Build Number",
-    "screenResolution" : "",
-    "testName" : "Task Name",
-    "isAppUrlPublic" : "",
-    "userName" : "",
-    "accessKey" : ""
-  },
-  "user" : {
-    "Shipra": {
-      "nodeName" : "shipra",
-      "clientIp" : "192.168.1.94",
-      "ApplicationURL" : "http://grader13/qatrunk/SIM5Frame.aspx"
-    },
-    "Abhishek" :{
-      "nodeName" : "abhishek",
-      "clientIp" : "192.168.1.200",
-      "ApplicationURL" : "http://grader13/qatrunk/SIM5Frame.aspx"
-    },
-    "Akhil" :{
-      "nodeName" : "akhil",
-      "clientIp" : "192.168.1.96",
-      "ApplicationURL" : "http://dev2.comprotechnologies.com/qatrunk"
-    },
-    "Mohit" :{
-      "nodeName" : "mohit",
-      "clientIp" : "192.168.1.212",
-      "ApplicationURL" : "http://dev2.comprotechnologies.com/qatrunk"
-    },
-    "Harsh" :{
-      "nodeName" : "harsh",
-      "clientIp" : "192.168.1.108",
-      "ApplicationURL" : "http://dev2.comprotechnologies.com/qatrunk"
+  "run": {
+    "defaults": {
+      "host":"hub",
+      "browser":"chrome",
+      "os":"windows",
+      "brversion":"ANY",
+      "appurl":"http://grader13/qatrunk/SIM5Frame.aspx",
+      "appurlpublic":"false",
+      "screenresolution":"ANY"
     }
   }
+
 }
