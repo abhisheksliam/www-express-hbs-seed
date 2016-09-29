@@ -231,7 +231,7 @@ angular.module('automationApp.runner')
                         var formData =   {
                             "user" : {
                                 "name" : username,
-                                "ip" : clientIp,
+                                "ip" : _clientIp,
                                 "userdata" : {}
                             },
                             "run" : {

@@ -66,7 +66,7 @@
 
         <div class="tab-pane fade" id="runner-config">
 
-            <section>
+            <section class="env">
                 <div class="host p-t-10">
                     <label>Host:</label>
                         <select class="form-white hostselect dd-container" data-style="white" ng-model="host">
@@ -92,17 +92,22 @@
                         <input ng-model="brnode" class="form-control form-white p-l-10" type="text" placeholder="Node Name" value="{{brnode}}">
                     </span>
 
+                    <label class="p-t-10">Screen Resolution:</label>
+                    <span class="p-l-10">
+                        <input ng-model="screenresolution" class="form-control form-white p-l-10" type="text" placeholder="1600*1024" value="{{screenresolution}}">
+                    </span>
+
                 </div>
             </section>
-            <section>
+            <section class="appc">
                 <label>Application URL:</label></br>
-                <input ng-model="appurl" class="form-control form-white m-l-10" type="text" placeholder="App URL">
+                <input ng-model="appurl" class="form-control form-white m-l-10 width-98p" type="text" placeholder="App URL">
                 <span>
                     <label class="p-r-5">Is App Url Public:{{}}</label>
                     <input ng-model="appurlpublic" i-check type="checkbox" data-checkbox="icheckbox_minimal-blue">
                 </span>
                 <span class="p-l-10">
-                    <input ng-model="simsbuild" class="form-control form-white p-l-10" type="text" placeholder="SIMS Build Version" value="{{simsbuild}}">
+                    <input ng-model="simsbuild" class="form-control form-white p-l-10 width-98p" type="text" placeholder="SIMS Build Version" value="{{simsbuild}}">
                 </span>
             </section>
 

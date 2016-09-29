@@ -10,7 +10,8 @@
       "os":"windows",
       "brversion":"ANY",
       "appurl":"http://grader13/qatrunk/SIM5Frame.aspx",
-      "appurlpublic":"false"
+      "appurlpublic":"false",
+      "screenresolution":"ANY"
     }
   }
 
