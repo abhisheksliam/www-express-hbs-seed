@@ -1,13 +1,10 @@
 "use strict";
 
 angular.module('automationApp')
-    .directive('spinnerLoader', ['$rootScope', '$http', function($rootScope, $http) {
+    .directive('spinnerLoader', ['$http', function($http) {
         return {
-
-
             restrict: 'A',
-            link: function (scope, elm, attrs)
-            {
+            link: function (scope, element, attrs) {
                 scope.isLoading = function () {
                     return $http.pendingRequests.length > 0;
                 };
@@ -15,30 +12,27 @@ angular.module('automationApp')
                 scope.$watch(scope.isLoading, function (v)
                 {
                     if(v){
-                        elm.show();
+                        element.show();
                     }else{
-                        elm.hide();
+                        element.hide();
                     }
                 });
-            }
 
-            /*link: function(scope, element, attrs) {
-                // by defult hide the spinner bar
-                element.addClass('hide'); // hide spinner bar by default
-                // display the spinner bar whenever the route changes(the content part started loading)
-                $rootScope.$on('$stateChangeStart', function() {
-                    element.removeClass('hide'); // show spinner bar
-                });
-                // hide the spinner bar on rounte change success(after the content loaded)
-                $rootScope.$on('$stateChangeSuccess', function() {
+                /*
+                 element.addClass('hide');
+                 $rootScope.$on('$stateChangeStart', function() {
+                    element.removeClass('hide');
+                 });
+                 $rootScope.$on('$stateChangeSuccess', function() {
                     setTimeout(function(){
-                        element.addClass('hide'); // hide spinner bar
+                        element.addClass('hide');
                     },500);
                     $("html, body").animate({
                         scrollTop: 0
                     }, 500);
-                });
-            }*/
+                 });
+                 */
+            }
         };
 }]);
 
