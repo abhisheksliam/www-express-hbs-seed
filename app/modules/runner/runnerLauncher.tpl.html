@@ -74,13 +74,13 @@
                 </div>
                 <div class="os p-t-10">
                     <label>OS:</label>
-                    <select class="form-white osselect dd-container input-allign" data-style="white">
+                    <select class="form-white osselect dd-container input-allign" data-style="white" ng-model="os">
                         <option ng-repeat="os in $root.globalConstants.runner.os" value="{{os}}">{{os}}</option>
                     </select>
                 </div>
                 <div class="browser p-t-10">
                     <label class="m-b-15">Browser:</label>
-                    <select class="form-white brselect dd-container input-allign" data-style="white">
+                    <select class="form-white brselect dd-container input-allign" data-style="white" ng-model="browser">
                         <option ng-repeat="browser in $root.globalConstants.runner.browser" value="{{browser}}">{{browser}}</option>
                     </select>
                     <span class="p-l-10 pull-right" ng-show="host=='saucelabs'">
