@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('automationApp.runner')
-    .directive('runnerLauncher', ['$timeout', '$http', function($timeout, $http) {
+    .directive('runnerLauncher', ['$timeout', '$http', '$rootScope', function($timeout, $http, $rootScope) {
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
@@ -79,32 +79,50 @@ angular.module('automationApp.runner')
                             $(".run-pathway").addClass("disablebtn");
                         }
 
+                        $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway deleted successfully!' + '</p></div>','#quickview-sidebar');
                         event.stopPropagation();
                     });
 
                     element.on('click',".add-pathway",function(event) {
                         event.preventDefault();
 
+                        var isDuplicatePathway = false;
+
                         var pathwayInfo = $.map(scope.items[0].items, function(value, index) {
                                 return $('input[name=method-radio-'+index +']:checked').val();
                         });
 
-                        var obj = {
-                            "pathway" : pathwayInfo,
-                            "group" : $(".pathway-group").val().join()
-                        };
-
-                        if(scope.items[1] === undefined) {
-                            scope.items[1] = [ obj ];
-                        } else {
-                            scope.items[1].splice(scope.items[1].length, 0, obj);
+                        for(var indx=0; indx < scope.items[1].length; indx++) {
+                            if(scope.items[1][indx].pathway.join() == pathwayInfo.join())
+                            {
+                                isDuplicatePathway = true;
+                                break;
+                            }
                         }
 
-                        scope.$apply();
+                        if(isDuplicatePathway) {
+                            $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'Pathway already exists !!' + '</p></div>','#quickview-sidebar');
+                        }
+                        else {
+                            var obj = {
+                                "pathway" : pathwayInfo,
+                                "group" : $(".pathway-group").val().join()
+                            };
 
-                        if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                            $(".run-pathway").attr("disabled", false);
-                            $(".run-pathway").removeClass("disablebtn");
+                            if(scope.items[1] === undefined) {
+                                scope.items[1] = [ obj ];
+                            } else {
+                                scope.items[1].splice(scope.items[1].length, 0, obj);
+                            }
+
+                            scope.$apply();
+
+                            if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
+                                $(".run-pathway").attr("disabled", false);
+                                $(".run-pathway").removeClass("disablebtn");
+                            }
+
+                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway added successfully!' + '</p></div>','#quickview-sidebar');
                         }
 
                         event.stopPropagation();
@@ -160,6 +178,8 @@ angular.module('automationApp.runner')
                             $(".run-pathway").removeClass("disablebtn");
                         }
 
+                        $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathways generated successfully!' + '</p></div>','#quickview-sidebar');
+
                         event.stopPropagation();
                     });
 
@@ -210,6 +230,10 @@ angular.module('automationApp.runner')
                         });
 
                         event.stopPropagation();
+                    });
+
+                    element.on('hover',".run-pathway",function(event) {
+
                     });
 
                     function postDataToRunner(scenarioId, filename, xmlContent, javaContent){
