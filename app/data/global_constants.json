@@ -48,7 +48,6 @@
   "runner": {
     "host": [
       "hub",
-      "local",
       "saucelabs"
     ],
     "browser": [
