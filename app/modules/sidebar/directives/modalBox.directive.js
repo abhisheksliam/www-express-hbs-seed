@@ -5,7 +5,7 @@
 "use strict";
 
 angular.module('automationApp.sidebar')
-    .directive('modalBox', ['scriptorService','$location','$rootScope', '$window', function(scriptorService,$location,$rootScope, $window) {
+    .directive('modalBox', ['scriptorService','$location','$rootScope', '$window', '$filter', function(scriptorService,$location,$rootScope, $window, $filter) {
         return {
             restrict: 'AE',
             replace: true,
@@ -78,7 +78,7 @@ angular.module('automationApp.sidebar')
                                                     $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>','.modal-body');
                                                 }
                                             } else{
-                                                $('#modal-loadtask').modal('hide');
+                                                $('#modal-modalbox').modal('hide');  // hide modal
                                                 $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
                                             }
                                         });
