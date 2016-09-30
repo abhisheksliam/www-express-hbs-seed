@@ -77,6 +77,8 @@ angular.module('automationApp.runner')
                 });
 
                 $timeout(function(){
+                    $(".pathway-group").val($rootScope.globalConstants.methodtypelist[0]);
+
                     element.on('click',".item-level-0.dd3-content",function(event) {
 
                         event.preventDefault();
@@ -118,12 +120,15 @@ angular.module('automationApp.runner')
                                 return $('input[name=method-radio-'+index +']:checked').val();
                         });
 
-                        for(var indx=0; indx < scope.items[1].length; indx++) {
-                            if(scope.items[1][indx].pathway.join() == pathwayInfo.join())
-                            {
-                                isDuplicatePathway = true;
-                                break;
+                        if(scope.items[1] !== undefined) {
+                            for (var indx = 0; indx < scope.items[1].length; indx++) {
+                                if (scope.items[1][indx].pathway.join() == pathwayInfo.join()) {
+                                    isDuplicatePathway = true;
+                                    break;
+                                }
                             }
+                        } else {
+                            isDuplicatePathway = false;
                         }
 
                         if(isDuplicatePathway) {
