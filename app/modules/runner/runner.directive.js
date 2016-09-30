@@ -60,6 +60,8 @@ angular.module('automationApp.runner')
                 });
 
                 $timeout(function(){
+                    $(".pathway-group").val($rootScope.globalConstants.methodtypelist[0]);
+
                     element.on('click',".item-level-0.dd3-content",function(event) {
 
                         event.preventDefault();
