@@ -241,10 +241,6 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('hover',".run-pathway",function(event) {
-
-                    });
-
                     function postDataToRunner(scenarioId, filename, xmlContent, javaContent){
 
                         var appName = scope.items[0].appName;
