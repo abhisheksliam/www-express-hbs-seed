@@ -12,18 +12,35 @@ angular.module('automationApp.runner')
 
                 scope.methodSelection = {};
 
-                $http.get('data/runner_configuration.json').then(function(res) {
-                    scope.runnerConfig =  res.data;
-                    scope.host = scope.runnerConfig.run.defaults.host;
-                    scope.os = scope.runnerConfig.run.defaults.os;
-                    scope.browser = scope.runnerConfig.run.defaults.browser;
-                    scope.brversion = scope.runnerConfig.run.defaults.brversion;
-                    scope.appurl = scope.runnerConfig.run.defaults.appurl;
-                    scope.appurlpublic = scope.runnerConfig.run.defaults.appurlpublic;
-                    scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
-                    scope.brnode = username;
-                    scope.simsbuild = "";
-                });
+                var initRunConfig = setInterval(function(){
+
+                    $http.get('data/runner_configuration.json').then(function(res) {
+                        scope.runnerConfig =  res.data;
+                        scope.host = scope.runnerConfig.run.defaults.host;
+                        scope.os = scope.runnerConfig.run.defaults.os;
+                        scope.browser = scope.runnerConfig.run.defaults.browser;
+                        scope.brversion = scope.runnerConfig.run.defaults.brversion;
+                        scope.appurl = scope.runnerConfig.run.defaults.appurl;
+                        scope.appurlpublic = scope.runnerConfig.run.defaults.appurlpublic;
+                        scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
+                        scope.brnode = username;
+                        scope.simsbuild = "";
+                    });
+
+                    if (scope.runnerConfig){
+                        $timeout(function(){
+                            //    for dd
+                            var runnerConfigDD = element.find('#runner-config select').select2({
+                                dropdownCssClass: 'form-white',
+                                minimumResultsForSearch: -1
+                            });
+                            element.find('.hostselect').select2('val', scope.host);
+                            element.find('.osselect').select2('val', scope.os);
+                            element.find('.brselect').select2('val', scope.browser);
+                        });
+                        clearInterval(initRunConfig );
+                    }
+                }, 500);
 
                 scope.iCheckOptions = {
                     checkboxClass: 'icheckbox_square-blue',
@@ -206,7 +223,9 @@ angular.module('automationApp.runner')
                         var xmlContent = getXmlContent();
                         var javaContent = getJavaContent(filename);
 
-                        postDataToRunner(scenarioId, filename, xmlContent, js_beautify(javaContent));
+                        $timeout(function(){
+                            postDataToRunner(scenarioId, filename, xmlContent, js_beautify(javaContent));
+                        },1000);
 
                         event.stopPropagation();
                     });
@@ -222,7 +241,7 @@ angular.module('automationApp.runner')
 
                         var xmlContent;
 
-                        window.open (baseUrl,",","menubar=1,resizable=1,width=1200,height=800");
+                        window.open (baseUrl,",","menubar=1,resizable=1,width=1300,height=700");
 
                         var xmlQueryParam = '?format=xml';
                         var javaQueryParam = '?format=java';
@@ -385,16 +404,6 @@ angular.module('automationApp.runner')
                     return (preJ + preJin + runJ + postJ + postJout);
                 }
 
-                $timeout(function(){
-                    //    for dd
-                    var runnerConfigDD = element.find('#runner-config select').select2({
-                        dropdownCssClass: 'form-white',
-                        minimumResultsForSearch: -1
-                    });
-                    element.find('.hostselect').select2('val', scope.host);
-                    element.find('.osselect').select2('val', scope.os);
-                    element.find('.brselect').select2('val', scope.browser);
-                });
                 },200);
 
                 element.on('click',".config-tab",function(event) {
