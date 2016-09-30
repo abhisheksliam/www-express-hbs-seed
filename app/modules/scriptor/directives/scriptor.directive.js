@@ -24,12 +24,11 @@ angular.module('automationApp.scriptor')
                 var dropHandler = {
                     accept: ".dd-handle",
                     drop: function( event, ui ) {
-
                         var id =  ui.draggable.data("id");
                         var action = scriptorService.getTriggerForID(id) ;
-                        var item_id = $(this).closest('.li-level-0').data('id');
+                        var item_id = $(this).closest('.li-level-0').parent().index();
                         var method = $(this).closest('.li-level-1');
-                        var method_id = method.data('id');
+                        var method_id = method.parent().index();
                         scope.method =  scope.items[0].items[item_id].methods[method_id];
                         var newDataID = method.find('.dd-list').length;
 
@@ -51,8 +50,11 @@ angular.module('automationApp.scriptor')
                 $timeout(function(){
                     element.find( ".dd-handle" ).draggable({
                         helper: "clone",
+                        appendTo: '#triggerlist',
+                        containment: 'document',
                         revert: "invalid",
                         cursor: "move",
+                        scroll: false,
                         stop: function( event, ui ) {
                            element.find(".drop-action-handle:visible").removeClass("highlight-drop");
                         },
@@ -68,6 +70,15 @@ angular.module('automationApp.scriptor')
 
                 scope.$on('SCRIPTOR_NEW_ITEM_ADDED', function(event) {
                     $( ".dd3-content.drop-action-handle" ).droppable(dropHandler);
+                });
+
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() > 100) {
+                        $('#triggerlist').addClass('trigger-fixed');
+                    }
+                    if ($(window).scrollTop() < 101) {
+                        $('#triggerlist').removeClass('trigger-fixed');
+                    }
                 });
 
             }

@@ -39,7 +39,7 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-close",function (event) {
                     event.preventDefault();
-                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
+                    var methodNumber = parseInt($(this).closest('.dd-list').index());
                     var $item = $(this).parents(".dd-item:first");
 
                     bootbox.confirm("Are you sure to delete this method?", function (result) {
@@ -56,11 +56,13 @@ angular.module('automationApp.scriptor')
 
                 element.on('click',".item-level-1 .panel-copy",function (event) {
                     event.preventDefault();
-                    var methodNumber = parseInt($(this).closest('.li-level-1').data('id'));
+                    var methodNumber = parseInt($(this).closest('.dd-list').index());
                     var methodToCopy = angular.copy(scope.item.methods[methodNumber]);
 
                     scope.item.methods.splice(methodNumber, 0, methodToCopy);
                     scope.$apply();
+
+                    scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     event.stopPropagation();
                 });
 

@@ -1,5 +1,5 @@
 <ol id="item-panel" class="dd-list" ng-repeat="item in items[0].items">
-    <li class="li-level-0 dd-item m-b-10" data-id="{{$index}}">
+    <li class="li-level-0 dd-item m-b-10">
         <div class="item-level-0 dd3-content border-left">
             <i class="fa fa-caret-right" aria-hidden="true"></i>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -26,7 +26,7 @@
         </div>
         <div class="data-items" style="display: none">
             <ol class="dd-list" ng-repeat="method in item.methods">
-               <method method="method" item="item" index="$index+1" data-id="{{$index}}"></method>
+               <method method="method" item="item" index="$index+1"></method>
             </ol>
             <ol class="dd-list ui-sort-disabled">
                 <li class="dd-item m-b-10">

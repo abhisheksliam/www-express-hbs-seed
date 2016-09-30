@@ -1,4 +1,4 @@
-<div class="modal fade primary-modal" id="modal-modalbox" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade primary-modal" id="modal-modalbox" ng-class="{'modal-loadtask': load}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header" id="headerText">
@@ -9,7 +9,7 @@
             <hr  class="m-0">
             <div class="modal-body">
                 <form name="userForm">
-                    <div class="panel-content p-b-0">
+                    <div class="panel-content p-b-0" ng-hide="load">
                         <div class="col-lg-12 m-l-5">
                             <span class="input input--hoshi taskid-input m-l-0 f-14 input-load">
                             <input class="input__field input__field--hoshi m-t-0 m-b-5" type="text" id="taskid" ng-model="taskId" placeholder="SKL16.XL.01.01.01.A1">
@@ -17,6 +17,27 @@
                                 <span class="input__label-content input__label-content--hoshi m-b-15"></span>
                             </label>
                             </span>
+                        </div>
+                    </div>
+                    <div class="panel-content p-b-0" ng-show="load">
+                        <div class="col-lg-12 m-l-5">
+                            <div class="icheck-list">
+                                <div class="row p-l-0">
+                                    <input i-check type="radio" name="load-task-options" ng-model="loadTaskOption" value="1">
+                                    Load from DB:
+                                            <span class="input input--hoshi taskid-input m-l-0 f-14 input-load">
+                                                <input class="input__field input__field--hoshi m-t-0 m-b-5" type="text" id="loadTaskId" value="{{taskId}}" ng-model="taskId" placeholder="SKL16.XL.01.01.01.A1">
+                                                <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="loadTaskId">
+                                                    <span class="input__label-content input__label-content--hoshi m-b-15"></span>
+                                                </label>
+                                            </span>
+                                </div>
+                                <div class="row p-l-0">
+                                    <input i-check type="radio" name="load-task-options" ng-model="loadTaskOption" value="2">
+                                    Load from FileSystem:
+                                    <input id="files" type="file" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>

@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('actionList', function() {
+    .directive('actionList', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             templateUrl: 'modules/scriptor/directives/views/actionList.tpl.html',
@@ -16,8 +16,12 @@ angular.module('automationApp.scriptor')
 
                 scope.$on('ACTION_SEARCH_RESET', function(event) {
                     scope.searchActionText = "";
+
+                    $timeout(function(){
+                        $('#triggerlist .nestable').mCustomScrollbar("update");
+                    });
                 });
             }
         }
-    });
+    }]);
 
