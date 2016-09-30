@@ -134,6 +134,11 @@
     color: white;
   }
 
+  .run-task-btn:hover {
+    border: 1px solid black;
+    box-shadow: 0px 0px 5px black;
+  }
+
   .pathway-btn {
     margin-bottom: 30px;
     margin-top: 15px;
@@ -143,6 +148,11 @@
       background-color: white;
       color: black;
       border: 1px solid lightgrey;
+    }
+
+    .add-pathway:hover, .generate-pathway:hover {
+      border: 1px solid grey;
+      box-shadow: 0px 0px 5px #888888;
     }
 
   }
@@ -155,11 +165,21 @@
     border: 1px solid black;
   }
 
+  .run-pathway:hover, .publish-svn:hover {
+    border: 1px solid black;
+    box-shadow: 0px 0px 5px black;
+  }
+
   .disablebtn {
     background-color: rgb(234,234,234);
     color: rgb(204,204,204);
 	cursor: default;
     border: none;
+  }
+
+  .disablebtn:hover {
+    border: 0px;
+    box-shadow: 0px 0px;
   }
 
   .use-select2 {
@@ -205,6 +225,7 @@
       color: rgb(161,160,160);
       float:right;
       font-size:18px;
+      cursor: pointer;
     }
   }
 
