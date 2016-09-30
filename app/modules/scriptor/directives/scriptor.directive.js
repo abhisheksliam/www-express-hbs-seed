@@ -72,6 +72,15 @@ angular.module('automationApp.scriptor')
                     $( ".dd3-content.drop-action-handle" ).droppable(dropHandler);
                 });
 
+                $(window).scroll(function () {
+                    if ($(window).scrollTop() > 100) {
+                        $('#triggerlist').addClass('trigger-fixed');
+                    }
+                    if ($(window).scrollTop() < 101) {
+                        $('#triggerlist').removeClass('trigger-fixed');
+                    }
+                });
+
             }
         }
     }]);
