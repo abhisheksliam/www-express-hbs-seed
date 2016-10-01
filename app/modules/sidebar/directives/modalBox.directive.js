@@ -26,8 +26,12 @@ angular.module('automationApp.sidebar')
                 var route, queryParam;
 
                 $('#modal-modalbox').on('show.bs.modal', function (event) {
-                    $('.err-msg1').hide();
-                    $('.err-msg2').hide();
+                    scope.hideErr = function() {
+                        $('.err-msg1').hide();
+                        $('.err-msg2').hide();
+                    }
+
+                    scope.hideErr();
                     scope.taskId='';
                     var thisModal = $(this);
                     var listItem = $(event.relatedTarget) // Button that triggered the modal
@@ -52,17 +56,7 @@ angular.module('automationApp.sidebar')
 
                     scope.$watch('taskId', function() {
                         scope.taskId = scope.taskId.toUpperCase().replace(/\s+/g,'');
-
-                        if( $("#taskid").is(":focus") || $("#loadTaskId").is(":focus")) {
-                            $('.err-msg1').hide();
-                            $('.err-msg2').hide();
-                        }
                     });
-
-                    scope.hideErr = function() {
-                        $('.err-msg1').hide();
-                        $('.err-msg2').hide();
-                    }
 
                     scope.clickAction = function(){
                         if (scope.load && $('input[name=load-task-options]:checked').val() === "2") {
@@ -103,6 +97,9 @@ angular.module('automationApp.sidebar')
                                         $('.err-msg2').show();
                                     }
                                 };
+                            } else {
+                                scope.errmsg2 = "No files selected";
+                                $('.err-msg2').show();
                             }
                         } else {
                             if (scope.taskId == '' || scope.taskId.length === 0) {
