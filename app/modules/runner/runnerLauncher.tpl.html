@@ -90,7 +90,8 @@
                     <span ng-hide="host=='saucelabs'">
                     <label class="p-t-10">Test Node:</label>
                     <span class="p-l-10">
-                        <input ng-model="brnode" class="form-control form-white p-l-10 input-allign" type="text" placeholder="Node Name" value="{{brnode}}">
+                        <input ng-model="brnode" class="form-control form-white p-l-10 input-allign .brnode" type="text" placeholder="Node Name" value="{{brnode}}">
+                        <button data-toggle="tooltip" data-placement="top" title="Connect Node" class="btn btn-default download-node-connect-btn m-t-10"><i class="fa fa-download inline-icon" aria-hidden="true"></i>Connect</button>
                     </span>
                     </span>
                     <span ng-show="host=='saucelabs'">
