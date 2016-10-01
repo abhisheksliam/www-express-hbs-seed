@@ -26,6 +26,13 @@ angular.module('automationApp.sidebar')
                 var route, queryParam;
 
                 $('#modal-modalbox').on('show.bs.modal', function (event) {
+                    scope.hideErr = function() {
+                        $('.err-msg1').hide();
+                        $('.err-msg2').hide();
+                    }
+
+                    scope.hideErr();
+                    scope.taskId='';
                     var thisModal = $(this);
                     var listItem = $(event.relatedTarget) // Button that triggered the modal
 
@@ -63,7 +70,8 @@ angular.module('automationApp.sidebar')
                                     try {
                                         ingestJSON = JSON.parse(e.target.result);
                                     } catch (e) {
-                                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Invalid JSON</p></div>','.modal-body');
+                                        scope.errmsg2 = "Invalid JSON !";
+                                        $('.err-msg2').show();
                                     }
 
                                     if(ingestJSON !== undefined && ingestJSON.length !== undefined) {
@@ -73,9 +81,11 @@ angular.module('automationApp.sidebar')
                                         scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
                                             if(res.data.errors) {
                                                 if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
-                                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Task already exists</p></div>','.modal-body');
+                                                    scope.errmsg2 = "Task already exists !";
+                                                    $('.err-msg2').show();
                                                 } else {
-                                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>','.modal-body');
+                                                    scope.errmsg2 = "Ingest JSON format not supported !";
+                                                    $('.err-msg2').show();
                                                 }
                                             } else{
                                                 $('#modal-modalbox').modal('hide');  // hide modal
@@ -83,19 +93,27 @@ angular.module('automationApp.sidebar')
                                             }
                                         });
                                     } else {
-                                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>Ingest JSON format not supported</p></div>','.modal-body');
+                                        scope.errmsg2 = "Ingest JSON format not supported !";
+                                        $('.err-msg2').show();
                                     }
                                 };
+                            } else {
+                                scope.errmsg2 = "No files selected";
+                                $('.err-msg2').show();
                             }
                         } else {
                             if (scope.taskId == '' || scope.taskId.length === 0) {
-                                $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'Task Id cannot be blank !' + '</p></div>','.modal-body');
+                                event.stopPropagation();
+                                scope.errmsg = "Task Id cannot be blank !";
+                                $('.err-msg1').show();
                             }
                             else if ($rootScope.validateTaskId(scope.taskId)){	// client side validation
                                 // api call
                                 scriptorService.getTaskJson(scope.taskId).then(function(res) {
                                     if(res.data.errors) {
-                                        $rootScope.showNotify('<div class="alert alert-danger"><p><strong>Error in getting data for Task - ' + scope.taskId + '</p>'+'</div>','.modal-body');
+                                        scope.errmsg = "Error in getting data for Task - " + scope.taskId;
+                                        $('.err-msg1').show();
+
                                         scope.taskId = '';
                                     } else{
                                         $('#modal-modalbox').modal('hide');  // hide modal
@@ -108,11 +126,11 @@ angular.module('automationApp.sidebar')
                                     }
                                 });
                             } else{
-                                $rootScope.showNotify('<div class="alert alert-danger"><p><strong>' + 'Invalid Task Id !' + '</p></div>','.modal-body');
+                                scope.errmsg = "Invalid Task Id !";
+                                $('.err-msg1').show();
                             }
                         }
                     }
-
                     scope.$apply();
                 })
             }
