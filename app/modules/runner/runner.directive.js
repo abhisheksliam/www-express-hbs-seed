@@ -30,7 +30,7 @@ angular.module('automationApp.runner')
                     if (scope.runnerConfig){
                         $timeout(function(){
                             //    for dd
-                            var runnerConfigDD = element.find('#runner-config select').select2({
+                            var runnerConfigDD = element.find('select').select2({
                                 dropdownCssClass: 'form-white',
                                 minimumResultsForSearch: -1
                             });
