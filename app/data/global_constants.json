@@ -59,20 +59,8 @@
     "os": {
           "hub": [
               {
-                "label": "Windows 7",
+                "label": "Windows",
                 "key": "WINDOWS"
-              },
-              {
-                "label": "Windows 10",
-                "key": "WIN10"
-              },
-              {
-                "label": "Windows 8",
-                "key": "WIN8"
-              },
-              {
-                "label": "Windows 8.1",
-                "key": "WIN8_1"
               }
             ],
             "saucelabs": [
