@@ -178,6 +178,18 @@ angular.module('automationApp.scriptor')
                         event.stopPropagation();
                     });
 
+                    element.on('click',".item-level-0 .panel-copy",function (event) {
+                        event.preventDefault();
+                        var itemNumber = parseInt($(this).closest('.dd-list').index());
+                        var itemToCopy = angular.copy(scope.items[0].items[itemNumber]);
+
+                        scope.items[0].items.splice(itemNumber, 0, itemToCopy);
+                        scope.$apply();
+
+                        scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
+                        event.stopPropagation();
+                    });
+
                     element.on('click',".item-level-1.dd3-content",function (event) {
                         event.preventDefault();
 
