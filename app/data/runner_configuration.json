@@ -7,11 +7,11 @@
     "defaults": {
       "host":"hub",
       "browser":"chrome",
-      "os":"windows",
-      "brversion":"ANY",
+      "os":"WINDOWS",
+      "brversion":"",
       "appurl":"http://grader13/qatrunk/SIM5Frame.aspx",
       "appurlpublic":"false",
-      "screenresolution":"ANY"
+      "screenresolution":""
     }
   }
 

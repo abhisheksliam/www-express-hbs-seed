@@ -21,7 +21,6 @@ angular.module('automationApp.runner')
                         scope.browser = scope.runnerConfig.run.defaults.browser;
                         scope.brversion = scope.runnerConfig.run.defaults.brversion;
                         scope.appurl = scope.runnerConfig.run.defaults.appurl;
-                        scope.appurlpublic = scope.runnerConfig.run.defaults.appurlpublic;
                         scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
                         scope.brnode = username;
                         scope.simsbuild = "";
@@ -37,7 +36,7 @@ angular.module('automationApp.runner')
                             element.find('.hostselect').select2('val', scope.host);
                             element.find('.osselect').select2('val', scope.os);
                             element.find('.brselect').select2('val', scope.browser);
-                        });
+                        }, 1000);
                         clearInterval(initRunConfig );
                     }
                 }, 500);
@@ -284,7 +283,6 @@ angular.module('automationApp.runner')
                                 "resolution": scope.screenresolution,
                                 "app" : {
                                     "url" : scope.appurl,
-                                    "public" : scope.appurlpublic,
                                     "build" : scope.simsbuild
                                 },
                                 "browser" : {
