@@ -5,20 +5,28 @@ angular.module('automationApp')
         return {
             restrict: 'A',
             scope: {
+                triggers : "="
             },
             link: function(scope, element, attrs) {
-                $timeout(function(){
 
-                    element.mCustomScrollbar({
-                        theme: "dark",
-                        autoHideScrollbar: true,
-                        advanced:{ updateOnContentResize: true,
-                            updateOnBrowserResize:true},
-                        autoExpandScrollbar: true,
-                        scrollInertia:350,
-                        autoDraggerLength:true
-                    });
-                },2000);
+                scope.$watch('triggers', function(newValue) {
+                    if (newValue !== undefined) {
+                        element.mCustomScrollbar({
+                            theme: "dark",
+                            autoHideScrollbar: true,
+                            advanced:{ updateOnContentResize: true,
+                                updateOnBrowserResize:true},
+                            autoExpandScrollbar: true,
+                            scrollInertia:350,
+                            autoDraggerLength:true,
+                            mouseWheel:{
+                                enable:true,
+                                scrollAmount:5
+                            }
+                        });
+                    }
+                });
+
             }
         };
     }]);

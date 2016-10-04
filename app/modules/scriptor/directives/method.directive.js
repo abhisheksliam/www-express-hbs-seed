@@ -17,6 +17,18 @@ angular.module('automationApp.scriptor')
             },
             link: function (scope, element, attributes) {
 
+                scope.$watch('item', function(newValue) {
+                    if (newValue !== undefined) {
+                        scope.$emit('INTIALIZE_METHOD_SORTABLE', "");
+                    }
+                });
+
+                scope.$watch('method', function(newValue) {
+                    if (newValue !== undefined) {
+                        scope.$emit('INTIALIZE_TRIGGER_SORTABLE', "");
+                    }
+                });
+
                 element.on('click',".baloo-actions-text",function (event) {
                     event.preventDefault();
 
