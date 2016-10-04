@@ -47,29 +47,29 @@ angular.module('automationApp.scriptor')
                     }
                 };
 
-                $timeout(function(){
-                    element.find( ".dd-handle" ).draggable({
-                        helper: "clone",
-                        appendTo: '#triggerlist',
-                        containment: 'document',
-                        revert: "invalid",
-                        cursor: "move",
-                        scroll: false,
-                        stop: function( event, ui ) {
-                           element.find(".drop-action-handle:visible").removeClass("highlight-drop");
-                        },
-                        start: function( event, ui ) {
-                            ui.helper.addClass("ui-draggable-handle");
-                            element.find(".drop-action-handle:visible").addClass("highlight-drop");
-                        }
-                    });
-
-                    $( ".dd3-content.drop-action-handle" ).droppable(dropHandler);
-
-                },1500);
+                var dragHandler = {
+                    helper: "clone",
+                    appendTo: '#triggerlist',
+                    containment: 'document',
+                    revert: "invalid",
+                    cursor: "move",
+                    scroll: false,
+                    stop: function( event, ui ) {
+                       element.find(".drop-action-handle:visible").removeClass("highlight-drop");
+                    },
+                    start: function( event, ui ) {
+                        ui.helper.addClass("ui-draggable-handle");
+                        element.find(".drop-action-handle:visible").addClass("highlight-drop");
+                    }
+                };
 
                 scope.$on('SCRIPTOR_NEW_ITEM_ADDED', function(event) {
-                    $( ".dd3-content.drop-action-handle" ).droppable(dropHandler);
+                    element.find( ".drop-action-handle" ).droppable(dropHandler);
+                });
+
+                scope.$on('INTIALIZE_DRAG_DROP', function(event) {
+                    element.find( ".dd-handle" ).draggable(dragHandler);
+                    element.find( ".drop-action-handle" ).droppable(dropHandler);
                 });
 
                 $(window).scroll(function () {

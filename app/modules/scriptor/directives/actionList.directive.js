@@ -14,6 +14,12 @@ angular.module('automationApp.scriptor')
             link: function(scope, element, attributes){
                 scope.searchActionText = "";
 
+                scope.$watch('triggers', function(newValue) {
+                    if (newValue !== undefined) {
+                        scope.$emit('INTIALIZE_DRAG_DROP', "");
+                    }
+                });
+
                 scope.$on('ACTION_SEARCH_RESET', function(event) {
                     scope.searchActionText = "";
 
