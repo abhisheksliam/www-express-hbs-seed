@@ -18,7 +18,11 @@ angular.module('automationApp')
                                 updateOnBrowserResize:true},
                             autoExpandScrollbar: true,
                             scrollInertia:350,
-                            autoDraggerLength:true
+                            autoDraggerLength:true,
+                            mouseWheel:{
+                                enable:true,
+                                scrollAmount:5
+                            }
                         });
                     }
                 });
