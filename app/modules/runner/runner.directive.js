@@ -47,6 +47,16 @@ angular.module('automationApp.runner')
                     inheritClass: true
                 };
 
+                /* Open / Close right sidebar */
+                $('.quickview-header').on('click', '.close', function (ev) {
+                    $('#quickview-sidebar').addClass('closing');
+                    $('#quickview-sidebar').removeClass('open');
+                    setTimeout(function () {
+                        $('#quickview-sidebar').removeClass('closing');
+                    }, 400);
+
+                });
+
                 scope.selectRunTaskItems = function(){
 
                     if ( $("input.runner-item-check").is(":checked")) {
