@@ -51,11 +51,11 @@ angular.module('automationApp.runner')
                 scope.selectRunTaskItems = function(){
 
                     if ( $("input.runner-item-check").is(":checked")) {
-                           $(".run-task-btn").attr("disabled", false);
-                           $(".run-task-btn").removeClass("disablebtn");
+                           $(".run-task").removeAttr("disabled");
+                           $(".run-task").removeClass("disabled");
                     } else {
-                           $(".run-task-btn").attr("disabled", true);
-                           $(".run-task-btn").addClass("disablebtn");
+                           $(".run-task").addAttr("disabled", true);
+                           $(".run-task").addClass("disabled");
                     }
 
                     event.stopPropagation();
@@ -70,8 +70,9 @@ angular.module('automationApp.runner')
                         }
 
                         if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                            $(".run-pathway").attr("disabled", false);
-                            $(".run-pathway").removeClass("disablebtn");
+                            $(".run-pathway").removeAttr("disabled");
+                            $(".run-pathway").removeClass("disabled");
+                            $(".default-pathway-text").hide();
                         }
                     }
                 });
@@ -100,12 +101,13 @@ angular.module('automationApp.runner')
 
                         var delIndex = $(this).closest('.pathway-list').index() - 2;
                         scope.items[1].splice(delIndex, 1);
-                        scope.$apply();
 
                         if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
                             $(".run-pathway").attr("disabled", true);
-                            $(".run-pathway").addClass("disablebtn");
+                            $(".run-pathway").addClass("disabled");
+                            $(".default-pathway-text").show();
                         }
+                        scope.$apply();
 
                         $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway deleted successfully!' + '</p></div>','#quickview-sidebar');
                         event.stopPropagation();
@@ -115,7 +117,6 @@ angular.module('automationApp.runner')
                         event.preventDefault();
 
                         var isDuplicatePathway = false;
-
                         var pathwayInfo = $.map(scope.items[0].items, function(value, index) {
                                 return $('input[name=method-radio-'+index +']:checked').val();
                         });
@@ -137,7 +138,7 @@ angular.module('automationApp.runner')
                         else {
                             var obj = {
                                 "pathway" : pathwayInfo,
-                                "group" : $(".pathway-group").val().join()
+                                "group" : $("#pathway-grp").val().join(', ')
                             };
 
                             if(scope.items[1] === undefined) {
@@ -149,8 +150,9 @@ angular.module('automationApp.runner')
                             scope.$apply();
 
                             if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                                $(".run-pathway").attr("disabled", false);
-                                $(".run-pathway").removeClass("disablebtn");
+                                $(".run-pathway").removeAttr("disabled");
+                                $(".run-pathway").removeClass("disabled");
+                                $(".default-pathway-text").hide();
                             }
 
                             $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway added successfully!' + '</p></div>','#quickview-sidebar');
@@ -205,8 +207,9 @@ angular.module('automationApp.runner')
                         scope.$apply();
 
                         if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                            $(".run-pathway").attr("disabled", false);
-                            $(".run-pathway").removeClass("disablebtn");
+                            $(".run-pathway").removeAttr("disabled");
+                            $(".run-pathway").removeClass("disabled");
+                            $(".default-pathway-text").hide();
                         }
 
                         $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathways generated successfully!' + '</p></div>','#quickview-sidebar');
@@ -214,7 +217,7 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('click',".run-task-btn",function(event) {
+                    element.on('click',".run-task",function(event) {
                         event.preventDefault();
 
                         var baseUrl = scope.runnerConfig.runner.url;
@@ -261,6 +264,29 @@ angular.module('automationApp.runner')
                             });
 
                         });
+
+                        event.stopPropagation();
+                    });
+
+                    element.on('click',".publish-svn",function(event) {
+                        event.preventDefault();
+
+                        console.log('in publish svn');
+                        console.log(scope.items[0]);
+
+                        if(scope.items[1] !== undefined) {
+                            console.log('TRUE');
+
+
+
+                            for (var indx = 0; indx < scope.items[1].length; indx++) {
+                                console.log('pathway no. ' + indx);
+                                console.log(scope.items[1][indx]);
+                            }
+
+                        } else {
+                            console.log('FALSE');
+                        }
 
                         event.stopPropagation();
                     });

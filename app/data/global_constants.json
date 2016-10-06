@@ -45,6 +45,10 @@
 		"Menu",
 		"Right Click"
     ],
+  "pathwayGroups": [
+    "Primary",
+    "Robot"
+  ],
   "runner": {
     "host": [
       "hub",
