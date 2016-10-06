@@ -31,23 +31,21 @@
                     </li>
                 </ol>
             </div>
-            <button data-toggle="tooltip" data-placement="top" title="Run Task" class="btn btn-default run-task-btn disablebtn m-t-10"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
+            <button title="Run Task" class="btn btn-primary run-task disabled" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
 
             <hr/>
 
-            <div class="title ptwy">Pathway Groups </div>
-
-            <div>
-
-                <select multiple="multiple" class="form-control pathway-group">
-                    <option class="methtype" ng-repeat="methodtype in $root.globalConstants.methodtypelist" value="{{methodtype}}"><span>{{methodtype}}</span></option>
+             <label class="add-pathway-label">Select Pathway Groups</label>
+                <select id="pathway-grp" multiple="multiple" class="form-control">
+                    <option class="methtype" ng-repeat="methodtype in ($root.globalConstants.pathwayGroups.concat($root.globalConstants.methodtypelist))" value="{{methodtype}}"><span>{{methodtype}}</span></option>
                 </select>
 
-                <div class="btn-group pathway-btn">
-                    <button data-toggle="tooltip" data-placement="top" title="Add Pathway" class="btn btn-default add-pathway"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add Pathway</button>
-                    <button data-toggle="tooltip" data-placement="top" title="Generate Pathways" class="btn btn-default generate-pathway"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Generate Pathways</button>
-                </div>
+            <!--<div class="input-group">-->
+            <!--</div>-->
 
+            <div class="pathwaygrp">
+                <div class="ptwy"><span>Pathways</span><span class="divider"></span><i title="Generate Pathways" class="fa fa-pencil-square-o inline-icon generate-pathway" aria-hidden="true"></i><i title="Add Pathway" class="fa fa-plus inline-icon add-pathway" aria-hidden="true"></i></div>
+                <div class="p-l-10 p-t-10 default-pathway-text"><em>No Pathways</em></div>
                 <div class="pathway-list" ng-repeat="pathwayList in items[1] track by $index">
                     <span ng-repeat="pathway in pathwayList.pathway">
                         <pathway-band></pathway-band>
@@ -56,12 +54,12 @@
                         : {{pathwayList.group}} <i  data-toggle="tooltip" data-placement="top" title="Delete Pathway" class="fa fa-trash delete-pathway" aria-hidden="true"></i>
                     </span>
                 </div>
-
-                <button data-toggle="tooltip" data-placement="top" title="Run Pathways" class="btn btn-default run-pathway disablebtn" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i></i>Run Pathways</button>
             </div>
-
-            <button data-toggle="tooltip" data-placement="top" title="Publish Files to Server" class="btn btn-default publish-svn disablebtn"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i></i>Publish Files to Server</button>
-
+            <div>
+                <button title="Run Pathways" class="btn btn-primary run-pathway disabled" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Pathways</button>
+                <span class="pub-svn-divider"></span>
+                <button title="Publish to SVN" class="btn btn-primary publish-svn disabled" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i>Publish to SVN</button>
+            </div>
         </div>
 
         <div class="tab-pane fade" id="runner-config">
