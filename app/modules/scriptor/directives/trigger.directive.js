@@ -212,6 +212,27 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
+                $rootScope.enableTriggerPaste = false;
+                element.on('click',".panel-clipboard",function (event) {
+                    event.preventDefault();
+
+                    var triggerNumber = parseInt($(this).closest('.dd-list').index());
+                    $rootScope.copiedTrigger = angular.copy(scope.method.actions[triggerNumber]);
+                    $rootScope.enableTriggerPaste = true;
+                    scope.$apply();
+                    event.stopPropagation();
+                });
+
+                element.on('click',".panel-paste",function (event) {
+                    event.preventDefault();
+
+                    var triggerNumber = parseInt($(this).closest('.dd-list').index());
+                    scope.method.actions.splice(triggerNumber, 0, $rootScope.copiedTrigger);
+                    $rootScope.enableTriggerPaste = false;
+                    scope.$apply();
+                    event.stopPropagation();
+                });
+
                 var initXpath = setInterval(function(){
 
                     if($rootScope.xpathList){
