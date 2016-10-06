@@ -132,20 +132,36 @@
     background-color: #319db5 !important;
   }
 
-  .add-pathway {
-    margin-right: 0;
+  .pathway-grp {
+    margin-top: 20px;
+    span, input {
+      vertical-align: top;
+    }
   }
 
+  .add-pathway-label {
+    display: inline-block;
+    width:39%
+  }
+  .add-pathway{
+    padding-top: 3px;
+  }
 
-  .generate-pathway{
+  .select2-container.select2-container-multi.form-control {
+    display: inline-block;
+    width:60%
+  }
+
+  .generate-pathway, .ptwy > .fa-plus{
     float:right;
     cursor:pointer;
+    padding-top: 3px;
   }
 
   .pathwaygrp {
     min-height:80px;
     border: 1px solid lightgrey;
-    margin: 5px 0px 35px 0px;
+    margin: 15px 0px 35px 0px;
   }
 
   .ptwy{
@@ -157,10 +173,16 @@
     height:40px;
   }
 
-  .pub-svn {
+  .divider {
     border-left: 1px solid lightgrey !important;
     padding-left: 15px;
-    line-height: 50px;
+    position:relative;
+    left:278px;
+  }
+
+  .pub-svn-divider {
+    border-left: 1px solid lightgrey !important;
+    padding-left: 15px;
   }
 
   .run-task.disabled, .run-pathway.disabled, .publish-svn.disabled {
@@ -291,13 +313,14 @@
     margin: auto;
     padding-left: 5%;
     padding-right: 5%;
-    background-color: rgb(53,57,64);
-    color: white;
 
-    &:hover {
-      border: 1px solid black;
-      box-shadow: 0px 0px 5px black;
-    }
+//    background-color: rgb(53,57,64);
+//    color: white;
+//
+//    &:hover {
+//      border: 1px solid black;
+//      box-shadow: 0px 0px 5px black;
+//    }
   }
 
   .brnode {

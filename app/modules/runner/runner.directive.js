@@ -54,7 +54,7 @@ angular.module('automationApp.runner')
                            $(".run-task").removeAttr("disabled");
                            $(".run-task").removeClass("disabled");
                     } else {
-                           $(".run-task").addAttr("disabled", true);
+                           $(".run-task").attr("disabled", true);
                            $(".run-task").addClass("disabled");
                     }
 

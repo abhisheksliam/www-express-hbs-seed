@@ -34,18 +34,16 @@
 
             <hr/>
 
-            <div class="title">Pathway Groups </div>
-            <div class="input-group">
+             <label class="add-pathway-label">Select Pathway Groups</label>
                 <select id="pathway-grp" multiple="multiple" class="form-control">
                     <option class="methtype" ng-repeat="methodtype in ($root.globalConstants.pathwayGroups.concat($root.globalConstants.methodtypelist))" value="{{methodtype}}"><span>{{methodtype}}</span></option>
                 </select>
-              <span class="input-group-btn">
-                <button title="Add Pathway Groups"class="btn btn-primary add-pathway" type="button" tabindex="-1"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></button>
-              </span>
-            </div>
+
+            <!--<div class="input-group">-->
+            <!--</div>-->
 
             <div class="pathwaygrp">
-                <div class="ptwy"><span>Pathways</span><i title="Generate Pathways" class="fa fa-pencil-square-o inline-icon generate-pathway" aria-hidden="true"></i></div>
+                <div class="ptwy"><span>Pathways</span><span class="divider"></span><i title="Generate Pathways" class="fa fa-pencil-square-o inline-icon generate-pathway" aria-hidden="true"></i><i title="Add Pathway" class="fa fa-plus inline-icon add-pathway" aria-hidden="true"></i></div>
                 <div class="p-l-10 p-t-10 default-pathway-text"><em>No Pathways</em></div>
                 <div class="pathway-list" ng-repeat="pathwayList in items[1] track by $index">
                     <span ng-repeat="pathway in pathwayList.pathway">
@@ -56,13 +54,11 @@
                     </span>
                 </div>
             </div>
-            <hr/>
-
-                <div>
-                    <button title="Run Pathways" class="btn btn-primary run-pathway disabled" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Pathways</button>
-                    <span class="pub-svn"></span>
-                    <button title="Publish Files to Server" class="btn btn-primary publish-svn disabled" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i>Publish Files to Server</button>
-                </div>
+            <div>
+                <button title="Run Pathways" class="btn btn-primary run-pathway disabled" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Pathways</button>
+                <span class="pub-svn-divider"></span>
+                <button title="Publish to SVN" class="btn btn-primary publish-svn disabled" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i>Publish to SVN</button>
+            </div>
         </div>
 
         <div class="tab-pane fade" id="runner-config">
@@ -93,7 +89,7 @@
                     <label class="p-t-10">Test Node:</label>
                     <span class="p-l-10">
                         <input ng-model="brnode" class="form-control form-white p-l-10 input-allign .brnode" type="text" placeholder="Node Name" value="{{brnode}}">
-                        <button data-toggle="tooltip" data-placement="top" title="Connect Node" class="btn btn-default download-node-connect-btn m-t-10"><i class="fa fa-download inline-icon" aria-hidden="true"></i>Connect</button>
+                        <button data-toggle="tooltip" data-placement="top" title="Connect Node" class="btn btn-primary download-node-connect-btn m-t-10"><i class="fa fa-download inline-icon" aria-hidden="true"></i>Connect</button>
                     </span>
                     </span>
                     <span ng-show="host=='saucelabs'">
