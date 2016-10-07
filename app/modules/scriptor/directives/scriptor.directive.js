@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('scriptor', ['$compile', '$timeout', 'scriptorService', function($compile, $timeout, scriptorService) {
+    .directive('scriptor', ['$compile', '$timeout', 'scriptorService', '$rootScope', function($compile, $timeout, scriptorService, $rootScope) {
 
         return {
             restrict: 'E',
@@ -78,6 +78,15 @@ angular.module('automationApp.scriptor')
                     }
                     if ($(window).scrollTop() < 101) {
                         $('#triggerlist').removeClass('trigger-fixed');
+                    }
+                });
+
+                $(document).keyup(function(e) {
+                    if (e.keyCode == 27) { // escape key
+                        $rootScope.enableMethodPaste = false;
+                        $rootScope.enableTriggerPaste = false;
+                        $("#scriptor-content .dd-item").removeClass("highlight-select");
+                        scope.$apply();
                     }
                 });
 

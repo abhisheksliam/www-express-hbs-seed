@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('method', ['$timeout', function($timeout) {
+    .directive('method', ['$timeout', '$rootScope', function($timeout, $rootScope) {
 
         return {
             restrict: 'E',
@@ -74,6 +74,38 @@ angular.module('automationApp.scriptor')
                     scope.item.methods.splice(methodNumber, 0, methodToCopy);
                     scope.$apply();
 
+                    scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
+                    event.stopPropagation();
+                });
+
+                $rootScope.enableMethodPaste = false;
+                element.on('click',".panel-clipboard",function (event) {
+                    event.preventDefault();
+
+                    var methodNumber = parseInt($(this).closest('.dd-list').index());
+                    $(this).parents(".dd-item:first").addClass("highlight-select");
+
+                    $rootScope.copiedMethod = angular.copy(scope.item.methods[methodNumber]);
+                    $rootScope.enableMethodPaste = true;
+                    scope.$apply();
+                    event.stopPropagation();
+                });
+
+                element.on('click',".panel-paste",function (event) {
+                    event.preventDefault();
+
+                    var methodNumber = parseInt($(this).closest('.dd-list').index());
+                    $("#scriptor-content .dd-item").removeClass("highlight-select");
+
+                    scope.item.methods.splice(methodNumber, 0, $rootScope.copiedMethod);
+                    $rootScope.enableMethodPaste = false;
+                    scope.$apply();
+
+                    $(this).parents(".dd-item:first").addClass("highlight-select transition");
+
+                    $timeout(function(){
+                        $("#scriptor-content .dd-item").removeClass("highlight-select transition");
+                    },1000);
                     scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     event.stopPropagation();
                 });
