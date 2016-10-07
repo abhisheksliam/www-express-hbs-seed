@@ -83,6 +83,8 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     var methodNumber = parseInt($(this).closest('.dd-list').index());
+                    $(this).parents(".dd-item:first").addClass("highlight-select");
+
                     $rootScope.copiedMethod = angular.copy(scope.item.methods[methodNumber]);
                     $rootScope.enableMethodPaste = true;
                     scope.$apply();
@@ -93,10 +95,17 @@ angular.module('automationApp.scriptor')
                     event.preventDefault();
 
                     var methodNumber = parseInt($(this).closest('.dd-list').index());
+                    $("#scriptor-content .dd-item").removeClass("highlight-select");
+
                     scope.item.methods.splice(methodNumber, 0, $rootScope.copiedMethod);
                     $rootScope.enableMethodPaste = false;
                     scope.$apply();
 
+                    $(this).parents(".dd-item:first").addClass("highlight-select transition");
+
+                    $timeout(function(){
+                        $("#scriptor-content .dd-item").removeClass("highlight-select transition");
+                    },1000);
                     scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     event.stopPropagation();
                 });

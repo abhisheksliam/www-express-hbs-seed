@@ -85,6 +85,7 @@ angular.module('automationApp.scriptor')
                     if (e.keyCode == 27) { // escape key
                         $rootScope.enableMethodPaste = false;
                         $rootScope.enableTriggerPaste = false;
+                        $("#scriptor-content .dd-item").removeClass("highlight-select");
                         scope.$apply();
                     }
                 });
