@@ -230,14 +230,14 @@ angular.module('automationApp.scriptor')
                     var triggerNumber = parseInt($(this).closest('.dd-list').index());
                     $("#scriptor-content .dd-item").removeClass("highlight-select");
 
-                    scope.method.actions.splice(triggerNumber, 0, $rootScope.copiedTrigger);
+                    scope.method.actions.splice(triggerNumber + 1, 0, $rootScope.copiedTrigger);
                     $rootScope.copiedTrigger = undefined;
                     scope.$apply();
 
-                    $(this).parents(".dd-item:first").addClass("highlight-select transition");
+                    $(this).closest('.dd-list').next().addClass("highlight-select transition");
 
                     $timeout(function(){
-                        $("#scriptor-content .dd-item").removeClass("highlight-select transition");
+                        $("#scriptor-content .dd-list").removeClass("highlight-select transition");
                     },1000);
                     event.stopPropagation();
                 });

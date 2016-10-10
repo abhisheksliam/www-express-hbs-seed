@@ -96,14 +96,14 @@ angular.module('automationApp.scriptor')
                     var methodNumber = parseInt($(this).closest('.dd-list').index());
                     $("#scriptor-content .dd-item").removeClass("highlight-select");
 
-                    scope.item.methods.splice(methodNumber, 0, $rootScope.copiedMethod);
+                    scope.item.methods.splice(methodNumber + 1, 0, $rootScope.copiedMethod);
                     $rootScope.copiedMethod = undefined;
                     scope.$apply();
 
-                    $(this).parents(".dd-item:first").addClass("highlight-select transition");
+                    $(this).closest('.dd-list').next().addClass("highlight-select transition");
 
                     $timeout(function(){
-                        $("#scriptor-content .dd-item").removeClass("highlight-select transition");
+                        $("#scriptor-content .dd-list").removeClass("highlight-select transition");
                     },1000);
                     scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     event.stopPropagation();
@@ -118,10 +118,10 @@ angular.module('automationApp.scriptor')
                     $rootScope.copiedTrigger = undefined;
                     scope.$apply();
 
-                    $(this).parents(".dd-item:first").addClass("highlight-select transition");
+                    $(this).closest('.dd-list').prev().addClass("highlight-select transition");
 
                     $timeout(function(){
-                        $("#scriptor-content .dd-item").removeClass("highlight-select transition");
+                        $("#scriptor-content .dd-list").removeClass("highlight-select transition");
                     },1000);
                     event.stopPropagation();
                 });
