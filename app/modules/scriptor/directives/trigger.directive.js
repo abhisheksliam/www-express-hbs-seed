@@ -212,7 +212,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.on('click',".panel-clipboard",function (event) {
+                element.on('click',".select-trigger",function (event) {
                     event.preventDefault();
 
                     var triggerNumber = parseInt($(this).closest('.dd-list').index());
@@ -224,7 +224,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.on('click',".panel-paste",function (event) {
+                element.on('click',".paste-trigger",function (event) {
                     event.preventDefault();
 
                     var triggerNumber = parseInt($(this).closest('.dd-list').index());

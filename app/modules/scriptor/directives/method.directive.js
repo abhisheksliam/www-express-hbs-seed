@@ -78,7 +78,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.on('click',".panel-clipboard",function (event) {
+                element.on('click',".select-method",function (event) {
                     event.preventDefault();
 
                     var methodNumber = parseInt($(this).closest('.dd-list').index());
@@ -90,7 +90,7 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                element.on('click',".panel-paste",function (event) {
+                element.on('click',".paste-method",function (event) {
                     event.preventDefault();
 
                     var methodNumber = parseInt($(this).closest('.dd-list').index());
@@ -108,6 +108,24 @@ angular.module('automationApp.scriptor')
                     scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     event.stopPropagation();
                 });
+
+                element.on('click',".paste-first-trigger",function (event) {
+                    event.preventDefault();
+
+                    $("#scriptor-content .dd-item").removeClass("highlight-select");
+
+                    scope.method.actions.splice(0, 0, $rootScope.copiedTrigger);
+                    $rootScope.copiedTrigger = undefined;
+                    scope.$apply();
+
+                    $(this).parents(".dd-item:first").addClass("highlight-select transition");
+
+                    $timeout(function(){
+                        $("#scriptor-content .dd-item").removeClass("highlight-select transition");
+                    },1000);
+                    event.stopPropagation();
+                });
+
 
                 element.on('click',".item-level-1 .panel-move",function (event) {
                     event.preventDefault();
