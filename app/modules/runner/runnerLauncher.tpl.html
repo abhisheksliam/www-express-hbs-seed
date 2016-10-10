@@ -40,9 +40,6 @@
                     <option class="methtype" ng-repeat="methodtype in ($root.globalConstants.pathwayGroups.concat($root.globalConstants.methodtypelist))" value="{{methodtype}}"><span>{{methodtype}}</span></option>
                 </select>
 
-            <!--<div class="input-group">-->
-            <!--</div>-->
-
             <div class="pathwaygrp">
                 <div class="ptwy"><span>Pathways</span><span class="divider"></span><i title="Generate Pathways" class="fa fa-pencil-square-o inline-icon generate-pathway" aria-hidden="true"></i><i title="Add Pathway" class="fa fa-plus inline-icon add-pathway" aria-hidden="true"></i></div>
                 <div class="p-l-10 p-t-10 default-pathway-text"><em>No Pathways</em></div>
@@ -60,6 +57,15 @@
                 <span class="pub-svn-divider"></span>
                 <button title="Publish to SVN" class="btn btn-primary publish-svn disabled" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i>Publish to SVN</button>
             </div>
+
+            <div class="err-list hide">
+                <p>Task not published in SVN due to following errors:</p>
+                <ul>
+                <li ng-repeat="err in errorList">
+                   {{err}}
+                </li>
+                </ul>
+                </div>
         </div>
 
         <div class="tab-pane fade" id="runner-config">
