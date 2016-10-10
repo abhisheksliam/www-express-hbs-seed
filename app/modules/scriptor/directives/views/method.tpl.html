@@ -11,8 +11,8 @@
         </h5>
         <div class="control-btn">
             <a href="#" class="panel-copy" data-toggle="tooltip" data-placement="top" title="Duplicate Method"><i class="fa fa-copy"></i></a>
-            <a href="#" class="panel-clipboard" data-toggle="tooltip" data-placement="top" title="Select to copy"><i class="fa fa-file-text-o"></i></a>
-            <a href="#" class="panel-paste" ng-show="$root.enableMethodPaste" data-toggle="tooltip" data-placement="top" title="Paste below"><i class="fa fa-clipboard"></i></a>
+            <a href="#" class="panel-clipboard select-method" data-toggle="tooltip" data-placement="top" title="Select to copy"><i class="fa fa-file-text-o"></i></a>
+            <a href="#" class="panel-paste paste-method" ng-show="$root.copiedMethod" data-toggle="tooltip" data-placement="top" title="Paste below"><i class="fa fa-clipboard"></i></a>
             <a href="#" class="panel-close" data-toggle="tooltip" data-placement="top" title="Delete Method"><i class="icon-trash"></i></a>
             <a href="#" class="panel-move" data-toggle="tooltip" data-placement="top" title="Drag Method to re-order"><i class="fa fa-arrows"></i></a>
         </div>
@@ -27,7 +27,9 @@
         <ol class="dd-list ui-sort-disabled">
             <li class="dd-item">
                 <div class="dd3-content p-20 f-14 drop-action-handle">
-                    <div class="border-dotted p-t-20 p-b-20 text-center">Drop Action Here</div>
+                    <div class="border-dotted p-t-20 p-b-20 text-center">Drop Action Here
+                        <a href="#" class="panel-paste paste-first-trigger" ng-show="$root.copiedTrigger && !method.actions.length" data-toggle="tooltip" data-placement="top" title="Paste below"><i class="fa fa-clipboard"></i></a>
+                    </div>
                 </div>
             </li>
         </ol>

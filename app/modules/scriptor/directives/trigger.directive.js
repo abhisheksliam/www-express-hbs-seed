@@ -212,33 +212,32 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                $rootScope.enableTriggerPaste = false;
-                element.on('click',".panel-clipboard",function (event) {
+                element.on('click',".select-trigger",function (event) {
                     event.preventDefault();
 
                     var triggerNumber = parseInt($(this).closest('.dd-list').index());
                     $(this).parents(".dd-item:first").addClass("highlight-select");
 
                     $rootScope.copiedTrigger = angular.copy(scope.method.actions[triggerNumber]);
-                    $rootScope.enableTriggerPaste = true;
+
                     scope.$apply();
                     event.stopPropagation();
                 });
 
-                element.on('click',".panel-paste",function (event) {
+                element.on('click',".paste-trigger",function (event) {
                     event.preventDefault();
 
                     var triggerNumber = parseInt($(this).closest('.dd-list').index());
                     $("#scriptor-content .dd-item").removeClass("highlight-select");
 
-                    scope.method.actions.splice(triggerNumber, 0, $rootScope.copiedTrigger);
-                    $rootScope.enableTriggerPaste = false;
+                    scope.method.actions.splice(triggerNumber + 1, 0, $rootScope.copiedTrigger);
+                    $rootScope.copiedTrigger = undefined;
                     scope.$apply();
 
-                    $(this).parents(".dd-item:first").addClass("highlight-select transition");
+                    $(this).closest('.dd-list').next().addClass("highlight-select transition");
 
                     $timeout(function(){
-                        $("#scriptor-content .dd-item").removeClass("highlight-select transition");
+                        $("#scriptor-content .dd-list").removeClass("highlight-select transition");
                     },1000);
                     event.stopPropagation();
                 });
