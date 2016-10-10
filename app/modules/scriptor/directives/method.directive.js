@@ -78,7 +78,6 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
-                $rootScope.enableMethodPaste = false;
                 element.on('click',".panel-clipboard",function (event) {
                     event.preventDefault();
 
@@ -86,7 +85,7 @@ angular.module('automationApp.scriptor')
                     $(this).parents(".dd-item:first").addClass("highlight-select");
 
                     $rootScope.copiedMethod = angular.copy(scope.item.methods[methodNumber]);
-                    $rootScope.enableMethodPaste = true;
+
                     scope.$apply();
                     event.stopPropagation();
                 });
@@ -98,7 +97,7 @@ angular.module('automationApp.scriptor')
                     $("#scriptor-content .dd-item").removeClass("highlight-select");
 
                     scope.item.methods.splice(methodNumber, 0, $rootScope.copiedMethod);
-                    $rootScope.enableMethodPaste = false;
+                    $rootScope.copiedMethod = undefined;
                     scope.$apply();
 
                     $(this).parents(".dd-item:first").addClass("highlight-select transition");
