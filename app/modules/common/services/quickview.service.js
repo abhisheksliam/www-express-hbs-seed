@@ -1,16 +1,12 @@
-(function() {
+'use strict';
 
+angular.module('automationApp')
+	.factory('quickViewService', ['applicationService', function(applicationService) {
 
-	angular.module('automationApp').factory('quickViewService', QuickViewService);
-
-	QuickViewService.$inject = ['applicationService'];
-	
-	function QuickViewService (applicationService) {
-	  
 		function quickviewSidebar() {
 
-        	function toggleqQuickview() {
-            	$('#quickview-toggle').click(function (e) {//
+			function toggleqQuickview() {
+				$('#quickview-toggle').click(function (e) {//
 					e.preventDefault();
 					e.stopPropagation();//
 					if ($('#quickview-sidebar').hasClass('open'))
@@ -21,42 +17,40 @@
 			}
 
 			/* Open / Close right sidebar */
-		  $('.main-content').on('click', '#scriptor-content', function (ev) {
-			  if (ev.target !== $('#quickview-sidebar')) {
-				  if ($('#quickview-sidebar').hasClass('open')) {
-					  $('#quickview-sidebar').addClass('closing');
-					  $('#quickview-sidebar').removeClass('open');
-					  setTimeout(function () {
-						  $('#quickview-sidebar').removeClass('closing');
-					  }, 400);
-				  }
-			  }
-		  });
+			$('.main-content').on('click', '#scriptor-content', function (ev) {
+				if (ev.target !== $('#quickview-sidebar')) {
+					if ($('#quickview-sidebar').hasClass('open')) {
+						$('#quickview-sidebar').addClass('closing');
+						$('#quickview-sidebar').removeClass('open');
+						setTimeout(function () {
+							$('#quickview-sidebar').removeClass('closing');
+						}, 400);
+					}
+				}
+			});
 
-		  toggleqQuickview();
+			toggleqQuickview();
 		}
 
 
 		function quickviewHeight() {
-		  $('.chat-conversation').height('');
-		  var chatConversationHeight = $('.chat-conversation').height();
-		  var windowHeight = $(window).height();
-		  if (chatConversationHeight < windowHeight) {
-			  $('.chat-conversation').height($(window).height() - 50);
-		  }
+			$('.chat-conversation').height('');
+			var chatConversationHeight = $('.chat-conversation').height();
+			var windowHeight = $(window).height();
+			if (chatConversationHeight < windowHeight) {
+				$('.chat-conversation').height($(window).height() - 50);
+			}
 		}
 
 		/****  On Resize Functions  ****/
 		$(window).resize(function () {
-		  quickviewHeight();
+			quickviewHeight();
 		});
 
 		return {
-		  init: function () {
-			  quickviewSidebar();
-			  quickviewHeight();
-		  }
+			init: function () {
+				quickviewSidebar();
+				quickviewHeight();
+			}
 		}
-  }
-
-})();
+	}]);

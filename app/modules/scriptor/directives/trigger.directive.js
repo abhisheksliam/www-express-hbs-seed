@@ -212,6 +212,36 @@ angular.module('automationApp.scriptor')
                     event.stopPropagation();
                 });
 
+                element.on('click',".select-trigger",function (event) {
+                    event.preventDefault();
+
+                    var triggerNumber = parseInt($(this).closest('.dd-list').index());
+                    $(this).parents(".dd-item:first").addClass("highlight-select");
+
+                    $rootScope.copiedTrigger = angular.copy(scope.method.actions[triggerNumber]);
+
+                    scope.$apply();
+                    event.stopPropagation();
+                });
+
+                element.on('click',".paste-trigger",function (event) {
+                    event.preventDefault();
+
+                    var triggerNumber = parseInt($(this).closest('.dd-list').index());
+                    $("#scriptor-content .dd-item").removeClass("highlight-select");
+
+                    scope.method.actions.splice(triggerNumber + 1, 0, $rootScope.copiedTrigger);
+                    $rootScope.copiedTrigger = undefined;
+                    scope.$apply();
+
+                    $(this).closest('.dd-list').next().addClass("highlight-select transition");
+
+                    $timeout(function(){
+                        $("#scriptor-content .dd-list").removeClass("highlight-select transition");
+                    },1000);
+                    event.stopPropagation();
+                });
+
                 var initXpath = setInterval(function(){
 
                     if($rootScope.xpathList){

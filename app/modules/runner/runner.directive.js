@@ -21,7 +21,6 @@ angular.module('automationApp.runner')
                         scope.browser = scope.runnerConfig.run.defaults.browser;
                         scope.brversion = scope.runnerConfig.run.defaults.brversion;
                         scope.appurl = scope.runnerConfig.run.defaults.appurl;
-                        scope.appurlpublic = scope.runnerConfig.run.defaults.appurlpublic;
                         scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
                         scope.brnode = username;
                         scope.simsbuild = "";
@@ -30,14 +29,14 @@ angular.module('automationApp.runner')
                     if (scope.runnerConfig){
                         $timeout(function(){
                             //    for dd
-                            var runnerConfigDD = element.find('#runner-config select').select2({
+                            var runnerConfigDD = element.find('select').select2({
                                 dropdownCssClass: 'form-white',
                                 minimumResultsForSearch: -1
                             });
                             element.find('.hostselect').select2('val', scope.host);
                             element.find('.osselect').select2('val', scope.os);
                             element.find('.brselect').select2('val', scope.browser);
-                        });
+                        }, 1000);
                         clearInterval(initRunConfig );
                     }
                 }, 500);
@@ -48,14 +47,24 @@ angular.module('automationApp.runner')
                     inheritClass: true
                 };
 
+                /* Open / Close right sidebar */
+                $('.quickview-header').on('click', '.close', function (ev) {
+                    $('#quickview-sidebar').addClass('closing');
+                    $('#quickview-sidebar').removeClass('open');
+                    setTimeout(function () {
+                        $('#quickview-sidebar').removeClass('closing');
+                    }, 400);
+
+                });
+
                 scope.selectRunTaskItems = function(){
 
                     if ( $("input.runner-item-check").is(":checked")) {
-                           $(".run-task-btn").attr("disabled", false);
-                           $(".run-task-btn").removeClass("disablebtn");
+                           $(".run-task").removeAttr("disabled");
+                           $(".run-task").removeClass("disabled");
                     } else {
-                           $(".run-task-btn").attr("disabled", true);
-                           $(".run-task-btn").addClass("disablebtn");
+                           $(".run-task").attr("disabled", true);
+                           $(".run-task").addClass("disabled");
                     }
 
                     event.stopPropagation();
@@ -70,8 +79,11 @@ angular.module('automationApp.runner')
                         }
 
                         if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                            $(".run-pathway").attr("disabled", false);
-                            $(".run-pathway").removeClass("disablebtn");
+                            $(".run-pathway").removeAttr("disabled");
+                            $(".run-pathway").removeClass("disabled");
+                            $(".default-pathway-text").hide();
+                            $(".publish-svn").removeAttr("disabled");
+                            $(".publish-svn").removeClass("disabled");
                         }
                     }
                 });
@@ -97,15 +109,20 @@ angular.module('automationApp.runner')
 
                     element.on('click',".delete-pathway",function(event) {
                         event.preventDefault();
+                        $('.err-list').removeClass("show");
+                        $(".err-list").addClass("hide");
 
                         var delIndex = $(this).closest('.pathway-list').index() - 2;
                         scope.items[1].splice(delIndex, 1);
-                        scope.$apply();
 
                         if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
                             $(".run-pathway").attr("disabled", true);
-                            $(".run-pathway").addClass("disablebtn");
+                            $(".run-pathway").addClass("disabled");
+                            $(".default-pathway-text").show();
+                            $(".publish-svn").attr("disabled", true);
+                            $(".publish-svn").addClass("disabled");
                         }
+                        scope.$apply();
 
                         $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway deleted successfully!' + '</p></div>','#quickview-sidebar');
                         event.stopPropagation();
@@ -115,7 +132,6 @@ angular.module('automationApp.runner')
                         event.preventDefault();
 
                         var isDuplicatePathway = false;
-
                         var pathwayInfo = $.map(scope.items[0].items, function(value, index) {
                                 return $('input[name=method-radio-'+index +']:checked').val();
                         });
@@ -137,7 +153,7 @@ angular.module('automationApp.runner')
                         else {
                             var obj = {
                                 "pathway" : pathwayInfo,
-                                "group" : $(".pathway-group").val().join()
+                                "group" : $("#pathway-grp").val().join(', ')
                             };
 
                             if(scope.items[1] === undefined) {
@@ -149,8 +165,11 @@ angular.module('automationApp.runner')
                             scope.$apply();
 
                             if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                                $(".run-pathway").attr("disabled", false);
-                                $(".run-pathway").removeClass("disablebtn");
+                                $(".run-pathway").removeAttr("disabled");
+                                $(".run-pathway").removeClass("disabled");
+                                $(".default-pathway-text").hide();
+                                $(".publish-svn").removeAttr("disabled");
+                                $(".publish-svn").removeClass("disabled");
                             }
 
                             $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway added successfully!' + '</p></div>','#quickview-sidebar');
@@ -205,8 +224,11 @@ angular.module('automationApp.runner')
                         scope.$apply();
 
                         if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                            $(".run-pathway").attr("disabled", false);
-                            $(".run-pathway").removeClass("disablebtn");
+                            $(".run-pathway").removeAttr("disabled");
+                            $(".run-pathway").removeClass("disabled");
+                            $(".default-pathway-text").hide();
+                            $(".publish-svn").removeAttr("disabled");
+                            $(".publish-svn").removeClass("disabled");
                         }
 
                         $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathways generated successfully!' + '</p></div>','#quickview-sidebar');
@@ -214,7 +236,7 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('click',".run-task-btn",function(event) {
+                    element.on('click',".run-task",function(event) {
                         event.preventDefault();
 
                         var baseUrl = scope.runnerConfig.runner.url;
@@ -265,6 +287,74 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
+                    element.on('click',".publish-svn",function(event) {
+                        event.preventDefault();
+                        $('.err-list').removeClass("show");
+                        $(".err-list").addClass("hide");
+
+                        scope.errorList = [];
+
+                        if(scope.items[0].items !== undefined && scope.items[1]!== undefined) {
+                            var totItem = scope.items[0].items.length;
+                            for(var i=0; i<scope.items[1].length; i++) {
+                                // check1: number of items in scriptor should be equal to number of pathway methods in runner
+                                if(totItem == scope.items[1][i].pathway.length) {
+                                    for(var m=0; m < scope.items[1][i].pathway.length; m++) {
+
+                                        //check2: method number must be a valid number
+                                        var methNum = (scope.items[1][i].pathway[m].split("/")[1]) - 1;
+                                        if(scope.items[0].items[m].methods[methNum] !== undefined) {  // check if method exists in task json
+                                        }
+                                        else {
+                                            scope.errorList.push("Method-" + (methNum+1) + " doesn't exists for Item-" + (m+1) + " in Pathway-" + (i+1));
+                                            // pathway contains method but doesnot exists in item
+                                        }
+
+                                    }
+                                }
+                                else {
+                                    scope.errorList.push("Incorrect number of items in pathway-" + (i+1));
+                                }
+                            }
+
+                            // check 3: parse method of each item in task json for action validation
+                            for(var iNum=0; iNum < scope.items[0].items.length; iNum++) {  // item loop
+                                for(var mNum=0; mNum < scope.items[0].items[iNum].methods.length; mNum++) {  // method loop
+
+                                    if(scope.items[0].items[iNum].methods[mNum].actions.length >=1) {
+
+                                         for(var actNum=0; actNum < scope.items[0].items[iNum].methods[mNum].actions.length; actNum++) {  // // action loop
+                                             for(var valNum=0; valNum<scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"].length; valNum++) { // action VALUES LOOP
+                                                 var actVal = scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"][valNum];
+                                                 if(actVal == undefined || actVal==null || actVal=='') {
+                                                     scope.errorList.push("Blank elements found in Item-" + (iNum+1) +
+                                                        ":Method-" + (mNum+1) + ":Action-" + (actNum+1));
+                                                 }
+                                             }
+                                         }
+                                    }
+                                    else {
+                                        scope.errorList.push("No action exists for Item-" + (iNum+1) + ":Method-" + (mNum+1));
+                                    }
+                                }
+                            }
+
+
+                            } else {
+                            scope.errorList = undefined;
+                        }
+
+                        if(scope.errorList.length > 0) {
+                            $('.err-list').removeClass("hide");
+                            $(".err-list").addClass("show");
+                        } else {
+                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Publishing Task to SVN !!' + '</p></div>','#quickview-sidebar');
+                        }
+
+                        scope.$apply();
+                        event.stopPropagation();
+                    });
+
                     function postDataToRunner(scenarioId, filename, xmlContent, javaContent){
 
                         var appName = scope.items[0].appName;
@@ -284,7 +374,6 @@ angular.module('automationApp.runner')
                                 "resolution": scope.screenresolution,
                                 "app" : {
                                     "url" : scope.appurl,
-                                    "public" : scope.appurlpublic,
                                     "build" : scope.simsbuild
                                 },
                                 "browser" : {

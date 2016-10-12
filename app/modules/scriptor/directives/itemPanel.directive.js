@@ -46,7 +46,6 @@ angular.module('automationApp.scriptor')
                             scope.$apply();
                         }
 
-                        element.find( ".li-level-0 .data-items" ).sortable(methodSortableHandler);
                         scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     });
 
@@ -75,7 +74,6 @@ angular.module('automationApp.scriptor')
                             scope.$apply();
                         }
 
-                        element.find( ".li-level-1 .data-items" ).sortable(triggerSortableHandler);
                         scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                         
                         event.stopPropagation();
@@ -178,6 +176,18 @@ angular.module('automationApp.scriptor')
                         event.stopPropagation();
                     });
 
+                    element.on('click',".item-level-0 .panel-copy",function (event) {
+                        event.preventDefault();
+                        var itemNumber = parseInt($(this).closest('.dd-list').index());
+                        var itemToCopy = angular.copy(scope.items[0].items[itemNumber]);
+
+                        scope.items[0].items.splice(itemNumber, 0, itemToCopy);
+                        scope.$apply();
+
+                        scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
+                        event.stopPropagation();
+                    });
+
                     element.on('click',".item-level-1.dd3-content",function (event) {
                         event.preventDefault();
 
@@ -199,74 +209,73 @@ angular.module('automationApp.scriptor')
 
                 });
 
-                var initialMethodIndex;
-                var initialTriggerIndex;
+                scope.$watch('items', function(newValue) {
+                    if (newValue !== undefined) {
+                        var initialItemIndex;
 
-                var methodSortableHandler = {
-                    items: "ol:not(.ui-sort-disabled)",
-                    placeholder: "placeholder-ui",
-                    handle: ".item-level-1",
-                    start:  function(event, ui) {
-                        initialMethodIndex = ui.item.index();
-                    },
-                    stop:  function(event, ui) {
-                        var newMethodIndex = ui.item.index();
+                        element.sortable({
+                            items: "ol:not(.ui-sort-disabled)",
+                            placeholder: "placeholder-ui",
+                            handle: ".item-level-0",
+                            start:  function(event, ui) {
+                                initialItemIndex = ui.item.index();
+                            },
+                            stop:  function(event, ui) {
+                                var newItemIndex = ui.item.index();
 
-                        if (initialMethodIndex !== newMethodIndex) {
-                            var methodArr = ui.item.scope().item.methods;
-                            methodArr.splice(newMethodIndex, 0, methodArr.splice(initialMethodIndex, 1)[0]);
-                            scope.$apply();
-                        }
+                                if (initialItemIndex !== newItemIndex) {
+                                    var itemArr = scope.items[0].items;
+                                    itemArr.splice(newItemIndex, 0, itemArr.splice(initialItemIndex, 1)[0]);
+                                    scope.$apply();
+                                }
+                            }
+                        });
+
                     }
-                };
+                });
 
-                var triggerSortableHandler = {
-                    items: "ol:not(.ui-sort-disabled)",
-                    placeholder: "placeholder-ui",
-                    handle: ".item-level-2",
-                    helper : 'clone',
-                    start:  function(event, ui) {
-                        initialTriggerIndex = ui.item.index();
-                    },
-                    stop:  function(event, ui) {
-                        var newTriggerIndex = ui.item.index();
-
-                        if (initialTriggerIndex !== newTriggerIndex) {
-                            var triggerArr = ui.item.scope().method.actions;
-                            triggerArr.splice(newTriggerIndex, 0, triggerArr.splice(initialTriggerIndex, 1)[0]);
-                            scope.$apply();
-                        }
-                    }
-                };
-
-                $timeout(function(){
-                    var initialItemIndex;
+                scope.$on('INTIALIZE_METHOD_SORTABLE', function(event) {
                     var initialMethodIndex;
-                    var initialTriggerIndex;
-
-                    element.sortable({
+                    element.find( ".li-level-0 .data-items" ).sortable({
                         items: "ol:not(.ui-sort-disabled)",
                         placeholder: "placeholder-ui",
-                        handle: ".item-level-0",
+                        handle: ".item-level-1",
                         start:  function(event, ui) {
-                            initialItemIndex = ui.item.index();
+                            initialMethodIndex = ui.item.index();
                         },
                         stop:  function(event, ui) {
-                            var newItemIndex = ui.item.index();
+                            var newMethodIndex = ui.item.index();
 
-                            if (initialItemIndex !== newItemIndex) {
-                                var itemArr = scope.items[0].items;
-                                itemArr.splice(newItemIndex, 0, itemArr.splice(initialItemIndex, 1)[0]);
+                            if (initialMethodIndex !== newMethodIndex) {
+                                var methodArr = ui.item.scope().item.methods;
+                                methodArr.splice(newMethodIndex, 0, methodArr.splice(initialMethodIndex, 1)[0]);
                                 scope.$apply();
                             }
                         }
                     });
+                });
 
-                    element.find( ".li-level-0 .data-items" ).sortable(methodSortableHandler);
+                scope.$on('INTIALIZE_TRIGGER_SORTABLE', function(event) {
+                    var initialTriggerIndex;
+                    element.find( ".li-level-1 .data-items" ).sortable({
+                        items: "ol:not(.ui-sort-disabled)",
+                        placeholder: "placeholder-ui",
+                        handle: ".item-level-2",
+                        helper : 'clone',
+                        start:  function(event, ui) {
+                            initialTriggerIndex = ui.item.index();
+                        },
+                        stop:  function(event, ui) {
+                            var newTriggerIndex = ui.item.index();
 
-                    element.find( ".li-level-1 .data-items" ).sortable(triggerSortableHandler);
-
-                },2000);
+                            if (initialTriggerIndex !== newTriggerIndex) {
+                                var triggerArr = ui.item.scope().method.actions;
+                                triggerArr.splice(newTriggerIndex, 0, triggerArr.splice(initialTriggerIndex, 1)[0]);
+                                scope.$apply();
+                            }
+                        }
+                    });
+                });
             }
         }
     }]);

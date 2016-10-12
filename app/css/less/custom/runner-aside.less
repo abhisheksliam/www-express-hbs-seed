@@ -9,7 +9,21 @@
     padding: 0 20px;
   }
 
+  .close {
+    float: right;
+    opacity: 1;
+    text-shadow: none;
+  }
+
   .quickview-header {
+
+    .nav > .close {
+      width: 10%;
+    }
+
+    .nav > .close > a {
+      color: white;
+    }
 
     .nav > li > a {
         text-transform: capitalize;
@@ -124,60 +138,86 @@
 
   }
 
-  .run-task-btn {
-    margin: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    background-color: rgb(53,57,64);
-    color: white;
+  .select2-container .select2-choices{
+    border-radius: 0;
+  }
 
-    &:hover {
-      border: 1px solid black;
-      box-shadow: 0px 0px 5px black;
+  .select2-container-multi .select2-choices .select2-search-choice {
+    background-color: #319db5 !important;
+    padding: 3px 18px 3px 5px;
+  }
+
+  .select2-container-multi .select2-search-choice-close {
+    left: 75%;
+  }
+
+  .pathway-grp {
+    margin-top: 20px;
+    span, input {
+      vertical-align: top;
     }
+  }
+
+  .add-pathway-label {
+    display: inline-block;
+    width:43%
+  }
+  .add-pathway{
+    padding-top: 3px;
+  }
+
+  .select2-container.select2-container-multi.form-control {
+    display: inline-block;
+    width:56%
+  }
+
+  .generate-pathway, .ptwy > .fa-plus{
+    float:right;
+    cursor:pointer;
+    padding-top: 3px;
+  }
+
+  .pathwaygrp {
+    min-height:80px;
+    border: 1px solid lightgrey;
+    margin: 15px 0px 35px 0px;
+  }
+
+  .ptwy{
+    font-size: 15px;
+    font-weight: 700;
+    padding: 10px 2px 2px 10px;
+    background-color: #319db5;
+    color:#fff !important;
+    height:40px;
+  }
+
+  .divider {
+    border-left: 1px solid lightgrey !important;
+    padding-left: 15px;
+    position:relative;
+    left:70%;
+  }
+
+  .pub-svn-divider {
+    border-left: 1px solid lightgrey !important;
+    padding-left: 15px;
+  }
+
+  .run-task.disabled, .run-pathway.disabled, .publish-svn.disabled {
+    background-color: rgb(234,234,234);
+    color: rgb(204,204,204);
+    cursor: default;
+    border: none;
+  }
+
+  .default-pathway-text {
+    color:silver;
   }
 
   .pathway-btn {
     margin-bottom: 30px;
     margin-top: 15px;
-
-    .add-pathway, .generate-pathway {
-      //padding-left: 5%;
-      background-color: white;
-      color: black;
-      border: 1px solid lightgrey;
-
-      &:hover {
-        border: 1px solid grey;
-        box-shadow: 0px 0px 5px #888888;
-      }
-    }
-
-  }
-
-  .run-pathway, .publish-svn {
-    margin-bottom: 10px;
-    padding-left: 5%;
-    background-color: rgb(53,57,64);
-    color: white;
-    border: 1px solid black;
-
-    &:hover {
-      border: 1px solid black;
-      box-shadow: 0px 0px 5px black;
-    }
-  }
-
-  .disablebtn {
-    background-color: rgb(234,234,234);
-    color: rgb(204,204,204);
-	cursor: default;
-    border: none;
-
-    &:hover {
-      border: 0px;
-      box-shadow: 0px 0px;
-    }
   }
 
   .use-select2 {
@@ -215,10 +255,6 @@
     padding:9px;
     font-size:13px;
 
-    &:last-of-type {
-      margin-bottom: 30px;
-    }
-
     .fa-trash {
       color: rgb(161,160,160);
       float:right;
@@ -229,6 +265,20 @@
 
   hr {
     border: 1px dashed #eaeaea;
+  }
+
+  .err-list.hide {
+    display: none;
+  }
+
+  .err-list.show {
+    width:auto;
+    border: 1px solid lightgrey;
+    padding: 10px 5px 10px 25px;
+    box-shadow: 1px 1px 5px lightgrey;
+    background-color: lightcoral;
+    color: darkred;
+    margin-top: 20px;
   }
  
 }
@@ -288,26 +338,13 @@
     width: 45% !important;
   }
 
-  .download-node-connect-btn {
-  position: relative;
-  left: 170px;
-  top: -10px;
-
-    margin: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    background-color: rgb(53,57,64);
-    color: white;
-
-    &:hover {
-      border: 1px solid black;
-      box-shadow: 0px 0px 5px black;
-    }
-  }
-
   .brnode {
       position: relative;
       top: 10px;
+  }
+
+  #col8, #col4 {
+    border:1px solid black;
   }
 }
 

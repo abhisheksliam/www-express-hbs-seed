@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('method', ['$timeout', function($timeout) {
+    .directive('method', ['$timeout', '$rootScope', function($timeout, $rootScope) {
 
         return {
             restrict: 'E',
@@ -16,6 +16,18 @@ angular.module('automationApp.scriptor')
                 'index' : '='
             },
             link: function (scope, element, attributes) {
+
+                scope.$watch('item', function(newValue) {
+                    if (newValue !== undefined) {
+                        scope.$emit('INTIALIZE_METHOD_SORTABLE', "");
+                    }
+                });
+
+                scope.$watch('method', function(newValue) {
+                    if (newValue !== undefined) {
+                        scope.$emit('INTIALIZE_TRIGGER_SORTABLE', "");
+                    }
+                });
 
                 element.on('click',".baloo-actions-text",function (event) {
                     event.preventDefault();
@@ -65,6 +77,55 @@ angular.module('automationApp.scriptor')
                     scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
                     event.stopPropagation();
                 });
+
+                element.on('click',".select-method",function (event) {
+                    event.preventDefault();
+
+                    var methodNumber = parseInt($(this).closest('.dd-list').index());
+                    $(this).parents(".dd-item:first").addClass("highlight-select");
+
+                    $rootScope.copiedMethod = angular.copy(scope.item.methods[methodNumber]);
+
+                    scope.$apply();
+                    event.stopPropagation();
+                });
+
+                element.on('click',".paste-method",function (event) {
+                    event.preventDefault();
+
+                    var methodNumber = parseInt($(this).closest('.dd-list').index());
+                    $("#scriptor-content .dd-item").removeClass("highlight-select");
+
+                    scope.item.methods.splice(methodNumber + 1, 0, $rootScope.copiedMethod);
+                    $rootScope.copiedMethod = undefined;
+                    scope.$apply();
+
+                    $(this).closest('.dd-list').next().addClass("highlight-select transition");
+
+                    $timeout(function(){
+                        $("#scriptor-content .dd-list").removeClass("highlight-select transition");
+                    },1000);
+                    scope.$emit('SCRIPTOR_NEW_ITEM_ADDED', "");
+                    event.stopPropagation();
+                });
+
+                element.on('click',".paste-first-trigger",function (event) {
+                    event.preventDefault();
+
+                    $("#scriptor-content .dd-item").removeClass("highlight-select");
+
+                    scope.method.actions.splice(0, 0, $rootScope.copiedTrigger);
+                    $rootScope.copiedTrigger = undefined;
+                    scope.$apply();
+
+                    $(this).closest('.dd-list').prev().addClass("highlight-select transition");
+
+                    $timeout(function(){
+                        $("#scriptor-content .dd-list").removeClass("highlight-select transition");
+                    },1000);
+                    event.stopPropagation();
+                });
+
 
                 element.on('click',".item-level-1 .panel-move",function (event) {
                     event.preventDefault();

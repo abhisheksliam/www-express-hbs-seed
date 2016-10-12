@@ -2,6 +2,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" class="settings-tab">Task Runner</a></li>
         <li class=""><a data-toggle="tab" class="config-tab">Configuration</a></li>
+        <li class="close"><a data-toggle="tooltip" data-placement="top" title="Close Runner Launcher"><i class="fa fa-times"></i></a></li>
     </ul>
 </div>
 <div class="quickview">
@@ -30,23 +31,18 @@
                     </li>
                 </ol>
             </div>
-            <button data-toggle="tooltip" data-placement="top" title="Run Task" class="btn btn-default run-task-btn disablebtn m-t-10"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
+            <button title="Run Task" class="btn btn-primary run-task disabled" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Task</button>
 
             <hr/>
 
-            <div class="title ptwy">Pathway Groups </div>
-
-            <div>
-
-                <select multiple class="form-control use-select2 pathway-group">
-                    <option class="methtype" ng-repeat="methodtype in $root.globalConstants.methodtypelist" value="{{methodtype}}"><span>{{methodtype}}</span></option>
+             <label class="add-pathway-label">Select Pathway Groups</label>
+                <select id="pathway-grp" multiple="multiple" class="form-control">
+                    <option class="methtype" ng-repeat="methodtype in ($root.globalConstants.pathwayGroups.concat($root.globalConstants.methodtypelist))" value="{{methodtype}}"><span>{{methodtype}}</span></option>
                 </select>
 
-                <div class="btn-group pathway-btn">
-                    <button data-toggle="tooltip" data-placement="top" title="Add Pathway" class="btn btn-default add-pathway"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Add Pathway</button>
-                    <button data-toggle="tooltip" data-placement="top" title="Generate Pathways" class="btn btn-default generate-pathway"><i class="fa fa-plus inline-icon" aria-hidden="true"></i></i>Generate Pathways</button>
-                </div>
-
+            <div class="pathwaygrp">
+                <div class="ptwy"><span>Pathways</span><span class="divider"></span><i title="Generate Pathways" class="fa fa-pencil-square-o inline-icon generate-pathway" aria-hidden="true"></i><i title="Add Pathway" class="fa fa-plus inline-icon add-pathway" aria-hidden="true"></i></div>
+                <div class="p-l-10 p-t-10 default-pathway-text"><em>No Pathways</em></div>
                 <div class="pathway-list" ng-repeat="pathwayList in items[1] track by $index">
                     <span ng-repeat="pathway in pathwayList.pathway">
                         <pathway-band></pathway-band>
@@ -55,12 +51,21 @@
                         : {{pathwayList.group}} <i  data-toggle="tooltip" data-placement="top" title="Delete Pathway" class="fa fa-trash delete-pathway" aria-hidden="true"></i>
                     </span>
                 </div>
-
-                <button data-toggle="tooltip" data-placement="top" title="Run Pathways" class="btn btn-default run-pathway disablebtn" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i></i>Run Pathways</button>
+            </div>
+            <div>
+                <button title="Run Pathways" class="btn btn-primary run-pathway disabled" disabled="true"><i class="fa fa-play inline-icon" aria-hidden="true"></i>Run Pathways</button>
+                <span class="pub-svn-divider"></span>
+                <button title="Publish to SVN" class="btn btn-primary publish-svn disabled" disabled="true"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i>Publish to SVN</button>
             </div>
 
-            <button data-toggle="tooltip" data-placement="top" title="Publish Files to Server" class="btn btn-default publish-svn disablebtn"><i class="fa fa-external-link inline-icon" aria-hidden="true"></i></i>Publish Files to Server</button>
-
+            <div class="err-list hide">
+                <p>Task not published in SVN due to following errors:</p>
+                <ul>
+                <li ng-repeat="err in errorList">
+                   {{err}}
+                </li>
+                </ul>
+                </div>
         </div>
 
         <div class="tab-pane fade" id="runner-config">
@@ -68,20 +73,20 @@
             <section class="env">
                 <div class="host p-t-10">
                     <label>Test Env:</label>
-                        <select class="form-white hostselect dd-container input-allign" data-style="white" ng-model="host">
-                            <option ng-repeat="host in $root.globalConstants.runner.host" value="{{host}}">{{host}}</option>
-                        </select>
+                    <select class="form-white hostselect dd-container input-allign" data-style="white" ng-model="host">
+                        <option ng-repeat="option in $root.globalConstants.runner.host" value="{{option.key}}">{{option.label}}</option>
+                    </select>
                 </div>
                 <div class="os p-t-10">
                     <label>OS:</label>
                     <select class="form-white osselect dd-container input-allign" data-style="white" ng-model="os">
-                        <option ng-repeat="os in $root.globalConstants.runner.os" value="{{os}}">{{os}}</option>
+                        <option ng-repeat="option in $root.globalConstants.runner.os[host]" value="{{option.key}}">{{option.label}}</option>
                     </select>
                 </div>
                 <div class="browser p-t-10">
                     <label class="m-b-15">Browser:</label>
                     <select class="form-white brselect dd-container input-allign" data-style="white" ng-model="browser">
-                        <option ng-repeat="browser in $root.globalConstants.runner.browser" value="{{browser}}">{{browser}}</option>
+                        <option ng-repeat="option in $root.globalConstants.runner.browser[os]" value="{{option.key}}">{{option.label}}</option>
                     </select>
                     <span class="p-l-10 pull-right" ng-show="host=='saucelabs'">
                         <input ng-model="brversion" class="form-control form-white p-l-10 brversion" type="text" placeholder="Version" value="{{brversion}}">
@@ -91,13 +96,12 @@
                     <label class="p-t-10">Test Node:</label>
                     <span class="p-l-10">
                         <input ng-model="brnode" class="form-control form-white p-l-10 input-allign .brnode" type="text" placeholder="Node Name" value="{{brnode}}">
-                        <button data-toggle="tooltip" data-placement="top" title="Connect Node" class="btn btn-default download-node-connect-btn m-t-10"><i class="fa fa-download inline-icon" aria-hidden="true"></i>Connect</button>
                     </span>
                     </span>
                     <span ng-show="host=='saucelabs'">
                     <label class="p-t-10">Resolution:</label>
                     <span class="p-l-10">
-                        <input ng-model="screenresolution" class="form-control form-white p-l-10 input-allign" type="text" placeholder="1600*1024" value="{{screenresolution}}">
+                        <input ng-model="screenresolution" class="form-control form-white p-l-10 input-allign" type="text" placeholder="1600x1024" value="{{screenresolution}}">
                     </span>
                     </span>
                 </div>
@@ -107,17 +111,11 @@
                 <input ng-model="appurl" class="form-control form-white m-l-10 width-98p" type="text" placeholder="App URL">
                 <span ng-show="host=='saucelabs'">
                 <span>
-                    <label class="m-t-10">Build Version:</label></br>
-                    <input ng-model="simsbuild" class="form-control form-white m-l-10 width-98p" type="text" placeholder="Build Version" value="{{simsbuild}}">
-                </span>
-                <span>
-                    <label class="m-t-10">Is App Url Public:</label>
-                    <input ng-model="appurlpublic" i-check type="checkbox" data-checkbox="icheckbox_minimal-blue">
+                    <label class="m-t-10">Saucelabs Test Label:</label></br>
+                    <input ng-model="simsbuild" class="form-control form-white m-l-10 width-98p" type="text" value="{{simsbuild}}">
                 </span>
                 </span>
             </section>
-
         </div>
-
     </div>
 </div>
