@@ -82,6 +82,8 @@ angular.module('automationApp.runner')
                             $(".run-pathway").removeAttr("disabled");
                             $(".run-pathway").removeClass("disabled");
                             $(".default-pathway-text").hide();
+                            $(".publish-svn").removeAttr("disabled");
+                            $(".publish-svn").removeClass("disabled");
                         }
                     }
                 });
@@ -107,6 +109,8 @@ angular.module('automationApp.runner')
 
                     element.on('click',".delete-pathway",function(event) {
                         event.preventDefault();
+                        $('.err-list').removeClass("show");
+                        $(".err-list").addClass("hide");
 
                         var delIndex = $(this).closest('.pathway-list').index() - 2;
                         scope.items[1].splice(delIndex, 1);
@@ -115,6 +119,8 @@ angular.module('automationApp.runner')
                             $(".run-pathway").attr("disabled", true);
                             $(".run-pathway").addClass("disabled");
                             $(".default-pathway-text").show();
+                            $(".publish-svn").attr("disabled", true);
+                            $(".publish-svn").addClass("disabled");
                         }
                         scope.$apply();
 
@@ -162,6 +168,8 @@ angular.module('automationApp.runner')
                                 $(".run-pathway").removeAttr("disabled");
                                 $(".run-pathway").removeClass("disabled");
                                 $(".default-pathway-text").hide();
+                                $(".publish-svn").removeAttr("disabled");
+                                $(".publish-svn").removeClass("disabled");
                             }
 
                             $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway added successfully!' + '</p></div>','#quickview-sidebar');
@@ -219,6 +227,8 @@ angular.module('automationApp.runner')
                             $(".run-pathway").removeAttr("disabled");
                             $(".run-pathway").removeClass("disabled");
                             $(".default-pathway-text").hide();
+                            $(".publish-svn").removeAttr("disabled");
+                            $(".publish-svn").removeClass("disabled");
                         }
 
                         $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathways generated successfully!' + '</p></div>','#quickview-sidebar');
@@ -279,24 +289,69 @@ angular.module('automationApp.runner')
 
                     element.on('click',".publish-svn",function(event) {
                         event.preventDefault();
+                        $('.err-list').removeClass("show");
+                        $(".err-list").addClass("hide");
 
-                        console.log('in publish svn');
-                        console.log(scope.items[0]);
+                        scope.errorList = [];
 
-                        if(scope.items[1] !== undefined) {
-                            console.log('TRUE');
+                        if(scope.items[0].items !== undefined && scope.items[1]!== undefined) {
+                            var totItem = scope.items[0].items.length;
+                            for(var i=0; i<scope.items[1].length; i++) {
+                                // check1: number of items in scriptor should be equal to number of pathway methods in runner
+                                if(totItem == scope.items[1][i].pathway.length) {
+                                    for(var m=0; m < scope.items[1][i].pathway.length; m++) {
 
+                                        //check2: method number must be a valid number
+                                        var methNum = (scope.items[1][i].pathway[m].split("/")[1]) - 1;
+                                        if(scope.items[0].items[m].methods[methNum] !== undefined) {  // check if method exists in task json
+                                        }
+                                        else {
+                                            scope.errorList.push("Method-" + (methNum+1) + " doesn't exists for Item-" + (m+1) + " in Pathway-" + (i+1));
+                                            // pathway contains method but doesnot exists in item
+                                        }
 
-
-                            for (var indx = 0; indx < scope.items[1].length; indx++) {
-                                console.log('pathway no. ' + indx);
-                                console.log(scope.items[1][indx]);
+                                    }
+                                }
+                                else {
+                                    scope.errorList.push("Incorrect number of items in pathway-" + (i+1));
+                                }
                             }
 
-                        } else {
-                            console.log('FALSE');
+                            // check 3: parse method of each item in task json for action validation
+                            for(var iNum=0; iNum < scope.items[0].items.length; iNum++) {  // item loop
+                                for(var mNum=0; mNum < scope.items[0].items[iNum].methods.length; mNum++) {  // method loop
+
+                                    if(scope.items[0].items[iNum].methods[mNum].actions.length >=1) {
+
+                                         for(var actNum=0; actNum < scope.items[0].items[iNum].methods[mNum].actions.length; actNum++) {  // // action loop
+                                             for(var valNum=0; valNum<scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"].length; valNum++) { // action VALUES LOOP
+                                                 var actVal = scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"][valNum];
+                                                 if(actVal == undefined || actVal==null || actVal=='') {
+                                                     scope.errorList.push("Blank elements found in Item-" + (iNum+1) +
+                                                        ":Method-" + (mNum+1) + ":Action-" + (actNum+1));
+                                                 }
+                                             }
+                                         }
+                                    }
+                                    else {
+                                        scope.errorList.push("No action exists for Item-" + (iNum+1) + ":Method-" + (mNum+1));
+                                    }
+                                }
+                            }
+
+
+                            } else {
+                            scope.errorList = undefined;
                         }
 
+                        if(scope.errorList.length > 0) {
+                            $('.err-list').removeClass("hide");
+                            $(".err-list").addClass("show");
+                        } else {
+                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Publishing Task to SVN !!' + '</p></div>','#quickview-sidebar');
+                        }
+
+                        scope.$apply();
                         event.stopPropagation();
                     });
 
