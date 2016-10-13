@@ -107,8 +107,7 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('click',".delete-pathway",function(event) {
-                        event.preventDefault();
+                    element.on('click',".delete-pathway",function(event) { event.preventDefault();
                         $('.err-list').removeClass("show");
                         $(".err-list").addClass("hide");
 
@@ -171,8 +170,6 @@ angular.module('automationApp.runner')
                                 $(".publish-svn").removeAttr("disabled");
                                 $(".publish-svn").removeClass("disabled");
                             }
-
-                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway added successfully!' + '</p></div>','#quickview-sidebar');
                         }
 
                         event.stopPropagation();
@@ -230,9 +227,6 @@ angular.module('automationApp.runner')
                             $(".publish-svn").removeAttr("disabled");
                             $(".publish-svn").removeClass("disabled");
                         }
-
-                        $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathways generated successfully!' + '</p></div>','#quickview-sidebar');
-
                         event.stopPropagation();
                     });
 
@@ -289,9 +283,6 @@ angular.module('automationApp.runner')
 
                     element.on('click',".publish-svn",function(event) {
                         event.preventDefault();
-                        $('.err-list').removeClass("show");
-                        $(".err-list").addClass("hide");
-
                         scope.errorList = [];
 
                         if(scope.items[0].items !== undefined && scope.items[1]!== undefined) {
@@ -353,6 +344,12 @@ angular.module('automationApp.runner')
 
                         scope.$apply();
                         event.stopPropagation();
+                    });
+
+                    $('.err-list').on('click', '.close', function (event) {
+                        $('.err-list').removeClass("show");
+                        $(".err-list").addClass("hide");
+                        scope.errorList=[];
                     });
 
                     function postDataToRunner(scenarioId, filename, xmlContent, javaContent){
