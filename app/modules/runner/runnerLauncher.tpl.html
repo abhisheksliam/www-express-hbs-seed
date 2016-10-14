@@ -20,7 +20,7 @@
                                     <div class="item-level-1 dd3-content p-b-10">
                                         <div class="icheck-list">
                                             <label ng-repeat="method in item.methods">
-                                                <input i-check class="runner-method-radio" type="radio" name="method-radio-{{$parent.$index}}" ng-model="methodSelection[$parent.$index]" data-method="{{$index+1}}" value="{{$parent.$index+1}}/{{$index+1}}">
+                                                <input i-check class="runner-method-radio" id="method-radio-{{$parent.$index}}-{{$index}}" type="radio" name="method-radio-{{$parent.$index}}" ng-model="methodSelection[$parent.$index]" data-method="{{$index+1}}" value="{{$parent.$index+1}}/{{$index+1}}">
                                                 M{{$index+1}}  <span class="method-type-value">({{method.type}})</span>
                                             </label>
                                         </div>
