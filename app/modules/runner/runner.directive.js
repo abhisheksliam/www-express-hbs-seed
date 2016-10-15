@@ -72,11 +72,9 @@ angular.module('automationApp.runner')
 
                 scope.$watch('items', function(newValue) {
                     if (newValue !== undefined) {
-                        if( scope.items[0] !== undefined && scope.items[0].items !== 0 ) {
-                            for(var i=0; i <  scope.items[0].items.length; i++) {
-                                scope.methodSelection[i] = i+1 + "/1";
-                            }
-                        }
+                        window.setTimeout(function () {
+                            methodValidation();
+                        },3000);
 
                         if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
                             $(".run-pathway").removeAttr("disabled");
@@ -86,7 +84,30 @@ angular.module('automationApp.runner')
                             $(".publish-svn").removeClass("disabled");
                         }
                     }
-                });
+                }, true);
+
+                var methodValidation = function(){
+                    if( scope.items[0] !== undefined && scope.items[0].items !== 0 ) {
+                        for(var i=0; i <  scope.items[0].items.length; i++) {
+                            // check for actions in each method and disable method in case of zero actions
+                            for(var m=0; m < scope.items[0].items[i].methods.length; m++ ) {
+                                if(scope.items[0].items[i].methods[m].actions !== undefined && scope.items[0].items[i].methods[m].actions.length >= 1) {
+                                    $("#method-radio-" + i + "-" + m).removeClass("disabled");
+                                    $("#method-radio-" + i + "-" + m).removeAttr("disabled");
+                                    scope.methodSelection[i] = i+1 + "/1";
+                                }
+                                else {
+                                    if($("#method-radio-" + i + "-" + m).is(':checked')) {
+                                        $("#method-radio-" + i + "-" + m).iCheck('uncheck');
+                                    }
+                                    $("#method-radio-" + i + "-" + m).addClass("disabled");
+                                    $("#method-radio-" + i + "-" + m).attr("disabled", true);
+                                }
+                            }
+                        }
+                        scope.$apply();
+                    }
+                };
 
                 $timeout(function(){
                     $(".pathway-group").val($rootScope.globalConstants.methodtypelist[0]);
@@ -107,8 +128,7 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('click',".delete-pathway",function(event) {
-                        event.preventDefault();
+                    element.on('click',".delete-pathway",function(event) { event.preventDefault();
                         $('.err-list').removeClass("show");
                         $(".err-list").addClass("hide");
 
@@ -171,8 +191,6 @@ angular.module('automationApp.runner')
                                 $(".publish-svn").removeAttr("disabled");
                                 $(".publish-svn").removeClass("disabled");
                             }
-
-                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway added successfully!' + '</p></div>','#quickview-sidebar');
                         }
 
                         event.stopPropagation();
@@ -230,9 +248,6 @@ angular.module('automationApp.runner')
                             $(".publish-svn").removeAttr("disabled");
                             $(".publish-svn").removeClass("disabled");
                         }
-
-                        $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathways generated successfully!' + '</p></div>','#quickview-sidebar');
-
                         event.stopPropagation();
                     });
 
@@ -289,9 +304,6 @@ angular.module('automationApp.runner')
 
                     element.on('click',".publish-svn",function(event) {
                         event.preventDefault();
-                        $('.err-list').removeClass("show");
-                        $(".err-list").addClass("hide");
-
                         scope.errorList = [];
 
                         if(scope.items[0].items !== undefined && scope.items[1]!== undefined) {
@@ -353,6 +365,12 @@ angular.module('automationApp.runner')
 
                         scope.$apply();
                         event.stopPropagation();
+                    });
+
+                    $('.err-list').on('click', '.close', function (event) {
+                        $('.err-list').removeClass("show");
+                        $(".err-list").addClass("hide");
+                        scope.errorList=[];
                     });
 
                     function postDataToRunner(scenarioId, filename, xmlContent, javaContent){
