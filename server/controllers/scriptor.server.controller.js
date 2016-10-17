@@ -59,7 +59,7 @@ exports.getTaskScript = function (req, res) {
             if(req.query.format === 'json' || req.query.format === 'xml' || req.query.format === 'java') {
 
                 if(req.query.format === 'json') {
-                    res.json(scriptData);
+                    res.json(scriptData.task_json);
                 } else if(req.query.format === 'xml') {
                     var xmlContent = converterService.jsonToDistXml(scriptData);
                     res.set('Content-Type', 'text/xml');
