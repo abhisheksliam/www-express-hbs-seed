@@ -292,7 +292,7 @@ angular.module('automationApp.runner')
                         var javaContent = getJavaContent(filename);
 
                         $timeout(function(){
-                            postDataToRunner(scenarioId, filename, xmlContent, js_beautify(javaContent));
+                            postDataToRunner(scenarioId, filename, xmlContent, js_beautify(javaContent),false);
                         },1000);
 
                         event.stopPropagation();
@@ -319,7 +319,7 @@ angular.module('automationApp.runner')
 
                             $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
 
-                                postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data));
+                                postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data),false);
 
                             });
 
@@ -452,7 +452,7 @@ angular.module('automationApp.runner')
                                 "appName" : appName,
                                 "xml": xmlContent,
                                 "java": javaContent,
-                                "commit": (commit === undefined ? false : true)
+                                "commit": commit
                             },
                             "svn": {
                                 "url": "",
