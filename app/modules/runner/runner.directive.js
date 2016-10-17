@@ -387,6 +387,27 @@ angular.module('automationApp.runner')
                             $(".err-list").addClass("show");
                         } else {
                             $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Publishing Task to SVN !!' + '</p></div>','#quickview-sidebar');
+
+                            var scenarioId = scope.items[0].id + '.' + scope.items[0].scenario;
+
+                            var filename = (scenarioId).replace(/\./gi, "_").trim();
+
+                            var xmlContent;
+
+                            var xmlQueryParam = '?format=xml';
+                            var javaQueryParam = '?format=java';
+
+                            $http.get('/api/tasks/' + scenarioId + xmlQueryParam).then(function(res) {
+                                xmlContent =  res.data;
+
+                                $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
+
+                                    postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data), true);
+
+                                });
+
+                            });
+
                         }
 
                         scope.$apply();
@@ -399,7 +420,7 @@ angular.module('automationApp.runner')
                         scope.errorList=[];
                     });
 
-                    function postDataToRunner(scenarioId, filename, xmlContent, javaContent){
+                    function postDataToRunner(scenarioId, filename, xmlContent, javaContent, commit){
 
                         var appName = scope.items[0].appName;
                         var baseUrl = scope.runnerConfig.runner.url;
@@ -430,7 +451,13 @@ angular.module('automationApp.runner')
                                 "filename": filename,
                                 "appName" : appName,
                                 "xml": xmlContent,
-                                "java": javaContent
+                                "java": javaContent,
+                                "commit": (commit === undefined ? false : true)
+                            },
+                            "svn": {
+                                "url": "",
+                                "username":"manish.mehta",
+                                "password":"manish"
                             }
                         };
 
@@ -566,19 +593,6 @@ angular.module('automationApp.runner')
                     event.stopPropagation();
                 });
 
-                $(".download-node-connect-btn").click(function(){
-                    var url = "http://loadrunner1";
-                    if(scope.runnerConfig){
-                        url = scope.runnerConfig.runner.url.substring(0,scope.runnerConfig.runner.url.lastIndexOf(":"));
-                    }
-                    var batFileContent = '@echo off' +'\n' +
-                        'echo enter username:' + '\n' +
-                        'set /p username=""' +  '\n' +
-                        'echo connecting browser node to grid..' + '\n' +
-                        'java -jar selenium-server-standalone-2.41.0.jar -role webdriver -hub ' +
-                        url + ':4444/grid//register -browser browserName="chrome",version=ANY,platform=WINDOWS,maxInstances=5,applicationName=%username% -Dwebdriver.chrome.driver=chromedriver.exe -port 6666'
-                    download(batFileContent, "browser-connect.bat", "text/plain");
-                });
             }
         }
     }]);
