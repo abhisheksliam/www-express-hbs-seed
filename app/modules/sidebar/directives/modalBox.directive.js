@@ -23,9 +23,14 @@ angular.module('automationApp.sidebar')
                     radioClass: 'iradio_flat-blue'
                 };
 
-                var route, queryParam, javaQueryParam, xmlQueryParam;
+                var jsonQueryParam, javaQueryParam, xmlQueryParam;
 
                 $('#modal-modalbox').on('show.bs.modal', function (event) {
+
+                    jsonQueryParam = '?format=json';
+                    javaQueryParam = '?format=java';
+                    xmlQueryParam = '?format=xml';
+
                     scope.hideErr = function() {
                         $('.err-msg1').hide();
                         $('.err-msg2').hide();
@@ -40,22 +45,17 @@ angular.module('automationApp.sidebar')
                         scope.mode = 'export';
                         scope.headerText = 'Export Script';
                         scope.confirmText = 'Export';
-                        route = '/api/tasks/';
-                        queryParam = '?format=json';
                         scope.load = false;
                     } else if(listItem.data('context') == 'exportAll') {
                         scope.mode = 'exportAll';
                         scope.headerText = 'Export Task Files (JSON, XML, JAVA)';
                         scope.confirmText = 'Export';
-                        route = '/api/tasks/';
-                        queryParam = '?format=json';
-                        javaQueryParam = '?format=java';
-                        xmlQueryParam = '?format=xml';
                         scope.load = false;
                     } else if(listItem.data('context') == 'load') {
                         scope.headerText = 'Load Existing Script';
                         scope.confirmText = 'Load';
                         scope.load = true;
+                        jsonQueryParam = undefined;
                     }
                     /*else if(listItem.data('context') == 'preview') {
                         scope.mode = 'preview';
@@ -121,7 +121,7 @@ angular.module('automationApp.sidebar')
                             }
                             else if ($rootScope.validateTaskId(scope.taskId)){	// client side validation
                                 // api call
-                                scriptorService.getTaskJson(scope.taskId, queryParam).then(function(res) {
+                                scriptorService.getTaskJson(scope.taskId, jsonQueryParam).then(function(res) {
                                     if(res.data.errors) {
                                         scope.errmsg = "Error in getting data for Task - " + scope.taskId;
                                         $('.err-msg1').show();
