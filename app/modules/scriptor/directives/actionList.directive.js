@@ -20,9 +20,14 @@ angular.module('automationApp.scriptor')
                     }
                 });
 
+                scope.removeTagOnBackspace = function (event) {
+                    if (event.keyCode === 8) {
+                        $('#triggerlist .nestable').mCustomScrollbar("update");
+                    }
+                };
+
                 scope.$on('ACTION_SEARCH_RESET', function(event) {
                     scope.searchActionText = "";
-
                     $timeout(function(){
                         $('#triggerlist .nestable').mCustomScrollbar("update");
                     });
