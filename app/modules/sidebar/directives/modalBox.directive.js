@@ -54,10 +54,6 @@ angular.module('automationApp.sidebar')
                         scope.load = true;
                     }
 
-                    scope.$watch('taskId', function() {
-                        scope.taskId = scope.taskId.toUpperCase().replace(/\s+/g,'');
-                    });
-
                     scope.clickAction = function(){
                         if (scope.load && $('input[name=load-task-options]:checked').val() === "2") {
                             var ingestJSON;
@@ -111,7 +107,7 @@ angular.module('automationApp.sidebar')
                                 // api call
                                 scriptorService.getTaskJson(scope.taskId).then(function(res) {
                                     if(res.data.errors) {
-                                        scope.errmsg = "Error in getting data for Task - " + scope.taskId;
+                                        scope.errmsg = "Error in getting data for Task - " + scope.taskId.toUpperCase().replace(/\s+/g,'');
                                         $('.err-msg1').show();
 
                                         scope.taskId = '';
@@ -120,7 +116,7 @@ angular.module('automationApp.sidebar')
                                         if (scope.load) {
                                             $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
                                         } else {
-                                            $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + route + scope.taskId + queryParam);
+                                            $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + route + scope.taskId.toUpperCase().replace(/\s+/g,'') + queryParam);
                                         }
                                         scope.taskId = '';
                                     }

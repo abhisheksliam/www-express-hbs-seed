@@ -10,7 +10,7 @@
 						<div class="row p-l-0">
 							<div class="col-md-6 m-b-20 m-t-5">
 								<span class="input input--hoshi m-l-0 f-14" ng-class="{'input--filled': taskId !== ''}">
-									<input class="input__field input__field--hoshi" type="text" id="taskid" value="{{taskId}}" ng-model="taskId">
+									<input class="input__field input__field--hoshi text-uppercase" type="text" id="taskid" ng-model="taskId" ng-model-options="{ updateOn: 'blur' }">
 									<label class="input__label input__label--hoshi input__label--hoshi-color-1" for="taskid">
 										<span class="input__label-content input__label-content--hoshi">Task Id</span>
 									</label>
