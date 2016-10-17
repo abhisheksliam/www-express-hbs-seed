@@ -101,10 +101,6 @@ angular.module('automationApp.scriptor')
 
 			};
 
-            $scope.$watch('taskId', function() {
-                $scope.taskId = $scope.taskId.toUpperCase().replace(/\s+/g,'');
-            });
-
             $scope.$on('SCRIPTOR_LOAD_TASK', function(event, res) {
                 scriptorService.taskContent = res.data.task_json;
                 $state.go('app.script-editor',  {id: res.data.task_id});

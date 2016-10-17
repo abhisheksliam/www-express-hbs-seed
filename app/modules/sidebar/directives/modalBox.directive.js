@@ -66,11 +66,10 @@ angular.module('automationApp.sidebar')
                         scope.load = false;
                     } */
 
-                    scope.$watch('taskId', function() {
-                        scope.taskId = scope.taskId.toUpperCase().replace(/\s+/g,'');
-                    });
-
                     scope.clickAction = function(){
+
+                        scope.taskId = scope.taskId.toUpperCase().replace(/\s+/g,'');
+
                         if (scope.load && $('input[name=load-task-options]:checked').val() === "2") {
                             var ingestJSON;
                             var file = document.getElementById('files').files[0];

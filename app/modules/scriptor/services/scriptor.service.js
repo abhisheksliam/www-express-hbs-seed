@@ -106,6 +106,10 @@ angular.module('automationApp.scriptor')
         }
 
         var saveTaskScript = function(app_key, scenario, task_id, sle_id, copy_task_id, template, ingest_json, username) {
+            task_id = task_id.toUpperCase().replace(/\s+/g,'');
+            sle_id = sle_id.toUpperCase().replace(/\s+/g,'');
+            copy_task_id = copy_task_id.toUpperCase().replace(/\s+/g,'');
+
             var saveTask = $http.post('/api/tasks/', {
                 "app_key": app_key,
                 "scenario": scenario,
@@ -125,6 +129,11 @@ angular.module('automationApp.scriptor')
         };
 
         var updateTaskScript = function(app_key, scenario, task_id, sle_id, copy_task_id, template, username) {
+            task_id = task_id.toUpperCase().replace(/\s+/g,'');
+            sle_id = sle_id.toUpperCase().replace(/\s+/g,'');
+            copy_task_id = copy_task_id.toUpperCase().replace(/\s+/g,'');
+
+
             var updateTask = $http.put('/api/tasks/', {
                 "app_key" : app_key,
                 "scenario" : scenario,
