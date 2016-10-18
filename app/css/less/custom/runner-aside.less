@@ -53,7 +53,15 @@
       right: 30px;
       z-index: 2;
     }
-	}
+
+    .icheckbox_square-blue {
+      height: 23px;
+    }
+
+    .icheckbox_square-blue.checked {
+      background-position: -48px 0;
+    }
+  }
 
   .item-level-0:hover {
     .control-btn {
@@ -64,33 +72,15 @@
 
 
   .item-level-0.bg-primary {
+
     .icheckbox_square-blue {
-      display: inline-block;
-      *display: inline;
-      vertical-align: middle;
-      margin: 0;
-      padding: 0;
-      width: 22px;
-      height: 22px;
-      border: none;
-      cursor: pointer;
       background-position: 0 0;
     }
 
-    .icheckbox_square-blue.hover {
-      background-position: -24px 0;
-    }
     .icheckbox_square-blue.checked {
-      background-position: -48px 0;
+      background-position: -120px 0;
     }
-    .icheckbox_square-blue.disabled {
-      background-position: -72px 0;
-      cursor: default;
-    }
-    .icheckbox_square-blue.checked.disabled {
-      background-position: -96px 0;
-    }
-		
+
 	.fa.fa-chevron-down {
 		color: white;
 	}
