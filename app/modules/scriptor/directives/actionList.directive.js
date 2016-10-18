@@ -20,7 +20,7 @@ angular.module('automationApp.scriptor')
                     }
                 });
 
-                scope.updateActionList = function(){
+                scope.removeTagOnBackspace = function (event) {
                     $timeout(function(){
                         $('#triggerlist .nestable').mCustomScrollbar("update");
                     });
