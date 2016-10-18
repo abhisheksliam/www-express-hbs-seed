@@ -401,7 +401,8 @@ angular.module('automationApp.runner')
                                 xmlContent =  res.data;
 
                                 $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
-
+                                    var baseUrl = scope.runnerConfig.runner.url;
+                                    window.open ((baseUrl+'/svn'),",","menubar=0,resizable=0,width=300,height=350");
                                     postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data), true);
 
                                 });
