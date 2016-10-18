@@ -20,10 +20,10 @@ angular.module('automationApp.scriptor')
                     }
                 });
 
-                scope.removeTagOnBackspace = function (event) {
-                    if (event.keyCode === 8) {
+                scope.updateActionList = function(){
+                    $timeout(function(){
                         $('#triggerlist .nestable').mCustomScrollbar("update");
-                    }
+                    });
                 };
 
                 scope.$on('ACTION_SEARCH_RESET', function(event) {

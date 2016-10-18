@@ -2,7 +2,7 @@
     <div class="panel-content">
         <form id="search-results">
             <h3 class="title m-t-0"><strong>Action list</strong></h3>
-            <input search-input ng-model="searchActionText" type="text" class="form-control m-b-5" ng-keydown="removeTagOnBackspace($event)" name="keyword" placeholder="Search...">
+            <input search-input ng-model="searchActionText" type="text" class="form-control m-b-5" ng-change="updateActionList()" name="keyword" placeholder="Search...">
             <i ng-show="enabled" ng-mousedown="reset()" class="fa fa-times-circle"></i>
         </form>
         <div class="dd nestable" custom-scroll triggers="triggers">
