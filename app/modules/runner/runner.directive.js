@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('automationApp.runner')
-    .directive('runnerLauncher', ['$timeout', '$http', '$rootScope', function($timeout, $http, $rootScope) {
+    .directive('runnerLauncher', ['$timeout', '$http', '$rootScope', 'scriptorService', function($timeout, $http, $rootScope, scriptorService) {
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
@@ -386,7 +386,7 @@ angular.module('automationApp.runner')
                             $('.err-list').removeClass("hide");
                             $(".err-list").addClass("show");
                         } else {
-                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Publishing Task to SVN !!' + '</p></div>','#quickview-sidebar');
+                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Publishing Task to SVN, Request sent to Server !!' + '</p></div>','#quickview-sidebar');
 
                             var scenarioId = scope.items[0].id + '.' + scope.items[0].scenario;
 
@@ -407,8 +407,7 @@ angular.module('automationApp.runner')
                                 });
 
                             });
-
-                        }
+                        };
 
                         scope.$apply();
                         event.stopPropagation();
@@ -425,7 +424,6 @@ angular.module('automationApp.runner')
                         var appName = scope.items[0].appName;
                         var baseUrl = scope.runnerConfig.runner.url;
                         var runnerAPI = scope.runnerConfig.runner.api;
-
 
                         var formData =   {
                             "user" : {
@@ -456,18 +454,60 @@ angular.module('automationApp.runner')
                             },
                             "svn": {
                                 "url": "",
-                                "username":"manish.mehta",
-                                "password":"manish"
+                                "username":"",
+                                "password":""
                             }
                         };
 
-                        // process the form
-                        $.ajax({
-                            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                            url         : baseUrl + runnerAPI, // the url where we want to POST
-                            data        : formData, // our data object
-                            dataType    : 'json' // what type of data do we expect back from the server
-                        });
+                        if (commit) {   // for commit
+
+                            scriptorService.getUserDetails(username).then(function(res) {
+                                if(res.data.errors){
+                                    $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                                }
+                                else {
+
+                                    try{
+                                        formData.svn.username = res.data.profile.svn_credentials.username;
+                                        formData.svn.password = res.data.profile.svn_credentials.password;
+                                    } catch (er){
+                                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Error in getting svn credentials !' + '</p></div>');
+                                    }
+
+                                    $.ajax({
+                                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                        url         : baseUrl + runnerAPI, // the url where we want to POST
+                                        data        : formData, // our data object
+                                        dataType    : 'json', // what type of data do we expect back from the server
+                                        success: function(d){
+                                            console.log(d);
+                                        },
+                                        error: function(er) {
+                                            console.log('error');
+                                            console.log(er);
+                                        }
+                                    });
+
+                                    //$rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Commit status??' + '</p></div>');
+
+                                };
+                            });
+
+                        } else { // for run
+                            $.ajax({
+                                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                url         : baseUrl + runnerAPI, // the url where we want to POST
+                                data        : formData, // our data object
+                                dataType    : 'json', // what type of data do we expect back from the server
+                                success: function(d){
+                                    console.log(d);
+                                },
+                                error: function(er) {
+                                    console.log('error');
+                                    console.log(er);
+                            }
+                            });
+                        }
                     }
 
                 var getXmlContent = function() {

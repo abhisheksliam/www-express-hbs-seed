@@ -2,6 +2,7 @@
 var apirouter = require('express').Router();
 var scriptorController = require('../../controllers/scriptor.server.controller');
 var xpathController = require('../../controllers/xpath.server.controller');
+var loginController = require('../../controllers/login.server.controller');
 
 // Middleware for all this apirouters requests
 apirouter.use(function timeLog(req, res, next) {
@@ -51,6 +52,10 @@ apirouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpat
 
 // update xpath: update xpath value + add task_id tag (no duplicates)
 apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationXpath);
+
+
+// get user details
+apirouter.get('/user/:user_name', loginController.getUser);
 
 module.exports = apirouter;
 

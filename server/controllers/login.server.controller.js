@@ -104,3 +104,20 @@ exports.userLoginHandler = function(req, res) {
         });
     }
 };
+
+
+exports.getUser = function (req, res) {
+
+    Users.findOne({'username': req.params.user_name}, function(err, user) {
+        if (err) {
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
+        res.json(user);
+    });
+
+};
