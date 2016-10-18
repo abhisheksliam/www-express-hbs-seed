@@ -124,6 +124,9 @@
       padding-left: 30px;
     }
 
+    .disableCursor {
+      cursor:default !important;
+    }
   }
 
   .border-left {
@@ -261,6 +264,9 @@
       font-size:18px;
       cursor: pointer;
     }
+    .delete-row {
+      background-color: lightcoral;
+    }
   }
 
   hr {
@@ -272,15 +278,24 @@
   }
 
   .err-list.show {
-    width:auto;
     border: 1px solid lightgrey;
-    padding: 10px 5px 10px 25px;
+    padding: 10px;
     box-shadow: 1px 1px 5px lightgrey;
     background-color: lightcoral;
     color: darkred;
-    margin-top: 20px;
+    margin: 25px 0 15px 0;
+
+    a {
+      color:brown;
+      .fa-times {
+        font-size: large;
+      }
+    }
+
+    .errors {
+      padding-left: 20px;
+    }
   }
- 
 }
 
 

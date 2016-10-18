@@ -16,16 +16,21 @@ angular.module('automationApp.sidebar')
                 scope.headerText = '';
                 scope.confirmText = 'Continue';
                 scope.taskId = '';
-
+                scope.mode = '';
                 scope.load = false;
                 scope.loadTaskOption = "1";
                 scope.iCheckOptions = {
                     radioClass: 'iradio_flat-blue'
                 };
 
-                var route, queryParam;
+                var jsonQueryParam, javaQueryParam, xmlQueryParam;
 
                 $('#modal-modalbox').on('show.bs.modal', function (event) {
+
+                    jsonQueryParam = '?format=json';
+                    javaQueryParam = '?format=java';
+                    xmlQueryParam = '?format=xml';
+
                     scope.hideErr = function() {
                         $('.err-msg1').hide();
                         $('.err-msg2').hide();
@@ -37,28 +42,34 @@ angular.module('automationApp.sidebar')
                     var listItem = $(event.relatedTarget) // Button that triggered the modal
 
                     if(listItem.data('context') == 'export') {
+                        scope.mode = 'export';
                         scope.headerText = 'Export Script';
                         scope.confirmText = 'Export';
-                        route = '/api/tasks/';
-                        queryParam = '?format=json';
                         scope.load = false;
-                    } else if(listItem.data('context') == 'preview') {
-                        scope.headerText = 'Preview XML';
-                        scope.confirmText = 'Preview';
-                        route = '/api/tasks/';
-                        queryParam = '?format=xml';
+                    } else if(listItem.data('context') == 'exportAll') {
+                        scope.mode = 'exportAll';
+                        scope.headerText = 'Export Task Files (JSON, XML, JAVA)';
+                        scope.confirmText = 'Export';
                         scope.load = false;
                     } else if(listItem.data('context') == 'load') {
                         scope.headerText = 'Load Existing Script';
                         scope.confirmText = 'Load';
                         scope.load = true;
+                        jsonQueryParam = undefined;
                     }
-
-                    scope.$watch('taskId', function() {
-                        scope.taskId = scope.taskId.toUpperCase().replace(/\s+/g,'');
-                    });
+                    /*else if(listItem.data('context') == 'preview') {
+                        scope.mode = 'preview';
+                        scope.headerText = 'Preview XML';
+                        scope.confirmText = 'Preview';
+                        route = '/api/tasks/';
+                        queryParam = '?format=xml';
+                        scope.load = false;
+                    } */
 
                     scope.clickAction = function(){
+
+                        scope.taskId = scope.taskId.toUpperCase().replace(/\s+/g,'');
+
                         if (scope.load && $('input[name=load-task-options]:checked').val() === "2") {
                             var ingestJSON;
                             var file = document.getElementById('files').files[0];
@@ -109,7 +120,7 @@ angular.module('automationApp.sidebar')
                             }
                             else if ($rootScope.validateTaskId(scope.taskId)){	// client side validation
                                 // api call
-                                scriptorService.getTaskJson(scope.taskId).then(function(res) {
+                                scriptorService.getTaskJson(scope.taskId, jsonQueryParam).then(function(res) {
                                     if(res.data.errors) {
                                         scope.errmsg = "Error in getting data for Task - " + scope.taskId;
                                         $('.err-msg1').show();
@@ -118,11 +129,30 @@ angular.module('automationApp.sidebar')
                                     } else{
                                         $('#modal-modalbox').modal('hide');  // hide modal
                                         if (scope.load) {
+
                                             $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
-                                        } else {
-                                            $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + route + scope.taskId + queryParam);
+                                        } else if(scope.mode == 'export'){
+
+                                            download(JSON.stringify(res.data), scope.taskId + ".json", "text/plain");
+                                        } else if(scope.mode == 'exportAll') {
+
+                                            download(JSON.stringify(res.data), scope.taskId + ".json", "text/plain");
+
+                                            scriptorService.getTaskJson(scope.taskId, xmlQueryParam).then(function(res) {
+                                                download(vkbeautify.xml(res.data), scope.taskId + ".xml", "text/plain");
+                                            });
+
+                                            scriptorService.getTaskJson(scope.taskId, javaQueryParam).then(function(res) {
+                                                download(js_beautify(res.data), scope.taskId + ".java", "text/plain");
+                                            });
                                         }
-                                        scope.taskId = '';
+
+                                        /*
+                                        // preview XML, open in New Window
+                                         else {
+                                            $window.open($location.protocol() + "://" + $location.host() + ':' + $location.port() + route + scope.taskId + queryParam);
+                                        }*/
+                                        //scope.taskId = '';
                                     }
                                 });
                             } else{

@@ -72,11 +72,9 @@ angular.module('automationApp.runner')
 
                 scope.$watch('items', function(newValue) {
                     if (newValue !== undefined) {
-                        if( scope.items[0] !== undefined && scope.items[0].items !== 0 ) {
-                            for(var i=0; i <  scope.items[0].items.length; i++) {
-                                scope.methodSelection[i] = i+1 + "/1";
-                            }
-                        }
+                        window.setTimeout(function () {
+                            methodValidation();
+                        },2000);
 
                         if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
                             $(".run-pathway").removeAttr("disabled");
@@ -86,7 +84,56 @@ angular.module('automationApp.runner')
                             $(".publish-svn").removeClass("disabled");
                         }
                     }
-                });
+                }, true);
+
+                var methodValidation = function(){
+                    if( scope.items[0] !== undefined && scope.items[0].items !== 0 ) {
+                        for(var i=0; i <  scope.items[0].items.length; i++) {
+                            var disableItem = true;
+                            var defaultMethodSelection = 0;
+                            // check for actions in each method and disable method in case of zero actions
+                            for(var m=0; m < scope.items[0].items[i].methods.length; m++ ) {
+
+                                if(scope.items[0].items[i].methods[m].actions !== undefined && scope.items[0].items[i].methods[m].actions.length >= 1) {
+                                    $("#method-radio-" + i + "-" + m).removeClass("disabled");
+                                    $("#method-radio-" + i + "-" + m).removeAttr("disabled");
+                                    $("#method-radio-" + i + "-" + m).parent().removeClass("disableCursor");
+                                    if(defaultMethodSelection == 0 ) {
+                                        defaultMethodSelection = m+1;
+                                    }
+                                    disableItem = false;
+                                }
+                                else {
+                                    if($("#method-radio-" + i + "-" + m).is(':checked')) {
+                                        $("#method-radio-" + i + "-" + m).iCheck('uncheck');
+                                    }
+                                    $("#method-radio-" + i + "-" + m).addClass("disabled");
+                                    $("#method-radio-" + i + "-" + m).attr("disabled", true);
+                                    $("#method-radio-" + i + "-" + m).parent().addClass("disableCursor");
+                                }
+                            }
+
+                            if(defaultMethodSelection != 0) {
+                                scope.methodSelection[i] = i+1 + "/" + defaultMethodSelection;
+                            }
+
+                            if(disableItem) {
+                                $("#run-item-" + i).addClass("disabled");
+                                $("#run-item-" + i).attr("disabled", true);
+                                if($("#run-item-" + i).is(':checked')) {
+                                    $("#run-item-" + i).iCheck('uncheck');
+                                }
+                                $("#run-item-" + i).parent().addClass("disableCursor");
+                            }
+                            else {
+                                $("#run-item-" + i).parent().removeClass("disableCursor");
+                                $("#run-item-" + i).removeClass("disabled");
+                                $("#run-item-" + i).removeAttr("disabled");
+                            }
+                        }
+                        scope.$apply();
+                    }
+                };
 
                 $timeout(function(){
                     $(".pathway-group").val($rootScope.globalConstants.methodtypelist[0]);
@@ -107,8 +154,7 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('click',".delete-pathway",function(event) {
-                        event.preventDefault();
+                    element.on('click',".delete-pathway",function(event) { event.preventDefault();
                         $('.err-list').removeClass("show");
                         $(".err-list").addClass("hide");
 
@@ -171,8 +217,6 @@ angular.module('automationApp.runner')
                                 $(".publish-svn").removeAttr("disabled");
                                 $(".publish-svn").removeClass("disabled");
                             }
-
-                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway added successfully!' + '</p></div>','#quickview-sidebar');
                         }
 
                         event.stopPropagation();
@@ -230,9 +274,6 @@ angular.module('automationApp.runner')
                             $(".publish-svn").removeAttr("disabled");
                             $(".publish-svn").removeClass("disabled");
                         }
-
-                        $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathways generated successfully!' + '</p></div>','#quickview-sidebar');
-
                         event.stopPropagation();
                     });
 
@@ -289,9 +330,6 @@ angular.module('automationApp.runner')
 
                     element.on('click',".publish-svn",function(event) {
                         event.preventDefault();
-                        $('.err-list').removeClass("show");
-                        $(".err-list").addClass("hide");
-
                         scope.errorList = [];
 
                         if(scope.items[0].items !== undefined && scope.items[1]!== undefined) {
@@ -353,6 +391,12 @@ angular.module('automationApp.runner')
 
                         scope.$apply();
                         event.stopPropagation();
+                    });
+
+                    $('.err-list').on('click', '.close', function (event) {
+                        $('.err-list').removeClass("show");
+                        $(".err-list").addClass("hide");
+                        scope.errorList=[];
                     });
 
                     function postDataToRunner(scenarioId, filename, xmlContent, javaContent){

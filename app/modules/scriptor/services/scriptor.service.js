@@ -16,8 +16,12 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         }
 
-        var getTaskJson = function(friendlyTaskId) {
-            var taskData = $http.get('/api/tasks/' + friendlyTaskId);
+        var getTaskJson = function(friendlyTaskId, queryParam) {
+            var url = '/api/tasks/' + friendlyTaskId;
+            if(queryParam) {
+                url = url + queryParam;
+            }
+            var taskData = $http.get(url);
             var deferred = $q.defer();
             deferred.resolve(taskData);
             return deferred.promise;
