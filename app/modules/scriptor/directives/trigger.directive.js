@@ -66,13 +66,13 @@ angular.module('automationApp.scriptor')
                         var triggerRefrence = $(this).closest('.dd-list');
 
                         var len = 0;
-                        if($(this).closest('.panel-content').find('input.xpath')){
-                            len = $(this).closest('.panel-content').find('input.xpath').length;
+                        if($(this).closest('.panel-content').find('input.xpath.elementName')){
+                            len = $(this).closest('.panel-content').find('input.xpath.elementName').length;
                         }
 
                         if(len !==0) {
                             var counter = 0;
-                            $(this).closest('.panel-content').find('input.xpath').each (function () {
+                            $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
                                 var $el = $(this);
                                 var key = $(this).attr('data-elementname');
                                 var value = $(this).val();
@@ -147,12 +147,12 @@ angular.module('automationApp.scriptor')
                     $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
 
-                    $(this).closest('.panel-content').find('input.xpath').each (function () {
+/*                    $(this).closest('.panel-content').find('input.xpath.elementName').each (function () {
                         var $el = $(this);
                         var key = $(this).attr('data-elementname');
                         var xPath = scriptorService.getXPathForElement(key);
                         $el.val(xPath);
-                    });
+                    });*/
 
                     event.stopPropagation();
                 });
