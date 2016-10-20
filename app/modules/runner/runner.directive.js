@@ -154,11 +154,11 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('click',".delete-pathway",function(event) { event.preventDefault();
+                    scope.deletePathway = function(delIndex){
                         $('.err-list').removeClass("show");
                         $(".err-list").addClass("hide");
 
-                        var delIndex = $(this).closest('.pathway-list').index() - 2;
+                        //var delIndex = $(this).closest('.pathway-list').index() - 2;
                         scope.items[1].splice(delIndex, 1);
 
                         if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
@@ -168,18 +168,13 @@ angular.module('automationApp.runner')
                             $(".publish-svn").attr("disabled", true);
                             $(".publish-svn").addClass("disabled");
                         }
-                        scope.$apply();
+                    }
 
-                        $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway deleted successfully!' + '</p></div>','#quickview-sidebar');
-                        event.stopPropagation();
-                    });
-
-                    element.on('click',".add-pathway",function(event) {
-                        event.preventDefault();
+                    scope.addPathway = function(index){
 
                         var isDuplicatePathway = false;
                         var pathwayInfo = $.map(scope.items[0].items, function(value, index) {
-                                return $('input[name=method-radio-'+index +']:checked').val();
+                            return $('input[name=method-radio-'+index +']:checked').val();
                         });
 
                         if(scope.items[1] !== undefined) {
@@ -219,8 +214,7 @@ angular.module('automationApp.runner')
                             }
                         }
 
-                        event.stopPropagation();
-                    });
+                    }
 
                     element.on('click',".generate-pathway",function(event) {
                         event.preventDefault();

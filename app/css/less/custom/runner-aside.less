@@ -361,6 +361,23 @@
   #col8, #col4 {
     border:1px solid black;
   }
+
+  .pathway-list.ng-enter,
+  .pathway-list.ng-leave {
+    -webkit-transition:0.5s linear all;
+    transition:0.5s linear all;
+  }
+
+  .pathway-list.ng-enter,
+  .pathway-list.ng-leave.ng-leave-active {
+    opacity:0;
+    height: 0px;
+  }
+  .pathway-list.ng-leave,
+  .pathway-list.ng-enter.ng-enter-active {
+    opacity:1;
+    height: 30px;
+  }
 }
 
 
