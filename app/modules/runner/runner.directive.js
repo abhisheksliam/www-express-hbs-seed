@@ -392,7 +392,7 @@ angular.module('automationApp.runner')
                             $('.err-list').removeClass("hide");
                             $(".err-list").addClass("show");
                         } else {
-                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Publishing Task to SVN, Request sent to Server !!' + '</p></div>','#quickview-sidebar');
+                            $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Publishing Task to SVN !!' + '</p></div>','#quickview-sidebar');
 
                             var scenarioId = scope.items[0].id + '.' + scope.items[0].scenario;
 
@@ -407,9 +407,6 @@ angular.module('automationApp.runner')
                                 xmlContent =  res.data;
 
                                 $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
-
-                                    $('.svn-commit-status').removeClass("hide");
-                                    $(".svn-commit-status").addClass("show");
 
                                     postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data), true);
 
@@ -479,25 +476,34 @@ angular.module('automationApp.runner')
                                     try{
                                         formData.svn.username = res.data.profile.svn_credentials.username;
                                         formData.svn.password = res.data.profile.svn_credentials.password;
+
+                                        $('.svn-commit-status').removeClass("hide");
+                                        $(".svn-commit-status").addClass("show");
+
+                                        $.ajax({
+                                            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                                            url         : baseUrl + runnerAPI, // the url where we want to POST
+                                            data        : formData, // our data object
+                                            dataType    : 'json', // what type of data do we expect back from the server
+                                            success: function(d){
+                                                console.log(d);
+                                            },
+                                            error: function(er) {
+                                                console.log('error');
+                                                console.log(er);
+                                            }
+                                        });
+
                                     } catch (er){
-                                        $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Error in getting svn credentials !' + '</p></div>');
-                                    }
 
-                                    $.ajax({
-                                        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                                        url         : baseUrl + runnerAPI, // the url where we want to POST
-                                        data        : formData, // our data object
-                                        dataType    : 'json', // what type of data do we expect back from the server
-                                        success: function(d){
-                                            console.log(d);
-                                        },
-                                        error: function(er) {
-                                            console.log('error');
-                                            console.log(er);
+                                        scope.errorList.push("Error in getting svn credentials !");
+
+                                        if(scope.errorList.length > 0) {
+                                            $('.err-list').removeClass("hide");
+                                            $(".err-list").addClass("show");
                                         }
-                                    });
 
-                                    //$rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Commit status??' + '</p></div>');
+                                    }
 
                                 };
                             });
