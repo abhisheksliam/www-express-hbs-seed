@@ -193,6 +193,14 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
+        var getUserDetails = function(username) {
+            var userDetails = $http.get('/api/user/'+username);
+
+            var deferred = $q.defer();
+            deferred.resolve(userDetails);
+            return deferred.promise;
+        };
+
         return {
         "taskContent" : {},
         "getGlobalContext": getGlobalContext,
@@ -210,6 +218,7 @@ angular.module('automationApp.scriptor')
         "getXPathForElement" : getXPathForElement,
         "saveXpath": saveXpath,
         "getApplicationXpathList": getApplicationXpathList,
-        "getXpathArrayList": getXpathArrayList
+        "getXpathArrayList": getXpathArrayList,
+        "getUserDetails": getUserDetails
     };
 }]);
