@@ -142,8 +142,9 @@ angular.module('automationApp.scriptor')
                 element.on('click',".trigger-cancel",function (event) {
                     event.preventDefault();
 
+                    var triggerNumber = parseInt($(this).closest('.dd-list').index());
                     scope.editMode = false;
-                    scope.oldAction = angular.copy(scope.action);
+                    scope.method.actions[triggerNumber] = angular.copy(scope.action);
                     $(this).closest('.item-level-2').removeClass('edit-mode');
                     scope.$apply();
 
