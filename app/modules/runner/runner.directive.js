@@ -155,19 +155,21 @@ angular.module('automationApp.runner')
                     });
 
                     scope.deletePathway = function(delIndex){
-                        $('.err-list').removeClass("show");
-                        $(".err-list").addClass("hide");
+                        $('.pathway-list').eq(delIndex).addClass("highlight-select transition");
 
-                        //var delIndex = $(this).closest('.pathway-list').index() - 2;
-                        scope.items[1].splice(delIndex, 1);
+                        $timeout(function(){
+                            scope.items[1].splice(delIndex, 1);
 
-                        if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
-                            $(".run-pathway").attr("disabled", true);
-                            $(".run-pathway").addClass("disabled");
-                            $(".default-pathway-text").show();
-                            $(".publish-svn").attr("disabled", true);
-                            $(".publish-svn").addClass("disabled");
-                        }
+                            $(".pathway-list").removeClass("highlight-select transition");
+
+                            if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
+                                $(".run-pathway").attr("disabled", true);
+                                $(".run-pathway").addClass("disabled");
+                                $(".default-pathway-text").show();
+                                $(".publish-svn").attr("disabled", true);
+                                $(".publish-svn").addClass("disabled");
+                            }
+                         },1000);
                     }
 
                     scope.addPathway = function(index){
