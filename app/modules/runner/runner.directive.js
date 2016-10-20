@@ -24,6 +24,12 @@ angular.module('automationApp.runner')
                         scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
                         scope.brnode = username;
                         scope.simsbuild = "";
+
+                        /**
+                         * set src of iframe
+                         */
+                        $('#commit-status-frame').attr("src", (scope.runnerConfig.runner.url + '/svn'));
+
                     });
 
                     if (scope.runnerConfig){
@@ -401,8 +407,10 @@ angular.module('automationApp.runner')
                                 xmlContent =  res.data;
 
                                 $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
-                                    var baseUrl = scope.runnerConfig.runner.url;
-                                    window.open ((baseUrl+'/svn'),",","menubar=0,resizable=0,width=300,height=350");
+
+                                    $('.svn-commit-status').removeClass("hide");
+                                    $(".svn-commit-status").addClass("show");
+
                                     postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data), true);
 
                                 });
