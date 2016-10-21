@@ -154,13 +154,12 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    scope.deletePathway = function(delIndex){
-                        $('.pathway-list').eq(delIndex).addClass("highlight-select transition");
+                    element.on('click',".delete-pathway",function(event) {
+                        var delIndex = $(this).closest('.pathway-list').index() - 2;
+                        $(this).closest('.pathway-list').hide("slow", function(){
 
-                        $timeout(function(){
+                            element.find(".pathway-list[style='display: none;']").remove();
                             scope.items[1].splice(delIndex, 1);
-
-                            $(".pathway-list").removeClass("highlight-select transition");
 
                             if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
                                 $(".run-pathway").attr("disabled", true);
@@ -169,10 +168,15 @@ angular.module('automationApp.runner')
                                 $(".publish-svn").attr("disabled", true);
                                 $(".publish-svn").addClass("disabled");
                             }
-                         },1000);
-                    }
+                        });
 
-                    scope.addPathway = function(index){
+                        scope.$apply();
+                        event.stopPropagation();
+                    });
+
+
+                    element.on('click',".add-pathway",function(event) {
+                        event.preventDefault();
 
                         var isDuplicatePathway = false;
                         var pathwayInfo = $.map(scope.items[0].items, function(value, index) {
@@ -216,7 +220,8 @@ angular.module('automationApp.runner')
                             }
                         }
 
-                    }
+                        event.stopPropagation();
+                    });
 
                     element.on('click',".generate-pathway",function(event) {
                         event.preventDefault();
