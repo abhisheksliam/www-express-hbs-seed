@@ -43,7 +43,7 @@
             <div class="pathwaygrp">
                 <div class="ptwy"><span>Pathways</span><span class="divider"></span><i title="Generate Pathways" class="fa fa-pencil-square-o inline-icon generate-pathway" aria-hidden="true"></i><i title="Add Pathway" class="fa fa-plus inline-icon add-pathway" aria-hidden="true"></i></div>
                 <div class="p-l-10 p-t-10 default-pathway-text"><em>No Pathways</em></div>
-                <div class="pathway-list" ng-repeat="pathwayList in items[1] track by $index">
+                <div class="pathway-list" ng-repeat="pathwayList in items[1]">
                     <span ng-repeat="pathway in pathwayList.pathway">
                         <pathway-band></pathway-band>
                     </span>
