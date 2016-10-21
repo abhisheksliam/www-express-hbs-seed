@@ -160,32 +160,33 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
-                    element.on('click',".delete-pathway",function(event) { event.preventDefault();
-                        $('.err-list').removeClass("show");
-                        $(".err-list").addClass("hide");
-
+                    element.on('click',".delete-pathway",function(event) {
                         var delIndex = $(this).closest('.pathway-list').index() - 2;
-                        scope.items[1].splice(delIndex, 1);
+                        $(this).closest('.pathway-list').hide("slow", function(){
 
-                        if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
-                            $(".run-pathway").attr("disabled", true);
-                            $(".run-pathway").addClass("disabled");
-                            $(".default-pathway-text").show();
-                            $(".publish-svn").attr("disabled", true);
-                            $(".publish-svn").addClass("disabled");
-                        }
+                            element.find(".pathway-list[style='display: none;']").remove();
+                            scope.items[1].splice(delIndex, 1);
+
+                            if( scope.items[1] !== undefined && scope.items[1].length === 0 ) {
+                                $(".run-pathway").attr("disabled", true);
+                                $(".run-pathway").addClass("disabled");
+                                $(".default-pathway-text").show();
+                                $(".publish-svn").attr("disabled", true);
+                                $(".publish-svn").addClass("disabled");
+                            }
+                        });
+
                         scope.$apply();
-
-                        $rootScope.showNotify('<div class="alert alert-success"><p><strong>' + 'Pathway deleted successfully!' + '</p></div>','#quickview-sidebar');
                         event.stopPropagation();
                     });
+
 
                     element.on('click',".add-pathway",function(event) {
                         event.preventDefault();
 
                         var isDuplicatePathway = false;
                         var pathwayInfo = $.map(scope.items[0].items, function(value, index) {
-                                return $('input[name=method-radio-'+index +']:checked').val();
+                            return $('input[name=method-radio-'+index +']:checked').val();
                         });
 
                         if(scope.items[1] !== undefined) {
