@@ -18,7 +18,7 @@ module.exports = function(options) {
 
     gulp.task('partials', function () {
         return gulp.src([
-                options.src + '/**/*.html'
+                options.src + '/modules/**/*.html'
             ])
             .pipe($.minifyHtml({
                 empty: true,

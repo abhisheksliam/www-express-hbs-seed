@@ -201,6 +201,22 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
+        var getLocalStorageValue = function(lsmKey) {
+
+            var lsmValue =   JSON.parse(localStorage.getItem(lsmKey));
+
+            return lsmValue;
+        };
+
+
+        var setLocalStorageValue = function(lsmKey, lsmValue) {
+
+            localStorage.setItem(lsmKey, JSON.stringify(lsmValue));
+
+            return lsmValue;
+        };
+
+
         return {
         "taskContent" : {},
         "getGlobalContext": getGlobalContext,
@@ -219,6 +235,8 @@ angular.module('automationApp.scriptor')
         "saveXpath": saveXpath,
         "getApplicationXpathList": getApplicationXpathList,
         "getXpathArrayList": getXpathArrayList,
-        "getUserDetails": getUserDetails
+        "getUserDetails": getUserDetails,
+        "getLocalStorageValue": getLocalStorageValue,
+        "setLocalStorageValue": setLocalStorageValue
     };
 }]);
