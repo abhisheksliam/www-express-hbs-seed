@@ -16,14 +16,35 @@ angular.module('automationApp.runner')
 
                     $http.get('data/runner_configuration.json').then(function(res) {
                         scope.runnerConfig =  res.data;
-                        scope.host = scope.runnerConfig.run.defaults.host;
-                        scope.os = scope.runnerConfig.run.defaults.os;
-                        scope.browser = scope.runnerConfig.run.defaults.browser;
-                        scope.brversion = scope.runnerConfig.run.defaults.brversion;
-                        scope.appurl = scope.runnerConfig.run.defaults.appurl;
-                        scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
-                        scope.brnode = username;
-                        scope.simsbuild = "";
+
+                        /**
+                         * If previous run config exist & version match
+                         */
+                        var userRunConfig = scriptorService.getLocalStorageValue('userRunConfig');
+                        if (userRunConfig && (userRunConfig.version == scope.runnerConfig.run.defaults.version)) {
+
+                            scope.host = userRunConfig.defaults.host;
+                            scope.os = userRunConfig.defaults.os;
+                            scope.browser = userRunConfig.defaults.browser;
+                            scope.brversion = userRunConfig.defaults.brversion;
+                            scope.appurl = userRunConfig.defaults.appurl;
+                            scope.screenresolution = userRunConfig.defaults.screenresolution;
+                            scope.brnode = userRunConfig.defaults.username;
+                            scope.simsbuild = userRunConfig.defaults.simsbuild;
+
+                        } else {
+                            /**
+                             * Else set config from defaults
+                             */
+                            scope.host = scope.runnerConfig.run.defaults.host;
+                            scope.os = scope.runnerConfig.run.defaults.os;
+                            scope.browser = scope.runnerConfig.run.defaults.browser;
+                            scope.brversion = scope.runnerConfig.run.defaults.brversion;
+                            scope.appurl = scope.runnerConfig.run.defaults.appurl;
+                            scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
+                            scope.brnode = username;
+                            scope.simsbuild = "";
+                        }
 
                         /**
                          * set src of iframe
@@ -284,8 +305,15 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
+
                     element.on('click',".run-task",function(event) {
                         event.preventDefault();
+
+
+                        /**
+                         * Update user run config to lsm
+                         */
+                        scriptorService.setLocalStorageValue('userRunConfig',getUserConfigObject());
 
                         var baseUrl = scope.runnerConfig.runner.url;
 
@@ -307,6 +335,16 @@ angular.module('automationApp.runner')
 
                     element.on('click',".run-pathway",function(event) {
                         event.preventDefault();
+
+                        /**
+                         * Update user run config to lsm
+                         */
+
+                        scriptorService.setLocalStorageValue('userRunConfig',JSON.stringify(getUserConfigObject()));
+
+                        /**
+                         * Run
+                         */
 
                         var baseUrl = scope.runnerConfig.runner.url;
 
@@ -648,6 +686,25 @@ angular.module('automationApp.runner')
 
                     event.stopPropagation();
                 });
+
+                function getUserConfigObject(){
+
+                    var _conf = {
+                        version: scope.runnerConfig.run.defaults.version,
+                        defaults: {
+                            host: scope.host,
+                            os:   scope.os,
+                            browser: scope.browser,
+                            brversion: scope.brversion,
+                            appurl: scope.appurl,
+                            screenresolution: scope.screenresolution,
+                            brnode: scope.brnode,
+                            simsbuild: scope.simsbuild
+                        }
+                    };
+
+                    return _conf;
+                }
 
             }
         }

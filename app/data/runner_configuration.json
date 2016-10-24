@@ -5,6 +5,7 @@
   },
   "run": {
     "defaults": {
+      "version": "1.0",
       "host":"hub",
       "browser":"chrome",
       "os":"WINDOWS",
