@@ -313,22 +313,7 @@ angular.module('automationApp.runner')
                         /**
                          * Update user run config to lsm
                          */
-
-                        var _conf = {
-                            version: scope.runnerConfig.run.defaults.version,
-                            defaults: {
-                                host: scope.host,
-                                os:   scope.os,
-                                browser: scope.browser,
-                                brversion: scope.brversion,
-                                appurl: scope.appurl,
-                                screenresolution: scope.screenresolution,
-                                brnode: scope.brnode,
-                                simsbuild: scope.simsbuild
-                            }
-                        };
-
-                        scriptorService.setLocalStorageValue('userRunConfig',_conf);
+                        scriptorService.setLocalStorageValue('userRunConfig',getUserConfigObject());
 
                         var baseUrl = scope.runnerConfig.runner.url;
 
@@ -355,21 +340,7 @@ angular.module('automationApp.runner')
                          * Update user run config to lsm
                          */
 
-                        var _conf = {
-                            version: scope.runnerConfig.run.defaults.version,
-                            defaults: {
-                                host: scope.host,
-                                os:   scope.os,
-                                browser: scope.browser,
-                                brversion: scope.brversion,
-                                appurl: scope.appurl,
-                                screenresolution: scope.screenresolution,
-                                brnode: scope.brnode,
-                                simsbuild: scope.simsbuild
-                            }
-                        };
-
-                        scriptorService.setLocalStorageValue('userRunConfig',JSON.stringify(_conf));
+                        scriptorService.setLocalStorageValue('userRunConfig',JSON.stringify(getUserConfigObject()));
 
                         /**
                          * Run
@@ -715,6 +686,25 @@ angular.module('automationApp.runner')
 
                     event.stopPropagation();
                 });
+
+                function getUserConfigObject(){
+
+                    var _conf = {
+                        version: scope.runnerConfig.run.defaults.version,
+                        defaults: {
+                            host: scope.host,
+                            os:   scope.os,
+                            browser: scope.browser,
+                            brversion: scope.brversion,
+                            appurl: scope.appurl,
+                            screenresolution: scope.screenresolution,
+                            brnode: scope.brnode,
+                            simsbuild: scope.simsbuild
+                        }
+                    };
+
+                    return _conf;
+                }
 
             }
         }
