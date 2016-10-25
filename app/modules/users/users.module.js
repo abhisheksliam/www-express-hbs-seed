@@ -20,11 +20,6 @@
 
   function appConfig($stateProvider) {
     $stateProvider
-      .state('app.user-new', {
-        url: '/users/new',
-        templateUrl: 'modules/users/views/manageProfile.html',
-        controller: 'UserProfileController'
-      })
       .state('app.user-profile', {
           url: '/users/:username',
           templateUrl: 'modules/users/views/manageProfile.html',

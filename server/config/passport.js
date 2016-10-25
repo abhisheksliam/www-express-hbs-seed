@@ -33,25 +33,29 @@ module.exports = function(passport) {
 
                 Users.findOne({username: username}, function(err, user) {
 
-                    if (!user) {
-                        console.log("Registering new user");
+                    if (!user && req.body.email !== undefined) {
+                        if (req.body.email.indexOf("comprotechnologies.com") !== -1) {
+                            console.log("Registering new user");
 
-                        var salt = crypto.randomBytes(16).toString('hex');
-                        var newPass = hashPassword(password, salt);
+                            var salt = crypto.randomBytes(16).toString('hex');
+                            var newPass = hashPassword(password, salt);
 
-                        var newUser = new Users();
-                        newUser.username = username;
-                        newUser.password = newPass;
-                        newUser.salt = salt;
-                        newUser.profile.name = username;
+                            var newUser = new Users();
+                            newUser.username = username;
+                            newUser.password = newPass;
+                            newUser.salt = salt;
+                            newUser.profile.name = req.body.name;
+                            newUser.profile.email = req.body.email;
 
-                        newUser.save().then(function () {
-                            // Remove sensitive data before replying
-                            newUser.password = undefined;
-                            newUser.salt = undefined;
-                            return done(null, newUser);
-                        })
-
+                            newUser.save().then(function () {
+                                // Remove sensitive data before replying
+                                newUser.password = undefined;
+                                newUser.salt = undefined;
+                                return done(null, newUser);
+                            })
+                        } else {
+                            return done({message:'Only Compro users can register to this tool'}, false);
+                        }
                     } else {
                         if (err || user === null) {return done({message:'User not found'}, false)}
 
