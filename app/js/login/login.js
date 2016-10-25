@@ -79,7 +79,9 @@ $(document).ready(function() {
             'username'              : $('input[name=username]').val(),
             'password'             : $('input[name=password]').val(),
             'name'             : $('input[name=profilename]').val(),
-            'email'             : $('input[name=email]').val()
+            'email'             : $('input[name=email]').val(),
+            'svnusername'              : $('input[name=svnusername]').val(),
+            'svnpassword'             : $('input[name=svnpassword]').val()
         };
 
         // process the form

@@ -47,6 +47,12 @@ module.exports = function(passport) {
                             newUser.profile.name = req.body.name;
                             newUser.profile.email = req.body.email;
 
+                            newUser.profile.svn_credentials = {};
+                            newUser.profile.svn_credentials.username = req.body.svnusername;
+
+                            var newSvnPass = hashPassword(req.body.svnpassword, salt);
+                            newUser.profile.svn_credentials.password = newSvnPass;
+
                             newUser.save().then(function () {
                                 // Remove sensitive data before replying
                                 newUser.password = undefined;
