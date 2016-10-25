@@ -27,7 +27,7 @@
       })
       .state('app.script-editor', {
           url: '/task/:id',
-          templateUrl: 'modules/scriptor/views/manageProfile.html',
+          templateUrl: 'modules/scriptor/views/displayScript.html',
           controller: 'ScriptEditorController'
       })
   }
