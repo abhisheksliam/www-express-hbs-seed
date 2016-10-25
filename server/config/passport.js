@@ -43,6 +43,7 @@ module.exports = function(passport) {
                         newUser.username = username;
                         newUser.password = newPass;
                         newUser.salt = salt;
+                        newUser.profile.name = username;
 
                         newUser.save().then(function () {
                             // Remove sensitive data before replying
