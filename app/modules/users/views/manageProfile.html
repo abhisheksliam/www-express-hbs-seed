@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-12">
 	<div class="panel panel-default no-bd">
 		<div class="panel-header">
 			<h2 class="panel-title">Manage Profile</h2>
@@ -14,7 +14,7 @@
 							<div class="form-group">
 								<label class="control-label">Username</label>
 								<div class="append-icon">
-									<input type="text" name="username" class="form-control" ng-model="user.username" minlength="3" placeholder="Minimum 3 characters..." required="" aria-required="true">
+									<input type="text" name="username" class="form-control" ng-model="user.username" minlength="3" readonly="readonly" placeholder="Minimum 3 characters..." required="" aria-required="true">
 									<i class="icon-user"></i>
 								</div>
 							</div>
@@ -62,7 +62,7 @@
 							</div>
 						</div>
 
-						<div class="text-center  m-t-20">
+						<div class="text-right  m-t-20">
 							<button type="submit" class="btn btn-embossed btn-primary" ng-click="updateUser()">Update</button>
 							<!--<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>-->
 						</div>
