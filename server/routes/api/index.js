@@ -20,8 +20,6 @@ apirouter.get('/', function(req, res) {
     res.end();
 });
 
-
-
 apirouter.post('/tasks', scriptorController.saveTask);
 apirouter.put('/tasks', scriptorController.updateTask);
 
@@ -56,8 +54,10 @@ apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationX
 
 
 // get user details
-apirouter.get('/user/:user_name', loginController.getUser);
-apirouter.put('/user/:user_name', userController.updateUserDetails);
+apirouter.get('/users/:user_name', userController.getUser);
+
+// update user details
+apirouter.put('/users/:user_name', userController.updateUserDetails);
 
 module.exports = apirouter;
 

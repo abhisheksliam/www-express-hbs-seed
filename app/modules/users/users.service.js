@@ -9,7 +9,7 @@ angular.module('automationApp.users')
     /***************** APIs ********************/
 
     var getUserDetails = function(username) {
-        var userDetails = $http.get('/api/user/'+username);
+        var userDetails = $http.get('/api/users/'+username);
 
         var deferred = $q.defer();
         deferred.resolve(userDetails);
@@ -17,7 +17,7 @@ angular.module('automationApp.users')
     };
 
     var updateUserDetails = function(user) {
-        var updateUser = $http.put('/api/user/' + user.username, {
+        var updateUser = $http.put('/api/users/' + user.username, {
             "name" : user.profile.name,
             "email" : user.profile.email
         });

@@ -7,6 +7,20 @@ const router = require('express').Router();
 var http = require('http');
 var Users     = require('./../models/app.server.models.user');
 
+exports.getUser = function (req, res) {
+    Users.findOne({'username': req.params.user_name}, function(err, user) {
+        if (err) {
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
+        res.json(user);
+    });
+};
+
 exports.updateUserDetails = function (req, res) {
     var user = new Users();
     user.username = req.params.user_name;
@@ -26,4 +40,3 @@ exports.updateUserDetails = function (req, res) {
         res.json(doc);
     });
 };
-
