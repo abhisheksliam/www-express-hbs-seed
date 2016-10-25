@@ -6,7 +6,7 @@ var crypto = require('crypto');
 var Users     = require('./../models/app.server.models.user');
 
 var hashPassword = function(password, saltValue) {
-    return crypto.pbkdf2Sync(password, saltValue, 10000, 64).toString('base64');
+     return crypto.pbkdf2Sync(password, saltValue, 1000, 64).toString('hex');
 };
 
 module.exports = function(passport) {
@@ -33,25 +33,40 @@ module.exports = function(passport) {
 
                 Users.findOne({username: username}, function(err, user) {
 
-                    if (err || user === null) {return done({message:'User not found'}, false)}
+                    if (!user) {
+                        console.log("Registering new user");
 
-                    if (username === null) {
-                        console.log('Credentials not provided');
-                        return done({message:'Credentials not provided'}, false);
-                    }
+                        var salt = crypto.randomBytes(16).toString('hex');
+                        var newPass = hashPassword(password, salt);
 
-                    if(user.username !== username){
-                        console.log('User Not Found with username '+username);
-                        return done({message:'User Not Found with username' + username}, false);
-                    }
+                        var newUser = new Users();
+                        newUser.username = username;
+                        newUser.password = newPass;
+                        newUser.salt = salt;
 
-                    if(user.username === username && user.password !== password){
-                        console.log('Incorrect password');
-                        return done({message:'Incorrect password'}, false);
-                    }
+                        newUser.save().then(function () {
+                            // Remove sensitive data before replying
+                            newUser.password = undefined;
+                            newUser.salt = undefined;
+                            return done(null, newUser);
+                        })
 
-                    if(user.username === username && user.password === password){
-                        console.log('Successfully authenticated ' + username);
+                    } else {
+                        if (err || user === null) {return done({message:'User not found'}, false)}
+
+                        if (username === null) {
+                            console.log('Credentials not provided');
+                            return done({message:'Credentials not provided'}, false);
+                        }
+
+                        if(user.username !== username){
+                            console.log('User Not Found with username '+username);
+                            return done({message:'User Not Found with username' + username}, false);
+                        }
+
+                        if (user.password != hashPassword(password, user.salt))
+                            return done({message:'Incorrect password'}, false);
+
                         return done(null, user);
                     }
                 });
