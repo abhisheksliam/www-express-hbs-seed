@@ -75,8 +75,11 @@ module.exports = function(passport) {
                             return done({message:'User Not Found with username' + username}, false);
                         }
 
-                        if (user.password != hashPassword(password, user.salt))
-                            return done({message:'Incorrect password'}, false);
+                        if (password !== user.password) {
+                            if (user.password != hashPassword(password, user.salt)) {
+                                return done({message:'Incorrect password'}, false);
+                            }
+                        }
 
                         return done(null, user);
                     }
