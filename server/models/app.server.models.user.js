@@ -9,7 +9,6 @@ var userSchema   = new Schema({
     profile: {
         name: String,
         email: String,
-        selenium: {},
         svn_credentials: {}
     }
 });

@@ -73,6 +73,41 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
+    $('.form-signin').submit(function(event) {
+
+        var formData = {
+            'username'              : $('input[name=username]').val(),
+            'password'             : $('input[name=password]').val(),
+            'name'             : $('input[name=profilename]').val(),
+            'email'             : $('input[name=email]').val(),
+            'svnusername'              : $('input[name=svnusername]').val(),
+            'svnpassword'             : $('input[name=svnpassword]').val()
+        };
+
+        // process the form
+        $.ajax({
+                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url         : baseUrl + '/login', // the url where we want to POST
+                data        : formData, // our data object
+                dataType    : 'json', // what type of data do we expect back from the server
+                encode          : true
+            })
+            // using the done promise callback
+            .done(function(data) {
+
+                if(data.status === 200){
+                    console.log('success');
+                    post(baseUrl + '/login/', {}, 'post');
+                } else {
+                    console.log('fail');
+                    alert(data.message);
+                }
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+    });
+
 });
 
 /**

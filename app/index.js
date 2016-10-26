@@ -12,6 +12,7 @@ var automationApp = angular.module('automationApp', [
 'automationApp.core',
 'automationApp.sidebar',
 'automationApp.scriptor',
-'automationApp.runner'
+'automationApp.runner',
+'automationApp.users'
 ]);
 

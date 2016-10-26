@@ -194,7 +194,7 @@ angular.module('automationApp.scriptor')
         };
 
         var getUserDetails = function(username) {
-            var userDetails = $http.get('/api/user/'+username);
+            var userDetails = $http.get('/api/users/'+username);
 
             var deferred = $q.defer();
             deferred.resolve(userDetails);
