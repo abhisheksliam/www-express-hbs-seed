@@ -56,6 +56,7 @@ module.exports = function(passport) {
                                 // Remove sensitive data before replying
                                 newUser.password = undefined;
                                 newUser.salt = undefined;
+                                newUser.profile.svn_credentials.password = undefined;
                                 return done(null, newUser);
                             })
                         } else {

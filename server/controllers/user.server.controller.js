@@ -20,21 +20,25 @@ exports.getUser = function (req, res) {
         }
         var decipher = crypto.createDecipher('aes256', 'password');
         user.profile.svn_credentials.password = decipher.update(user.profile.svn_credentials.password, 'hex', 'utf8') + decipher.final('utf8');
+        user.password = undefined;
+        user.salt = undefined;
+        
         res.json(user);
     });
 };
 
 exports.updateUserDetails = function (req, res) {
-    var cipher = crypto.createCipher('aes256', 'password');
     var user = new Users();
     user.username = req.params.user_name;
     user.profile.name = req.body.name;
     user.profile.email = req.body.email;
     user.profile.svn_credentials = {};
     user.profile.svn_credentials.username = req.body.svnusername;
-    user.profile.svn_credentials.password = cipher.update(req.body.svnpassword, 'utf8', 'hex') + cipher.final('hex');
 
-    Users.findOneAndUpdate({username: req.params.user_name}, {$set: {"profile.name" : user.profile.name, "profile.email" : user.profile.email, "profile.svn_credentials.username" : user.profile.svn_credentials.username, "profile.svn_credentials.password" : user.profile.svn_credentials.password}}, function(err, doc){
+    //var cipher = crypto.createCipher('aes256', 'password');
+    //user.profile.svn_credentials.password = cipher.update(req.body.svnpassword, 'utf8', 'hex') + cipher.final('hex');
+
+    Users.findOneAndUpdate({username: req.params.user_name}, {$set: {"profile.name" : user.profile.name, "profile.email" : user.profile.email, "profile.svn_credentials.username" : user.profile.svn_credentials.username}}, function(err, doc){
         if (err) {
             res.json({
                 "errors": {
@@ -43,7 +47,7 @@ exports.updateUserDetails = function (req, res) {
                 }
             });
         }
-        console.log(doc);
+
         res.json(doc);
     });
 };
