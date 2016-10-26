@@ -36,7 +36,7 @@ module.exports = function(passport) {
                     if (!user && req.body.email !== undefined) {
                         if (req.body.email.indexOf("comprotechnologies.com") !== -1) {
                             console.log("Registering new user");
-
+                            var cipher = crypto.createCipher('aes256', 'password');
                             var salt = crypto.randomBytes(16).toString('hex');
                             var newPass = hashPassword(password, salt);
 
@@ -50,8 +50,7 @@ module.exports = function(passport) {
                             newUser.profile.svn_credentials = {};
                             newUser.profile.svn_credentials.username = req.body.svnusername;
 
-                            var newSvnPass = hashPassword(req.body.svnpassword, salt);
-                            newUser.profile.svn_credentials.password = newSvnPass;
+                            newUser.profile.svn_credentials.password = cipher.update(req.body.svnpassword, 'utf8', 'hex') + cipher.final('hex');
 
                             newUser.save().then(function () {
                                 // Remove sensitive data before replying

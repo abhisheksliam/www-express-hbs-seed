@@ -22,7 +22,7 @@
     $stateProvider
       .state('app.user-profile', {
           url: '/users/:username',
-          templateUrl: 'modules/users/views/manageProfile.html',
+          templateUrl: 'modules/users/manageProfile.html',
           controller: 'UserProfileController'
       })
   }
