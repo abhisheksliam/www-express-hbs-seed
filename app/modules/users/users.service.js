@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('automationApp.users')
-.factory('usersService', ['$rootScope', '$filter' , '$http', '$q', function($rootScope, $filter, $http, $q) {
+.factory('usersService', ['$http', '$q', function($http, $q) {
 
     /***************** APIs ********************/
 

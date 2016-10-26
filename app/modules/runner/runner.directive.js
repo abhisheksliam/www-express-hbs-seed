@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module('automationApp.runner')
-    .directive('runnerLauncher', ['$timeout', '$http', '$rootScope', 'scriptorService', function($timeout, $http, $rootScope, scriptorService) {
+    .directive('runnerLauncher', ['$timeout', '$http', '$rootScope', 'scriptorService', 'usersService', function($timeout, $http, $rootScope, scriptorService, usersService) {
         return {
             restrict: 'A',
             templateUrl: 'modules/runner/runnerLauncher.tpl.html',
@@ -506,7 +506,7 @@ angular.module('automationApp.runner')
 
                         if (commit) {   // for commit
 
-                            scriptorService.getUserDetails(username).then(function(res) {
+                            usersService.getUserDetails(username).then(function(res) {
                                 if(res.data.errors){
                                     $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
                                 }
