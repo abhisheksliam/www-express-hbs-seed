@@ -193,14 +193,6 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
-        var getUserDetails = function(username) {
-            var userDetails = $http.get('/api/users/'+username);
-
-            var deferred = $q.defer();
-            deferred.resolve(userDetails);
-            return deferred.promise;
-        };
-
         var getLocalStorageValue = function(lsmKey) {
 
             var lsmValue =   JSON.parse(localStorage.getItem(lsmKey));
@@ -235,7 +227,6 @@ angular.module('automationApp.scriptor')
         "saveXpath": saveXpath,
         "getApplicationXpathList": getApplicationXpathList,
         "getXpathArrayList": getXpathArrayList,
-        "getUserDetails": getUserDetails,
         "getLocalStorageValue": getLocalStorageValue,
         "setLocalStorageValue": setLocalStorageValue
     };
