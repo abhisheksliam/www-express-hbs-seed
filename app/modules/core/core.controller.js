@@ -60,6 +60,12 @@ AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'bu
 		  $('.noty_inline_layout_container').delay(3000).fadeOut(1600);
 	  };
 
+	  $rootScope.$on('SCRIPTOR_LOAD_TASK', function(event, res) {
+		  scriptorService.taskContent = res.data.task_json;
+		  $state.go('app.script-editor',  {id: res.data.task_id});
+		  $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
+	  });
+
 	  $rootScope.showNotify = $scope.showNotify;
 
 	  $rootScope.validateTaskId = $scope.validateTaskId;
