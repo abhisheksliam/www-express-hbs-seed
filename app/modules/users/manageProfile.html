@@ -1,0 +1,74 @@
+<div class="col-md-12">
+	<div class="panel panel-default no-bd">
+		<div class="panel-header">
+			<h2 class="panel-title">Manage Profile</h2>
+		</div>
+		<div class="panel-body bg-white">
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<form role="form" class="form-validation" novalidate="novalidate">
+
+						<div class="row">
+							<div class="col-sm-12">
+
+							<div class="form-group">
+								<label class="control-label">Username</label>
+								<div class="append-icon">
+									<input type="text" name="username" class="form-control" ng-model="user.username" minlength="3" readonly="readonly" placeholder="Minimum 3 characters..." required="" aria-required="true">
+									<i class="icon-user"></i>
+								</div>
+							</div>
+
+							<!--<div class="form-group">
+								<label class="control-label">Password</label>
+								<div class="append-icon">
+									<input type="password" name="password" id="password" ng-model="user.password" class="form-control" placeholder="Between 4 and 16 characters" minlength="4" maxlength="16" required="" aria-required="true">
+									<i class="icon-lock"></i>
+								</div>
+							</div>-->
+
+								<div class="form-group">
+									<label class="control-label">Email Address</label>
+									<div class="append-icon">
+										<input type="email" name="email" ng-model="user.profile.email" class="form-control" placeholder="Enter your email..." required="" aria-required="true">
+										<i class="icon-envelope"></i>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Display Username</label>
+									<div class="append-icon">
+										<input type="text" name="username" class="form-control" ng-model="user.profile.name" minlength="3" placeholder="Minimum 3 characters..." required="" aria-required="true">
+										<i class="icon-user"></i>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">SVN Username</label>
+									<div class="append-icon">
+										<input type="text" name="svnusername" ng-model="user.profile.svn_credentials.username" class="form-control" minlength="4" placeholder="Minimum 4 characters..." required="" aria-required="true">
+										<i class="icon-user"></i>
+									</div>
+								</div>
+
+								<!--<div class="form-group">
+									<label class="control-label">SVN Password</label>
+									<div class="append-icon">
+										<input type="password" name="svnpassword" id="svnpassword" ng-model="user.profile.svn_credentials.password" class="form-control" placeholder="Must be equal to your first password..." minlength="4" maxlength="16" required="" aria-required="true">
+										<i class="icon-lock"></i>
+									</div>
+								</div>-->
+
+							</div>
+						</div>
+
+						<div class="text-right  m-t-20">
+							<button type="submit" class="btn btn-embossed btn-primary" ng-click="updateUser()">Update</button>
+							<!--<button type="reset" class="cancel btn btn-embossed btn-default m-b-10 m-r-0">Cancel</button>-->
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
