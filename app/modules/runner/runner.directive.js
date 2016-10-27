@@ -737,7 +737,7 @@ angular.module('automationApp.runner')
                         var xpathsToCommit = []
                         if (xpaths.data.length){
                             for(var i in xpaths.data) {
-                                var _temp = (xpaths.data[i].xpath.key.trim()).replace(/ /g, "\\ ") + ' = ' + (xpaths.data[i].xpath.value.trim()).replace(/ /g, "\\ ");
+                                var _temp = (xpaths.data[i].xpath.key.trim()) + ' = ' + (xpaths.data[i].xpath.value.trim());
                                 xpathsToCommit.push(_temp)
                             }
                         }
