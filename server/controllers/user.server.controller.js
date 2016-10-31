@@ -40,7 +40,7 @@ exports.updateUserDetails = function (req, res) {
     ciph += cipher.final('hex');
     user.profile.svn_credentials.password = ciph;
 
-    Users.findOneAndUpdate({username: req.params.user_name}, {$set: {"profile.name" : user.profile.name, "profile.email" : user.profile.email, "profile.svn_credentials.username" : user.profile.svn_credentials.username}}, function(err, doc){
+    Users.findOneAndUpdate({username: req.params.user_name}, {$set: {"profile.name" : user.profile.name, "profile.email" : user.profile.email, "profile.svn_credentials.username" : user.profile.svn_credentials.username, "profile.svn_credentials.password" : user.profile.svn_credentials.password}}, function(err, doc){
         if (err) {
             res.json({
                 "errors": {
