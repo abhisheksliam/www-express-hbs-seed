@@ -171,7 +171,7 @@ angular.module('automationApp.scriptor')
         };
 
         var getApplicationXpathList = function(appType) {
-            var xpathList = $http.get('/api/xpaths/'+appType);
+            var xpathList = $http.get('/open/xpaths/'+appType);
 
             var deferred = $q.defer();
             deferred.resolve(xpathList);
@@ -209,7 +209,7 @@ angular.module('automationApp.scriptor')
         };
 
         var getTaskXpaths = function(task_id) {
-            var userDetails = $http.get('/api/xpaths/apps/task/'+task_id);
+            var userDetails = $http.get('/api/xpaths/task/tagged/'+task_id);
 
             var deferred = $q.defer();
             deferred.resolve(userDetails);
