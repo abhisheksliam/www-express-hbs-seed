@@ -35,10 +35,12 @@ exports.updateUserDetails = function (req, res) {
     user.profile.svn_credentials = {};
     user.profile.svn_credentials.username = req.body.svnusername;
 
-    //var cipher = crypto.createCipher('aes256', 'password');
-    //user.profile.svn_credentials.password = cipher.update(req.body.svnpassword, 'utf8', 'hex') + cipher.final('hex');
+    var cipher = crypto.createCipher('aes256', 'password');
+    var ciph = cipher.update(req.body.svnpassword, 'utf8', 'hex');
+    ciph += cipher.final('hex');
+    user.profile.svn_credentials.password = ciph;
 
-    Users.findOneAndUpdate({username: req.params.user_name}, {$set: {"profile.name" : user.profile.name, "profile.email" : user.profile.email, "profile.svn_credentials.username" : user.profile.svn_credentials.username}}, function(err, doc){
+    Users.findOneAndUpdate({username: req.params.user_name}, {$set: {"profile.name" : user.profile.name, "profile.email" : user.profile.email, "profile.svn_credentials.username" : user.profile.svn_credentials.username, "profile.svn_credentials.password" : user.profile.svn_credentials.password}}, function(err, doc){
         if (err) {
             res.json({
                 "errors": {
