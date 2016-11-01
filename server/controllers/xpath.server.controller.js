@@ -5,7 +5,7 @@
 
 const router = require('express').Router();
 var Xpath     = require('./../models/app.server.models.xpath');
-//var cacheService = require('./../services/cache.server.service')
+var cacheService = require('./../services/cache.server.service');
 
 /**
  *
@@ -69,7 +69,7 @@ exports.addXpath = function (req, res) {
 
                         doc.tags = req.body.tags;
                         doc.xpath.value = req.body.xpath.value;
-                        //updateApplicationXpathCache(req.body.app_type, function(){});
+                        updateApplicationXpathCache(req.body.app_type, function(){});
 
                         res.json(doc);
                     });
@@ -85,7 +85,7 @@ exports.addXpath = function (req, res) {
                         }
                     });
                 }
-                //updateApplicationXpathCache(req.body.app_type, function(){});
+                updateApplicationXpathCache(req.body.app_type, function(){});
                 res.json(xpathData);
             });
         }
@@ -107,7 +107,7 @@ exports.getXpaths = function (req, res) {
 
 };
 
-/*exports.getApplicationXpaths = function (req, res) {
+exports.getApplicationXpaths = function (req, res) {
 
     // check value in redis - return if not null else get from database and return
     var cacheKey = 'xpath-'+req.params.app_type.trim();
@@ -123,12 +123,12 @@ exports.getXpaths = function (req, res) {
                         }
                     });
                 }
-                //updateApplicationXpathCache(req.params.app_type, function(){});
+                updateApplicationXpathCache(req.params.app_type, function(){});
                 res.json(xpathList);
             });
         }
     });
-};*/
+};
 
 exports.getApplicationXpathValue = function (req, res) {
     Xpath.find({$and: [
@@ -163,7 +163,6 @@ exports.getTaskXpaths = function (req, res) {
         res.json(xpathList);
     });
 };
-/*
 function updateApplicationXpathCache (app_type, done) {
     var cacheKey = 'xpath-'+ app_type.trim();
 
@@ -172,7 +171,7 @@ function updateApplicationXpathCache (app_type, done) {
             done(err);
         }
 
-        cacheService.setCacheObject(cacheKey, xpathList);
+        cacheService.setCacheObject(cacheKey, JSON.stringify(xpathList));
         done();
     });
-};*/
+};

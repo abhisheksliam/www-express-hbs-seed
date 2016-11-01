@@ -13,7 +13,7 @@ var openrouter = express.Router();
 openrouter.get('/xpaths', xpathController.getXpaths);
 
 // get xpath for app_type
-//openrouter.get('/xpaths/:app_type', xpathController.getApplicationXpaths);
+openrouter.get('/xpaths/:app_type', xpathController.getApplicationXpaths);
 
 // get xpath: by key + app_type
 openrouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpathValue);
