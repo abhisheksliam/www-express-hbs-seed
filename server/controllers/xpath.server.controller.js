@@ -5,6 +5,7 @@
 
 const router = require('express').Router();
 var Xpath     = require('./../models/app.server.models.xpath');
+//var cacheService = require('./../services/cache.server.service')
 
 /**
  *
@@ -68,6 +69,8 @@ exports.addXpath = function (req, res) {
 
                         doc.tags = req.body.tags;
                         doc.xpath.value = req.body.xpath.value;
+                        //updateApplicationXpathCache(req.body.app_type, function(){});
+
                         res.json(doc);
                     });
 
@@ -82,6 +85,7 @@ exports.addXpath = function (req, res) {
                         }
                     });
                 }
+                //updateApplicationXpathCache(req.body.app_type, function(){});
                 res.json(xpathData);
             });
         }
@@ -103,19 +107,28 @@ exports.getXpaths = function (req, res) {
 
 };
 
-exports.getApplicationXpaths = function (req, res) {
-    Xpath.find({'app_type': req.params.app_type},function(err, xpathList) {
-        if (err) {
-            res.json({
-                "errors": {
-                    "errorMessage": err,
-                    "errorCode": "PROCESSING_ERROR"
+/*exports.getApplicationXpaths = function (req, res) {
+
+    // check value in redis - return if not null else get from database and return
+    var cacheKey = 'xpath-'+req.params.app_type.trim();
+    cacheService.getCacheObject(cacheKey, function(data){
+        if (data) {res.json(data);}
+        else {
+            Xpath.find({'app_type': req.params.app_type},function(err, xpathList) {
+                if (err) {
+                    res.json({
+                        "errors": {
+                            "errorMessage": err,
+                            "errorCode": "PROCESSING_ERROR"
+                        }
+                    });
                 }
+                //updateApplicationXpathCache(req.params.app_type, function(){});
+                res.json(xpathList);
             });
         }
-        res.json(xpathList);
     });
-};
+};*/
 
 exports.getApplicationXpathValue = function (req, res) {
     Xpath.find({$and: [
@@ -150,7 +163,16 @@ exports.getTaskXpaths = function (req, res) {
         res.json(xpathList);
     });
 };
+/*
+function updateApplicationXpathCache (app_type, done) {
+    var cacheKey = 'xpath-'+ app_type.trim();
 
-exports.updateApplicationXpath = function (req, res) {
+    Xpath.find({'app_type': app_type},function(err, xpathList) {
+        if (err) {
+            done(err);
+        }
 
-};
+        cacheService.setCacheObject(cacheKey, xpathList);
+        done();
+    });
+};*/
