@@ -31,7 +31,7 @@ angular.module('automationApp.runner')
                             scope.brversion = userRunConfig.defaults.brversion;
                             scope.appurl = userRunConfig.defaults.appurl;
                             scope.screenresolution = userRunConfig.defaults.screenresolution;
-                            scope.brnode = userRunConfig.defaults.username;
+                            scope.brnode = userRunConfig.defaults.brnode;
                             scope.simsbuild = userRunConfig.defaults.simsbuild;
 
                         } else {
