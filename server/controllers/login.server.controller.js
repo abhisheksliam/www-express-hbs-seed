@@ -7,7 +7,7 @@ const passport = require('passport');
 var https = require('https');
 
 var getUserPassword = function(email, callback){
-    console.log('getting google user details from db');
+    logger.info('getting google user details from db');
     Users.findOne({'profile.email': email}, function(err, user) {
         if(user){
             callback(user.username,user.password);
@@ -35,18 +35,18 @@ var googleLogin = function (req,done,er) {
             str += chunk;
             var email = JSON.parse(str).email;
             getUserPassword(email, function(username,password){
-                console.log(username);
+                logger.info(username);
                 done({username:username, password: password, error: (username === null)});
             });
         });
 
         response.on('error', function(err) {
-            console.log('error');
+            logger.error('error');
             er({error: true});
         });
 
         response.on('end', function () {
-            console.log('end');
+            logger.info('end');
         });
     };
 
@@ -57,19 +57,19 @@ var googleLogin = function (req,done,er) {
 exports.userLoginHandler = function(req, res) {
 
     if(req.isAuthenticated()){
-        console.log('request authenticated');
+        logger.info('request authenticated');
         res.redirect('/');
     }
     else if (req.body.id_token !== null && req.body.id_token !== undefined){
-        console.log('request authenticated google');
+        logger.info('request authenticated google');
         req.body.username = 'test';
         req.body.password = 'test';
 
         googleLogin(req,
             function(_res){
-                console.log('authenticating google user from db');
+                logger.info('authenticating google user from db');
                 if (_res.error === true) {
-                    console.log('sending error 403');
+                    logger.error('sending error 403');
                     return res.send({
                         status: 403,
                         message: 'Invalid User!'
@@ -86,7 +86,7 @@ exports.userLoginHandler = function(req, res) {
                 }
             },
             function(_error){
-                console.log(_error);
+                logger.error(_error);
                 return res.send({
                     status: 403,
                     message: 'Error in google authentication!'
@@ -95,7 +95,7 @@ exports.userLoginHandler = function(req, res) {
         )
     }
     else {
-        console.log('authenticating username and password from db');
+        logger.info('authenticating username and password from db');
         passport.authenticate('local')(req, res, function (err) {
             return res.send({
                 status: (err !== undefined && err !== null) ? 403 : 200,

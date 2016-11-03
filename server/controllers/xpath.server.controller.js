@@ -149,8 +149,6 @@ exports.getApplicationXpathValue = function (req, res) {
 };
 
 exports.getTaskXpaths = function (req, res) {
-    console.log(req);
-    console.log(req.params.task_id);
     Xpath.find({'tags': req.params.task_id},function(err, xpathList) {
         if (err) {
             res.json({
@@ -163,6 +161,7 @@ exports.getTaskXpaths = function (req, res) {
         res.json(xpathList);
     });
 };
+
 function updateApplicationXpathCache (app_type, done) {
     var cacheKey = 'xpath-'+ app_type.trim();
 
