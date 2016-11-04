@@ -46,18 +46,19 @@ angular.module('automationApp.sidebar')
                         scope.headerText = 'Export Script';
                         scope.confirmText = 'Export';
                         scope.load = false;
-                    } else if(listItem.data('context') == 'exportAll') {
-                        scope.mode = 'exportAll';
-                        scope.headerText = 'Export Task Files (JSON, XML, JAVA)';
-                        scope.confirmText = 'Export';
-                        scope.load = false;
-                    } else if(listItem.data('context') == 'load') {
+                    }else if(listItem.data('context') == 'load') {
                         scope.headerText = 'Load Existing Script';
                         scope.confirmText = 'Load';
                         scope.load = true;
                         jsonQueryParam = undefined;
                     }
-                    /*else if(listItem.data('context') == 'preview') {
+
+                    /* else if(listItem.data('context') == 'exportAll') {
+                     scope.mode = 'exportAll';
+                     scope.headerText = 'Export Task Files (JSON, XML, JAVA)';
+                     scope.confirmText = 'Export';
+                     scope.load = false;
+                     } else if(listItem.data('context') == 'preview') {
                         scope.mode = 'preview';
                         scope.headerText = 'Preview XML';
                         scope.confirmText = 'Preview';
@@ -132,9 +133,6 @@ angular.module('automationApp.sidebar')
 
                                             $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
                                         } else if(scope.mode == 'export'){
-
-                                            download(JSON.stringify(res.data), scope.taskId + ".json", "text/plain");
-                                        } else if(scope.mode == 'exportAll') {
 
                                             download(JSON.stringify(res.data), scope.taskId + ".json", "text/plain");
 

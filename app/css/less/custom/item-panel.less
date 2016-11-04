@@ -198,7 +198,7 @@
       background-color: #c5e4eb !important;
     }
 
-    .panel-copy, .panel-edit {
+    .panel-copy, .panel-edit, .select-trigger {
       cursor: default;
       color: lightgray !important;
     }
@@ -456,12 +456,21 @@ ul.ui-autocomplete {
   li {
     padding: 3px 10px;
     cursor: pointer;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
   li:hover {
     background-color: @tm-primary;
     color: #fff;
   }
 }
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
+  cursor: pointer;
+  background: @tm-primary;
+  color: #fff;
+}
+
 
 #item-panel {
   .item-text {
