@@ -8,8 +8,8 @@ exports.transformPathwaysNewFormat=function (scriptData) {
     var array = _.map(scriptData.task_json[1], function(value, index) {
         if(index%2 == 0) {
 
-            var pathwayArr = _.map(value, function(innenrValue, innerIndex) {
-                return innenrValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
+            var pathwayArr = _.map(value, function(innerValue, innerIndex) {
+                return innerValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
             });
 
             return {"pathway" : pathwayArr}
@@ -41,12 +41,11 @@ exports.transformPathwaysOldFormat=function (scriptData) {
         var array2 = [];
 
         _.map(scriptData[1], function(value, index) {
-            var pathwayArr = _.map(value.pathway, function(innenrValue, innerIndex) {
-                return innenrValue.replace('/', ',');
+            var pathwayArr = _.map(value.pathway, function(innerValue, innerIndex) {
+                return '"' + innerValue.replace('/', '","') + '"';
             });
             array2.push(pathwayArr);
-            array2.push(value.group);
-
+            array2.push('"' + value.group.toString().replace(/,/g, '","').replace(/ /g, "") + '"');
             return value;
         });
 
@@ -173,7 +172,7 @@ exports.jsonToDistJava = function(scriptData) {
                     var runJ = '';
 
                     var preJin = '\n    ' +
-                        '@Test (groups = {"' + pathwayListData[q+1] + '"})' +
+                        '@Test (groups = {' + pathwayListData[q+1] + '})' +
                         'public void ' +
                         ((taskData.id).replace(/\./gi, "_")).trim()
                         +
@@ -189,7 +188,7 @@ exports.jsonToDistJava = function(scriptData) {
                         runJ = runJ + 'executeItem(' +
                             '"' + taskData.id.trim() + '.' + taskData.scenario.trim() + '", ' +
                             '"' + taskData.scenario.trim() + '", ' +
-                            '"' + arrayItem2.toString().split(',').join('","') + '"' +
+                            '' + arrayItem2 +
                             ');';
                     });
 
