@@ -35,7 +35,7 @@ var googleLogin = function (req,done,er) {
             str += chunk;
             var email = JSON.parse(str).email;
             getUserPassword(email, function(username,password){
-                logger.info(username);
+                logger.info('User login : ' + username);
                 done({username:username, password: password, error: (username === null)});
             });
         });
@@ -46,7 +46,7 @@ var googleLogin = function (req,done,er) {
         });
 
         response.on('end', function () {
-            logger.info('end');
+            //logger.info('end');
         });
     };
 
@@ -57,19 +57,19 @@ var googleLogin = function (req,done,er) {
 exports.userLoginHandler = function(req, res) {
 
     if(req.isAuthenticated()){
-        logger.info('request authenticated');
+        //logger.info('request authenticated');
         res.redirect('/');
     }
     else if (req.body.id_token !== null && req.body.id_token !== undefined){
-        logger.info('request authenticated google');
+        //logger.info('request authenticated google');
         req.body.username = 'test';
         req.body.password = 'test';
 
         googleLogin(req,
             function(_res){
-                logger.info('authenticating google user from db');
+                logger.info('Authenticating google user details from Database');
                 if (_res.error === true) {
-                    logger.error('sending error 403');
+                    logger.error('Sending error 403');
                     return res.send({
                         status: 403,
                         message: 'Invalid User!'
@@ -95,7 +95,7 @@ exports.userLoginHandler = function(req, res) {
         )
     }
     else {
-        logger.info('authenticating username and password from db');
+        logger.info('Authenticating username and password from Database');
         passport.authenticate('local')(req, res, function (err) {
             return res.send({
                 status: (err !== undefined && err !== null) ? 403 : 200,

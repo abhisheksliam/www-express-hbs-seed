@@ -7,23 +7,23 @@ var webrouter = express.Router();
 
 webrouter.get('/', function(req, res) {
     if(req.isAuthenticated()){
-        console.log('request authenticated');
+        //logger.info('request authenticated');
         res.setHeader('Cache-control', ['no-cache','no-store','must-revalidate']);
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
         res.render('index',{ username: req.user.username, name: req.user.profile.name });
     }else{
-        console.log('request not authenticated');
+        logger.warn('request not authenticated');
         res.redirect('/login');
     }
 });
 
 webrouter.get('/login', function(req, res) {
     if(req.isAuthenticated()){
-        console.log('request authenticated');
+        //logger.info('request authenticated');
         res.redirect('/');
     }else{
-        console.log('request not authenticated');
+        logger.warn('request not authenticated');
         res.setHeader('Cache-control', ['no-cache','no-store','must-revalidate']);
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
@@ -34,7 +34,7 @@ webrouter.get('/login', function(req, res) {
 webrouter.post('/login', loginController.userLoginHandler);
 
 webrouter.get('/logout', function(req, res){
-    console.log('logging out');
+    logger.info('logging out user.');
     req.session.destroy(function (err) {
         res.redirect('/login');
     });

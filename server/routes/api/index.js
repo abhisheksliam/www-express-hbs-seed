@@ -7,7 +7,7 @@ var loginController = require('../../controllers/login.server.controller');
 
 // Middleware for all this apirouters requests
 apirouter.use(function timeLog(req, res, next) {
-  console.log('Request Received: ', dateDisplayed(Date.now()));
+  logger.info('Request Received: ', dateDisplayed(Date.now()));
   next();
 });
 
