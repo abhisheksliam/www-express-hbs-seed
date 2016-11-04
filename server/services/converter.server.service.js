@@ -173,7 +173,7 @@ exports.jsonToDistJava = function(scriptData) {
                     var runJ = '';
 
                     var preJin = '\n    ' +
-                        '@Test (groups = {"' + pathwayListData[q+1] + '"})' +
+                        '@Test (groups = {"' + pathwayListData[q+1].toString().split(',').join('","').replace(" ", "") + '"})' +
                         'public void ' +
                         ((taskData.id).replace(/\./gi, "_")).trim()
                         +
