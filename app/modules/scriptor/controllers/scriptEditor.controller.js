@@ -4,6 +4,7 @@ angular.module('automationApp.scriptor')
 	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$state', '$filter',
 		function($stateParams, $rootScope, $scope, scriptorService, $state, $filter) {
 
+            $rootScope.runnerIcon = true;
             $rootScope.taskId = $scope.taskId = $filter('uppercase')($stateParams.id);
 
             if ($.isEmptyObject(scriptorService.taskContent) || $rootScope.globalConstants === undefined) {
@@ -53,6 +54,7 @@ angular.module('automationApp.scriptor')
                 scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
                     $rootScope.xpathArrayList = res;
                     $rootScope.getXPathForElement = scriptorService.getXPathForElement;
+                    $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
                 });
 
                 scriptorService.getTriggerSuggestions().then(function(res) {

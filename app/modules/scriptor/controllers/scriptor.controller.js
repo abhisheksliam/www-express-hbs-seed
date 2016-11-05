@@ -4,6 +4,7 @@ angular.module('automationApp.scriptor')
 	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
+            $rootScope.runnerIcon = false;
             $scope.taskId = "";
             $scope.copy_task_id = "";
             scriptorService.taskContent = {};
@@ -80,7 +81,7 @@ angular.module('automationApp.scriptor')
                                                         else {
                                                             scriptorService.taskContent = res.data.task_json;
                                                             $state.go('app.script-editor',  {id: res.data.task_id});
-                                                            $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
+                                                            $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task updated successfully !' + '</p></div>');
                                                         }
                                                     });
                                                 }
@@ -92,7 +93,7 @@ angular.module('automationApp.scriptor')
                                 } else{
                                     scriptorService.taskContent = res.data.task_json;
                                     $state.go('app.script-editor',  {id: res.data.task_id});
-                                    $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data updated successfully !' + '</p></div>');
+                                    $scope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task Created successfully !' + '</p></div>');
                                 }
                             });
                         }
