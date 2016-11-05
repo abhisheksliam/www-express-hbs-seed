@@ -124,7 +124,7 @@ angular.module('automationApp.scriptor')
             return deferred.promise;
         };
 
-        var updateTaskScript = function(app_key, scenario, task_id, sle_id, copy_task_id, template, username) {
+        var updateTaskScript = function(app_key, scenario, task_id, sle_id, copy_task_id, template, ingest_json, username) {
             var updateTask = $http.put('/api/tasks/', {
                 "app_key" : app_key,
                 "scenario" : scenario,
@@ -132,6 +132,7 @@ angular.module('automationApp.scriptor')
                 "sle_id": sle_id,
                 "template" : template,
                 "copy_task_id": copy_task_id,
+                "ingest_json": ingest_json,
                 "modified_by" : {
                     "name" : username
                 }
