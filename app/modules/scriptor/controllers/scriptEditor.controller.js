@@ -4,6 +4,7 @@ angular.module('automationApp.scriptor')
 	.controller('ScriptEditorController', ['$stateParams', '$rootScope', '$scope', 'scriptorService', '$state', '$filter',
 		function($stateParams, $rootScope, $scope, scriptorService, $state, $filter) {
 
+            $rootScope.runnerIcon = true;
             $rootScope.taskId = $scope.taskId = $filter('uppercase')($stateParams.id);
 
             if ($.isEmptyObject(scriptorService.taskContent) || $rootScope.globalConstants === undefined) {
