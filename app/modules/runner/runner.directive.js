@@ -207,6 +207,60 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
+                    var publishSvntaskValidation = function() {
+                        scope.errorList = [];
+
+                        if(scope.items[0].items !== undefined && scope.items[1]!== undefined) {
+                            var totItem = scope.items[0].items.length;
+                            for(var i=0; i<scope.items[1].length; i++) {
+                                // check1: number of items in scriptor should be equal to number of pathway methods in runner
+                                if(totItem == scope.items[1][i].pathway.length) {
+                                    for(var m=0; m < scope.items[1][i].pathway.length; m++) {
+
+                                        //check2: method number must be a valid number
+                                        var methNum = (scope.items[1][i].pathway[m].split("/")[1]) - 1;
+                                        if(scope.items[0].items[m].methods[methNum] !== undefined) {  // check if method exists in task json
+                                        }
+                                        else {
+                                            scope.errorList.push("Method-" + (methNum+1) + " doesn't exists for Item-" + (m+1) + " in Pathway-" + (i+1));
+                                            // pathway contains method but doesnot exists in item
+                                        }
+
+                                    }
+                                }
+                                else {
+                                    scope.errorList.push("Incorrect number of items in pathway-" + (i+1));
+                                }
+                            }
+
+                            // check 3: parse method of each item in task json for action validation
+                            for(var iNum=0; iNum < scope.items[0].items.length; iNum++) {  // item loop
+                                for(var mNum=0; mNum < scope.items[0].items[iNum].methods.length; mNum++) {  // method loop
+
+                                    if(scope.items[0].items[iNum].methods[mNum].actions.length >=1) {
+
+                                        for(var actNum=0; actNum < scope.items[0].items[iNum].methods[mNum].actions.length; actNum++) {  // // action loop
+                                            for(var valNum=0; valNum<scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"].length; valNum++) { // action VALUES LOOP
+                                                var actVal = scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"][valNum];
+                                                if(actVal == undefined || actVal==null || actVal=='') {
+                                                    scope.errorList.push("Blank elements found in Item-" + (iNum+1) +
+                                                    ":Method-" + (mNum+1) + ":Action-" + (actNum+1));
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else {
+                                        scope.errorList.push("No action exists for Item-" + (iNum+1) + ":Method-" + (mNum+1));
+                                    }
+                                }
+                            }
+
+
+                        } else {
+                            scope.errorList = undefined;
+                        }
+                    };
+
 
                     element.on('click',".add-pathway",function(event) {
                         event.preventDefault();
@@ -259,55 +313,53 @@ angular.module('automationApp.runner')
                     element.on('click',".generate-pathway",function(event) {
                         event.preventDefault();
 
-                        var itemArr = scope.items[0].items;
-                        var methodMaxCount = itemArr[0].methods.length;
+                            var itemArr = scope.items[0].items;
+                            var methodMaxCount = itemArr[0].methods.length;
 
-                        for(var i=1; i < itemArr.length; i++) {
-                            if(methodMaxCount < itemArr[i].methods.length)
-                                methodMaxCount = itemArr[i].methods.length;
-                        }
-
-                        var pathwaySet = [];
-                        for(var c=0; c<methodMaxCount; c++)
-                        {
-                            var pathwayObj = {group: '', pathway:[]};
-                            var grpArr = [];
-                            var isPrimary = '';
-                            grpArr.push('Primary');
-                            for(var r=0; r<itemArr.length; r++)
-                            {
-                                isPrimary += (r+1) + '/' + '1,';
-                                if(itemArr[r].methods[c] === undefined) {
-                                    if(grpArr.indexOf(itemArr[r].methods[0].type) === -1 ) {
-                                        grpArr.push(itemArr[r].methods[0].type);
-                                    }
-                                    pathwayObj.pathway.push((r+1) + '/' + '1');
-                                }
-                                else {
-                                    if(grpArr.indexOf(itemArr[r].methods[c].type) === -1 ) {
-                                        grpArr.push(itemArr[r].methods[c].type);
-                                    }
-                                    pathwayObj.pathway.push((r+1) + '/' + (c+1));
-                                }
+                            for (var i = 1; i < itemArr.length; i++) {
+                                if (methodMaxCount < itemArr[i].methods.length)
+                                    methodMaxCount = itemArr[i].methods.length;
                             }
-                            if(!(isPrimary == (pathwayObj.pathway.join() + ','))) {
-                                grpArr.shift();
+
+                            var pathwaySet = [];
+                            for (var c = 0; c < methodMaxCount; c++) {
+                                var pathwayObj = {group: '', pathway: []};
+                                var grpArr = [];
+                                var isPrimary = '';
+                                grpArr.push('Primary');
+                                for (var r = 0; r < itemArr.length; r++) {
+                                    isPrimary += (r + 1) + '/' + '1,';
+                                    if (itemArr[r].methods[c] === undefined) {
+                                        if (grpArr.indexOf(itemArr[r].methods[0].type) === -1) {
+                                            grpArr.push(itemArr[r].methods[0].type);
+                                        }
+                                        pathwayObj.pathway.push((r + 1) + '/' + '1');
+                                    }
+                                    else {
+                                        if (grpArr.indexOf(itemArr[r].methods[c].type) === -1) {
+                                            grpArr.push(itemArr[r].methods[c].type);
+                                        }
+                                        pathwayObj.pathway.push((r + 1) + '/' + (c + 1));
+                                    }
+                                }
+                                if (!(isPrimary == (pathwayObj.pathway.join() + ','))) {
+                                    grpArr.shift();
+                                }
+                                pathwayObj.group = grpArr.join(', ');
+                                pathwaySet.push(pathwayObj);
                             }
-                            pathwayObj.group = grpArr.join(', ');
-                            pathwaySet.push(pathwayObj);
-                        }
 
-                        scope.items[1] = pathwaySet;
+                            scope.items[1] = pathwaySet;
 
-                        scope.$apply();
+                            scope.$apply();
 
-                        if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
-                            $(".run-pathway").removeAttr("disabled");
-                            $(".run-pathway").removeClass("disabled");
-                            $(".default-pathway-text").hide();
-                            $(".publish-svn").removeAttr("disabled");
-                            $(".publish-svn").removeClass("disabled");
-                        }
+                            if (scope.items[1] !== undefined && scope.items[1].length !== 0) {
+                                $(".run-pathway").removeAttr("disabled");
+                                $(".run-pathway").removeClass("disabled");
+                                $(".default-pathway-text").hide();
+                                $(".publish-svn").removeAttr("disabled");
+                                $(".publish-svn").removeClass("disabled");
+                            }
                         event.stopPropagation();
                     });
 
@@ -348,104 +400,65 @@ angular.module('automationApp.runner')
                     element.on('click',".run-pathway",function(event) {
                         event.preventDefault();
 
-                        /**
-                         * Update user run config to lsm
-                         */
+                        publishSvntaskValidation();
 
-                        scriptorService.setLocalStorageValue('userRunConfig',JSON.stringify(getUserConfigObject()));
+                        if(scope.errorList.length > 0) {
+                            scope.errorTitle = "Run Pathways failed due to following errors:";
+                            $('.err-list').removeClass("hide");
+                            $(".err-list").addClass("show");
+                        } else {
 
-                        /**
-                         * Run
-                         */
+                            /**
+                             * Update user run config to lsm
+                             */
 
-                        var baseUrl = scope.runnerConfig.runner.url;
+                            scriptorService.setLocalStorageValue('userRunConfig', JSON.stringify(getUserConfigObject()));
 
-                        var scenarioId = scope.items[0].id + '.' + scope.items[0].scenario;
+                            /**
+                             * Run
+                             */
 
-                        var filename = (scenarioId).replace(/\./gi, "_").trim();
+                            var baseUrl = scope.runnerConfig.runner.url;
 
-                        var xmlContent;
+                            var scenarioId = scope.items[0].id + '.' + scope.items[0].scenario;
 
-                        if (childWindow === undefined || childWindow === null || childWindow.closed) {
-                            childWindow = window.open(baseUrl,"WindowForRunTask","menubar=1,resizable=1,width=1200,height=800");
-                            $rootScope.childWindow = childWindow;
-                        }
-                        else {
-                            childWindow.focus();
-                        }
+                            var filename = (scenarioId).replace(/\./gi, "_").trim();
 
-                        var xmlQueryParam = '?format=xml';
-                        var javaQueryParam = '?format=java';
+                            var xmlContent;
 
-                        $http.get('/api/tasks/' + scenarioId + xmlQueryParam).then(function(res) {
-                            xmlContent =  res.data;
+                            if (childWindow === undefined || childWindow === null || childWindow.closed) {
+                                childWindow = window.open(baseUrl, "WindowForRunTask", "menubar=1,resizable=1,width=1200,height=800");
+                                $rootScope.childWindow = childWindow;
+                            }
+                            else {
+                                childWindow.focus();
+                            }
 
-                            $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
+                            var xmlQueryParam = '?format=xml';
+                            var javaQueryParam = '?format=java';
 
-                                postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data),false);
+                            $http.get('/api/tasks/' + scenarioId + xmlQueryParam).then(function (res) {
+                                xmlContent = res.data;
+
+                                $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function (res) {
+
+                                    postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data), false);
+
+                                });
 
                             });
-
-                        });
-
+                        }
+                        scope.$apply();
                         event.stopPropagation();
                     });
 
                     element.on('click',".publish-svn",function(event) {
                         event.preventDefault();
-                        scope.errorList = [];
 
-                        if(scope.items[0].items !== undefined && scope.items[1]!== undefined) {
-                            var totItem = scope.items[0].items.length;
-                            for(var i=0; i<scope.items[1].length; i++) {
-                                // check1: number of items in scriptor should be equal to number of pathway methods in runner
-                                if(totItem == scope.items[1][i].pathway.length) {
-                                    for(var m=0; m < scope.items[1][i].pathway.length; m++) {
-
-                                        //check2: method number must be a valid number
-                                        var methNum = (scope.items[1][i].pathway[m].split("/")[1]) - 1;
-                                        if(scope.items[0].items[m].methods[methNum] !== undefined) {  // check if method exists in task json
-                                        }
-                                        else {
-                                            scope.errorList.push("Method-" + (methNum+1) + " doesn't exists for Item-" + (m+1) + " in Pathway-" + (i+1));
-                                            // pathway contains method but doesnot exists in item
-                                        }
-
-                                    }
-                                }
-                                else {
-                                    scope.errorList.push("Incorrect number of items in pathway-" + (i+1));
-                                }
-                            }
-
-                            // check 3: parse method of each item in task json for action validation
-                            for(var iNum=0; iNum < scope.items[0].items.length; iNum++) {  // item loop
-                                for(var mNum=0; mNum < scope.items[0].items[iNum].methods.length; mNum++) {  // method loop
-
-                                    if(scope.items[0].items[iNum].methods[mNum].actions.length >=1) {
-
-                                         for(var actNum=0; actNum < scope.items[0].items[iNum].methods[mNum].actions.length; actNum++) {  // // action loop
-                                             for(var valNum=0; valNum<scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"].length; valNum++) { // action VALUES LOOP
-                                                 var actVal = scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"][valNum];
-                                                 if(actVal == undefined || actVal==null || actVal=='') {
-                                                     scope.errorList.push("Blank elements found in Item-" + (iNum+1) +
-                                                        ":Method-" + (mNum+1) + ":Action-" + (actNum+1));
-                                                 }
-                                             }
-                                         }
-                                    }
-                                    else {
-                                        scope.errorList.push("No action exists for Item-" + (iNum+1) + ":Method-" + (mNum+1));
-                                    }
-                                }
-                            }
-
-
-                            } else {
-                            scope.errorList = undefined;
-                        }
+                        publishSvntaskValidation();
 
                         if(scope.errorList.length > 0) {
+                            scope.errorTitle = "Task not published in SVN due to following errors:";
                             $('.err-list').removeClass("hide");
                             $(".err-list").addClass("show");
                         } else {
