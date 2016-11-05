@@ -4,6 +4,7 @@ angular.module('automationApp.scriptor')
 	.controller('NewScriptController', ['$rootScope', '$scope', 'pluginsService', 'applicationService', '$location', '$state', 'scriptorService',
 		function($rootScope, $scope, pluginsService, applicationService, $location, $state, scriptorService) {
 
+            $rootScope.runnerIcon = false;
             $scope.taskId = "";
             $scope.copy_task_id = "";
             scriptorService.taskContent = {};
