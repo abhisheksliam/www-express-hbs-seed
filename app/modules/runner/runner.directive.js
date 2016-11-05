@@ -127,7 +127,11 @@ angular.module('automationApp.runner')
                                     $("#method-radio-" + i + "-" + m).removeClass("disabled");
                                     $("#method-radio-" + i + "-" + m).removeAttr("disabled");
                                     $("#method-radio-" + i + "-" + m).parent().removeClass("disableCursor");
-                                    if(defaultMethodSelection == 0 ) {
+
+                                    if($("#method-radio-" + i + "-" + m).is(':checked')) {
+                                        // current method is already selected
+                                        defaultMethodSelection = -1;
+                                    } else if (defaultMethodSelection == 0 ) {
                                         defaultMethodSelection = m+1;
                                     }
                                     disableItem = false;
@@ -142,7 +146,7 @@ angular.module('automationApp.runner')
                                 }
                             }
 
-                            if(defaultMethodSelection != 0) {
+                            if (defaultMethodSelection > 0) {
                                 scope.methodSelection[i] = i+1 + "/" + defaultMethodSelection;
                             }
 
