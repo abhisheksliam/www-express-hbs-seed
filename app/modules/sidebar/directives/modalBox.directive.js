@@ -131,7 +131,7 @@ angular.module('automationApp.sidebar')
                                         $('#modal-modalbox').modal('hide');  // hide modal
                                         if (scope.load) {
 
-                                            $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
+                                            $rootScope.$emit('SCRIPTOR_LOAD_TASK', res);
                                         } else if(scope.mode == 'export'){
 
                                             download(JSON.stringify(res.data), scope.taskId + ".json", "text/plain");

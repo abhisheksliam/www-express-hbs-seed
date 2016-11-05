@@ -53,6 +53,7 @@ angular.module('automationApp.scriptor')
                 scriptorService.getXpathArrayList($rootScope.applicationName).then(function(res) {
                     $rootScope.xpathArrayList = res;
                     $rootScope.getXPathForElement = scriptorService.getXPathForElement;
+                    $rootScope.showNotify('<div class="alert alert-success m-r-30"><p><strong>' + 'Task data loaded successfully !' + '</p></div>');
                 });
 
                 scriptorService.getTriggerSuggestions().then(function(res) {
