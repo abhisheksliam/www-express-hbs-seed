@@ -180,7 +180,7 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson){
             }
 
             if(scriptData) {
-                if (req.body.template === TEMPLATE_TASK || req.body.template === TEMPLATE_INGEST){
+                if (scriptData.task_json[1]!== undefined && (req.body.template === TEMPLATE_TASK || req.body.template === TEMPLATE_INGEST)){
                     var scriptData = converterService.transformPathwaysNewFormat(scriptData);
                     res.json(scriptData);
                 } else {
