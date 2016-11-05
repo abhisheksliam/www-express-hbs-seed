@@ -93,8 +93,23 @@ angular.module('automationApp.sidebar')
                                         scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
                                             if(res.data.errors) {
                                                 if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
-                                                    scope.errmsg2 = "Task already exists !";
-                                                    $('.err-msg2').show();
+                                                    bootbox.confirm({
+                                                        message: 'Task already exists - Do you want to override? ',
+                                                        className: 'error-box',
+                                                        callback: function(result) {
+                                                            if(result) {
+                                                                scriptorService.updateTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
+                                                                    if(res.data.errors){
+                                                                        $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
+                                                                    }
+                                                                    else {
+                                                                        $('#modal-modalbox').modal('hide');  // hide modal
+                                                                        $rootScope.$broadcast('SCRIPTOR_LOAD_TASK', res);
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
                                                 } else {
                                                     scope.errmsg2 = "Ingest JSON format not supported !";
                                                     $('.err-msg2').show();
