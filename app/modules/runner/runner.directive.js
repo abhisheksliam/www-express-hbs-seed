@@ -462,8 +462,9 @@ angular.module('automationApp.runner')
                                 $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
 
                                     bootbox.prompt("Enter Commit Message: ", function(result){
-
-                                        postDataToRunner(result, filename, xmlContent, js_beautify(res.data), true);
+										if (result) {
+											postDataToRunner(result, filename, xmlContent, js_beautify(res.data), true);
+										}                                       
 
                                     })
 
@@ -513,7 +514,7 @@ angular.module('automationApp.runner')
                                 "appName" : appName,
                                 "xml": xmlContent,
                                 "java": javaContent,
-                                "json": scope.items[0],
+                                "json": angular.toJson( scope.items[0] ),
                                 "commit": commit,
                                 "xpaths": []
                             },
