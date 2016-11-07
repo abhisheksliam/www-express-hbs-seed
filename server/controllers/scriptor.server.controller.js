@@ -161,7 +161,6 @@ function saveUpdateData(bSaveUpdate, req, res, automationScript, taskJson){
     automationScript.task_json = taskJson;
 
     if (taskJson.errors){
-        console.log(taskJson);
         res.json(taskJson);
     }
     else if(bSaveUpdate) {

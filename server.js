@@ -16,7 +16,7 @@ const appError = require('./server/error/apperror.server.service.js');
 const bunyan = require("bunyan");
 const bunyanformat = require('bunyan-format');
 const formatOut = bunyanformat({ outputMode: 'short' });
-const logger = bunyan.createLogger({name: 'SIM5Automation', stream: formatOut, level: 'info' });
+global.logger = bunyan.createLogger({name: 'SIM5Automation', stream: formatOut, level: 'info' });
 
 //config
 const config = require("./server/config");

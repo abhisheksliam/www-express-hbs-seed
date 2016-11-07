@@ -41,7 +41,7 @@ apirouter.delete('/tasks/:task_id', scriptorController.deleteTaskScript);
 apirouter.post('/xpaths', xpathController.addXpath);
 
 // update xpath: update xpath value + add task_id tag (no duplicates)
-apirouter.put('/xpaths/:app_type/:xpath_key', xpathController.updateApplicationXpath);
+apirouter.put('/xpaths/:app_type/:xpath_key', function(){});
 
 // tagged xpath for a task, may not return all the xpaths of the task
 apirouter.get('/xpaths/task/tagged/:task_id', xpathController.getTaskXpaths);
