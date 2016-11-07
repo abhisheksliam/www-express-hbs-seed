@@ -513,6 +513,7 @@ angular.module('automationApp.runner')
                                 "appName" : appName,
                                 "xml": xmlContent,
                                 "java": javaContent,
+                                "json": scope.items[0],
                                 "commit": commit,
                                 "xpaths": []
                             },
