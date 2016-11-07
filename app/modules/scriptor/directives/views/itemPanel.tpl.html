@@ -5,7 +5,7 @@
             <i class="fa fa-caret-down" aria-hidden="true"></i>
             <h4>Step {{$index+1}}
                 <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
-                        ({{item.text}})
+                        (<span ng-bind-html="item.text"></span>)
                     <a href="" data-toggle="tooltip" data-placement="top" title="Edit Step Text">
                         <i class="fa fa-pencil p-l-10 item-text-edit-icon" data-index="{{$index}}" style="color: white; display: none"></i>
                     </a>
