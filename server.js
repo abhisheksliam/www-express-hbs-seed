@@ -123,10 +123,10 @@ try{
     conn.on('error', console.error.bind(console, 'Mongo connection error:'));
 
     conn.once('open', function() {
-        console.log('Mongo Connection Successful');
+        logger.info('Mongo Connection Successful');
     });
 }catch(er){
-    console.log("Mongo error" + er);
+    logger.error("Mongo error" + er);
 }
 
 // error handling

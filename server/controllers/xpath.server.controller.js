@@ -104,7 +104,6 @@ exports.getXpaths = function (req, res) {
         }
         res.json(xpathData);
     });
-
 };
 
 exports.getApplicationXpaths = function (req, res) {
