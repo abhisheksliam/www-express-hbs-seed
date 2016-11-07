@@ -6,13 +6,11 @@
 const TEMPLATE_BLANK = "blank",
       TEMPLATE_BALOO = "baloo",
       TEMPLATE_TASK = "task",
-      TEMPLATE_INGEST = "ingest",
-      BALOO_API_HOST = 'loadrunner1',
-      BALOO_API_PORT = '8080',
-      BALOO_API_URL = '/NLPService/api/tasks/';
+      TEMPLATE_INGEST = "ingest";
 
 const router = require('express').Router();
 var http = require('http');
+const config = require("./../config");
 var AutomationScripts     = require('./../models/app.server.models.script');
 const converterService = require("./../services/converter.server.service");
 
@@ -258,11 +256,11 @@ function generatePreFilledBalooTemplate(req,done){
                 }
                 };
 
-    var _v1 = (BALOO_API_URL + req.body.task_id);
+    var _v1 = (config.baloo.url + req.body.task_id);
 
     var options = {
-        host: BALOO_API_HOST,
-        port: BALOO_API_PORT,
+        host: config.baloo.host,
+        port: config.baloo.port,
         path: _v1,
         method: 'get'
     };
