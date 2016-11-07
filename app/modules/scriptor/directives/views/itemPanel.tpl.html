@@ -3,10 +3,10 @@
         <div class="item-level-0 dd3-content border-left">
             <i class="fa fa-caret-right" aria-hidden="true"></i>
             <i class="fa fa-caret-down" aria-hidden="true"></i>
-            <h4>Item {{$index+1}}
+            <h4>Step {{$index+1}}
                 <span class="item-text" ng-hide="editableiteminput.editorenabled == $index">
                         ({{item.text}})
-                    <a href="" data-toggle="tooltip" data-placement="top" title="Edit Item Text">
+                    <a href="" data-toggle="tooltip" data-placement="top" title="Edit Step Text">
                         <i class="fa fa-pencil p-l-10 item-text-edit-icon" data-index="{{$index}}" style="color: white; display: none"></i>
                     </a>
                 </span>
@@ -21,9 +21,9 @@
                 </span>
             </h4>
             <div class="control-btn">
-                <a href="#" class="panel-copy" data-toggle="tooltip" data-placement="top" title="Duplicate Item"><i class="fa fa-copy"></i></a>
-                <a href="#" class="panel-close"><i class="icon-trash" data-toggle="tooltip" data-placement="top" title="Delete Item"></i></a>
-                <a href="#" class="panel-move" data-toggle="tooltip" data-placement="top" title="Drag Item to re-order"><i class="fa fa-arrows"></i></a>
+                <a href="#" class="panel-copy" data-toggle="tooltip" data-placement="top" title="Duplicate Step"><i class="fa fa-copy"></i></a>
+                <a href="#" class="panel-close"><i class="icon-trash" data-toggle="tooltip" data-placement="top" title="Delete Step"></i></a>
+                <a href="#" class="panel-move" data-toggle="tooltip" data-placement="top" title="Drag Step to re-order"><i class="fa fa-arrows"></i></a>
             </div>
         </div>
         <div class="data-items" style="display: none">
@@ -41,6 +41,6 @@
 
 <ol class="dd-list ui-sort-disabled">
     <li class="dd-item m-b-10">
-        <div id="add-item-link" class="item-level-0 dd3-content border-left"><a href="#">+   Add Item</a></div>
+        <div id="add-item-link" class="item-level-0 dd3-content border-left"><a href="#">+   Add Step</a></div>
     </li>
 </ol>
