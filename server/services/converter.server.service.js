@@ -5,51 +5,59 @@ var _ = require('lodash');
 exports.transformPathwaysNewFormat=function (scriptData) {
     var array2 = [];
 
-    var array = _.map(scriptData.task_json[1], function(value, index) {
-        if(index%2 == 0) {
+    try {
+        var array = _.map(scriptData.task_json[1], function(value, index) {
+            if(index%2 == 0) {
 
-            var pathwayArr = _.map(value, function(innerValue, innerIndex) {
-                return innerValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
-            });
+                var pathwayArr = _.map(value, function(innerValue, innerIndex) {
+                    return innerValue.replace(/['"]+/g, '').replace(',', '/').replace(" ", "");
+                });
 
-            return {"pathway" : pathwayArr}
-        } else {
-            return value;
-        }
-    });
+                return {"pathway" : pathwayArr}
+            } else {
+                return value;
+            }
+        });
 
-    _.map(array, function(value, index) {
-        if(index%2 == 0) {
-            return value;
-        } else {
-            array[index-1].group = value.replace(/['"]+/g, '');
-            array2.push(array[index-1]);
-            return value;
-        }
-    });
+        _.map(array, function(value, index) {
+            if(index%2 == 0) {
+                return value;
+            } else {
+                array[index-1].group = value.replace(/['"]+/g, '');
+                array2.push(array[index-1]);
+                return value;
+            }
+        });
 
-    scriptData.task_json[1] = array2;
-
+        scriptData.task_json[1] = array2;
+    } catch(err) {
+        logger.error('Error occured while converting pathways to new format: ' + err);
+        scriptData.task_json[1] = [];
+    }
 
     return scriptData;
-
 };
 
 exports.transformPathwaysOldFormat=function (scriptData) {
     if(scriptData[1] !== undefined){
-
         var array2 = [];
 
-        _.map(scriptData[1], function(value, index) {
-            var pathwayArr = _.map(value.pathway, function(innerValue, innerIndex) {
-                return '"' + innerValue.replace('/', '","') + '"';
+        try {
+            _.map(scriptData[1], function(value, index) {
+                var pathwayArr = _.map(value.pathway, function(innerValue, innerIndex) {
+                    return '"' + innerValue.replace('/', '","') + '"';
+                });
+                array2.push(pathwayArr);
+                array2.push('"' + value.group.toString().replace(/,/g, '","').replace(/ /g, "") + '"');
+                return value;
             });
-            array2.push(pathwayArr);
-            array2.push('"' + value.group.toString().replace(/,/g, '","').replace(/ /g, "") + '"');
-            return value;
-        });
 
-        scriptData[1] = array2;
+            scriptData[1] = array2;
+
+        } catch(err) {
+            logger.error('Error occured while saving pathways in old format: ' + err);
+            scriptData[1] = [];
+        }
     }
 
     return scriptData;

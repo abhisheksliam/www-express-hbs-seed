@@ -403,14 +403,14 @@ angular.module('automationApp.runner')
                                         if(scope.items[0].items[m].methods[methNum] !== undefined) {  // check if method exists in task json
                                         }
                                         else {
-                                            scope.errorList.push("Method-" + (methNum+1) + " doesn't exists for Item-" + (m+1) + " in Pathway-" + (i+1));
+                                            scope.errorList.push("Method-" + (methNum+1) + " doesn't exists for Step-" + (m+1) + " in Pathway-" + (i+1));
                                             // pathway contains method but doesnot exists in item
                                         }
 
                                     }
                                 }
                                 else {
-                                    scope.errorList.push("Incorrect number of items in pathway-" + (i+1));
+                                    scope.errorList.push("Incorrect number of steps in pathway-" + (i+1));
                                 }
                             }
 
@@ -424,14 +424,14 @@ angular.module('automationApp.runner')
                                              for(var valNum=0; valNum<scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"].length; valNum++) { // action VALUES LOOP
                                                  var actVal = scope.items[0].items[iNum].methods[mNum].actions[actNum]["values"][valNum];
                                                  if(actVal == undefined || actVal==null || actVal=='') {
-                                                     scope.errorList.push("Blank elements found in Item-" + (iNum+1) +
+                                                     scope.errorList.push("Blank elements found in Step-" + (iNum+1) +
                                                         ":Method-" + (mNum+1) + ":Action-" + (actNum+1));
                                                  }
                                              }
                                          }
                                     }
                                     else {
-                                        scope.errorList.push("No action exists for Item-" + (iNum+1) + ":Method-" + (mNum+1));
+                                        scope.errorList.push("No action exists for Step-" + (iNum+1) + ":Method-" + (mNum+1));
                                     }
                                 }
                             }
@@ -461,7 +461,12 @@ angular.module('automationApp.runner')
 
                                 $http.get('/api/tasks/' + scenarioId + javaQueryParam).then(function(res) {
 
-                                    postDataToRunner(scenarioId, filename, xmlContent, js_beautify(res.data), true);
+                                    bootbox.prompt("Enter Commit Message: ", function(result){
+										if (result) {
+											postDataToRunner(result, filename, xmlContent, js_beautify(res.data), true);
+										}                                       
+
+                                    })
 
                                 });
 
@@ -478,7 +483,7 @@ angular.module('automationApp.runner')
                         scope.errorList=[];
                     });
 
-                    function postDataToRunner(scenarioId, filename, xmlContent, javaContent, commit){
+                    function postDataToRunner(message, filename, xmlContent, javaContent, commit){
 
                         var appName = scope.items[0].appName;
                         var baseUrl = scope.runnerConfig.runner.url;
@@ -509,13 +514,15 @@ angular.module('automationApp.runner')
                                 "appName" : appName,
                                 "xml": xmlContent,
                                 "java": javaContent,
+                                "json": angular.toJson( scope.items[0] ),
                                 "commit": commit,
                                 "xpaths": []
                             },
                             "svn": {
                                 "url": "",
                                 "username":"",
-                                "password":""
+                                "password":"",
+                                "message": message
                             }
                         };
 

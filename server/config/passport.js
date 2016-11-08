@@ -35,7 +35,7 @@ module.exports = function(passport) {
 
                     if (!user && req.body.email !== undefined) {
                         if (req.body.email.indexOf("comprotechnologies.com") !== -1) {
-                            console.log("Registering new user");
+                            logger.info("Registering new user");
                             var cipher = crypto.createCipher('aes256', 'password');
                             var salt = crypto.randomBytes(16).toString('hex');
                             var newPass = hashPassword(password, salt);
@@ -66,12 +66,12 @@ module.exports = function(passport) {
                         if (err || user === null) {return done({message:'User not found'}, false)}
 
                         if (username === null) {
-                            console.log('Credentials not provided');
+                            logger.warn('Credentials not provided');
                             return done({message:'Credentials not provided'}, false);
                         }
 
                         if(user.username !== username){
-                            console.log('User Not Found with username '+username);
+                            logger.warn('User Not Found with username '+username);
                             return done({message:'User Not Found with username' + username}, false);
                         }
 
