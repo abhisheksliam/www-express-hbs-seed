@@ -27,6 +27,7 @@ const session  = require('express-session');
 const passport = require('passport');
 /* Database connect */
 var mongoose = require("mongoose");
+var MongoStore = require('connect-mongo')(session);
 
 //Express
 let app = express();
@@ -87,14 +88,35 @@ app.set('view engine', '.hbs');
 // CookieParser should be above session
 app.use(cookieParser());
 
-// required for passport
+
+//-----------Connecting Mongo ------------------- // todo: synchronize mongo connection with app listen
+
+var conn;
+try{
+    var mongoURL = config.mongo.prefix  + config.mongo.username + ":" + config.mongo.password + "@" + config.mongo.dbURL;
+    mongoose.connect(mongoURL);
+
+    conn = mongoose.connection;
+    conn.on('error', console.error.bind(console, 'Mongo connection error:'));
+
+    conn.once('open', function() {
+        logger.info('Mongo Connection Successful');
+    });
+}catch(er){
+    logger.error("Mongo error" + er);
+}
+
+
+// required for passport - session
 app.use(session({
     secret: 'runner-v2',
     resave: true,
     key: 'runner.sid',
     saveUninitialized: true,
-    cookie: {maxAge: (60000 * 60 * 24)}
+    cookie: {maxAge: (60000 * 60 * 24)},
+    store: new MongoStore({mongooseConnection:conn})
 } )); // session secret
+
 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
@@ -113,21 +135,6 @@ app.all('*',function(req,res,next){
 });
 
 app.use('/api', routes.apirouter);
-
-//-----------Connecting Mongo ------------------- // todo: synchronize mongo connection with app listen
-try{
-    let mongoURL = config.mongo.prefix  + config.mongo.username + ":" + config.mongo.password + "@" + config.mongo.dbURL;
-    mongoose.connect(mongoURL);
-
-    let conn = mongoose.connection;
-    conn.on('error', console.error.bind(console, 'Mongo connection error:'));
-
-    conn.once('open', function() {
-        logger.info('Mongo Connection Successful');
-    });
-}catch(er){
-    logger.error("Mongo error" + er);
-}
 
 // error handling
 app.use(function(err, req, res, next){
