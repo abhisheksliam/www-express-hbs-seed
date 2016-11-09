@@ -297,6 +297,7 @@ angular.module('automationApp.runner')
                             }
 
                             scope.$apply();
+                            $(".pathway-list").show('slow');
 
                             if( scope.items[1] !== undefined && scope.items[1].length !== 0 ) {
                                 $(".run-pathway").removeAttr("disabled");
@@ -352,6 +353,7 @@ angular.module('automationApp.runner')
                             scope.items[1] = pathwaySet;
 
                             scope.$apply();
+                            $(".pathway-list").show('slow');
 
                             if (scope.items[1] !== undefined && scope.items[1].length !== 0) {
                                 $(".run-pathway").removeAttr("disabled");
