@@ -36,29 +36,39 @@ module.exports = function(passport) {
                     if (!user && req.body.email !== undefined) {
                         if (req.body.email.indexOf("comprotechnologies.com") !== -1) {
                             logger.info("Registering new user");
-                            var cipher = crypto.createCipher('aes256', 'password');
-                            var salt = crypto.randomBytes(16).toString('hex');
-                            var newPass = hashPassword(password, salt);
 
-                            var newUser = new Users();
-                            newUser.username = username;
-                            newUser.password = newPass;
-                            newUser.salt = salt;
-                            newUser.profile.name = req.body.name;
-                            newUser.profile.email = req.body.email;
+                            try {
+                                var cipher = crypto.createCipher('aes256', 'password');
+                                var salt = crypto.randomBytes(16).toString('hex');
+                                var newPass = hashPassword(password, salt);
 
-                            newUser.profile.svn_credentials = {};
-                            newUser.profile.svn_credentials.username = req.body.svnusername;
+                                var newUser = new Users();
+                                newUser.username = username;
+                                newUser.password = newPass;
+                                newUser.salt = salt;
+                                newUser.profile.name = req.body.name;
+                                newUser.profile.email = req.body.email;
 
-                            newUser.profile.svn_credentials.password = cipher.update(req.body.svnpassword, 'utf8', 'hex') + cipher.final('hex');
+                                newUser.profile.svn_credentials = {};
+                                newUser.profile.svn_credentials.username = req.body.svnusername;
 
-                            newUser.save().then(function () {
-                                // Remove sensitive data before replying
-                                newUser.password = undefined;
-                                newUser.salt = undefined;
-                                newUser.profile.svn_credentials.password = undefined;
-                                return done(null, newUser);
-                            })
+                                newUser.profile.svn_credentials.password = cipher.update(req.body.svnpassword, 'utf8', 'hex') + cipher.final('hex');
+
+                                newUser.save().then(function () {
+
+                                    newUser.password = undefined;
+                                    newUser.salt = undefined;
+                                    newUser.profile.svn_credentials.password = undefined;
+                                    return done(null, newUser);
+
+                                }, function(err) {
+                                    logger.error("Error while register user: " +err);
+                                    return done({message:'Not able to registering user'}, false);
+                                })
+                            } catch(err) {
+                                logger.error("Error while register user: " +err);
+                                return done({message:'Not able to registering user'}, false);
+                            }
                         } else {
                             return done({message:'Only Compro users can register to this tool'}, false);
                         }
