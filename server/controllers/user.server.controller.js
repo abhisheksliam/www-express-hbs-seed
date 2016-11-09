@@ -15,6 +15,7 @@ var hashPassword = function(password, saltValue) {
 exports.getUser = function (req, res) {
     Users.findOne({'username': req.params.user_name}, function(err, user) {
         if (err) {
+            logger.error("Error in getting user profile: " +err);
             res.json({
                 "errors": {
                     "errorMessage": err,
@@ -22,8 +23,14 @@ exports.getUser = function (req, res) {
                 }
             });
         }
-        var decipher = crypto.createDecipher('aes256', 'password');
-        user.profile.svn_credentials.password = decipher.update(user.profile.svn_credentials.password, 'hex', 'utf8') + decipher.final('utf8');
+
+        try {
+            var decipher = crypto.createDecipher('aes256', 'password');
+            user.profile.svn_credentials.password = decipher.update(user.profile.svn_credentials.password, 'hex', 'utf8') + decipher.final('utf8');
+        } catch(err) {
+            logger.error('Error occured while decrypt svn password: ' + err);
+        }
+
         user.password = undefined;
         user.salt = undefined;
         
@@ -32,8 +39,19 @@ exports.getUser = function (req, res) {
 };
 
 exports.updateUserDetails = function (req, res) {
+    logger.info('Getting User Profile');
 
     Users.findOne({username: req.params.user_name}, function(err, user) {
+        if (err) {
+            logger.error("Error in getting user profile: " +err);
+
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
+        }
 
         if (req.body.password !== undefined) {
             user.password = hashPassword(req.body.password, user.salt);
@@ -41,15 +59,35 @@ exports.updateUserDetails = function (req, res) {
 
         user.profile.name = req.body.name;
         user.profile.email = req.body.email;
+        user.profile.svn_credentials = {};
         user.profile.svn_credentials.username = req.body.svnusername;
 
-        var cipher = crypto.createCipher('aes256', 'password');
-        var ciph = cipher.update(req.body.svnpassword, 'utf8', 'hex');
-        ciph += cipher.final('hex');
-        user.profile.svn_credentials.password = ciph;
+        try {
+            var cipher = crypto.createCipher('aes256', 'password');
+            var ciph = cipher.update(req.body.svnpassword, 'utf8', 'hex');
+            ciph += cipher.final('hex');
+            user.profile.svn_credentials.password = ciph;
+        } catch(err) {
+            logger.error('Error occured while encrypt svn password: ' + err);
+            user.profile.svn_credentials.password = req.body.svnpassword;
+        }
+
+        logger.info('Saving User Profile');
 
         user.save().then(function () {
+
+            logger.info('User Profile updated successfully');
             res.json(user);
+
+        }, function(err) {
+
+            logger.error("Error in updating user profile: " +err);
+            res.json({
+                "errors": {
+                    "errorMessage": err,
+                    "errorCode": "PROCESSING_ERROR"
+                }
+            });
         })
 
     });
