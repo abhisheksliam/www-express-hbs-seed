@@ -19,13 +19,15 @@ angular.module('automationApp.scriptor')
 
                 scope.$watch('item', function(newValue) {
                     if (newValue !== undefined) {
-                        scope.$emit('INTIALIZE_DROP', "");
                         scope.$emit('INTIALIZE_METHOD_SORTABLE', "");
                     }
                 });
 
                 scope.$watch('method', function(newValue) {
                     if (newValue !== undefined) {
+                        if (!$rootScope.initializeDrop) {
+                            $rootScope.initializeDrop = true;
+                        }
                         scope.$emit('INTIALIZE_TRIGGER_SORTABLE', "");
                     }
                 });

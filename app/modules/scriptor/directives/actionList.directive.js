@@ -4,7 +4,7 @@
 "use strict";
 
 angular.module('automationApp.scriptor')
-    .directive('actionList', ['$timeout', function($timeout) {
+    .directive('actionList', ['$timeout', '$rootScope', function($timeout, $rootScope) {
         return {
             restrict: 'A',
             templateUrl: 'modules/scriptor/directives/views/actionList.tpl.html',
@@ -16,7 +16,9 @@ angular.module('automationApp.scriptor')
 
                 scope.$watch('triggers', function(newValue) {
                     if (newValue !== undefined) {
-                        scope.$emit('INTIALIZE_DRAG', "");
+                        if (!$rootScope.initializeDrag) {
+                            $rootScope.initializeDrag = true;
+                        }
                     }
                 });
 
