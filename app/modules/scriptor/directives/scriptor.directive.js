@@ -67,8 +67,11 @@ angular.module('automationApp.scriptor')
                     element.find( ".drop-action-handle" ).droppable(dropHandler);
                 });
 
-                scope.$on('INTIALIZE_DRAG_DROP', function(event) {
+                scope.$on('INTIALIZE_DRAG', function(event) {
                     element.find( ".dd-handle" ).draggable(dragHandler);
+                });
+
+                scope.$on('INTIALIZE_DROP', function(event) {
                     element.find( ".drop-action-handle" ).droppable(dropHandler);
                 });
 

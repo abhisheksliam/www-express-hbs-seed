@@ -19,6 +19,7 @@ angular.module('automationApp.scriptor')
 
                 scope.$watch('item', function(newValue) {
                     if (newValue !== undefined) {
+                        scope.$emit('INTIALIZE_DROP', "");
                         scope.$emit('INTIALIZE_METHOD_SORTABLE', "");
                     }
                 });

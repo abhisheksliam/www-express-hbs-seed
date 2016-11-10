@@ -16,7 +16,7 @@ angular.module('automationApp.scriptor')
 
                 scope.$watch('triggers', function(newValue) {
                     if (newValue !== undefined) {
-                        scope.$emit('INTIALIZE_DRAG_DROP', "");
+                        scope.$emit('INTIALIZE_DRAG', "");
                     }
                 });
 
