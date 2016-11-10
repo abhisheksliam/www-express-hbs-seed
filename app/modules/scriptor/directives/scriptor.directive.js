@@ -20,6 +20,8 @@ angular.module('automationApp.scriptor')
                 // due to bug: https://github.com/angular/angular.js/issues/8877
                 var index=0;
                 scope.action = [];
+                $rootScope.initializeDrag = false;
+                $rootScope.initializeDrop = false;
 
                 var dropHandler = {
                     accept: ".dd-handle",
@@ -67,13 +69,14 @@ angular.module('automationApp.scriptor')
                     element.find( ".drop-action-handle" ).droppable(dropHandler);
                 });
 
-                scope.$on('INTIALIZE_DRAG', function(event) {
-                    element.find( ".dd-handle" ).draggable(dragHandler);
-                });
+                $rootScope.$watchGroup(['initializeDrag', 'initializeDrop'] ,function(newValues, oldValues, scope){
 
-                scope.$on('INTIALIZE_DROP', function(event) {
-                    element.find( ".drop-action-handle" ).droppable(dropHandler);
-                });
+                    if(newValues[0] && newValues[1]) {
+                        element.find(".dd-handle").draggable(dragHandler);
+                        element.find(".drop-action-handle").droppable(dropHandler);
+                    }
+
+                },true);
 
                 $(window).scroll(function () {
                     if ($(window).scrollTop() > 100) {
