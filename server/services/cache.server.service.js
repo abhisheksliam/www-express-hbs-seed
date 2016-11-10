@@ -10,7 +10,7 @@ portscanner.checkPortStatus(6379, '127.0.0.1', function(error, status) {
     // Status is 'open' if currently in use or 'closed' if available
     if (status == 'open') {
         try{
-            var client = redis.createClient();
+            client = redis.createClient();
 
             client.on('connect', function() {
 
