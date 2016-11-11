@@ -53,20 +53,21 @@ app.use(compress());
 //Default location of Express Views - used in development mode
 let viewsPath = path.join(__dirname, '.tmp', 'views');
 
-process.env.NODE_ENV='development';
+//process.env.NODE_ENV='development';
 
 //Environment setup production / development
-if (process.env.NODE_ENV === 'production') {
-    // Override Views location to dist folder
+// Override Views location to dist folder
+/*if (process.env.NODE_ENV === 'production') {
     viewsPath = path.join(__dirname, 'dist');
     app.use(express.static(__dirname + '/dist/'));
     app.set('views', viewsPath);
-} else {
+} else {*/
     // make express look in the public directory for assets (css/js/img)
     app.use(express.static(__dirname + '/.tmp/'));
     app.use(express.static(__dirname + '/app/'));
     app.set('views', viewsPath);
-}
+//}
+
 // 3.Support for  json encoded bodies
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -99,6 +100,7 @@ try{
     }
     mongoURL += config.mongo.dbURL;
 
+    logger.info('Connecting to Mongo database : ' + mongoURL);
     mongoose.connect(mongoURL);
 
     conn = mongoose.connection;
