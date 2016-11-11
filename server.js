@@ -93,7 +93,12 @@ app.use(cookieParser());
 
 var conn;
 try{
-    var mongoURL = config.mongo.prefix  + config.mongo.username + ":" + config.mongo.password + "@" + config.mongo.dbURL;
+    var mongoURL = config.mongo.prefix;
+    if(config.mongo.username !== "") {
+        mongoURL += config.mongo.username + ":" + config.mongo.password + "@";
+    }
+    mongoURL += config.mongo.dbURL;
+
     mongoose.connect(mongoURL);
 
     conn = mongoose.connection;
