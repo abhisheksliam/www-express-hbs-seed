@@ -25,9 +25,7 @@ angular.module('automationApp.scriptor')
 
                 scope.$watch('method', function(newValue) {
                     if (newValue !== undefined) {
-                        if (!$rootScope.initializeDrop) {
-                            $rootScope.initializeDrop = true;
-                        }
+                        scope.$emit('SCRIPTOR_INITIALIZE_DROP', "");
                         scope.$emit('INTIALIZE_TRIGGER_SORTABLE', "");
                     }
                 });
