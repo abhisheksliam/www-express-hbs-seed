@@ -365,6 +365,13 @@ angular.module('automationApp.runner')
                         event.stopPropagation();
                     });
 
+                    /**
+                     * fix to display pathway list on page reload
+                     */
+                    if (scope.items[1] !== undefined && scope.items[1].length !== 0){
+                         $(".pathway-list").show();
+                    };
+
 
                     element.on('click',".run-task",function(event) {
                         event.preventDefault();
