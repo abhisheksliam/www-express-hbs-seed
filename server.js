@@ -120,7 +120,7 @@ app.use(session({
     resave: true,
     key: 'runner.sid',
     saveUninitialized: true,
-    cookie: {maxAge: (60000 * 60 * 24)},
+    cookie: {maxAge: ((60000 * 60 * 24)*7)},
     store: new MongoStore({mongooseConnection:conn})
 } )); // session secret
 
