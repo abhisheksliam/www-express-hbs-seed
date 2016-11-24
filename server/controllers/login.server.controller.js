@@ -5,20 +5,20 @@
 var Users = require('./../models/app.server.models.user');
 const passport = require('passport');
 var https = require('https');
-
+/*
 var getUserPassword = function(email, callback){
     logger.info('getting google user details from db');
     Users.findOne({'profile.email': email}, function(err, user) {
         if(user){
             callback(user.username,user.password);
         } else {
-            // todo: create user validating compro email domain if does not exist
+
             callback(null);
         }
     });
-};
+};*/
 
-var googleLogin = function (req,done,er) {
+/*var googleLogin = function (req,done,er) {
 
 //    validate google login
     var _v1 = ('/oauth2/v3/tokeninfo?id_token=' + req.body.id_token);
@@ -52,11 +52,11 @@ var googleLogin = function (req,done,er) {
 
     https.request(options, callback).end();
 
-};
+};*/
 
 exports.userLoginHandler = function(req, res) {
 
-    if(req.isAuthenticated()){
+   /* if(req.isAuthenticated()){
         //logger.info('request authenticated');
         res.redirect('/');
     }
@@ -94,13 +94,13 @@ exports.userLoginHandler = function(req, res) {
             }
         )
     }
-    else {
-        logger.info('Authenticating username and password from Database');
+    else {*/
+        console.log('Authenticating username and password from Database');
         passport.authenticate('local')(req, res, function (err) {
             return res.send({
                 status: (err !== undefined && err !== null) ? 403 : 200,
                 message: (err !== undefined && err !== null) ? err.message : 'Login successful'
             });
         });
-    }
+    //}
 };

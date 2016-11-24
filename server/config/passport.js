@@ -91,6 +91,9 @@ module.exports = function(passport) {
                             }
                         }
 
+                        user.password = undefined;
+                        user.salt = undefined;
+                        user.profile.svn_credentials.password = undefined;
                         return done(null, user);
                     }
                 });

@@ -129,17 +129,37 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 // Define a prefix for all routes
-app.use('/', routes.webrouter);
+/*app.use('/', function (req, res, next) {
+    if (req.url === '/' || req.url === '/api/login' || req.url === '/api/logout') {
+        next();
+    } else {
+        res.status(401).send({
+            message: 'User is not logged in'
+        });
+    }
+});*/
+
+app.get('/', function(req, res) {
+    res.render('index', {
+        user: req.user || null,
+        helpers: {
+            json: function(context) {
+                return JSON.stringify(context);
+            }
+        }
+    });
+});
+
 app.use('/open', routes.openrouter);
 
-app.all('*',function(req,res,next){
+/*app.all('*',function(req,res,next){
     if(req.isAuthenticated()){
         next();
     }else{
         //next(new Error(401)); // 401 Not Authorized
         res.redirect('/');
     }
-});
+});*/
 
 app.use('/api', routes.apirouter);
 

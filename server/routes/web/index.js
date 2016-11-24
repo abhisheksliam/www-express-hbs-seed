@@ -1,13 +1,14 @@
+/*
 'use strict';
 var express = require('express');
 var loginController = require('../../controllers/login.server.controller');
 
-// Get the router
+
 var webrouter = express.Router();
 
 webrouter.get('/', function(req, res) {
     if(req.isAuthenticated()){
-        //logger.info('request authenticated');
+
         res.setHeader('Cache-control', ['no-cache','no-store','must-revalidate']);
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
@@ -20,7 +21,7 @@ webrouter.get('/', function(req, res) {
 
 webrouter.get('/login', function(req, res) {
     if(req.isAuthenticated()){
-        //logger.info('request authenticated');
+
         res.redirect('/');
     }else{
         logger.warn('request not authenticated');
@@ -41,3 +42,4 @@ webrouter.get('/logout', function(req, res){
 });
 
 module.exports = webrouter;
+*/
