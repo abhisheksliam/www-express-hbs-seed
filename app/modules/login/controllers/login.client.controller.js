@@ -7,6 +7,12 @@ angular.module('automationApp.login')
 	.controller('LoginController', ['$timeout', '$scope', '$rootScope', 'loginService', '$location',
 	function($timeout, $scope, $rootScope, loginService, $location) {
 
+        $scope.credentials = {
+            'username' : undefined,
+            'password' : undefined
+        };
+
+
         // If user is signed in then redirect to course
         if ($scope.authentication.user && $location.path() === '/login')
             $location.path($rootScope.testUrl).replace();
