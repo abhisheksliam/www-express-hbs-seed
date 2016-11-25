@@ -3,7 +3,7 @@ var apirouter = require('express').Router();
 var scriptorController = require('../../controllers/scriptor.server.controller');
 var userController = require('../../controllers/user.server.controller');
 var xpathController = require('../../controllers/xpath.server.controller');
-//var loginController = require('../../controllers/login.server.controller');
+var loginController = require('../../controllers/login.server.controller');
 const passport = require('passport');
 
 // Middleware for all this apirouters requests
@@ -21,41 +21,14 @@ apirouter.get('/', function(req, res) {
     res.end();
 });
 
-apirouter.post('/login', function(req, res){
-    logger.info('logging in user.');
-    console.log('Authenticating username and password from Database');
-    passport.authenticate('local', function(err, user, info) {
-    //passport.authenticate('local')(req, res, function (err, user) {
-        try {
-
-            console.log('In callback',err, user, info); /*, res.req.IncomingMessage.connection.client.sessionStore.user*/
-            /*if (err || !user) {
-                res.status(400).send({
-                    message: 'Oops! The credentials provided are not valid.'
-                });
-            } else {
-*/
-                req.login(user, function (err) {
-                   /* if (err) {
-                        res.status(400).send(err);
-                    } else {*/
-                        res.json(user);
-                    //}
-                });
-          //  }
-        } catch (er) {
-            console.log(er);
-        }
-    })(req, res);
-});
+apirouter.post('/login', loginController.userLoginHandler);
 
 apirouter.get('/logout', function(req, res){
     logger.info('logging out user.');
     req.session.destroy(function (err) {
-        res.redirect('/login');
+        res.redirect('/');
     });
 });
-
 
 apirouter.post('/tasks', scriptorController.saveTask);
 apirouter.put('/tasks', scriptorController.updateTask);

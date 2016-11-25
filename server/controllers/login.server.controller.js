@@ -5,7 +5,7 @@
 var Users = require('./../models/app.server.models.user');
 const passport = require('passport');
 var https = require('https');
-/*
+
 var getUserPassword = function(email, callback){
     logger.info('getting google user details from db');
     Users.findOne({'profile.email': email}, function(err, user) {
@@ -16,9 +16,9 @@ var getUserPassword = function(email, callback){
             callback(null);
         }
     });
-};*/
+};
 
-/*var googleLogin = function (req,done,er) {
+var googleLogin = function (req,done,er) {
 
 //    validate google login
     var _v1 = ('/oauth2/v3/tokeninfo?id_token=' + req.body.id_token);
@@ -52,16 +52,12 @@ var getUserPassword = function(email, callback){
 
     https.request(options, callback).end();
 
-};*/
+};
 
 exports.userLoginHandler = function(req, res) {
 
-   /* if(req.isAuthenticated()){
-        //logger.info('request authenticated');
-        res.redirect('/');
-    }
-    else if (req.body.id_token !== null && req.body.id_token !== undefined){
-        //logger.info('request authenticated google');
+    if (req.body.id_token !== null && req.body.id_token !== undefined){
+        logger.info('request authenticated google');
         req.body.username = 'test';
         req.body.password = 'test';
 
@@ -77,12 +73,29 @@ exports.userLoginHandler = function(req, res) {
                 } else {
                     req.body.username = _res.username;
                     req.body.password = _res.password;
-                    passport.authenticate('local')(req, res, function (err) {
-                        return res.send({
-                            status: err ? 403 : 200,
-                            message: (err !== undefined && err !== null) ? err.message : 'Login successful'
-                        });
-                    });
+
+                    passport.authenticate('local', function(err, user, info) {
+                        try {
+
+                            if (err || !user) {
+                                res.status(400).send({
+                                    message: 'Oops! The credentials provided are not valid.'
+                                });
+                            } else {
+
+                                req.login(user, function (err) {
+                                    if (err) {
+                                        res.status(400).send(err);
+                                    } else {
+                                        res.json(user);
+                                    }
+                                });
+                            }
+                        } catch (err) {
+                            logger.error("Error while authenticating user: " +err);
+                        }
+                    })(req, res);
+
                 }
             },
             function(_error){
@@ -94,13 +107,32 @@ exports.userLoginHandler = function(req, res) {
             }
         )
     }
-    else {*/
-        console.log('Authenticating username and password from Database');
-        passport.authenticate('local')(req, res, function (err) {
-            return res.send({
-                status: (err !== undefined && err !== null) ? 403 : 200,
-                message: (err !== undefined && err !== null) ? err.message : 'Login successful'
-            });
-        });
-    //}
+    else {
+        logger.info('logging in user.');
+        passport.authenticate('local', function(err, user, info) {
+            try {
+
+                if (err || !user) {
+                    res.status(400).send({
+                        message: 'Oops! The credentials provided are not valid.'
+                    });
+                } else {
+
+                    req.login(user, function (err) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    });
+                }
+            } catch (err) {
+                logger.error("Error while authenticating user: " +err);
+            }
+        })(req, res);
+    }
 };
+
+
+
+

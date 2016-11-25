@@ -1,4 +1,4 @@
-<div class="account2" data-page="login" ng-controller="LoginController">
+<div class="account separate-inputs" data-page="login" id="account" ng-controller="LoginController">
     <!-- BEGIN LOGIN BOX -->
     <div class="container" id="login-block">
         <div class="row">
@@ -15,25 +15,23 @@
                             <input type="password" name="password" ng-model="credentials.password" class="form-control form-white password" placeholder="Password" required>
                             <i class="icon-lock"></i>
                         </div>
-                        <div class="footer">
-                            <button type="submit" id="submit-form" class="btn btn-lg btn-primary f-18 sign-in-button" ng-click="login()"
-                                    data-style="expand-left">Sign In
-                            </button>
-                            <div class="social-btn">
-                                <button onclick="onLoginClick()" type="button" class="g-signin btn btn-lg btn-block btn-danger"
-                                        data-scope="email https://www.googleapis.com/auth/userinfo.email"
-                                        data-clientid="1046623217274-1k4a85q8ag1slqnaudfacd6imoiruhaa.apps.googleusercontent.com"
-                                        data-callback="onSignInCallback"
-                                        data-theme="dark"
-                                        data-cookiepolicy="single_host_origin"
-                                        data-response_type="token id_token"><i class="fa fa-google pull-left"></i>Sign In with Google</button>
-                            </div>
-                            <div class="clearfix">
-                                <!--<p class="pull-left m-t-20"><a id="password" href="#">Forgot password?</a></p>-->
-                                <p class="pull-right m-t-20"><a href="user-signup.html">New here? Sign up</a></p>
-                            </div>
-                        </div>
+                        <button type="submit" id="submit-form" class="btn btn-lg btn-success btn-block ladda-button" data-style="expand-left" ng-click="submitLoginForm()">Sign In</button>
                     </form>
+                    <form id="google-login" class="form-signin" action="" role="form" method="post">
+                        <input type="hidden" name="id_token" id="id_token" ng-model="gplus.id_token">
+                        <div class="social-btn">
+                            <button type="submit" id="googleSignIn" ng-click="googleSignUp()">
+            <span id="signInButton">
+            </span>
+        </button>
+
+                        </div>
+                        </form>
+                        <div class="clearfix">
+                            <!--<p class="pull-left m-t-20"><a id="password" href="#">Forgot password?</a></p>-->
+                            <p class="pull-right m-t-20"><a href="user-signup.html">New here? Sign up</a></p>
+                        </div>
+
                 </div>
             </div>
         </div>
@@ -42,3 +40,14 @@
         </p>
 </div>
 </div>
+
+<script>
+    (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/client:plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+<script type="text/javascript" src = "https://plus.google.com/js/client:platform.js"></script>
+
+
