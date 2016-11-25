@@ -12,6 +12,9 @@ angular.module('automationApp.login')
             'password' : undefined
         };
 
+        $scope.gplus = {
+            'id_token' : undefined
+        };
 
         // If user is signed in then redirect to course
         if ($scope.authentication.user && $location.path() === '/login')
@@ -31,53 +34,34 @@ angular.module('automationApp.login')
             $scope.login($scope.credentials);
         }
 
-        // This flag we use to show or hide the button in our HTML.
-        $scope.signedIn = false;
-        $scope.gplus = {
-            'id_token' : undefined
-        };
+        $scope.googleSignUp = function(){
 
-        // Here we do the authentication processing and error handling.
-        // Note that authResult is a JSON object.
-        $scope.processAuth = function(authResult) {
-
-            if($scope.validateUser) {
+            if($scope.processAuth) {
                 // Do a check if authentication has been successful.
 
-                if(authResult['access_token']) {
-                    // Successful sign in.
-                    $scope.signedIn = true;
-                    $scope.gplus.id_token = authResult.id_token;
+                if($scope.processAuth['access_token']) {
 
-                    $scope.credentials = {};
+                    $scope.gplus.id_token = $scope.processAuth.id_token;
+
                     $scope.login($scope.gplus);
 
-                } else if(authResult['error']) {
-                    // Error while signing in.
-                    $scope.signedIn = false;
+                } else if($scope.processAuth['error']) {
 
-                    console.log(authResult['error']);
+                    console.log($scope.processAuth['error']);
                 }
             }
-
-        };
-
-        $scope.validateUser = false;
-
-        $scope.googleSignUp = function(){
-            $scope.validateUser = true;
         }
 
         // When callback is received, we need to process authentication.
         $scope.signInCallback = function(authResult) {
             $scope.$apply(function() {
-                $scope.processAuth(authResult);
+                $scope.processAuth = authResult;
             });
         };
 
         // Render the sign in button.
         $scope.renderSignInButton = function() {
-            gapi.signin.render('signInButton',
+            gapi.signin.render('customSignIn',
                 {
                     'callback': $scope.signInCallback, // Function handling the callback.
                     'clientid': '1046623217274-1k4a85q8ag1slqnaudfacd6imoiruhaa.apps.googleusercontent.com', // CLIENT_ID from developer console which has been explained earlier.
