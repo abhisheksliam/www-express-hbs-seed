@@ -19,9 +19,14 @@ module.exports = function (app) {
     });
 
     app.get('/', function (req, res) {
-
-        res.render('index', (req.user !== undefined ? { username: req.user.username, name: req.user.profile.name } : null));
-
+        res.render('index', {
+            user: req.user || null,
+            helpers: {
+                json: function (context) {
+                    return JSON.stringify(context);
+                }
+            }
+        });
     });
 
     /*
