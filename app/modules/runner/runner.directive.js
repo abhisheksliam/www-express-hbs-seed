@@ -44,7 +44,7 @@ angular.module('automationApp.runner')
                             scope.brversion = scope.runnerConfig.run.defaults.brversion;
                             scope.appurl = scope.runnerConfig.run.defaults.appurl;
                             scope.screenresolution = scope.runnerConfig.run.defaults.screenresolution;
-                            scope.brnode = username;
+                            scope.brnode = $rootScope.authentication.user.username;
                             scope.simsbuild = "";
                         }
 

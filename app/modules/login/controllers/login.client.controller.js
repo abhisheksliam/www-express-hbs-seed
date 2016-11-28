@@ -23,7 +23,7 @@ angular.module('automationApp.login')
         $scope.login = function (credentials) {
 
             loginService.loginUser(credentials).then(function (response) {
-                $scope.authentication.user = response;
+                $scope.authentication.user = response.data;
                 $rootScope.username = $rootScope.authentication.user.username;
                 $location.path($rootScope.testUrl).replace();
             });

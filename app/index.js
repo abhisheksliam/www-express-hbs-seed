@@ -20,7 +20,7 @@ var automationApp = angular.module('automationApp', [
 automationApp.service('Authentication', function() {
     var _this = this;
     _this._data = {
-        user: window.user
+        user: window.username
     };
     return _this._data;
 });
