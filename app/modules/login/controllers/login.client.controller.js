@@ -35,7 +35,9 @@ angular.module('automationApp.login')
         };
 
         $scope.submitLoginForm = function(){
-            $scope.login($scope.credentials);
+            if($scope.userForm.$valid) {
+                $scope.login($scope.credentials);
+            }
         }
 
         $scope.googleSignUp = function(){

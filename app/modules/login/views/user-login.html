@@ -6,15 +6,19 @@
                 <div class="account-wall">
                     <i class="user-img icons-faces-users-03"></i>
 
-                    <form id="password-login" class="form-signin">
+                    <form name="userForm" id="password-login" class="form-signin" novalidate>
                         <div class="append-icon m-b-10">
                             <input type="text" name="username" id="username" ng-model="credentials.username" class="form-control form-white username" placeholder="Username" required>
                             <i class="icon-user"></i>
                         </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.username.$dirty) && userForm.username.$error.required">Username is required.</p>
+
                         <div class="append-icon m-b-20">
                             <input type="password" name="password" ng-model="credentials.password" class="form-control form-white password" placeholder="Password" required>
                             <i class="icon-lock"></i>
                         </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.password.$dirty) && userForm.password.$error.required">Password is required.</p>
+
                         <button type="submit" id="submit-form" class="btn btn-lg btn-success btn-block ladda-button" data-style="expand-left" ng-click="submitLoginForm()">Sign In</button>
                     </form>
 
