@@ -12,9 +12,7 @@ module.exports = function (app) {
         if (req.url === '/' || req.url === '/api/login' || req.url === '/api/logout' || ((req.url.indexOf('/api/xpaths') !== -1) && (req.method === 'GET')) || req.isAuthenticated()) {
             next();
         } else {
-            res.status(401).send({
-                message: 'User is not logged in'
-            });
+            res.redirect('/');
         }
     });
 
