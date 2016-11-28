@@ -20,7 +20,7 @@ global.logger = bunyan.createLogger({name: 'SIM5Automation', stream: formatOut, 
 
 //config
 const config = require("./server/config");
-
+var routes   = require('./server/routes/app.server.routes');
 
 //session config
 const session  = require('express-session');
@@ -128,7 +128,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-require('./server/routes/app.server.routes')(app);
+app.use('/', routes.webrouter);
+app.use('/api', routes.apirouter);
 
 // error handling
 app.use(function(err, req, res, next){

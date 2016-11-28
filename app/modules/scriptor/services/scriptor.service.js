@@ -172,7 +172,7 @@ angular.module('automationApp.scriptor')
         };
 
         var getApplicationXpathList = function(appType) {
-            var xpathList = $http.get('/open/xpaths/'+appType);
+            var xpathList = $http.get('/api/xpaths/'+appType);
 
             var deferred = $q.defer();
             deferred.resolve(xpathList);

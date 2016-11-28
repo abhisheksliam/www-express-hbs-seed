@@ -46,6 +46,15 @@ apirouter.delete('/tasks/:task_id', scriptorController.deleteTaskScript);
  * user is restricted to update / delete key of existing xpath
  * user is able to update value of xpath with notification on basis of taskid tags
  */
+ 
+// get all xpath
+apirouter.get('/xpaths', xpathController.getXpaths);
+
+// get xpath for app_type
+apirouter.get('/xpaths/:app_type', xpathController.getApplicationXpaths);
+
+// get xpath: by key + app_type
+apirouter.get('/xpaths/:app_type/:xpath_key', xpathController.getApplicationXpathValue);
 
 // add xpath: error on existing xpath key for app
 apirouter.post('/xpaths', xpathController.addXpath);
