@@ -20,6 +20,10 @@ angular.module('automationApp.login')
         if ($scope.authentication.user && $location.path() === '/login')
             $location.path($rootScope.testUrl).replace();
 
+        if($location.path() === '/register') {
+            $rootScope.testUrl = '/task/new';
+        }
+
         $scope.login = function (credentials) {
 
             loginService.loginUser(credentials).then(function (response) {

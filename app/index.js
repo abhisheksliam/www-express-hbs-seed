@@ -31,10 +31,15 @@ automationApp.run(['$location', 'Authentication', '$rootScope', function($locati
     $rootScope.authentication = Authentication;
 
     $rootScope.$on('$locationChangeStart', function (event,newUrl,oldUrl) {
-        if (!Authentication.user && $location.path() !== '/login') {
-            console.log("Inside if Block");
-            $rootScope.testUrl = $location.path();
-            $location.path('/login').replace();
+        if (!Authentication.user) {
+
+            if ($location.path() === '/register') {
+                $location.path('/register').replace();
+            } else if ($location.path() !== '/login') {
+                $rootScope.testUrl = $location.path();
+                $location.path('/login').replace();
+            }
+
         }
     });
 }]);

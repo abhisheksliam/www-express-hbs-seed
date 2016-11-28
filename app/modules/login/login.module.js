@@ -15,7 +15,13 @@
         $stateProvider
             .state('login', {
                 url: '/login',
-                templateUrl: 'modules/login/views/user-login.html'
+                templateUrl: 'modules/login/views/user-login.html',
+                controller: 'LoginController'
+            })
+            .state('register-user', {
+                url: '/register',
+                templateUrl: 'modules/login/views/user-signup.html',
+                controller: 'LoginController'
             })
     }
 })();
