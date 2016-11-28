@@ -40,28 +40,33 @@ angular.module('automationApp.login')
             }
         }
 
+        // This flag we use to show or hide the button in our HTML.
+        $scope.signedIn = false;
+
         $scope.googleSignUp = function(){
-
-            if($scope.processAuth) {
-                // Do a check if authentication has been successful.
-
-                if($scope.processAuth['access_token']) {
-
-                    $scope.gplus.id_token = $scope.processAuth.id_token;
-
-                    $scope.login($scope.gplus);
-
-                } else if($scope.processAuth['error']) {
-
-                    console.log($scope.processAuth['error']);
-                }
-            }
+            $scope.signedIn = true;
         }
+
+        // Here we do the authentication processing and error handling.
+        // Note that authResult is a JSON object.
+        $scope.processAuth = function(authResult) {
+            // Do a check if authentication has been successful
+            if($scope.signedIn && authResult['access_token']) {
+                $scope.gplus.id_token = authResult.id_token;
+
+                $scope.login($scope.gplus);
+
+            } else if(authResult['error']) {
+                // Error while signing in.
+                $scope.signedIn = false;
+
+            }
+        };
 
         // When callback is received, we need to process authentication.
         $scope.signInCallback = function(authResult) {
             $scope.$apply(function() {
-                $scope.processAuth = authResult;
+                $scope.processAuth(authResult);
             });
         };
 
