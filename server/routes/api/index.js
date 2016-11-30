@@ -4,7 +4,6 @@ var scriptorController = require('../../controllers/scriptor.server.controller')
 var userController = require('../../controllers/user.server.controller');
 var xpathController = require('../../controllers/xpath.server.controller');
 var loginController = require('../../controllers/login.server.controller');
-const passport = require('passport');
 
 // Middleware for all this apirouters requests
 apirouter.use(function timeLog(req, res, next) {

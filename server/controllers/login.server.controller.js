@@ -78,8 +78,8 @@ exports.userLoginHandler = function(req, res) {
                         try {
 
                             if (err || !user) {
-                                res.status(400).send({
-                                    message: 'Oops! The credentials provided are not valid.'
+                                res.status(401).send({
+                                    message: err.message
                                 });
                             } else {
 
