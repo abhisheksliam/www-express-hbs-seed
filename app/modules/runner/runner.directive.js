@@ -517,7 +517,7 @@ angular.module('automationApp.runner')
 
                         var formData =   {
                             "user" : {
-                                "name" : username,
+                                "name" : $rootScope.authentication.user.username,
                                 "ip" : _clientIp,
                                 "userdata" : {}
                             },
@@ -554,7 +554,7 @@ angular.module('automationApp.runner')
 
                         if (commit) {   // for commit
 
-                            usersService.getUserDetails(username).then(function(res) {
+                            usersService.getUserDetails($rootScope.authentication.user.username).then(function(res) {
                                 if(res.data.errors){
                                     $rootScope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
                                 }

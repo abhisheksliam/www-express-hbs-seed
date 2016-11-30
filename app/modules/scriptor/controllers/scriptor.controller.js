@@ -64,7 +64,7 @@ angular.module('automationApp.scriptor')
                         if (($scope.taskId === $scope.copy_task_id) && $scope.template === 'task'){
                             $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + 'Same task cannot be duplicated !!' + '</p></div>');
                         } else {
-                            scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.sleId, $scope.copy_task_id.toUpperCase().replace(/\s+/g,''), $scope.template, '', username).then(function(res) {
+                            scriptorService.saveTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.sleId, $scope.copy_task_id.toUpperCase().replace(/\s+/g,''), $scope.template, '', $rootScope.authentication.user.username).then(function(res) {
 
                                 if(res.data.errors) {
                                     if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
@@ -74,7 +74,7 @@ angular.module('automationApp.scriptor')
                                             className: 'error-modal',
                                             callback: function(result) {
                                                 if(result) {
-                                                    scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.sleId, $scope.copy_task_id.toUpperCase().replace(/\s+/g,''), $scope.template, '', username).then(function(res) {
+                                                    scriptorService.updateTaskScript($scope.applicationName, $scope.scenarioType, $scope.taskId, $scope.sleId, $scope.copy_task_id.toUpperCase().replace(/\s+/g,''), $scope.template, '', $rootScope.authentication.user.username).then(function(res) {
                                                         if(res.data.errors){
                                                             $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
                                                         }
