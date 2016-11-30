@@ -4,8 +4,8 @@
 'use strict';
 
 angular.module('automationApp.login')
-	.controller('LoginController', ['$timeout', '$scope', '$rootScope', '$http', '$location',
-	function($timeout, $scope, $rootScope, $http, $location) {
+	.controller('LoginController', ['$timeout', '$scope', '$rootScope', '$http', '$location', '$window',
+	function($timeout, $scope, $rootScope, $http, $location, $window) {
 
         $scope.credentials = {
             'username' : undefined,
@@ -86,14 +86,9 @@ angular.module('automationApp.login')
             );
         }
 
-        // Start function in this example only renders the sign in button.
-        $scope.start = function() {
-            $scope.renderSignInButton();
-        };
-
         // Call start function on load.
-        $timeout(function(){
-            $scope.start();
-        },500);
+        $window.init = function() {
+            $scope.$apply($scope.renderSignInButton);
+        };
 
 }]);
