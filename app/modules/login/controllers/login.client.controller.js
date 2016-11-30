@@ -4,8 +4,8 @@
 'use strict';
 
 angular.module('automationApp.login')
-	.controller('LoginController', ['$timeout', '$scope', '$rootScope', 'loginService', '$location',
-	function($timeout, $scope, $rootScope, loginService, $location) {
+	.controller('LoginController', ['$timeout', '$scope', '$rootScope', '$http', '$location',
+	function($timeout, $scope, $rootScope, $http, $location) {
 
         $scope.credentials = {
             'username' : undefined,
@@ -24,14 +24,17 @@ angular.module('automationApp.login')
             $rootScope.testUrl = '/task/new';
         }
 
-        $scope.login = function (credentials) {
-
-            loginService.loginUser(credentials).then(function (response) {
-                $scope.authentication.user = response.data;
-                $rootScope.username = $rootScope.authentication.user.username;
-                $location.path($rootScope.testUrl).replace();
-            });
-
+        $scope.login = function (data) {
+            $scope.error = '';
+            $http.post('/api/login', data)
+                .success(function (response) {
+                    $scope.authentication.user = response;
+                    $rootScope.username = $rootScope.authentication.user.username;
+                    $location.path($rootScope.testUrl).replace();
+                })
+                .error(function(err){
+                    $scope.error = err.message;
+                });
         };
 
         $scope.submitLoginForm = function(){

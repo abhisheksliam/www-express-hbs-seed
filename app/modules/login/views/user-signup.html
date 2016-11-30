@@ -6,7 +6,7 @@
                 <div class="account-wall">
                     <i class="user-img icons-faces-users-03"></i>
                     <form name="userForm" class="form-signin" novalidate>
-
+                        <div class="error-message text-red" ng-bind="error"></div>
                         <div class="append-icon">
                             <input type="text" name="username" id="username" ng-model="credentials.username" class="form-control form-white username" placeholder="User Name" required autofocus>
                             <i class="icon-user"></i>

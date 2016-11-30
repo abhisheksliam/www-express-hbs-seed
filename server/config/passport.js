@@ -70,6 +70,7 @@ module.exports = function(passport) {
                                 return done({message:'Not able to registering user'}, false);
                             }
                         } else {
+                            logger.error("Only Compro users can register");
                             return done({message:'Only Compro users can register to this tool'}, false);
                         }
                     } else {
