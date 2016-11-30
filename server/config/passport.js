@@ -70,10 +70,14 @@ module.exports = function(passport) {
                                 return done({message:'Not able to registering user'}, false);
                             }
                         } else {
+                            logger.error("Only Compro users can register");
                             return done({message:'Only Compro users can register to this tool'}, false);
                         }
                     } else {
-                        if (err || user === null) {return done({message:'User not found'}, false)}
+                        if (err || user === null) {
+                            logger.warn('User not found');
+                            return done({message:'User not found'}, false);
+                        }
 
                         if (username === null) {
                             logger.warn('Credentials not provided');
@@ -90,6 +94,10 @@ module.exports = function(passport) {
                                 return done({message:'Incorrect password'}, false);
                             }
                         }
+
+                        user.password = undefined;
+                        user.salt = undefined;
+                        user.profile.svn_credentials.password = undefined;
 
                         return done(null, user);
                     }

@@ -12,7 +12,7 @@ var getUserPassword = function(email, callback){
         if(user){
             callback(user.username,user.password);
         } else {
-            // todo: create user validating compro email domain if does not exist
+
             callback(null);
         }
     });
@@ -56,12 +56,8 @@ var googleLogin = function (req,done,er) {
 
 exports.userLoginHandler = function(req, res) {
 
-    if(req.isAuthenticated()){
-        //logger.info('request authenticated');
-        res.redirect('/');
-    }
-    else if (req.body.id_token !== null && req.body.id_token !== undefined){
-        //logger.info('request authenticated google');
+    if (req.body.id_token !== null && req.body.id_token !== undefined){
+        logger.info('request authenticated google');
         req.body.username = 'test';
         req.body.password = 'test';
 
@@ -77,12 +73,29 @@ exports.userLoginHandler = function(req, res) {
                 } else {
                     req.body.username = _res.username;
                     req.body.password = _res.password;
-                    passport.authenticate('local')(req, res, function (err) {
-                        return res.send({
-                            status: err ? 403 : 200,
-                            message: (err !== undefined && err !== null) ? err.message : 'Login successful'
-                        });
-                    });
+
+                    passport.authenticate('local', function(err, user, info) {
+                        try {
+
+                            if (err || !user) {
+                                res.status(401).send({
+                                    message: err.message
+                                });
+                            } else {
+
+                                req.login(user, function (err) {
+                                    if (err) {
+                                        res.status(400).send(err);
+                                    } else {
+                                        res.json(user);
+                                    }
+                                });
+                            }
+                        } catch (err) {
+                            logger.error("Error while authenticating user: " +err);
+                        }
+                    })(req, res);
+
                 }
             },
             function(_error){
@@ -95,12 +108,31 @@ exports.userLoginHandler = function(req, res) {
         )
     }
     else {
-        logger.info('Authenticating username and password from Database');
-        passport.authenticate('local')(req, res, function (err) {
-            return res.send({
-                status: (err !== undefined && err !== null) ? 403 : 200,
-                message: (err !== undefined && err !== null) ? err.message : 'Login successful'
-            });
-        });
+        logger.info('logging in user.');
+        passport.authenticate('local', function(err, user, info) {
+            try {
+
+                if (err || !user) {
+                    res.status(401).send({
+                        message: err.message
+                    });
+                } else {
+
+                    req.login(user, function (err) {
+                        if (err) {
+                            res.status(400).send(err);
+                        } else {
+                            res.json(user);
+                        }
+                    });
+                }
+            } catch (err) {
+                logger.error("Error while authenticating user: " +err);
+            }
+        })(req, res);
     }
 };
+
+
+
+

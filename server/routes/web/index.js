@@ -1,43 +1,26 @@
 'use strict';
 var express = require('express');
-var loginController = require('../../controllers/login.server.controller');
 
-// Get the router
 var webrouter = express.Router();
 
-webrouter.get('/', function(req, res) {
-    if(req.isAuthenticated()){
-        //logger.info('request authenticated');
-        res.setHeader('Cache-control', ['no-cache','no-store','must-revalidate']);
-        res.setHeader('Pragma', 'no-cache');
-        res.setHeader('Expires', '0');
-        res.render('index',{ username: req.user.username, name: req.user.profile.name });
-    }else{
-        logger.warn('request not authenticated');
-        res.redirect('/login');
-    }
-});
-
-webrouter.get('/login', function(req, res) {
-    if(req.isAuthenticated()){
-        //logger.info('request authenticated');
+webrouter.use('/', function (req, res, next) {
+    if (req.url === '/' || req.url === '/api/login' || req.url === '/api/logout' || ((req.url.indexOf('/api/xpaths') !== -1) && (req.method === 'GET')) || req.isAuthenticated()) {
+        next();
+    } else {
         res.redirect('/');
-    }else{
-        logger.warn('request not authenticated');
-        res.setHeader('Cache-control', ['no-cache','no-store','must-revalidate']);
-        res.setHeader('Pragma', 'no-cache');
-        res.setHeader('Expires', '0');
-        res.render('', {layout: 'login.hbs'});
     }
 });
 
-webrouter.post('/login', loginController.userLoginHandler);
-
-webrouter.get('/logout', function(req, res){
-    logger.info('logging out user.');
-    req.session.destroy(function (err) {
-        res.redirect('/login');
+webrouter.get('/', function (req, res) {
+    res.render('index', {
+        user: req.user || null,
+        helpers: {
+            json: function (context) {
+                return JSON.stringify(context);
+            }
+        }
     });
 });
 
 module.exports = webrouter;
+
