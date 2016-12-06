@@ -128,19 +128,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-// Define a prefix for all routes
 app.use('/', routes.webrouter);
-app.use('/open', routes.openrouter);
-
-app.all('*',function(req,res,next){
-    if(req.isAuthenticated()){
-        next();
-    }else{
-        //next(new Error(401)); // 401 Not Authorized
-        res.redirect('/');
-    }
-});
-
 app.use('/api', routes.apirouter);
 
 // error handling

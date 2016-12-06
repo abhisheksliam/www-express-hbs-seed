@@ -26,14 +26,14 @@
                     <li class="dropdown" id="user-header">
                         <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                             <i class="icon-user m-r-10"></i>
-                            <span class="username">Hi,&nbsp;&nbsp;{{name}}</span>
+                            <span class="username">Hi,&nbsp;&nbsp;{{$root.authentication.user.profile.name}}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a ui-sref="app.user-profile({username:'{{username}}'})"><i class="icon-user"></i><span>Profile</span></a>
+                                <a ui-sref="app.user-profile({username:'{{$root.authentication.user.username}}'})"><i class="icon-user"></i><span>Profile</span></a>
                             </li>
                             <li>
-                                <a href="/logout"><i class="icon-logout"></i><span>Logout</span></a>
+                                <a href="/api/logout"><i class="icon-logout"></i><span>Logout</span></a>
                             </li>
                         </ul>
                     </li>
@@ -55,10 +55,10 @@
 </section>
 
 <!-- BEGIN PRELOADER -->
-<div class="loader-overlay">
+<!--div class="loader-overlay">
     <div class="spinner">
         <div class="bounce1"></div>
         <div class="bounce2"></div>
         <div class="bounce3"></div>
     </div>
-</div>
+</div-->

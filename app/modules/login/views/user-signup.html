@@ -1,0 +1,60 @@
+<div class="account separate-inputs" data-page="login" id="account">
+    <!-- BEGIN LOGIN BOX -->
+    <div class="container" id="login-block">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <div class="account-wall">
+                    <i class="user-img icons-faces-users-03"></i>
+                    <form name="userForm" class="form-signin" novalidate>
+                        <div class="error-message text-red" ng-bind="error"></div>
+                        <div class="append-icon">
+                            <input type="text" name="username" id="username" ng-model="credentials.username" class="form-control form-white username" placeholder="User Name" required autofocus>
+                            <i class="icon-user"></i>
+                        </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.username.$dirty) && userForm.username.$error.required">Username is required.</p>
+
+                        <div class="append-icon">
+                            <input type="password" name="password" id="password" ng-model="credentials.password" class="form-control form-white password" placeholder="Password" required>
+                            <i class="icon-lock"></i>
+                        </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.password.$dirty) && userForm.password.$error.required">Password is required.</p>
+
+                        <div class="append-icon">
+                            <input type="text" name="profilename" id="profilename" ng-model="credentials.name" class="form-control form-white profilename" placeholder="Profile Name" required autofocus>
+                            <i class="icon-user"></i>
+                        </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.profilename.$dirty) && userForm.profilename.$error.required">Profile name is required.</p>
+
+                        <div class="append-icon m-b-10">
+                            <input type="email" name="email" id="email" ng-model="credentials.email" class="form-control form-white email" placeholder="Email" required>
+                            <i class="icon-envelope"></i>
+                        </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.email.$dirty) && userForm.email.$error.required">Email is required.</p>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.email.$dirty) && userForm.email.$error.email">This field must be a valid email address.</p>
+
+                        <div class="append-icon">
+                            <input type="text" name="svnusername" id="svnusername" ng-model="credentials.svnusername" class="form-control form-white svnusername" placeholder="SVN UserName" required autofocus>
+                            <i class="icon-user"></i>
+                        </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.svnusername.$dirty) && userForm.svnusername.$error.required">Svn Username is required.</p>
+
+                        <div class="append-icon m-b-20">
+                            <input type="password" name="svnpassword" id="svnpassword" ng-model="credentials.svnpassword" class="form-control form-white svnpassword" placeholder="SVN Password" required>
+                            <i class="icon-lock"></i>
+                        </div>
+                        <p class="error-message" ng-show="(userForm.$submitted || userForm.svnpassword.$dirty) && userForm.svnpassword.$error.required">Svn Password is required.</p>
+
+                        <button type="submit" id="submit-form" ng-click="submitLoginForm()" class="btn btn-lg btn-success btn-block ladda-button" data-style="expand-left">Register</button>
+
+                        <div class="clearfix">
+                            <p class="pull-right m-t-20"><a href="/">Already have an account? Sign In</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p class="account-copyright">
+            <span>Copyright © 2016 - 2017 </span><span> Compro Technologies. </span><span>All rights reserved.</span>
+        </p>
+    </div>
+</div>

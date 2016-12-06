@@ -7,9 +7,6 @@
 AppController.$inject = ['$scope', 'applicationService', 'quickViewService', 'builderService', '$location','scriptorService', '$state', '$rootScope'];
   function AppController($scope, applicationService, quickViewService, builderService, $location, scriptorService, $state, $rootScope ) {
 
-	  $scope.username = username;
-	  $scope.name = name;
-
 	  $(document).ready(function () {
 			applicationService.init();
 			quickViewService.init();

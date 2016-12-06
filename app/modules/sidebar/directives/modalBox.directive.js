@@ -90,7 +90,7 @@ angular.module('automationApp.sidebar')
 
                                         var taskId = $filter('uppercase')(ingestJSON[0].id+ '.' + ingestJSON[0].scenario);
 
-                                        scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
+                                        scriptorService.saveTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, $rootScope.authentication.user.username).then(function(res) {
                                             if(res.data.errors) {
                                                 if(res.data.errors.errorCode === 'EXISTS_IN_DB'){
                                                     bootbox.confirm({
@@ -98,7 +98,7 @@ angular.module('automationApp.sidebar')
                                                         className: 'error-box',
                                                         callback: function(result) {
                                                             if(result) {
-                                                                scriptorService.updateTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, username).then(function(res) {
+                                                                scriptorService.updateTaskScript(ingestJSON[0].appName, ingestJSON[0].scenario, taskId, ingestJSON[0].id, '', 'ingest', ingestJSON, $rootScope.authentication.user.username).then(function(res) {
                                                                     if(res.data.errors){
                                                                         $scope.showNotify('<div class="alert alert-danger m-r-30"><p><strong>' + res.data.errors.errorMessage + '</p></div>');
                                                                     }

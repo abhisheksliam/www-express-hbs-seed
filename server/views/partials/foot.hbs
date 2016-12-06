@@ -73,9 +73,9 @@
 	<script src="plugins/bootstrap-tags-input/bootstrap-tagsinput.js"></script>
 	<script src="plugins/autosize/autosize.min.js"></script>
 
-    <script>
-        var username = "{{ username }}", name = "{{name}}"
-        console.log('current user: ' + username + ' : ' + name);
+    <!--Embedding The User Object-->
+    <script type="text/javascript">
+        var user = JSON.parse('{{{json user}}}');
     </script>
 
     <!-- lazy:js -->
