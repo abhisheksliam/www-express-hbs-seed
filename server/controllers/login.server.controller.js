@@ -66,8 +66,7 @@ exports.userLoginHandler = function(req, res) {
                 logger.info('Authenticating google user details from Database');
                 if (_res.error === true) {
                     logger.error('Sending error 403');
-                    return res.send({
-                        status: 403,
+                    res.status(403).send({
                         message: 'Invalid User!'
                     });
                 } else {
@@ -100,8 +99,7 @@ exports.userLoginHandler = function(req, res) {
             },
             function(_error){
                 logger.error(_error);
-                return res.send({
-                    status: 403,
+                res.status(403).send({
                     message: 'Error in google authentication!'
                 });
             }
@@ -128,6 +126,9 @@ exports.userLoginHandler = function(req, res) {
                 }
             } catch (err) {
                 logger.error("Error while authenticating user: " +err);
+                res.status(401).send({
+                    message: 'Error while authenticating user!'
+                });
             }
         })(req, res);
     }
