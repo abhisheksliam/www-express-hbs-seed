@@ -1,7 +1,7 @@
 var config= {
     mongo:{
         "prefix": "mongodb://",
-        "dbURL": "ds133261.mlab.com:33261/runnerv2",
+        "dbURL": "ds133261.mlab.com:33261/appscriptor",
         "username": "root",
         "password": "root"
     },
