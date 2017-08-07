@@ -1,9 +1,9 @@
 var config= {
     mongo:{
         "prefix": "mongodb://",
-        "dbURL": "loadrunner1/runnerv2",
-        "username": "",
-        "password": ""
+        "dbURL": "ds133261.mlab.com:33261/runnerv2",
+        "username": "root",
+        "password": "root"
     },
     baloo:{
         "host": "loadrunner1",
