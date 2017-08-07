@@ -1,7 +1,7 @@
 var config= {
     mongo:{
         "prefix": "mongodb://",
-        "dbURL": "loadrunner1/runnerv2",
+        "dbURL": "loadrunner1/appscriptor",
         "username": "",
         "password": ""
     },
