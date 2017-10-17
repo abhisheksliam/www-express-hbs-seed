@@ -33,7 +33,7 @@ var options = {
             './.tmp/css/angular-theme.css',
             './.tmp/css/layout.css',
             './.tmp/css/custom.css'
-        ]/*,
+        ],
         js_dist: [
             './app/index.js',
             './app/modules/!**!/!*module.js',
@@ -49,7 +49,7 @@ var options = {
             '!./.tmp/css',
             '!./www/css/ionic.app*.css',
             '!./www/lib/!**'
-        ]*/
+        ]
     },
     wiredep: {
         directory: 'bower_components',
